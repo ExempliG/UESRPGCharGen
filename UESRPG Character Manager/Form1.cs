@@ -14,17 +14,17 @@ namespace UESRPG_Character_Manager
 {
     public partial class Form1 : Form
     {
-        private List<Character> CharacterList;
-        private Character selectedChar;
+        private List<Character> _characterList;
+        private Character _selectedChar;
 
         public Form1 ()
         {
             InitializeComponent ();
-            CharacterList = new List<Character> ();
-            selectedChar = new Character ();
-            CharacterList.Add (selectedChar);
+            _characterList = new List<Character> ();
+            _selectedChar = new Character ();
+            _characterList.Add (_selectedChar);
 
-            foreach (string characteristic in selectedChar.Characteristics.Keys)
+            foreach (string characteristic in _selectedChar._characteristics.Keys)
             {
                 characteristicCb.Items.Add (characteristic);
             }
@@ -32,50 +32,81 @@ namespace UESRPG_Character_Manager
             characteristicCb.SelectedIndex = 0;
         }
 
-        private void tabPage1_Click (object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// A characteristic changed, so we will update all the character's values/mods and re-calculate the calculated fields.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void characteristicChanged (object sender, EventArgs e)
         {
-            int skill;
-            if (int.TryParse (strengthTb.Text, out skill))
-            {
-                selectedChar.Strength = skill;
-            }
-            if (int.TryParse (enduranceTb.Text, out skill))
-            {
-                selectedChar.Endurance = skill;
-            }
-            if (int.TryParse (agilityTb.Text, out skill))
-            {
-                selectedChar.Agility = skill;
-            }
-            if (int.TryParse (intelligenceTb.Text, out skill))
-            {
-                selectedChar.Intelligence = skill;
-            }
-            if (int.TryParse (willpowerTb.Text, out skill))
-            {
-                selectedChar.Willpower = skill;
-            }
-            if (int.TryParse (perceptionTb.Text, out skill))
-            {
-                selectedChar.Perception = skill;
-            }
-            if (int.TryParse (personalityTb.Text, out skill))
-            {
-                selectedChar.Personality = skill;
-            }
-            if (int.TryParse (luckTb.Text, out skill))
-            {
-                selectedChar.Luck = skill;
-            }
+            _selectedChar.Strength     = (int)nbStrength.Value;
+            _selectedChar.Endurance    = (int)nbEndurance.Value;
+            _selectedChar.Agility      = (int)nbAgility.Value;
+            _selectedChar.Intelligence = (int)nbIntelligence.Value;
+            _selectedChar.Willpower    = (int)nbWillpower.Value;
+            _selectedChar.Perception   = (int)nbPerception.Value;
+            _selectedChar.Personality  = (int)nbPersonality.Value;
+            _selectedChar.Luck         = (int)nbLuck.Value;
+
+            _selectedChar.HealthMod           = (int)nbModHealth.Value;
+            _selectedChar.WoundThresholdMod   = (int)nbModWoundThreshold.Value;
+            _selectedChar.StaminaMod          = (int)nbModStamina.Value;
+            _selectedChar.MagickaMod          = (int)nbModMagicka.Value;
+            _selectedChar.ActionPointsMod     = (int)nbModActionPoints.Value;
+            _selectedChar.MovementRatingMod   = (int)nbModMovementRating.Value;
+            _selectedChar.CarryRatingMod      = (int)nbModCarryRating.Value;
+            _selectedChar.InitiativeRatingMod = (int)nbModInitiativeRating.Value;
+            _selectedChar.DamageBonusMod      = (int)nbModDamageBonus.Value;
+            _selectedChar.LuckPointsMod       = (int)nbModLuck.Value;
 
             updateEverything ();
         }
 
+        /// <summary>
+        /// Updates all calculated fields.
+        /// </summary>
+        private void updateEverything ()
+        {
+            maxLuckPointsTb.Text = "" + (_selectedChar.MaximumLuckPoints);
+            initiativeRatingTb.Text = "" + (_selectedChar.InitiativeRating);
+            maxActionPointsTb.Text = "" + (_selectedChar.MaximumAp);
+            maxStaminaTb.Text = "" + (_selectedChar.Stamina);
+            maxMagickaTb.Text = "" + (_selectedChar.MagickaPool);
+            movementRatingTb.Text = "" + (_selectedChar.MovementRating);
+            carryRatingTb.Text = "" + (_selectedChar.CarryRating);
+            woundThresholdTb.Text = "" + (_selectedChar.WoundThreshold);
+            maxHealthTb.Text = "" + (_selectedChar.MaxHealth);
+            damageBonusTb.Text = "" + (_selectedChar.DamageBonus);
+        }
+
+        /// <summary>
+        /// Will disable the skillLevel textbox if a skill roll is not selected, and perform a soft roll
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void skillRb_CheckedChanged (object sender, EventArgs e)
+        {
+            bool isActive = skillRb.Checked;
+            skillLevelTb.Enabled = isActive;
+
+            softRoll (sender, e);
+        }
+
+        /// <summary>
+        /// Will perform a soft roll
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void characteristicRb_CheckedChanged (object sender, EventArgs e)
+        {
+            softRoll (sender, e);
+        }
+
+        /// <summary>
+        /// Rolls against selected parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rollBt_Click (object sender, EventArgs e)
         {
             bool isSkillRoll = skillRb.Checked;
@@ -83,7 +114,7 @@ namespace UESRPG_Character_Manager
             Random r = new Random ();
 
             string characteristicName = (string)characteristicCb.SelectedItem;
-            int characteristic = selectedChar.Characteristics[characteristicName];
+            int characteristic = _selectedChar._characteristics[characteristicName];
 
             int result = r.Next (0, 100);
             rollResultTb.Text = "" + result;
@@ -96,80 +127,23 @@ namespace UESRPG_Character_Manager
                 int.TryParse (skillLevelTb.Text, out skillLevel);
 
                 characteristic = (characteristic + (skillLevel * 10));
-                //difference = ((characteristic + (skillLevel * 10)) - result);
             }
 
             difference = (characteristic - result);
 
-            int successes = selectedChar.GetBonus (difference);
+            int successes = _selectedChar.GetBonus (difference);
 
-            rollBreakdownTb.Text = String.Format("{0} - {1} = {2}", result, characteristic, difference);
+            rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
             rollSuccessesTb.Text = "" + successes;
         }
 
-        private void skillRb_CheckedChanged (object sender, EventArgs e)
-        {
-            bool isActive = skillRb.Checked;
-            skillLevelTb.Enabled = isActive;
-
-            softRoll (sender, e);
-        }
-
-        private void characteristicRb_CheckedChanged (object sender, EventArgs e)
-        {
-            //bool isActive = characteristicRb.Checked;
-            //characteristicCb.Enabled = isActive;
-            softRoll (sender, e);
-        }
-
-        private void groupBox3_Enter (object sender, EventArgs e)
-        {
-
-        }
-
-        private void updateEverything ()
-        {
-            int mod = 0;
-            int.TryParse (luckPointsModTb.Text, out mod);
-            maxLuckPointsTb.Text = "" + (selectedChar.MaximumLuckPoints + mod);
-
-            mod = 0;
-            int.TryParse (initiativeRatingModTb.Text, out mod);
-            initiativeRatingTb.Text = "" + (selectedChar.InitiativeRating + mod);
-
-            mod = 0;
-            int.TryParse (actionPointsModTb.Text, out mod);
-            maxActionPointsTb.Text = "" + (selectedChar.MaximumAp + mod);
-
-            mod = 0;
-            int.TryParse (staminaModTb.Text, out mod);
-            maxStaminaTb.Text = "" + (selectedChar.Stamina + mod);
-
-            mod = 0;
-            int.TryParse (magickaModTb.Text, out mod);
-            maxMagickaTb.Text = "" + (selectedChar.MagickaPool + mod);
-
-            mod = 0;
-            int.TryParse (movementRatingModTb.Text, out mod);
-            movementRatingTb.Text = "" + (selectedChar.MovementRating + mod);
-
-            mod = 0;
-            int.TryParse (carryRatingModTb.Text, out mod);
-            carryRatingTb.Text = "" + (selectedChar.CarryRating + mod);
-
-            mod = 0;
-            int.TryParse (woundThresholdModTb.Text, out mod);
-            woundThresholdTb.Text = "" + (selectedChar.WoundThreshold + mod);
-
-            mod = 0;
-            int.TryParse (healthModTb.Text, out mod);
-            maxHealthTb.Text = "" + (selectedChar.MaxHealth + mod);
-
-            mod = 0;
-            int.TryParse (damageBonusModTb.Text, out mod);
-            damageBonusTb.Text = "" + (selectedChar.DamageBonus + mod);
-        }
-
+        /// <summary>
+        /// A soft roll performs all of the calculations of a regular roll, but does not change the roll result.
+        /// This is useful for using outside roll values with the app, since we don't want to replace the player's
+        /// entered roll.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void softRoll (object sender, EventArgs e)
         {
             bool isSkillRoll = skillRb.Checked;
@@ -177,7 +151,7 @@ namespace UESRPG_Character_Manager
             Random r = new Random ();
 
             string characteristicName = (string)characteristicCb.SelectedItem;
-            int characteristic = selectedChar.Characteristics[characteristicName];
+            int characteristic = _selectedChar._characteristics[characteristicName];
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
@@ -190,21 +164,15 @@ namespace UESRPG_Character_Manager
                     int.TryParse (skillLevelTb.Text, out skillLevel);
 
                     characteristic = (characteristic + (skillLevel * 10));
-                    //difference = ((characteristic + (skillLevel * 10)) - result);
                 }
 
                 difference = (characteristic - result);
 
-                int successes = selectedChar.GetBonus (difference);
+                int successes = _selectedChar.GetBonus (difference);
 
                 rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
                 rollSuccessesTb.Text = "" + successes;
             }
-        }
-
-        private void skillLevelTb_TextChanged (object sender, EventArgs e)
-        {
-
         }
     }
 }
