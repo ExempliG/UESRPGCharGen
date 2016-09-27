@@ -18,6 +18,9 @@ namespace UESRPG_Character_Manager
     {
         private List<Character> _characterList;
         private Character _selectedChar;
+        private int _selectedIndex = 0;
+
+        private bool _isLoading = false;
 
         public Form1 ()
         {
@@ -25,6 +28,9 @@ namespace UESRPG_Character_Manager
             _characterList = new List<Character> ();
             _selectedChar = new Character ();
             _characterList.Add (_selectedChar);
+
+            charactersCb.Items.Add (_selectedChar.Name);
+            charactersCb.SelectedIndex = 0;
 
             foreach (string characteristic in Characteristics.CharacteristicNames)
             {
@@ -34,34 +40,85 @@ namespace UESRPG_Character_Manager
             characteristicCb.SelectedIndex = 0;
         }
 
+        private Character SelectedCharacter ()
+        {
+            return _characterList[_selectedIndex];
+        }
+
+        private void nameTb_TextChanged (object sender, EventArgs e)
+        {
+            SelectedCharacter().Name = nameTb.Text;
+            charactersCb.Items[_selectedIndex] = nameTb.Text;
+        }
+
         /// <summary>
         /// A characteristic changed, so we will update all the character's values/mods and re-calculate the calculated fields.
+        /// This function will do nothing if Characteristics are currently being updated somewhere else.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void characteristicChanged (object sender, EventArgs e)
         {
-            _selectedChar.Strength     = (int)nbStrength.Value;
-            _selectedChar.Endurance    = (int)nbEndurance.Value;
-            _selectedChar.Agility      = (int)nbAgility.Value;
-            _selectedChar.Intelligence = (int)nbIntelligence.Value;
-            _selectedChar.Willpower    = (int)nbWillpower.Value;
-            _selectedChar.Perception   = (int)nbPerception.Value;
-            _selectedChar.Personality  = (int)nbPersonality.Value;
-            _selectedChar.Luck         = (int)nbLuck.Value;
+            if (!_isLoading)
+            {
+                _isLoading = true;
+                SelectedCharacter ().Strength = (int)nbStrength.Value;
+                SelectedCharacter ().Endurance = (int)nbEndurance.Value;
+                SelectedCharacter ().Agility = (int)nbAgility.Value;
+                SelectedCharacter ().Intelligence = (int)nbIntelligence.Value;
+                SelectedCharacter ().Willpower = (int)nbWillpower.Value;
+                SelectedCharacter ().Perception = (int)nbPerception.Value;
+                SelectedCharacter ().Personality = (int)nbPersonality.Value;
+                SelectedCharacter ().Luck = (int)nbLuck.Value;
 
-            _selectedChar.HealthMod           = (int)nbModHealth.Value;
-            _selectedChar.WoundThresholdMod   = (int)nbModWoundThreshold.Value;
-            _selectedChar.StaminaMod          = (int)nbModStamina.Value;
-            _selectedChar.MagickaMod          = (int)nbModMagicka.Value;
-            _selectedChar.ActionPointsMod     = (int)nbModActionPoints.Value;
-            _selectedChar.MovementRatingMod   = (int)nbModMovementRating.Value;
-            _selectedChar.CarryRatingMod      = (int)nbModCarryRating.Value;
-            _selectedChar.InitiativeRatingMod = (int)nbModInitiativeRating.Value;
-            _selectedChar.DamageBonusMod      = (int)nbModDamageBonus.Value;
-            _selectedChar.LuckPointsMod       = (int)nbModLuck.Value;
+                SelectedCharacter ().HealthMod = (int)nbModHealth.Value;
+                SelectedCharacter ().WoundThresholdMod = (int)nbModWoundThreshold.Value;
+                SelectedCharacter ().StaminaMod = (int)nbModStamina.Value;
+                SelectedCharacter ().MagickaMod = (int)nbModMagicka.Value;
+                SelectedCharacter ().ActionPointsMod = (int)nbModActionPoints.Value;
+                SelectedCharacter ().MovementRatingMod = (int)nbModMovementRating.Value;
+                SelectedCharacter ().CarryRatingMod = (int)nbModCarryRating.Value;
+                SelectedCharacter ().InitiativeRatingMod = (int)nbModInitiativeRating.Value;
+                SelectedCharacter ().DamageBonusMod = (int)nbModDamageBonus.Value;
+                SelectedCharacter ().LuckPointsMod = (int)nbModLuck.Value;
 
-            updateEverything ();
+                updateEverything ();
+                _isLoading = false;
+            }
+        }
+
+        /// <summary>
+        /// characteristicLoaded will update the UI representation of the character to match its data.
+        /// This function will do nothing if Characteristics are currently being updated somewhere else.
+        /// </summary>
+        private void characteristicLoaded ()
+        {
+            if (!_isLoading)
+            {
+                _isLoading = true;
+                nbStrength.Value = SelectedCharacter ().Strength;
+                nbEndurance.Value = SelectedCharacter ().Endurance;
+                nbAgility.Value = SelectedCharacter ().Agility;
+                nbIntelligence.Value = SelectedCharacter ().Intelligence;
+                nbWillpower.Value = SelectedCharacter ().Willpower;
+                nbPerception.Value = SelectedCharacter ().Perception;
+                nbPersonality.Value = SelectedCharacter ().Personality;
+                nbLuck.Value = SelectedCharacter ().Luck;
+
+                nbModHealth.Value = SelectedCharacter ().HealthMod;
+                nbModWoundThreshold.Value = SelectedCharacter ().WoundThresholdMod;
+                nbModStamina.Value = SelectedCharacter ().StaminaMod;
+                nbModMagicka.Value = SelectedCharacter ().MagickaMod;
+                nbModActionPoints.Value = SelectedCharacter ().ActionPointsMod;
+                nbModMovementRating.Value = SelectedCharacter ().MovementRatingMod;
+                nbModCarryRating.Value = SelectedCharacter ().CarryRatingMod;
+                nbModInitiativeRating.Value = SelectedCharacter ().InitiativeRatingMod;
+                nbModDamageBonus.Value = SelectedCharacter ().DamageBonusMod;
+                nbModLuck.Value = SelectedCharacter ().LuckPointsMod;
+
+                updateEverything ();
+                _isLoading = false;
+            }
         }
 
         /// <summary>
@@ -69,16 +126,16 @@ namespace UESRPG_Character_Manager
         /// </summary>
         private void updateEverything ()
         {
-            maxLuckPointsTb.Text = "" + (_selectedChar.MaximumLuckPoints);
-            initiativeRatingTb.Text = "" + (_selectedChar.InitiativeRating);
-            maxActionPointsTb.Text = "" + (_selectedChar.MaximumAp);
-            maxStaminaTb.Text = "" + (_selectedChar.Stamina);
-            maxMagickaTb.Text = "" + (_selectedChar.MagickaPool);
-            movementRatingTb.Text = "" + (_selectedChar.MovementRating);
-            carryRatingTb.Text = "" + (_selectedChar.CarryRating);
-            woundThresholdTb.Text = "" + (_selectedChar.WoundThreshold);
-            maxHealthTb.Text = "" + (_selectedChar.MaxHealth);
-            damageBonusTb.Text = "" + (_selectedChar.DamageBonus);
+            maxLuckPointsTb.Text = "" + (SelectedCharacter().MaximumLuckPoints);
+            initiativeRatingTb.Text = "" + (SelectedCharacter().InitiativeRating);
+            maxActionPointsTb.Text = "" + (SelectedCharacter().MaximumAp);
+            maxStaminaTb.Text = "" + (SelectedCharacter().Stamina);
+            maxMagickaTb.Text = "" + (SelectedCharacter().MagickaPool);
+            movementRatingTb.Text = "" + (SelectedCharacter().MovementRating);
+            carryRatingTb.Text = "" + (SelectedCharacter().CarryRating);
+            woundThresholdTb.Text = "" + (SelectedCharacter().WoundThreshold);
+            maxHealthTb.Text = "" + (SelectedCharacter().MaxHealth);
+            damageBonusTb.Text = "" + (SelectedCharacter().DamageBonus);
         }
 
         /// <summary>
@@ -116,7 +173,7 @@ namespace UESRPG_Character_Manager
             Random r = new Random ();
 
             int characteristicIndex = characteristicCb.SelectedIndex;
-            int characteristic = _selectedChar._characteristics[characteristicIndex];
+            int characteristic = SelectedCharacter().GetCharacteristic(characteristicIndex);
 
             int result = r.Next (0, 100);
             rollResultTb.Text = "" + result;
@@ -133,7 +190,7 @@ namespace UESRPG_Character_Manager
 
             difference = (characteristic - result);
 
-            int successes = _selectedChar.GetBonus (difference);
+            int successes = SelectedCharacter().GetBonus (difference);
 
             rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
             rollSuccessesTb.Text = "" + successes;
@@ -153,7 +210,7 @@ namespace UESRPG_Character_Manager
             Random r = new Random ();
 
             int characteristicIndex = characteristicCb.SelectedIndex;
-            int characteristic = _selectedChar._characteristics[characteristicIndex];
+            int characteristic = SelectedCharacter().GetCharacteristic(characteristicIndex);
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
@@ -170,7 +227,7 @@ namespace UESRPG_Character_Manager
 
                 difference = (characteristic - result);
 
-                int successes = _selectedChar.GetBonus (difference);
+                int successes = SelectedCharacter().GetBonus (difference);
 
                 rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
                 rollSuccessesTb.Text = "" + successes;
@@ -183,6 +240,9 @@ namespace UESRPG_Character_Manager
             LoadChar ();
         }
 
+        /// <summary>
+        /// This function is bound to our NumericUpDowns' GotFocus event. It will cause the numeric values to be highlighted when tabbed into.
+        /// </summary>
         private void NumberBoxFocus (object sender, EventArgs e)
         {
             NumericUpDown theNb = (NumericUpDown)sender;
@@ -191,19 +251,33 @@ namespace UESRPG_Character_Manager
 
         private void SaveChar ()
         {
-            XmlSerializer xml = new XmlSerializer (typeof (Character));
+            XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
             FileStream fs = new FileStream ("char.xml", FileMode.Create);
-            xml.Serialize (fs, _selectedChar);
+            xml.Serialize (fs, _characterList);
             fs.Close ();
         }
 
         private void LoadChar ()
         {
-            XmlSerializer xml = new XmlSerializer (typeof (Character));
+            XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
             FileStream fs = new FileStream ("char.xml", FileMode.Open);
-            _selectedChar = (Character)xml.Deserialize (fs);
+            _characterList = (List<Character>)xml.Deserialize (fs);
             fs.Close ();
-            updateEverything ();
+            characteristicLoaded ();
+        }
+
+        private void btAddCharacter_Click (object sender, EventArgs e)
+        {
+            Character newChar = new Character ();
+            _characterList.Add (newChar);
+            charactersCb.Items.Add (newChar.Name);
+        }
+
+        private void charactersCb_SelectedIndexChanged (object sender, EventArgs e)
+        {
+            _selectedIndex = charactersCb.SelectedIndex;
+            nameTb.Text = SelectedCharacter().Name;
+            characteristicLoaded ();
         }
     }
 }

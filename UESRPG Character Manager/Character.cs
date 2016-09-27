@@ -12,8 +12,10 @@ namespace UESRPG_Character_Manager
     //[XmlRoot("Character", IsNullable = false)]
     public class Character
     {
-        public int[] _characteristics;
-        public int[] _modifiers;
+        private int[] _characteristics;
+        private int[] _modifiers;
+
+        private string _name = "Player";
 
         public Character ()
         {
@@ -27,6 +29,17 @@ namespace UESRPG_Character_Manager
             return attribute / 10;
         }
 
+        public int GetCharacteristic (int index)
+        {
+            return _characteristics[index];
+        }
+
+        [XmlAttribute()]
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
 
 /******************
  * CHARACTERISTICS

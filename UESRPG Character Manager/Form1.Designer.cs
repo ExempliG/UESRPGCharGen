@@ -30,8 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.luckPointsModTb = new System.Windows.Forms.TextBox();
-            this.damageBonusModTb = new System.Windows.Forms.TextBox();
+            this.nameTb = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label29 = new System.Windows.Forms.Label();
             this.rollSuccessesTb = new System.Windows.Forms.TextBox();
@@ -45,7 +45,6 @@
             this.characteristicCb = new System.Windows.Forms.ComboBox();
             this.skillRb = new System.Windows.Forms.RadioButton();
             this.characteristicRb = new System.Windows.Forms.RadioButton();
-            this.initiativeRatingModTb = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.nbModLuck = new System.Windows.Forms.NumericUpDown();
             this.nbModDamageBonus = new System.Windows.Forms.NumericUpDown();
@@ -89,7 +88,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.healthTb = new System.Windows.Forms.TextBox();
-            this.carryRatingModTb = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nbPersonality = new System.Windows.Forms.NumericUpDown();
             this.nbLuck = new System.Windows.Forms.NumericUpDown();
@@ -107,16 +105,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.movementRatingModTb = new System.Windows.Forms.TextBox();
-            this.healthModTb = new System.Windows.Forms.TextBox();
-            this.actionPointsModTb = new System.Windows.Forms.TextBox();
-            this.woundThresholdModTb = new System.Windows.Forms.TextBox();
-            this.magickaModTb = new System.Windows.Forms.TextBox();
-            this.staminaModTb = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.charactersCb = new System.Windows.Forms.ComboBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.btAddCharacter = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -149,51 +144,44 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(17, 16);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1333, 555);
+            this.tabControl1.Size = new System.Drawing.Size(1333, 527);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.luckPointsModTb);
-            this.tabPage1.Controls.Add(this.damageBonusModTb);
+            this.tabPage1.Controls.Add(this.nameTb);
+            this.tabPage1.Controls.Add(this.label31);
             this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.initiativeRatingModTb);
             this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.carryRatingModTb);
             this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.movementRatingModTb);
-            this.tabPage1.Controls.Add(this.healthModTb);
-            this.tabPage1.Controls.Add(this.actionPointsModTb);
-            this.tabPage1.Controls.Add(this.woundThresholdModTb);
-            this.tabPage1.Controls.Add(this.magickaModTb);
-            this.tabPage1.Controls.Add(this.staminaModTb);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Size = new System.Drawing.Size(1325, 526);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1325, 498);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // luckPointsModTb
+            // nameTb
             // 
-            this.luckPointsModTb.Location = new System.Drawing.Point(1013, 479);
-            this.luckPointsModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.luckPointsModTb.Name = "luckPointsModTb";
-            this.luckPointsModTb.Size = new System.Drawing.Size(60, 22);
-            this.luckPointsModTb.TabIndex = 41;
+            this.nameTb.Location = new System.Drawing.Point(58, 7);
+            this.nameTb.Name = "nameTb";
+            this.nameTb.Size = new System.Drawing.Size(107, 22);
+            this.nameTb.TabIndex = 8;
+            this.nameTb.TextChanged += new System.EventHandler(this.nameTb_TextChanged);
             // 
-            // damageBonusModTb
+            // label31
             // 
-            this.damageBonusModTb.Location = new System.Drawing.Point(1013, 447);
-            this.damageBonusModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.damageBonusModTb.Name = "damageBonusModTb";
-            this.damageBonusModTb.Size = new System.Drawing.Size(60, 22);
-            this.damageBonusModTb.TabIndex = 40;
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(7, 10);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(45, 16);
+            this.label31.TabIndex = 7;
+            this.label31.Text = "Name";
             // 
             // groupBox3
             // 
@@ -209,10 +197,10 @@
             this.groupBox3.Controls.Add(this.characteristicCb);
             this.groupBox3.Controls.Add(this.skillRb);
             this.groupBox3.Controls.Add(this.characteristicRb);
-            this.groupBox3.Location = new System.Drawing.Point(645, 7);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Location = new System.Drawing.Point(645, 49);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(669, 167);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
@@ -231,7 +219,7 @@
             // rollSuccessesTb
             // 
             this.rollSuccessesTb.Location = new System.Drawing.Point(425, 50);
-            this.rollSuccessesTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rollSuccessesTb.Margin = new System.Windows.Forms.Padding(4);
             this.rollSuccessesTb.Name = "rollSuccessesTb";
             this.rollSuccessesTb.Size = new System.Drawing.Size(132, 22);
             this.rollSuccessesTb.TabIndex = 10;
@@ -249,7 +237,7 @@
             // rollBreakdownTb
             // 
             this.rollBreakdownTb.Location = new System.Drawing.Point(425, 81);
-            this.rollBreakdownTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rollBreakdownTb.Margin = new System.Windows.Forms.Padding(4);
             this.rollBreakdownTb.Name = "rollBreakdownTb";
             this.rollBreakdownTb.Size = new System.Drawing.Size(132, 22);
             this.rollBreakdownTb.TabIndex = 8;
@@ -267,7 +255,7 @@
             // rollResultTb
             // 
             this.rollResultTb.Location = new System.Drawing.Point(425, 20);
-            this.rollResultTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rollResultTb.Margin = new System.Windows.Forms.Padding(4);
             this.rollResultTb.Name = "rollResultTb";
             this.rollResultTb.Size = new System.Drawing.Size(132, 22);
             this.rollResultTb.TabIndex = 6;
@@ -287,7 +275,7 @@
             // 
             this.skillLevelTb.Enabled = false;
             this.skillLevelTb.Location = new System.Drawing.Point(135, 53);
-            this.skillLevelTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.skillLevelTb.Margin = new System.Windows.Forms.Padding(4);
             this.skillLevelTb.Name = "skillLevelTb";
             this.skillLevelTb.Size = new System.Drawing.Size(61, 22);
             this.skillLevelTb.TabIndex = 4;
@@ -296,7 +284,7 @@
             // rollBt
             // 
             this.rollBt.Location = new System.Drawing.Point(8, 85);
-            this.rollBt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rollBt.Margin = new System.Windows.Forms.Padding(4);
             this.rollBt.Name = "rollBt";
             this.rollBt.Size = new System.Drawing.Size(119, 28);
             this.rollBt.TabIndex = 3;
@@ -308,7 +296,7 @@
             // 
             this.characteristicCb.FormattingEnabled = true;
             this.characteristicCb.Location = new System.Drawing.Point(135, 22);
-            this.characteristicCb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.characteristicCb.Margin = new System.Windows.Forms.Padding(4);
             this.characteristicCb.Name = "characteristicCb";
             this.characteristicCb.Size = new System.Drawing.Size(160, 24);
             this.characteristicCb.TabIndex = 2;
@@ -318,7 +306,7 @@
             // 
             this.skillRb.AutoSize = true;
             this.skillRb.Location = new System.Drawing.Point(8, 52);
-            this.skillRb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.skillRb.Margin = new System.Windows.Forms.Padding(4);
             this.skillRb.Name = "skillRb";
             this.skillRb.Size = new System.Drawing.Size(51, 20);
             this.skillRb.TabIndex = 1;
@@ -331,7 +319,7 @@
             this.characteristicRb.AutoSize = true;
             this.characteristicRb.Checked = true;
             this.characteristicRb.Location = new System.Drawing.Point(8, 23);
-            this.characteristicRb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.characteristicRb.Margin = new System.Windows.Forms.Padding(4);
             this.characteristicRb.Name = "characteristicRb";
             this.characteristicRb.Size = new System.Drawing.Size(107, 20);
             this.characteristicRb.TabIndex = 0;
@@ -339,14 +327,6 @@
             this.characteristicRb.Text = "Characteristic";
             this.characteristicRb.UseVisualStyleBackColor = true;
             this.characteristicRb.CheckedChanged += new System.EventHandler(this.characteristicRb_CheckedChanged);
-            // 
-            // initiativeRatingModTb
-            // 
-            this.initiativeRatingModTb.Location = new System.Drawing.Point(1013, 415);
-            this.initiativeRatingModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.initiativeRatingModTb.Name = "initiativeRatingModTb";
-            this.initiativeRatingModTb.Size = new System.Drawing.Size(60, 22);
-            this.initiativeRatingModTb.TabIndex = 39;
             // 
             // groupBox2
             // 
@@ -392,10 +372,10 @@
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.healthTb);
-            this.groupBox2.Location = new System.Drawing.Point(181, 4);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Location = new System.Drawing.Point(181, 46);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(456, 404);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
@@ -404,92 +384,92 @@
             // nbModLuck
             // 
             this.nbModLuck.Location = new System.Drawing.Point(375, 345);
-            this.nbModLuck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModLuck.Margin = new System.Windows.Forms.Padding(4);
             this.nbModLuck.Name = "nbModLuck";
             this.nbModLuck.Size = new System.Drawing.Size(61, 22);
             this.nbModLuck.TabIndex = 41;
             this.nbModLuck.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModLuck.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModLuck.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModDamageBonus
             // 
             this.nbModDamageBonus.Location = new System.Drawing.Point(375, 313);
-            this.nbModDamageBonus.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModDamageBonus.Margin = new System.Windows.Forms.Padding(4);
             this.nbModDamageBonus.Name = "nbModDamageBonus";
             this.nbModDamageBonus.Size = new System.Drawing.Size(61, 22);
             this.nbModDamageBonus.TabIndex = 40;
             this.nbModDamageBonus.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModDamageBonus.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModDamageBonus.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModInitiativeRating
             // 
             this.nbModInitiativeRating.Location = new System.Drawing.Point(375, 281);
-            this.nbModInitiativeRating.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModInitiativeRating.Margin = new System.Windows.Forms.Padding(4);
             this.nbModInitiativeRating.Name = "nbModInitiativeRating";
             this.nbModInitiativeRating.Size = new System.Drawing.Size(61, 22);
             this.nbModInitiativeRating.TabIndex = 39;
             this.nbModInitiativeRating.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModInitiativeRating.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModInitiativeRating.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModCarryRating
             // 
             this.nbModCarryRating.Location = new System.Drawing.Point(375, 249);
-            this.nbModCarryRating.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModCarryRating.Margin = new System.Windows.Forms.Padding(4);
             this.nbModCarryRating.Name = "nbModCarryRating";
             this.nbModCarryRating.Size = new System.Drawing.Size(61, 22);
             this.nbModCarryRating.TabIndex = 38;
             this.nbModCarryRating.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModCarryRating.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModCarryRating.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModMovementRating
             // 
             this.nbModMovementRating.Location = new System.Drawing.Point(375, 217);
-            this.nbModMovementRating.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModMovementRating.Margin = new System.Windows.Forms.Padding(4);
             this.nbModMovementRating.Name = "nbModMovementRating";
             this.nbModMovementRating.Size = new System.Drawing.Size(61, 22);
             this.nbModMovementRating.TabIndex = 37;
             this.nbModMovementRating.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModMovementRating.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModMovementRating.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModActionPoints
             // 
             this.nbModActionPoints.Location = new System.Drawing.Point(375, 185);
-            this.nbModActionPoints.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModActionPoints.Margin = new System.Windows.Forms.Padding(4);
             this.nbModActionPoints.Name = "nbModActionPoints";
             this.nbModActionPoints.Size = new System.Drawing.Size(61, 22);
             this.nbModActionPoints.TabIndex = 36;
             this.nbModActionPoints.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModActionPoints.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModActionPoints.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModMagicka
             // 
             this.nbModMagicka.Location = new System.Drawing.Point(375, 153);
-            this.nbModMagicka.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModMagicka.Margin = new System.Windows.Forms.Padding(4);
             this.nbModMagicka.Name = "nbModMagicka";
             this.nbModMagicka.Size = new System.Drawing.Size(61, 22);
             this.nbModMagicka.TabIndex = 35;
             this.nbModMagicka.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModMagicka.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModMagicka.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModStamina
             // 
             this.nbModStamina.Location = new System.Drawing.Point(375, 121);
-            this.nbModStamina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModStamina.Margin = new System.Windows.Forms.Padding(4);
             this.nbModStamina.Name = "nbModStamina";
             this.nbModStamina.Size = new System.Drawing.Size(61, 22);
             this.nbModStamina.TabIndex = 34;
             this.nbModStamina.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModStamina.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModStamina.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbModWoundThreshold
             // 
             this.nbModWoundThreshold.Location = new System.Drawing.Point(375, 87);
-            this.nbModWoundThreshold.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModWoundThreshold.Margin = new System.Windows.Forms.Padding(4);
             this.nbModWoundThreshold.Name = "nbModWoundThreshold";
             this.nbModWoundThreshold.Size = new System.Drawing.Size(61, 22);
             this.nbModWoundThreshold.TabIndex = 33;
             this.nbModWoundThreshold.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModWoundThreshold.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModWoundThreshold.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // label24
             // 
@@ -504,18 +484,18 @@
             // nbModHealth
             // 
             this.nbModHealth.Location = new System.Drawing.Point(375, 54);
-            this.nbModHealth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbModHealth.Margin = new System.Windows.Forms.Padding(4);
             this.nbModHealth.Name = "nbModHealth";
             this.nbModHealth.Size = new System.Drawing.Size(61, 22);
             this.nbModHealth.TabIndex = 7;
             this.nbModHealth.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbModHealth.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbModHealth.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // maxLuckPointsTb
             // 
             this.maxLuckPointsTb.Enabled = false;
             this.maxLuckPointsTb.Location = new System.Drawing.Point(217, 343);
-            this.maxLuckPointsTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxLuckPointsTb.Margin = new System.Windows.Forms.Padding(4);
             this.maxLuckPointsTb.Name = "maxLuckPointsTb";
             this.maxLuckPointsTb.Size = new System.Drawing.Size(44, 22);
             this.maxLuckPointsTb.TabIndex = 31;
@@ -533,7 +513,7 @@
             // luckPointsTb
             // 
             this.luckPointsTb.Location = new System.Drawing.Point(139, 343);
-            this.luckPointsTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.luckPointsTb.Margin = new System.Windows.Forms.Padding(4);
             this.luckPointsTb.Name = "luckPointsTb";
             this.luckPointsTb.Size = new System.Drawing.Size(45, 22);
             this.luckPointsTb.TabIndex = 29;
@@ -541,7 +521,7 @@
             // damageBonusTb
             // 
             this.damageBonusTb.Location = new System.Drawing.Point(139, 311);
-            this.damageBonusTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.damageBonusTb.Margin = new System.Windows.Forms.Padding(4);
             this.damageBonusTb.Name = "damageBonusTb";
             this.damageBonusTb.Size = new System.Drawing.Size(45, 22);
             this.damageBonusTb.TabIndex = 28;
@@ -559,7 +539,7 @@
             // initiativeRatingTb
             // 
             this.initiativeRatingTb.Location = new System.Drawing.Point(139, 279);
-            this.initiativeRatingTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.initiativeRatingTb.Margin = new System.Windows.Forms.Padding(4);
             this.initiativeRatingTb.Name = "initiativeRatingTb";
             this.initiativeRatingTb.Size = new System.Drawing.Size(45, 22);
             this.initiativeRatingTb.TabIndex = 26;
@@ -577,7 +557,7 @@
             // carryRatingTb
             // 
             this.carryRatingTb.Location = new System.Drawing.Point(139, 247);
-            this.carryRatingTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.carryRatingTb.Margin = new System.Windows.Forms.Padding(4);
             this.carryRatingTb.Name = "carryRatingTb";
             this.carryRatingTb.Size = new System.Drawing.Size(45, 22);
             this.carryRatingTb.TabIndex = 24;
@@ -595,7 +575,7 @@
             // movementRatingTb
             // 
             this.movementRatingTb.Location = new System.Drawing.Point(139, 215);
-            this.movementRatingTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.movementRatingTb.Margin = new System.Windows.Forms.Padding(4);
             this.movementRatingTb.Name = "movementRatingTb";
             this.movementRatingTb.Size = new System.Drawing.Size(45, 22);
             this.movementRatingTb.TabIndex = 22;
@@ -624,7 +604,7 @@
             // 
             this.maxActionPointsTb.Enabled = false;
             this.maxActionPointsTb.Location = new System.Drawing.Point(217, 183);
-            this.maxActionPointsTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxActionPointsTb.Margin = new System.Windows.Forms.Padding(4);
             this.maxActionPointsTb.Name = "maxActionPointsTb";
             this.maxActionPointsTb.Size = new System.Drawing.Size(44, 22);
             this.maxActionPointsTb.TabIndex = 19;
@@ -642,7 +622,7 @@
             // actionPointsTb
             // 
             this.actionPointsTb.Location = new System.Drawing.Point(139, 183);
-            this.actionPointsTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.actionPointsTb.Margin = new System.Windows.Forms.Padding(4);
             this.actionPointsTb.Name = "actionPointsTb";
             this.actionPointsTb.Size = new System.Drawing.Size(45, 22);
             this.actionPointsTb.TabIndex = 17;
@@ -661,7 +641,7 @@
             // 
             this.maxMagickaTb.Enabled = false;
             this.maxMagickaTb.Location = new System.Drawing.Point(217, 151);
-            this.maxMagickaTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxMagickaTb.Margin = new System.Windows.Forms.Padding(4);
             this.maxMagickaTb.Name = "maxMagickaTb";
             this.maxMagickaTb.Size = new System.Drawing.Size(44, 22);
             this.maxMagickaTb.TabIndex = 15;
@@ -679,7 +659,7 @@
             // magickaTb
             // 
             this.magickaTb.Location = new System.Drawing.Point(139, 151);
-            this.magickaTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.magickaTb.Margin = new System.Windows.Forms.Padding(4);
             this.magickaTb.Name = "magickaTb";
             this.magickaTb.Size = new System.Drawing.Size(45, 22);
             this.magickaTb.TabIndex = 13;
@@ -698,7 +678,7 @@
             // 
             this.maxStaminaTb.Enabled = false;
             this.maxStaminaTb.Location = new System.Drawing.Point(217, 119);
-            this.maxStaminaTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxStaminaTb.Margin = new System.Windows.Forms.Padding(4);
             this.maxStaminaTb.Name = "maxStaminaTb";
             this.maxStaminaTb.Size = new System.Drawing.Size(44, 22);
             this.maxStaminaTb.TabIndex = 11;
@@ -716,7 +696,7 @@
             // staminaTb
             // 
             this.staminaTb.Location = new System.Drawing.Point(139, 119);
-            this.staminaTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.staminaTb.Margin = new System.Windows.Forms.Padding(4);
             this.staminaTb.Name = "staminaTb";
             this.staminaTb.Size = new System.Drawing.Size(45, 22);
             this.staminaTb.TabIndex = 9;
@@ -734,7 +714,7 @@
             // woundThresholdTb
             // 
             this.woundThresholdTb.Location = new System.Drawing.Point(139, 87);
-            this.woundThresholdTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.woundThresholdTb.Margin = new System.Windows.Forms.Padding(4);
             this.woundThresholdTb.Name = "woundThresholdTb";
             this.woundThresholdTb.Size = new System.Drawing.Size(45, 22);
             this.woundThresholdTb.TabIndex = 7;
@@ -763,7 +743,7 @@
             // 
             this.maxHealthTb.Enabled = false;
             this.maxHealthTb.Location = new System.Drawing.Point(217, 55);
-            this.maxHealthTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maxHealthTb.Margin = new System.Windows.Forms.Padding(4);
             this.maxHealthTb.Name = "maxHealthTb";
             this.maxHealthTb.Size = new System.Drawing.Size(44, 22);
             this.maxHealthTb.TabIndex = 3;
@@ -791,18 +771,10 @@
             // healthTb
             // 
             this.healthTb.Location = new System.Drawing.Point(139, 55);
-            this.healthTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.healthTb.Margin = new System.Windows.Forms.Padding(4);
             this.healthTb.Name = "healthTb";
             this.healthTb.Size = new System.Drawing.Size(45, 22);
             this.healthTb.TabIndex = 0;
-            // 
-            // carryRatingModTb
-            // 
-            this.carryRatingModTb.Location = new System.Drawing.Point(1013, 383);
-            this.carryRatingModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.carryRatingModTb.Name = "carryRatingModTb";
-            this.carryRatingModTb.Size = new System.Drawing.Size(60, 22);
-            this.carryRatingModTb.TabIndex = 38;
             // 
             // groupBox1
             // 
@@ -822,10 +794,10 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(8, 4);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(8, 46);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(165, 282);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -834,82 +806,82 @@
             // nbPersonality
             // 
             this.nbPersonality.Location = new System.Drawing.Point(96, 217);
-            this.nbPersonality.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbPersonality.Margin = new System.Windows.Forms.Padding(4);
             this.nbPersonality.Name = "nbPersonality";
             this.nbPersonality.Size = new System.Drawing.Size(61, 22);
             this.nbPersonality.TabIndex = 7;
             this.nbPersonality.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbPersonality.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbPersonality.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbLuck
             // 
             this.nbLuck.Location = new System.Drawing.Point(96, 249);
-            this.nbLuck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbLuck.Margin = new System.Windows.Forms.Padding(4);
             this.nbLuck.Name = "nbLuck";
             this.nbLuck.Size = new System.Drawing.Size(61, 22);
             this.nbLuck.TabIndex = 8;
             this.nbLuck.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbLuck.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbLuck.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbWillpower
             // 
             this.nbWillpower.Location = new System.Drawing.Point(96, 153);
-            this.nbWillpower.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbWillpower.Margin = new System.Windows.Forms.Padding(4);
             this.nbWillpower.Name = "nbWillpower";
             this.nbWillpower.Size = new System.Drawing.Size(61, 22);
             this.nbWillpower.TabIndex = 5;
             this.nbWillpower.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbWillpower.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbWillpower.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbPerception
             // 
             this.nbPerception.Location = new System.Drawing.Point(96, 185);
-            this.nbPerception.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbPerception.Margin = new System.Windows.Forms.Padding(4);
             this.nbPerception.Name = "nbPerception";
             this.nbPerception.Size = new System.Drawing.Size(61, 22);
             this.nbPerception.TabIndex = 6;
             this.nbPerception.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbPerception.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbPerception.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbAgility
             // 
             this.nbAgility.Location = new System.Drawing.Point(96, 89);
-            this.nbAgility.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbAgility.Margin = new System.Windows.Forms.Padding(4);
             this.nbAgility.Name = "nbAgility";
             this.nbAgility.Size = new System.Drawing.Size(61, 22);
             this.nbAgility.TabIndex = 3;
             this.nbAgility.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbAgility.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbAgility.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbIntelligence
             // 
             this.nbIntelligence.Location = new System.Drawing.Point(96, 121);
-            this.nbIntelligence.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbIntelligence.Margin = new System.Windows.Forms.Padding(4);
             this.nbIntelligence.Name = "nbIntelligence";
             this.nbIntelligence.Size = new System.Drawing.Size(61, 22);
             this.nbIntelligence.TabIndex = 4;
             this.nbIntelligence.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbIntelligence.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbIntelligence.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbStrength
             // 
             this.nbStrength.Location = new System.Drawing.Point(96, 25);
-            this.nbStrength.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbStrength.Margin = new System.Windows.Forms.Padding(4);
             this.nbStrength.Name = "nbStrength";
             this.nbStrength.Size = new System.Drawing.Size(61, 22);
             this.nbStrength.TabIndex = 1;
             this.nbStrength.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbStrength.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbStrength.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // nbEndurance
             // 
             this.nbEndurance.Location = new System.Drawing.Point(96, 57);
-            this.nbEndurance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nbEndurance.Margin = new System.Windows.Forms.Padding(4);
             this.nbEndurance.Name = "nbEndurance";
             this.nbEndurance.Size = new System.Drawing.Size(61, 22);
             this.nbEndurance.TabIndex = 2;
             this.nbEndurance.ValueChanged += new System.EventHandler(this.characteristicChanged);
-            this.nbEndurance.GotFocus += new System.EventHandler (this.NumberBoxFocus);
+            this.nbEndurance.GotFocus += new System.EventHandler(this.NumberBoxFocus);
             // 
             // label8
             // 
@@ -991,85 +963,18 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Agility";
             // 
-            // movementRatingModTb
-            // 
-            this.movementRatingModTb.Location = new System.Drawing.Point(1013, 351);
-            this.movementRatingModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.movementRatingModTb.Name = "movementRatingModTb";
-            this.movementRatingModTb.Size = new System.Drawing.Size(60, 22);
-            this.movementRatingModTb.TabIndex = 37;
-            // 
-            // healthModTb
-            // 
-            this.healthModTb.Location = new System.Drawing.Point(1013, 191);
-            this.healthModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.healthModTb.Name = "healthModTb";
-            this.healthModTb.Size = new System.Drawing.Size(60, 22);
-            this.healthModTb.TabIndex = 5;
-            // 
-            // actionPointsModTb
-            // 
-            this.actionPointsModTb.Location = new System.Drawing.Point(1013, 319);
-            this.actionPointsModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.actionPointsModTb.Name = "actionPointsModTb";
-            this.actionPointsModTb.Size = new System.Drawing.Size(60, 22);
-            this.actionPointsModTb.TabIndex = 36;
-            // 
-            // woundThresholdModTb
-            // 
-            this.woundThresholdModTb.Location = new System.Drawing.Point(1013, 223);
-            this.woundThresholdModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.woundThresholdModTb.Name = "woundThresholdModTb";
-            this.woundThresholdModTb.Size = new System.Drawing.Size(60, 22);
-            this.woundThresholdModTb.TabIndex = 33;
-            // 
-            // magickaModTb
-            // 
-            this.magickaModTb.Location = new System.Drawing.Point(1013, 287);
-            this.magickaModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.magickaModTb.Name = "magickaModTb";
-            this.magickaModTb.Size = new System.Drawing.Size(60, 22);
-            this.magickaModTb.TabIndex = 35;
-            // 
-            // staminaModTb
-            // 
-            this.staminaModTb.Location = new System.Drawing.Point(1013, 255);
-            this.staminaModTb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.staminaModTb.Name = "staminaModTb";
-            this.staminaModTb.Size = new System.Drawing.Size(60, 22);
-            this.staminaModTb.TabIndex = 34;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.richTextBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Size = new System.Drawing.Size(1325, 526);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(1325, 498);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage3.Size = new System.Drawing.Size(1325, 526);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "+";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(8, 8);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(644, 286);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
             // 
             // button1
             // 
@@ -1081,13 +986,63 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(8, 8);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(644, 286);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Size = new System.Drawing.Size(1325, 498);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "+";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // charactersCb
+            // 
+            this.charactersCb.FormattingEnabled = true;
+            this.charactersCb.Location = new System.Drawing.Point(173, 550);
+            this.charactersCb.Name = "charactersCb";
+            this.charactersCb.Size = new System.Drawing.Size(150, 24);
+            this.charactersCb.TabIndex = 1;
+            this.charactersCb.SelectedIndexChanged += new System.EventHandler(this.charactersCb_SelectedIndexChanged);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(12, 553);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(126, 16);
+            this.label30.TabIndex = 2;
+            this.label30.Text = "Selected Character:";
+            // 
+            // btAddCharacter
+            // 
+            this.btAddCharacter.Location = new System.Drawing.Point(329, 550);
+            this.btAddCharacter.Name = "btAddCharacter";
+            this.btAddCharacter.Size = new System.Drawing.Size(107, 23);
+            this.btAddCharacter.TabIndex = 3;
+            this.btAddCharacter.Text = "Add Character";
+            this.btAddCharacter.UseVisualStyleBackColor = true;
+            this.btAddCharacter.Click += new System.EventHandler(this.btAddCharacter_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1367, 586);
+            this.Controls.Add(this.btAddCharacter);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.charactersCb);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
@@ -1119,6 +1074,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nbEndurance)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1129,7 +1085,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox healthModTb;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox maxHealthTb;
         private System.Windows.Forms.Label label10;
@@ -1144,15 +1099,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox luckPointsModTb;
-        private System.Windows.Forms.TextBox damageBonusModTb;
-        private System.Windows.Forms.TextBox initiativeRatingModTb;
-        private System.Windows.Forms.TextBox carryRatingModTb;
-        private System.Windows.Forms.TextBox movementRatingModTb;
-        private System.Windows.Forms.TextBox actionPointsModTb;
-        private System.Windows.Forms.TextBox magickaModTb;
-        private System.Windows.Forms.TextBox staminaModTb;
-        private System.Windows.Forms.TextBox woundThresholdModTb;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox maxLuckPointsTb;
         private System.Windows.Forms.Label label25;
@@ -1213,6 +1159,11 @@
         private System.Windows.Forms.NumericUpDown nbModHealth;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox charactersCb;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button btAddCharacter;
+        private System.Windows.Forms.TextBox nameTb;
+        private System.Windows.Forms.Label label31;
     }
 }
 
