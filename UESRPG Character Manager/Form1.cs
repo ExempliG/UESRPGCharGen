@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Collections;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace UESRPG_Character_Manager
 {
@@ -24,7 +26,7 @@ namespace UESRPG_Character_Manager
             _selectedChar = new Character ();
             _characterList.Add (_selectedChar);
 
-            foreach (string characteristic in _selectedChar._characteristics.Keys)
+            foreach (string characteristic in Characteristics.CharacteristicNames)
             {
                 characteristicCb.Items.Add (characteristic);
             }
@@ -113,8 +115,8 @@ namespace UESRPG_Character_Manager
 
             Random r = new Random ();
 
-            string characteristicName = (string)characteristicCb.SelectedItem;
-            int characteristic = _selectedChar._characteristics[characteristicName];
+            int characteristicIndex = characteristicCb.SelectedIndex;
+            int characteristic = _selectedChar._characteristics[characteristicIndex];
 
             int result = r.Next (0, 100);
             rollResultTb.Text = "" + result;
@@ -150,8 +152,8 @@ namespace UESRPG_Character_Manager
 
             Random r = new Random ();
 
-            string characteristicName = (string)characteristicCb.SelectedItem;
-            int characteristic = _selectedChar._characteristics[characteristicName];
+            int characteristicIndex = characteristicCb.SelectedIndex;
+            int characteristic = _selectedChar._characteristics[characteristicIndex];
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
@@ -173,6 +175,35 @@ namespace UESRPG_Character_Manager
                 rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
                 rollSuccessesTb.Text = "" + successes;
             }
+        }
+
+        private void button1_Click (object sender, EventArgs e)
+        {
+            SaveChar ();
+            LoadChar ();
+        }
+
+        private void NumberBoxFocus (object sender, EventArgs e)
+        {
+            NumericUpDown theNb = (NumericUpDown)sender;
+            theNb.Select (0, 3);
+        }
+
+        private void SaveChar ()
+        {
+            XmlSerializer xml = new XmlSerializer (typeof (Character));
+            FileStream fs = new FileStream ("char.xml", FileMode.Create);
+            xml.Serialize (fs, _selectedChar);
+            fs.Close ();
+        }
+
+        private void LoadChar ()
+        {
+            XmlSerializer xml = new XmlSerializer (typeof (Character));
+            FileStream fs = new FileStream ("char.xml", FileMode.Open);
+            _selectedChar = (Character)xml.Deserialize (fs);
+            fs.Close ();
+            updateEverything ();
         }
     }
 }

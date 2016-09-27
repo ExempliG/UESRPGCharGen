@@ -5,37 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Collections;
+using System.Xml.Serialization;
 
 namespace UESRPG_Character_Manager
 {
-    class Character
+    //[XmlRoot("Character", IsNullable = false)]
+    public class Character
     {
-        public Dictionary<string, int> _characteristics;
-        public Dictionary<string, int> _modifiers;
+        public int[] _characteristics;
+        public int[] _modifiers;
 
         public Character ()
         {
-            _characteristics = new Dictionary<string, int> ();
-            _characteristics.Add ("Strength", 0);
-            _characteristics.Add ("Endurance", 0);
-            _characteristics.Add ("Agility", 0);
-            _characteristics.Add ("Intelligence", 0);
-            _characteristics.Add ("Willpower", 0);
-            _characteristics.Add ("Perception", 0);
-            _characteristics.Add ("Personality", 0);
-            _characteristics.Add ("Luck", 0);
+            _characteristics = new int[Characteristics.NumberOfCharacteristics];
 
-            _modifiers = new Dictionary<string, int> ();
-            _modifiers.Add ("Health", 0);
-            _modifiers.Add ("WoundThreshold", 0);
-            _modifiers.Add ("Stamina", 0);
-            _modifiers.Add ("Magicka", 0);
-            _modifiers.Add ("ActionPoints", 0);
-            _modifiers.Add ("MovementRating", 0);
-            _modifiers.Add ("CarryRating", 0);
-            _modifiers.Add ("InitiativeRating", 0);
-            _modifiers.Add ("DamageBonus", 0);
-            _modifiers.Add ("LuckPoints", 0);
+            _modifiers = new int[Modifiers.NumberOfModifiers];
         }
 
         public int GetBonus (int attribute)
@@ -49,43 +33,43 @@ namespace UESRPG_Character_Manager
  *****************/
         public int Strength
         {
-            get { return _characteristics["Strength"]; }
-            set { _characteristics["Strength"] = value; }
+            get { return _characteristics[Characteristics.Strength]; }
+            set { _characteristics[Characteristics.Strength] = value; }
         }
         public int Endurance
         {
-            get { return _characteristics["Endurance"]; }
-            set { _characteristics["Endurance"] = value; }
+            get { return _characteristics[Characteristics.Endurance]; }
+            set { _characteristics[Characteristics.Endurance] = value; }
         }
         public int Agility
         {
-            get { return _characteristics["Agility"]; }
-            set { _characteristics["Agility"] = value; }
+            get { return _characteristics[Characteristics.Agility]; }
+            set { _characteristics[Characteristics.Agility] = value; }
         }
         public int Intelligence
         {
-            get { return _characteristics["Intelligence"]; }
-            set { _characteristics["Intelligence"] = value; }
+            get { return _characteristics[Characteristics.Intelligence]; }
+            set { _characteristics[Characteristics.Intelligence] = value; }
         }
         public int Willpower
         {
-            get { return _characteristics["Willpower"]; }
-            set { _characteristics["Willpower"] = value; }
+            get { return _characteristics[Characteristics.Willpower]; }
+            set { _characteristics[Characteristics.Willpower] = value; }
         }
         public int Perception
         {
-            get { return _characteristics["Perception"]; }
-            set { _characteristics["Perception"] = value; }
+            get { return _characteristics[Characteristics.Perception]; }
+            set { _characteristics[Characteristics.Perception] = value; }
         }
         public int Personality
         {
-            get { return _characteristics["Personality"]; }
-            set { _characteristics["Personality"] = value; }
+            get { return _characteristics[Characteristics.Personality]; }
+            set { _characteristics[Characteristics.Personality] = value; }
         }
         public int Luck
         {
-            get { return _characteristics["Luck"]; }
-            set { _characteristics["Luck"] = value; }
+            get { return _characteristics[Characteristics.Luck]; }
+            set { _characteristics[Characteristics.Luck] = value; }
         }
 
 /************
@@ -93,53 +77,53 @@ namespace UESRPG_Character_Manager
  ***********/
         public int HealthMod
         {
-            get { return _modifiers["Health"]; }
-            set { _modifiers["Heatlh"] = value; }
+            get { return _modifiers[Modifiers.Health]; }
+            set { _modifiers[Modifiers.Health] = value; }
         }
         public int WoundThresholdMod
         {
-            get { return _modifiers["WoundThreshold"]; }
-            set { _modifiers["WoundThreshold"] = value; }
+            get { return _modifiers[Modifiers.WoundThreshold]; }
+            set { _modifiers[Modifiers.WoundThreshold] = value; }
         }
         public int StaminaMod
         {
-            get { return _modifiers["Stamina"]; }
-            set { _modifiers["Stamina"] = value; }
+            get { return _modifiers[Modifiers.Stamina]; }
+            set { _modifiers[Modifiers.Stamina] = value; }
         }
         public int MagickaMod
         {
-            get { return _modifiers["Magicka"]; }
-            set { _modifiers["Magicka"] = value; }
+            get { return _modifiers[Modifiers.Magicka]; }
+            set { _modifiers[Modifiers.Magicka] = value; }
         }
         public int ActionPointsMod
         {
-            get { return _modifiers["ActionPoints"]; }
-            set { _modifiers["ActionPoints"] = value; }
+            get { return _modifiers[Modifiers.ActionPoints]; }
+            set { _modifiers[Modifiers.ActionPoints] = value; }
         }
         public int MovementRatingMod
         {
-            get { return _modifiers["MovementRating"]; }
-            set { _modifiers["MovementRating"] = value; }
+            get { return _modifiers[Modifiers.MovementRating]; }
+            set { _modifiers[Modifiers.MovementRating] = value; }
         }
         public int CarryRatingMod
         {
-            get { return _modifiers["CarryRating"]; }
-            set { _modifiers["CarryRating"] = value; }
+            get { return _modifiers[Modifiers.CarryRating]; }
+            set { _modifiers[Modifiers.CarryRating] = value; }
         }
         public int InitiativeRatingMod
         {
-            get { return _modifiers["InitiativeRating"]; }
-            set { _modifiers["InitiativeRating"] = value; }
+            get { return _modifiers[Modifiers.InitiativeRating]; }
+            set { _modifiers[Modifiers.InitiativeRating] = value; }
         }
         public int DamageBonusMod
         {
-            get { return _modifiers["DamageBonus"]; }
-            set { _modifiers["DamageBonus"] = value; }
+            get { return _modifiers[Modifiers.DamageBonus]; }
+            set { _modifiers[Modifiers.DamageBonus] = value; }
         }
         public int LuckPointsMod
         {
-            get { return _modifiers["LuckPoints"]; }
-            set { _modifiers["LuckPoints"] = value; }
+            get { return _modifiers[Modifiers.LuckPoints]; }
+            set { _modifiers[Modifiers.LuckPoints] = value; }
         }
 
         public int MaxHealth
