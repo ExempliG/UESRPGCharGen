@@ -139,6 +139,11 @@ namespace UESRPG_Character_Manager
             set { _modifiers[Modifiers.LuckPoints] = value; }
         }
 
+        public int CurrentHealth
+        {
+            get; set;
+        }
+
         public int MaxHealth
         {
             get
@@ -155,6 +160,11 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        public int CurrentStamina
+        {
+            get; set;
+        }
+
         public int Stamina
         {
             get
@@ -163,6 +173,11 @@ namespace UESRPG_Character_Manager
                 halfWillpowerBonus += 0.5f; // round up
                 return (GetBonus (Endurance) + (int)halfWillpowerBonus) + StaminaMod;
             }
+        }
+
+        public int CurrentMagicka
+        {
+            get; set;
         }
 
         public int MagickaPool
@@ -195,6 +210,11 @@ namespace UESRPG_Character_Manager
             {
                 return (GetBonus (Agility) + GetBonus (Perception)) + InitiativeRatingMod;
             }
+        }
+
+        public int CurrentAp
+        {
+            get; set;
         }
 
         public int MaximumAp
@@ -235,6 +255,11 @@ namespace UESRPG_Character_Manager
             {
                 return GetBonus (Strength) + DamageBonusMod;
             }
+        }
+
+        public int CurrentLuckPoints
+        {
+            get; set;
         }
 
         public int MaximumLuckPoints

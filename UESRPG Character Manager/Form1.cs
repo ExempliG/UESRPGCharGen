@@ -71,6 +71,22 @@ namespace UESRPG_Character_Manager
                 SelectedCharacter ().Personality = (int)nbPersonality.Value;
                 SelectedCharacter ().Luck = (int)nbLuck.Value;
 
+                int health = 0;
+                int.TryParse (healthTb.Text, out health);
+                SelectedCharacter ().CurrentHealth = health;
+                int stamina = 0;
+                int.TryParse (staminaTb.Text, out stamina);
+                SelectedCharacter ().CurrentStamina = stamina;
+                int magicka = 0;
+                int.TryParse (magickaTb.Text, out magicka);
+                SelectedCharacter ().CurrentMagicka = magicka;
+                int luck = 0;
+                int.TryParse (luckPointsTb.Text, out luck);
+                SelectedCharacter ().CurrentLuckPoints = luck;
+                int ap = 0;
+                int.TryParse (actionPointsTb.Text, out ap);
+                SelectedCharacter ().CurrentAp = ap;
+
                 SelectedCharacter ().HealthMod = (int)nbModHealth.Value;
                 SelectedCharacter ().WoundThresholdMod = (int)nbModWoundThreshold.Value;
                 SelectedCharacter ().StaminaMod = (int)nbModStamina.Value;
@@ -104,6 +120,12 @@ namespace UESRPG_Character_Manager
                 nbPerception.Value = SelectedCharacter ().Perception;
                 nbPersonality.Value = SelectedCharacter ().Personality;
                 nbLuck.Value = SelectedCharacter ().Luck;
+
+                healthTb.Text = SelectedCharacter ().CurrentHealth.ToString();
+                staminaTb.Text = SelectedCharacter ().CurrentStamina.ToString();
+                magickaTb.Text = SelectedCharacter ().CurrentMagicka.ToString ();
+                luckPointsTb.Text = SelectedCharacter ().CurrentLuckPoints.ToString ();
+                actionPointsTb.Text = SelectedCharacter ().CurrentAp.ToString ();
 
                 nbModHealth.Value = SelectedCharacter ().HealthMod;
                 nbModWoundThreshold.Value = SelectedCharacter ().WoundThresholdMod;
@@ -264,6 +286,13 @@ namespace UESRPG_Character_Manager
             _characterList = (List<Character>)xml.Deserialize (fs);
             fs.Close ();
             characteristicLoaded ();
+
+            nameTb.Text = SelectedCharacter().Name;
+            charactersCb.Items.Clear ();
+            foreach (Character c in _characterList)
+            {
+                charactersCb.Items.Add (c.Name);
+            }
         }
 
         private void btAddCharacter_Click (object sender, EventArgs e)
@@ -278,6 +307,41 @@ namespace UESRPG_Character_Manager
             _selectedIndex = charactersCb.SelectedIndex;
             nameTb.Text = SelectedCharacter().Name;
             characteristicLoaded ();
+        }
+
+        private void saveBt_Click (object sender, EventArgs e)
+        {
+            SaveChar ();
+        }
+
+        private void loadBt_Click (object sender, EventArgs e)
+        {
+            LoadChar ();
+        }
+
+        private void healthTb_TextChanged (object sender, EventArgs e)
+        {
+
+        }
+
+        private void staminaTb_TextChanged (object sender, EventArgs e)
+        {
+
+        }
+
+        private void magickaTb_TextChanged (object sender, EventArgs e)
+        {
+
+        }
+
+        private void actionPointsTb_TextChanged (object sender, EventArgs e)
+        {
+
+        }
+
+        private void luckPointsTb_TextChanged (object sender, EventArgs e)
+        {
+
         }
     }
 }
