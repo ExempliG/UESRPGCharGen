@@ -214,7 +214,7 @@ namespace UESRPG_Character_Manager
 
             int successes = SelectedCharacter().GetBonus (difference);
 
-            rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
+            rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
             rollSuccessesTb.Text = "" + successes;
         }
 
@@ -251,7 +251,7 @@ namespace UESRPG_Character_Manager
 
                 int successes = SelectedCharacter().GetBonus (difference);
 
-                rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", result, characteristic, difference);
+                rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
                 rollSuccessesTb.Text = "" + successes;
             }
         }
