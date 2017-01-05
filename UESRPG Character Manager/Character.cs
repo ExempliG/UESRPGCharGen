@@ -14,13 +14,14 @@ namespace UESRPG_Character_Manager
     {
         private int[] _characteristics;
         private int[] _modifiers;
+        private List<Armor> _armorPieces;
 
         private string _name = "Player";
 
         public Character ()
         {
             _characteristics = new int[Characteristics.NumberOfCharacteristics];
-
+            _armorPieces = new List<Armor>();
             _modifiers = new int[Modifiers.NumberOfModifiers];
         }
 
@@ -83,6 +84,45 @@ namespace UESRPG_Character_Manager
         {
             get { return _characteristics[Characteristics.Luck]; }
             set { _characteristics[Characteristics.Luck] = value; }
+        }
+/************
+ * EQUIPMENT
+ ***********/
+        public List<Armor> ArmorPieces
+        {
+            get {return  _armorPieces; }
+            set { _armorPieces = value; }
+        }
+
+        //
+        // Add a piece of armor.  Replacing any existing piece that
+        // belongs to the same body part
+        //
+        public void AddArmorPiece(Armor piece)
+        {
+            bool addNew = true;
+            
+            //
+            // If a piece of armor exists of the same body type replace it
+            //
+            for (int i = 0; i < _armorPieces.Count; i++)
+            {
+              if (_armorPieces[i].Location == piece.Location)
+              {
+                _armorPieces[i] = piece;
+          System.Console.WriteLine("Set blah blah to false");
+                addNew = false;
+              } 
+            } 
+
+            //
+            // Otherwise add new piece
+            //
+            if (addNew)
+            {
+          System.Console.WriteLine("new piece blah blah to false");
+              _armorPieces.Add(piece);
+            }
         }
 
 /************

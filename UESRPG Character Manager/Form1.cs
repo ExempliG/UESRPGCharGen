@@ -31,6 +31,10 @@ namespace UESRPG_Character_Manager
 
             charactersCb.Items.Add (_selectedChar.Name);
             charactersCb.SelectedIndex = 0;
+            comboBox1.DataSource = ArmorLocationsData.Names; //TODO How do you rename these to something sensible?
+            comboBox2.DataSource = ArmorQualityData.Names;
+            comboBox3.DataSource = ArmorTypeData.Names;
+            comboBox4.DataSource = ArmorMaterialData.Names;
 
             foreach (string characteristic in Characteristics.CharacteristicNames)
             {
@@ -158,6 +162,11 @@ namespace UESRPG_Character_Manager
             woundThresholdTb.Text = "" + (SelectedCharacter().WoundThreshold);
             maxHealthTb.Text = "" + (SelectedCharacter().MaxHealth);
             damageBonusTb.Text = "" + (SelectedCharacter().DamageBonus);
+            dataGridView1.DataSource = null;
+            if (SelectedCharacter().ArmorPieces.Count > 0)
+            {
+              dataGridView1.DataSource = SelectedCharacter().ArmorPieces;
+            }
         }
 
         /// <summary>
@@ -343,5 +352,24 @@ namespace UESRPG_Character_Manager
         {
 
         }
+
+    private void label32_Click(object sender, EventArgs e)
+    {
+
     }
+
+    private void button1_Click_1(object sender, EventArgs e)
+    {
+      // here we create new armor object
+      double ar = Armor.CalculateAR((ArmorTypes)comboBox3.SelectedIndex,(ArmorMaterials)comboBox4.SelectedIndex,(ArmorQualitys) comboBox2.SelectedIndex);
+      SelectedCharacter().AddArmorPiece(new Armor(textBox1.Text, ar, 0, 0, (ArmorLocations)comboBox1.SelectedIndex, null));
+      System.Console.WriteLine("After Adding new armor piece");
+      updateEverything();
+    }
+
+    private void textBox1_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+  }
 }
