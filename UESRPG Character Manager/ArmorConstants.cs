@@ -29,10 +29,14 @@ namespace UESRPG_Character_Manager
     };
   }
 
-  public enum ArmorQualitys
+  public enum ArmorQualities
   {
      TERRIBLE = 0,
-     POOR
+     POOR,
+     COMMON,
+     EXPENSIVE,
+     EXTRAVAGANT,
+     EXQUISITE
   }
 
   public static class ArmorQualityData
@@ -40,20 +44,34 @@ namespace UESRPG_Character_Manager
     public static string[] Names =
     {
       "Terrible",
-      "Poor"
+      "Poor", 
+      "Common",
+      "Expensive",
+      "Extravagant",
+      "Exquisite"
     };
 
     public static double[] Modifiers =
     {
       -.20,
-      -.10
+      -.10,
+      0,
+      .10,
+      .15,
+      .20
     };
   }
 
   public enum ArmorTypes
   {
     NATURAL_CURRED = 0,
-    PADDED_QUILTED
+    PADDED_QUILTED,
+    RINGMAIL,
+    SCALED,
+    PARTIAL_PLATE,
+    MAIL,
+    PLATED_MAIL,
+    FULL_PLATE
   }
 
   public static class ArmorTypeData
@@ -61,20 +79,47 @@ namespace UESRPG_Character_Manager
     public static string[] Names =
     {
       "Natural/Cured",
-      "Padded/Quilted"
+      "Padded/Quilted",
+      "Ringmail",
+      "Scaled",
+      "Partial Plate",
+      "Mail",
+      "Plated Mail",
+      "Full Plate"
     };
 
     public static double[] Modifiers =
     {
       8,
-      12
+      12,
+      15,
+      18,
+      20,
+      23,
+      25,
+      30
     };
   }
 
   public enum ArmorMaterials
   {
     ADAMANTIUM = 0,
-    BONE
+    BONE,
+    BONEMOLD,
+    CHITIN,
+    DAEDRIC,
+    DRAGONBONE,
+    DREUGH_HIDE,
+    DWEMER,
+    EBONY,
+    FUR,
+    IRON,
+    LEATHER,
+    MALACHITE,
+    MOONSTONE,
+    ORICHALCUM,
+    STALHRIM,
+    STEEL
   }
 
   public static class ArmorMaterialData
@@ -82,13 +127,43 @@ namespace UESRPG_Character_Manager
     public static string[] Names =
     {
       "Adamantium",
-      "Bone"
+      "Bone",
+      "Bonemold",
+      "Chitin",
+      "Daedric",
+      "Dragonbone",
+      "Dreugh Hide",
+      "Dwemer",
+      "Ebony",
+      "Fur",
+      "Iron",
+      "Leather",
+      "Malachite",
+      "Moonstone",
+      "Orichalcum",
+      "Stalhrim",
+      "Steel"
     };
 
     public static double[] Modifiers =
     {
-       6,
-       -10
+      6,
+      -10,
+      -2,
+      -6,
+      15,
+      12,
+      10,
+      4,
+      10,
+      0,
+      -3,
+      0,
+      7,
+      3,
+      5,
+      8,
+      0
     };
   }
 }

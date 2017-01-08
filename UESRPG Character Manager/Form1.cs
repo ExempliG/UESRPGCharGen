@@ -361,7 +361,7 @@ namespace UESRPG_Character_Manager
     private void button1_Click_1(object sender, EventArgs e)
     {
       // here we create new armor object
-      double ar = Armor.CalculateAR((ArmorTypes)comboBox3.SelectedIndex,(ArmorMaterials)comboBox4.SelectedIndex,(ArmorQualitys) comboBox2.SelectedIndex);
+      double ar = Armor.CalculateAR((ArmorTypes)comboBox3.SelectedIndex,(ArmorMaterials)comboBox4.SelectedIndex,(ArmorQualities) comboBox2.SelectedIndex);
       SelectedCharacter().AddArmorPiece(new Armor(textBox1.Text, ar, 0, 0, (ArmorLocations)comboBox1.SelectedIndex, null));
       System.Console.WriteLine("After Adding new armor piece");
       updateEverything();

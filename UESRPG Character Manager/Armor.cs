@@ -25,7 +25,7 @@ namespace UESRPG_Character_Manager
       Location = loc;
     }
 
-    public static double CalculateAR(ArmorTypes t, ArmorMaterials mat, ArmorQualitys q)
+    public static double CalculateAR(ArmorTypes t, ArmorMaterials mat, ArmorQualities q)
     {
       double result = 0;
       result += ArmorTypeData.Modifiers[(int)t];
