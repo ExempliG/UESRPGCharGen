@@ -19,6 +19,9 @@ namespace UESRPG_Character_Manager
         private List<Character> _characterList;
         private Character _selectedChar;
         private int _selectedIndex = 0;
+        private string _currentFile = "char.xml";
+
+        private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
         private bool _isLoading = false;
 
@@ -31,10 +34,10 @@ namespace UESRPG_Character_Manager
 
             charactersCb.Items.Add (_selectedChar.Name);
             charactersCb.SelectedIndex = 0;
-            comboBox1.DataSource = ArmorLocationsData.Names; //TODO How do you rename these to something sensible?
-            comboBox2.DataSource = ArmorQualityData.Names;
-            comboBox3.DataSource = ArmorTypeData.Names;
-            comboBox4.DataSource = ArmorMaterialData.Names;
+            armorLocationCb.DataSource = ArmorLocationsData.Names;
+            armorTypeCb.DataSource = ArmorQualityData.Names;
+            armorMaterialCb.DataSource = ArmorTypeData.Names;
+            armorQualityCb.DataSource = ArmorMaterialData.Names;
 
             foreach (string characteristic in Characteristics.CharacteristicNames)
             {
@@ -51,7 +54,7 @@ namespace UESRPG_Character_Manager
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
-            SelectedCharacter().Name = nameTb.Text;
+            SelectedCharacter ().Name = nameTb.Text;
             charactersCb.Items[_selectedIndex] = nameTb.Text;
         }
 
@@ -125,8 +128,8 @@ namespace UESRPG_Character_Manager
                 nbPersonality.Value = SelectedCharacter ().Personality;
                 nbLuck.Value = SelectedCharacter ().Luck;
 
-                healthTb.Text = SelectedCharacter ().CurrentHealth.ToString();
-                staminaTb.Text = SelectedCharacter ().CurrentStamina.ToString();
+                healthTb.Text = SelectedCharacter ().CurrentHealth.ToString ();
+                staminaTb.Text = SelectedCharacter ().CurrentStamina.ToString ();
                 magickaTb.Text = SelectedCharacter ().CurrentMagicka.ToString ();
                 luckPointsTb.Text = SelectedCharacter ().CurrentLuckPoints.ToString ();
                 actionPointsTb.Text = SelectedCharacter ().CurrentAp.ToString ();
@@ -152,20 +155,20 @@ namespace UESRPG_Character_Manager
         /// </summary>
         private void updateEverything ()
         {
-            maxLuckPointsTb.Text = "" + (SelectedCharacter().MaximumLuckPoints);
-            initiativeRatingTb.Text = "" + (SelectedCharacter().InitiativeRating);
-            maxActionPointsTb.Text = "" + (SelectedCharacter().MaximumAp);
-            maxStaminaTb.Text = "" + (SelectedCharacter().Stamina);
-            maxMagickaTb.Text = "" + (SelectedCharacter().MagickaPool);
-            movementRatingTb.Text = "" + (SelectedCharacter().MovementRating);
-            carryRatingTb.Text = "" + (SelectedCharacter().CarryRating);
-            woundThresholdTb.Text = "" + (SelectedCharacter().WoundThreshold);
-            maxHealthTb.Text = "" + (SelectedCharacter().MaxHealth);
-            damageBonusTb.Text = "" + (SelectedCharacter().DamageBonus);
-            dataGridView1.DataSource = null;
-            if (SelectedCharacter().ArmorPieces.Count > 0)
+            maxLuckPointsTb.Text = "" + (SelectedCharacter ().MaximumLuckPoints);
+            initiativeRatingTb.Text = "" + (SelectedCharacter ().InitiativeRating);
+            maxActionPointsTb.Text = "" + (SelectedCharacter ().MaximumAp);
+            maxStaminaTb.Text = "" + (SelectedCharacter ().Stamina);
+            maxMagickaTb.Text = "" + (SelectedCharacter ().MagickaPool);
+            movementRatingTb.Text = "" + (SelectedCharacter ().MovementRating);
+            carryRatingTb.Text = "" + (SelectedCharacter ().CarryRating);
+            woundThresholdTb.Text = "" + (SelectedCharacter ().WoundThreshold);
+            maxHealthTb.Text = "" + (SelectedCharacter ().MaxHealth);
+            damageBonusTb.Text = "" + (SelectedCharacter ().DamageBonus);
+            armorDataGridView.DataSource = null;
+            if (SelectedCharacter ().ArmorPieces.Count > 0)
             {
-              dataGridView1.DataSource = SelectedCharacter().ArmorPieces;
+                armorDataGridView.DataSource = SelectedCharacter ().ArmorPieces;
             }
         }
 
@@ -204,7 +207,7 @@ namespace UESRPG_Character_Manager
             Random r = new Random ();
 
             int characteristicIndex = characteristicCb.SelectedIndex;
-            int characteristic = SelectedCharacter().GetCharacteristic(characteristicIndex);
+            int characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
             int result = r.Next (0, 100);
             rollResultTb.Text = "" + result;
@@ -221,7 +224,7 @@ namespace UESRPG_Character_Manager
 
             difference = (characteristic - result);
 
-            int successes = SelectedCharacter().GetBonus (difference);
+            int successes = SelectedCharacter ().GetBonus (difference);
 
             rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
             rollSuccessesTb.Text = "" + successes;
@@ -241,7 +244,7 @@ namespace UESRPG_Character_Manager
             Random r = new Random ();
 
             int characteristicIndex = characteristicCb.SelectedIndex;
-            int characteristic = SelectedCharacter().GetCharacteristic(characteristicIndex);
+            int characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
@@ -258,17 +261,11 @@ namespace UESRPG_Character_Manager
 
                 difference = (characteristic - result);
 
-                int successes = SelectedCharacter().GetBonus (difference);
+                int successes = SelectedCharacter ().GetBonus (difference);
 
                 rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
                 rollSuccessesTb.Text = "" + successes;
             }
-        }
-
-        private void button1_Click (object sender, EventArgs e)
-        {
-            SaveChar ();
-            LoadChar ();
         }
 
         /// <summary>
@@ -280,27 +277,59 @@ namespace UESRPG_Character_Manager
             theNb.Select (0, 3);
         }
 
-        private void SaveChar ()
+        private void SaveChar (string fileName)
         {
             XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
-            FileStream fs = new FileStream ("char.xml", FileMode.Create);
-            xml.Serialize (fs, _characterList);
-            fs.Close ();
+            FileStream fs = new FileStream (fileName, FileMode.Create);
+            try
+            {
+                xml.Serialize (fs, _characterList);
+                _currentFile = fileName;
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show (string.Format ("File was not saved successfully for reason:\n{0}", e.Message));
+            }
+            finally
+            {
+                fs.Close ();
+            }
         }
 
         private void LoadChar ()
         {
-            XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
-            FileStream fs = new FileStream ("char.xml", FileMode.Open);
-            _characterList = (List<Character>)xml.Deserialize (fs);
-            fs.Close ();
-            characteristicLoaded ();
+            OpenFileDialog ofd = new OpenFileDialog ();
+            ofd.DefaultExt = ".xml";
+            ofd.Filter = _FileTypeString;
+            ofd.ShowDialog();
 
-            nameTb.Text = SelectedCharacter().Name;
-            charactersCb.Items.Clear ();
-            foreach (Character c in _characterList)
+            string fileName = ofd.FileName;
+
+            if (!string.IsNullOrEmpty (fileName))
             {
-                charactersCb.Items.Add (c.Name);
+                XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
+                FileStream fs = new FileStream (fileName, FileMode.Open);
+
+                try
+                {
+                    _characterList = (List<Character>)xml.Deserialize (fs);
+                }
+                catch (IOException)
+                {
+
+                }
+                finally
+                {
+                    fs.Close ();
+                }
+                characteristicLoaded ();
+
+                nameTb.Text = SelectedCharacter ().Name;
+                charactersCb.Items.Clear ();
+                foreach (Character c in _characterList)
+                {
+                    charactersCb.Items.Add (c.Name);
+                }
             }
         }
 
@@ -314,62 +343,44 @@ namespace UESRPG_Character_Manager
         private void charactersCb_SelectedIndexChanged (object sender, EventArgs e)
         {
             _selectedIndex = charactersCb.SelectedIndex;
-            nameTb.Text = SelectedCharacter().Name;
+            nameTb.Text = SelectedCharacter ().Name;
             characteristicLoaded ();
         }
 
-        private void saveBt_Click (object sender, EventArgs e)
+        private void addNewArmorBt_Click (object sender, EventArgs e)
         {
-            SaveChar ();
+            // here we create new armor object
+            double ar = Armor.CalculateAR ((ArmorTypes)armorMaterialCb.SelectedIndex,
+                                           (ArmorMaterials)armorQualityCb.SelectedIndex,
+                                           (ArmorQualities)armorTypeCb.SelectedIndex);
+            SelectedCharacter ().AddArmorPiece (new Armor (armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
+            System.Console.WriteLine ("After Adding new armor piece");
+            updateEverything ();
         }
 
-        private void loadBt_Click (object sender, EventArgs e)
+        private void saveMi_Click (object sender, EventArgs e)
+        {
+            SaveChar (_currentFile);
+        }
+
+        private void saveAsMi_Click (object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog ();
+            sfd.AddExtension = true;
+            sfd.DefaultExt = ".xml";
+            sfd.Filter = _FileTypeString;
+            sfd.ShowDialog ();
+
+            string fileName = sfd.FileName;
+            if (!string.IsNullOrEmpty (fileName))
+            {
+                SaveChar (fileName);
+            }
+        }
+
+        private void loadMi_Click (object sender, EventArgs e)
         {
             LoadChar ();
         }
-
-        private void healthTb_TextChanged (object sender, EventArgs e)
-        {
-
-        }
-
-        private void staminaTb_TextChanged (object sender, EventArgs e)
-        {
-
-        }
-
-        private void magickaTb_TextChanged (object sender, EventArgs e)
-        {
-
-        }
-
-        private void actionPointsTb_TextChanged (object sender, EventArgs e)
-        {
-
-        }
-
-        private void luckPointsTb_TextChanged (object sender, EventArgs e)
-        {
-
-        }
-
-    private void label32_Click(object sender, EventArgs e)
-    {
-
     }
-
-    private void button1_Click_1(object sender, EventArgs e)
-    {
-      // here we create new armor object
-      double ar = Armor.CalculateAR((ArmorTypes)comboBox3.SelectedIndex,(ArmorMaterials)comboBox4.SelectedIndex,(ArmorQualities) comboBox2.SelectedIndex);
-      SelectedCharacter().AddArmorPiece(new Armor(textBox1.Text, ar, 0, 0, (ArmorLocations)comboBox1.SelectedIndex, null));
-      System.Console.WriteLine("After Adding new armor piece");
-      updateEverything();
-    }
-
-    private void textBox1_TextChanged(object sender, EventArgs e)
-    {
-
-    }
-  }
 }

@@ -6,164 +6,165 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager
 {
-  public enum ArmorLocations
-  {
-    HEAD = 0,
-    LEFT_ARM,
-    RIGHT_ARM,
-    BODY,
-    LEFT_LEG,
-    RIGHT_LEG
-  }
-  public static class ArmorLocationsData
-  {
-
-    public static string[] Names =
+    public enum ArmorLocations
     {
-      "Head",
-      "Left Arm",
-      "Right Arm",
-      "Body",
-      "Left Leg",
-      "Right Leg"
-    };
-  }
-
-  public enum ArmorQualities
-  {
-     TERRIBLE = 0,
-     POOR,
-     COMMON,
-     EXPENSIVE,
-     EXTRAVAGANT,
-     EXQUISITE
-  }
-
-  public static class ArmorQualityData
-  {
-    public static string[] Names =
+        HEAD = 0,
+        LEFT_ARM,
+        RIGHT_ARM,
+        BODY,
+        LEFT_LEG,
+        RIGHT_LEG,
+        MAX
+    }
+    public static class ArmorLocationsData
     {
-      "Terrible",
-      "Poor", 
-      "Common",
-      "Expensive",
-      "Extravagant",
-      "Exquisite"
-    };
 
-    public static double[] Modifiers =
+        public static string[] Names =
+        {
+            "Head",
+            "Left Arm",
+            "Right Arm",
+            "Body",
+            "Left Leg",
+            "Right Leg"
+        };
+    }
+
+    public enum ArmorQualities
     {
-      -.20,
-      -.10,
-      0,
-      .10,
-      .15,
-      .20
-    };
-  }
+        TERRIBLE = 0,
+        POOR,
+        COMMON,
+        EXPENSIVE,
+        EXTRAVAGANT,
+        EXQUISITE
+    }
 
-  public enum ArmorTypes
-  {
-    NATURAL_CURRED = 0,
-    PADDED_QUILTED,
-    RINGMAIL,
-    SCALED,
-    PARTIAL_PLATE,
-    MAIL,
-    PLATED_MAIL,
-    FULL_PLATE
-  }
-
-  public static class ArmorTypeData
-  {
-    public static string[] Names =
+    public static class ArmorQualityData
     {
-      "Natural/Cured",
-      "Padded/Quilted",
-      "Ringmail",
-      "Scaled",
-      "Partial Plate",
-      "Mail",
-      "Plated Mail",
-      "Full Plate"
-    };
+        public static string[] Names =
+        {
+            "Terrible",
+            "Poor", 
+            "Common",
+            "Expensive",
+            "Extravagant",
+            "Exquisite"
+        };
 
-    public static double[] Modifiers =
+        public static double[] Modifiers =
+        {
+            -.20,
+            -.10,
+            0,
+            .10,
+            .15,
+            .20
+        };
+    }
+
+    public enum ArmorTypes
     {
-      8,
-      12,
-      15,
-      18,
-      20,
-      23,
-      25,
-      30
-    };
-  }
+        NATURAL_CURRED = 0,
+        PADDED_QUILTED,
+        RINGMAIL,
+        SCALED,
+        PARTIAL_PLATE,
+        MAIL,
+        PLATED_MAIL,
+        FULL_PLATE
+    }
 
-  public enum ArmorMaterials
-  {
-    ADAMANTIUM = 0,
-    BONE,
-    BONEMOLD,
-    CHITIN,
-    DAEDRIC,
-    DRAGONBONE,
-    DREUGH_HIDE,
-    DWEMER,
-    EBONY,
-    FUR,
-    IRON,
-    LEATHER,
-    MALACHITE,
-    MOONSTONE,
-    ORICHALCUM,
-    STALHRIM,
-    STEEL
-  }
-
-  public static class ArmorMaterialData
-  {
-    public static string[] Names =
+    public static class ArmorTypeData
     {
-      "Adamantium",
-      "Bone",
-      "Bonemold",
-      "Chitin",
-      "Daedric",
-      "Dragonbone",
-      "Dreugh Hide",
-      "Dwemer",
-      "Ebony",
-      "Fur",
-      "Iron",
-      "Leather",
-      "Malachite",
-      "Moonstone",
-      "Orichalcum",
-      "Stalhrim",
-      "Steel"
-    };
+        public static string[] Names =
+        {
+            "Natural/Cured",
+            "Padded/Quilted",
+            "Ringmail",
+            "Scaled",
+            "Partial Plate",
+            "Mail",
+            "Plated Mail",
+            "Full Plate"
+        };
 
-    public static double[] Modifiers =
+        public static double[] Modifiers =
+        {
+            8,
+            12,
+            15,
+            18,
+            20,
+            23,
+            25,
+            30
+        };
+    }
+
+    public enum ArmorMaterials
     {
-      6,
-      -10,
-      -2,
-      -6,
-      15,
-      12,
-      10,
-      4,
-      10,
-      0,
-      -3,
-      0,
-      7,
-      3,
-      5,
-      8,
-      0
-    };
-  }
+        ADAMANTIUM = 0,
+        BONE,
+        BONEMOLD,
+        CHITIN,
+        DAEDRIC,
+        DRAGONBONE,
+        DREUGH_HIDE,
+        DWEMER,
+        EBONY,
+        FUR,
+        IRON,
+        LEATHER,
+        MALACHITE,
+        MOONSTONE,
+        ORICHALCUM,
+        STALHRIM,
+        STEEL
+    }
+
+    public static class ArmorMaterialData
+    {
+        public static string[] Names =
+        {
+            "Adamantium",
+            "Bone",
+            "Bonemold",
+            "Chitin",
+            "Daedric",
+            "Dragonbone",
+            "Dreugh Hide",
+            "Dwemer",
+            "Ebony",
+            "Fur",
+            "Iron",
+            "Leather",
+            "Malachite",
+            "Moonstone",
+            "Orichalcum",
+            "Stalhrim",
+            "Steel"
+        };
+
+        public static double[] Modifiers =
+        {
+            6,
+            -10,
+            -2,
+            -6,
+            15,
+            12,
+            10,
+            4,
+            10,
+            0,
+            -3,
+            0,
+            7,
+            3,
+            5,
+            8,
+            0
+        };
+    }
 }

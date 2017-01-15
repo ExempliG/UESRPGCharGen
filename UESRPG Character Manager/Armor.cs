@@ -6,33 +6,48 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager
 {
-  public class Armor
-  {
-    public string Name { get; set; }
-    public double AR { get; set; }
-    public int Encumbrance { get; set; }
-    public int Price { get; set; }
-    public string[] Qualities { get; set; }
-    public ArmorLocations Location { get; set; }
-
-    public Armor(string n, double ar, int enc, int pri, ArmorLocations loc, string[] qual)
+    public class Armor : IComparable
     {
-      Name = n;
-      AR = ar;
-      Encumbrance = enc;
-      Price = pri;
-      Qualities = qual;
-      Location = loc;
-    }
+        public string Name { get; set; }
+        public double AR { get; set; }
+        public int Encumbrance { get; set; }
+        public int Price { get; set; }
+        public string[] Qualities { get; set; }
+        public ArmorLocations Location { get; set; }
 
-    public static double CalculateAR(ArmorTypes t, ArmorMaterials mat, ArmorQualities q)
-    {
-      double result = 0;
-      result += ArmorTypeData.Modifiers[(int)t];
-      result += ArmorMaterialData.Modifiers[(int)mat];
-      result += result * ArmorQualityData.Modifiers[(int)q];
+        public Armor ()
+        {
+            Name = "";
+            AR = 0.0;
+            Encumbrance = 0;
+            Price = 0;
+            Qualities = new string[] { };
+            Location = ArmorLocations.MAX;
+        }
 
-      return result;
+        public Armor(string name, double ar, int encumbrance, int price, ArmorLocations location, string[] qualities)
+        {
+            Name = name;
+            AR = ar;
+            Encumbrance = encumbrance;
+            Price = price;
+            Qualities = qualities;
+            Location = location;
+        }
+
+        public static double CalculateAR(ArmorTypes type, ArmorMaterials material, ArmorQualities quality)
+        {
+            double result = 0;
+            result += ArmorTypeData.Modifiers[(int)type];
+            result += ArmorMaterialData.Modifiers[(int)material];
+            result += result * ArmorQualityData.Modifiers[(int)quality];
+
+            return result;
+        }
+
+        public int CompareTo (object obj)
+        {
+            return ((IComparable)Location).CompareTo (((Armor)obj).Location);
+        }
     }
-  }
 }

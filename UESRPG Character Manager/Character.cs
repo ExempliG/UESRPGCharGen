@@ -90,7 +90,7 @@ namespace UESRPG_Character_Manager
  ***********/
         public List<Armor> ArmorPieces
         {
-            get {return  _armorPieces; }
+            get { return  _armorPieces; }
             set { _armorPieces = value; }
         }
 
@@ -101,27 +101,21 @@ namespace UESRPG_Character_Manager
         public void AddArmorPiece(Armor piece)
         {
             bool addNew = true;
-            
-            //
-            // If a piece of armor exists of the same body type replace it
-            //
+
             for (int i = 0; i < _armorPieces.Count; i++)
             {
-              if (_armorPieces[i].Location == piece.Location)
-              {
-                _armorPieces[i] = piece;
-          System.Console.WriteLine("Set blah blah to false");
-                addNew = false;
-              } 
-            } 
+                if (_armorPieces[i].Location == piece.Location)
+                {
+                    _armorPieces[i] = piece;
+                    addNew = false;
+                    break;
+                }
+            }
 
-            //
-            // Otherwise add new piece
-            //
             if (addNew)
             {
-          System.Console.WriteLine("new piece blah blah to false");
-              _armorPieces.Add(piece);
+                _armorPieces.Add (piece);
+                _armorPieces.Sort ();
             }
         }
 
