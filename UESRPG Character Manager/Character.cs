@@ -9,12 +9,46 @@ using System.Xml.Serialization;
 
 namespace UESRPG_Character_Manager
 {
+    public class Skill
+    {
+        [XmlAttribute ()]
+        public string Name { get; set; }
+        [XmlAttribute ()]
+        public int Rank { get; set; }
+        public string Description { get; set; }
+        public int[] Characteristics { get; set; }
+
+        public override string ToString ()
+        {
+            return Name;
+        }
+    }
+
+    public class Spell
+    {
+        [XmlAttribute ()]
+        public string Name { get; set; }
+        [XmlAttribute ()]
+        public int Level { get; set; }
+        public int Cost { get; set; }
+        public int Difficulty { get; set; }
+        public string AssociatedSkill { get; set; }
+        public string Description { get; set; }
+        public bool DoesDamage { get; set; }
+        public int NumberOfDice { get; set; }
+        public int DiceSides { get; set; }
+        public int Penetration { get; set; }
+    }
+
     //[XmlRoot("Character", IsNullable = false)]
-    public class Character
+    public class Character// : ICloneable
     {
         private int[] _characteristics;
         private int[] _modifiers;
         private List<Armor> _armorPieces;
+        private List<Weapon> _weapons;
+        private List<Spell> _spells;
+        private List<Skill> _skills;
 
         private string _name = "Player";
 
@@ -22,6 +56,9 @@ namespace UESRPG_Character_Manager
         {
             _characteristics = new int[Characteristics.NumberOfCharacteristics];
             _armorPieces = new List<Armor>();
+            _weapons = new List<Weapon> ();
+            _spells = new List<Spell> ();
+            _skills = new List<Skill> ();
             _modifiers = new int[Modifiers.NumberOfModifiers];
         }
 
@@ -117,6 +154,59 @@ namespace UESRPG_Character_Manager
                 _armorPieces.Add (piece);
                 _armorPieces.Sort ();
             }
+        }
+
+        public Armor GetArmorPiece (ArmorLocations location)
+        {
+            Armor result = new Armor();
+            for (int i = 0; i < _armorPieces.Count; i++)
+            {
+                if (_armorPieces[i].Location == location)
+                {
+                    result = _armorPieces[i];
+                    break;
+                }
+            }
+            return result;
+        }
+
+        /*object ICloneable.Clone ()
+        {
+            Character c = new Character ();
+
+            c.Name = Name;
+            c._characteristics = (int[])_characteristics.Clone ();
+            c._modifiers = (int[])_modifiers.Clone ();
+            c._armorPieces = new List<Armor> ();
+            foreach (Armor piece in _armorPieces)
+            {
+                Armor newPiece = piece;
+                c._armorPieces
+            }
+
+            return c;
+        }*/
+
+        public List<Weapon> Weapons
+        {
+            get { return _weapons; }
+            set { _weapons = value; }
+        }
+
+/*********
+ * SKILLS
+ ********/
+
+        public List<Spell> Spells
+        {
+            get { return _spells; }
+            set { _spells = value; }
+        }
+
+        public List<Skill> Skills
+        {
+            get { return _skills; }
+            set { _skills = value; }
         }
 
 /************

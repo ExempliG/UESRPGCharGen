@@ -1,6 +1,6 @@
 ﻿namespace UESRPG_Character_Manager
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -31,21 +31,24 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.spellDamageTb = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.spellRollBreakdownTb = new System.Windows.Forms.TextBox();
+            this.castSpellBt = new System.Windows.Forms.Button();
+            this.addSpellBt = new System.Windows.Forms.Button();
+            this.spellsDgv = new System.Windows.Forms.DataGridView();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.addSkillBt = new System.Windows.Forms.Button();
+            this.skillsDgv = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.rollSuccessesTb = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.rollBreakdownTb = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.rollResultTb = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.skillLevelTb = new System.Windows.Forms.TextBox();
-            this.rollBt = new System.Windows.Forms.Button();
-            this.characteristicCb = new System.Windows.Forms.ComboBox();
-            this.skillRb = new System.Windows.Forms.RadioButton();
-            this.characteristicRb = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.nbModLuck = new System.Windows.Forms.NumericUpDown();
             this.nbModDamageBonus = new System.Windows.Forms.NumericUpDown();
@@ -106,7 +109,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label33 = new System.Windows.Forms.Label();
             this.armorNameTb = new System.Windows.Forms.TextBox();
@@ -115,8 +118,62 @@
             this.armorTypeCb = new System.Windows.Forms.ComboBox();
             this.armorLocationCb = new System.Windows.Forms.ComboBox();
             this.addNewArmorBt = new System.Windows.Forms.Button();
-            this.armorDataGridView = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.armorDgv = new System.Windows.Forms.DataGridView();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.addNewWeaponBt = new System.Windows.Forms.Button();
+            this.weaponMaterialCb = new System.Windows.Forms.ComboBox();
+            this.weaponTypeCb = new System.Windows.Forms.ComboBox();
+            this.weaponNameTb = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.weaponsDgv = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numberOfDiceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.diceSidesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.damageModDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.penetrationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.encumbranceValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.enchantmentLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reachDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.handednessDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qualityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.materialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isDireDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.successOrFailLb = new System.Windows.Forms.Label();
+            this.skillsCb = new System.Windows.Forms.ComboBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.rollSuccessesTb = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.rollBreakdownTb = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.rollResultTb = new System.Windows.Forms.TextBox();
+            this.rollBt = new System.Windows.Forms.Button();
+            this.characteristicCb = new System.Windows.Forms.ComboBox();
+            this.skillRb = new System.Windows.Forms.RadioButton();
+            this.characteristicRb = new System.Windows.Forms.RadioButton();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.weaponResultBreakdownTb = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.weaponResultTb = new System.Windows.Forms.TextBox();
+            this.weaponRollBt = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.weaponCb = new System.Windows.Forms.ComboBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.applyDamageBt = new System.Windows.Forms.Button();
+            this.label36 = new System.Windows.Forms.Label();
+            this.finalDamageReceivedTb = new System.Windows.Forms.TextBox();
+            this.hitLocationCb = new System.Windows.Forms.ComboBox();
+            this.receivedPenTb = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.receivedDamageTb = new System.Windows.Forms.TextBox();
             this.charactersCb = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
             this.btAddCharacter = new System.Windows.Forms.Button();
@@ -125,10 +182,14 @@
             this.saveMi = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMi = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
-            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.skillsDgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbModLuck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbModDamageBonus)).BeginInit();
@@ -149,18 +210,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.nbIntelligence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbStrength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbEndurance)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.armorDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorDgv)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(13, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -169,9 +239,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox9);
+            this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.nameTb);
             this.tabPage1.Controls.Add(this.label31);
-            this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -179,8 +250,154 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(992, 388);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.spellDamageTb);
+            this.groupBox9.Controls.Add(this.label41);
+            this.groupBox9.Controls.Add(this.label40);
+            this.groupBox9.Controls.Add(this.spellRollBreakdownTb);
+            this.groupBox9.Controls.Add(this.castSpellBt);
+            this.groupBox9.Controls.Add(this.addSpellBt);
+            this.groupBox9.Controls.Add(this.spellsDgv);
+            this.groupBox9.Location = new System.Drawing.Point(484, 197);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(502, 169);
+            this.groupBox9.TabIndex = 26;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Spells";
+            // 
+            // spellDamageTb
+            // 
+            this.spellDamageTb.Location = new System.Drawing.Point(238, 14);
+            this.spellDamageTb.Name = "spellDamageTb";
+            this.spellDamageTb.Size = new System.Drawing.Size(100, 20);
+            this.spellDamageTb.TabIndex = 6;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(182, 17);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(50, 13);
+            this.label41.TabIndex = 5;
+            this.label41.Text = "Damage:";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(7, 17);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(85, 13);
+            this.label40.TabIndex = 4;
+            this.label40.Text = "Roll Breakdown:";
+            // 
+            // spellRollBreakdownTb
+            // 
+            this.spellRollBreakdownTb.Location = new System.Drawing.Point(98, 14);
+            this.spellRollBreakdownTb.Name = "spellRollBreakdownTb";
+            this.spellRollBreakdownTb.Size = new System.Drawing.Size(78, 20);
+            this.spellRollBreakdownTb.TabIndex = 3;
+            // 
+            // castSpellBt
+            // 
+            this.castSpellBt.Location = new System.Drawing.Point(344, 12);
+            this.castSpellBt.Name = "castSpellBt";
+            this.castSpellBt.Size = new System.Drawing.Size(75, 23);
+            this.castSpellBt.TabIndex = 2;
+            this.castSpellBt.Text = "Cast Spell";
+            this.castSpellBt.UseVisualStyleBackColor = true;
+            // 
+            // addSpellBt
+            // 
+            this.addSpellBt.Location = new System.Drawing.Point(425, 12);
+            this.addSpellBt.Name = "addSpellBt";
+            this.addSpellBt.Size = new System.Drawing.Size(75, 23);
+            this.addSpellBt.TabIndex = 1;
+            this.addSpellBt.Text = "Add Spell";
+            this.addSpellBt.UseVisualStyleBackColor = true;
+            // 
+            // spellsDgv
+            // 
+            this.spellsDgv.BackgroundColor = System.Drawing.Color.White;
+            this.spellsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.spellsDgv.Location = new System.Drawing.Point(6, 41);
+            this.spellsDgv.Name = "spellsDgv";
+            this.spellsDgv.Size = new System.Drawing.Size(494, 122);
+            this.spellsDgv.TabIndex = 0;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.addSkillBt);
+            this.groupBox6.Controls.Add(this.skillsDgv);
+            this.groupBox6.Location = new System.Drawing.Point(484, 37);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(502, 154);
+            this.groupBox6.TabIndex = 9;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Skills";
+            // 
+            // addSkillBt
+            // 
+            this.addSkillBt.Location = new System.Drawing.Point(6, 19);
+            this.addSkillBt.Name = "addSkillBt";
+            this.addSkillBt.Size = new System.Drawing.Size(75, 23);
+            this.addSkillBt.TabIndex = 1;
+            this.addSkillBt.Text = "Add Skill";
+            this.addSkillBt.UseVisualStyleBackColor = true;
+            this.addSkillBt.Click += new System.EventHandler(this.addSkillBt_Click);
+            // 
+            // skillsDgv
+            // 
+            this.skillsDgv.AllowUserToAddRows = false;
+            this.skillsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.skillsDgv.AutoGenerateColumns = false;
+            this.skillsDgv.BackgroundColor = System.Drawing.Color.White;
+            this.skillsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.skillsDgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn,
+            this.rankDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn});
+            this.skillsDgv.DataSource = this.skillsBindingSource;
+            this.skillsDgv.Location = new System.Drawing.Point(7, 48);
+            this.skillsDgv.Name = "skillsDgv";
+            this.skillsDgv.Size = new System.Drawing.Size(489, 100);
+            this.skillsDgv.TabIndex = 0;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // rankDataGridViewTextBoxColumn
+            // 
+            this.rankDataGridViewTextBoxColumn.DataPropertyName = "Rank";
+            this.rankDataGridViewTextBoxColumn.HeaderText = "Rank";
+            this.rankDataGridViewTextBoxColumn.Name = "rankDataGridViewTextBoxColumn";
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.Width = 240;
+            // 
+            // skillsBindingSource
+            // 
+            this.skillsBindingSource.DataMember = "Skills";
+            this.skillsBindingSource.DataSource = this.characterBindingSource;
+            // 
+            // characterBindingSource
+            // 
+            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
             // 
             // nameTb
             // 
@@ -200,137 +417,6 @@
             this.label31.Size = new System.Drawing.Size(35, 13);
             this.label31.TabIndex = 7;
             this.label31.Text = "Name";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label29);
-            this.groupBox3.Controls.Add(this.rollSuccessesTb);
-            this.groupBox3.Controls.Add(this.label28);
-            this.groupBox3.Controls.Add(this.rollBreakdownTb);
-            this.groupBox3.Controls.Add(this.label27);
-            this.groupBox3.Controls.Add(this.rollResultTb);
-            this.groupBox3.Controls.Add(this.label26);
-            this.groupBox3.Controls.Add(this.skillLevelTb);
-            this.groupBox3.Controls.Add(this.rollBt);
-            this.groupBox3.Controls.Add(this.characteristicCb);
-            this.groupBox3.Controls.Add(this.skillRb);
-            this.groupBox3.Controls.Add(this.characteristicRb);
-            this.groupBox3.Location = new System.Drawing.Point(484, 229);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(502, 136);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Rolls";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(251, 44);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(62, 13);
-            this.label29.TabIndex = 11;
-            this.label29.Text = "Successes:";
-            // 
-            // rollSuccessesTb
-            // 
-            this.rollSuccessesTb.Location = new System.Drawing.Point(319, 41);
-            this.rollSuccessesTb.Name = "rollSuccessesTb";
-            this.rollSuccessesTb.Size = new System.Drawing.Size(100, 20);
-            this.rollSuccessesTb.TabIndex = 10;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(249, 69);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(64, 13);
-            this.label28.TabIndex = 9;
-            this.label28.Text = "Breakdown:";
-            // 
-            // rollBreakdownTb
-            // 
-            this.rollBreakdownTb.Location = new System.Drawing.Point(319, 66);
-            this.rollBreakdownTb.Name = "rollBreakdownTb";
-            this.rollBreakdownTb.Size = new System.Drawing.Size(100, 20);
-            this.rollBreakdownTb.TabIndex = 8;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(273, 21);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(40, 13);
-            this.label27.TabIndex = 7;
-            this.label27.Text = "Result:";
-            // 
-            // rollResultTb
-            // 
-            this.rollResultTb.Location = new System.Drawing.Point(319, 16);
-            this.rollResultTb.Name = "rollResultTb";
-            this.rollResultTb.Size = new System.Drawing.Size(100, 20);
-            this.rollResultTb.TabIndex = 6;
-            this.rollResultTb.TextChanged += new System.EventHandler(this.softRoll);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(154, 46);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(55, 13);
-            this.label26.TabIndex = 5;
-            this.label26.Text = "(skill level)";
-            // 
-            // skillLevelTb
-            // 
-            this.skillLevelTb.Enabled = false;
-            this.skillLevelTb.Location = new System.Drawing.Point(101, 43);
-            this.skillLevelTb.Name = "skillLevelTb";
-            this.skillLevelTb.Size = new System.Drawing.Size(47, 20);
-            this.skillLevelTb.TabIndex = 4;
-            this.skillLevelTb.TextChanged += new System.EventHandler(this.softRoll);
-            // 
-            // rollBt
-            // 
-            this.rollBt.Location = new System.Drawing.Point(6, 69);
-            this.rollBt.Name = "rollBt";
-            this.rollBt.Size = new System.Drawing.Size(89, 23);
-            this.rollBt.TabIndex = 3;
-            this.rollBt.Text = "Roll!";
-            this.rollBt.UseVisualStyleBackColor = true;
-            this.rollBt.Click += new System.EventHandler(this.rollBt_Click);
-            // 
-            // characteristicCb
-            // 
-            this.characteristicCb.FormattingEnabled = true;
-            this.characteristicCb.Location = new System.Drawing.Point(101, 18);
-            this.characteristicCb.Name = "characteristicCb";
-            this.characteristicCb.Size = new System.Drawing.Size(121, 21);
-            this.characteristicCb.TabIndex = 2;
-            this.characteristicCb.SelectedIndexChanged += new System.EventHandler(this.softRoll);
-            // 
-            // skillRb
-            // 
-            this.skillRb.AutoSize = true;
-            this.skillRb.Location = new System.Drawing.Point(6, 42);
-            this.skillRb.Name = "skillRb";
-            this.skillRb.Size = new System.Drawing.Size(44, 17);
-            this.skillRb.TabIndex = 1;
-            this.skillRb.Text = "Skill";
-            this.skillRb.UseVisualStyleBackColor = true;
-            this.skillRb.CheckedChanged += new System.EventHandler(this.skillRb_CheckedChanged);
-            // 
-            // characteristicRb
-            // 
-            this.characteristicRb.AutoSize = true;
-            this.characteristicRb.Checked = true;
-            this.characteristicRb.Location = new System.Drawing.Point(6, 19);
-            this.characteristicRb.Name = "characteristicRb";
-            this.characteristicRb.Size = new System.Drawing.Size(89, 17);
-            this.characteristicRb.TabIndex = 0;
-            this.characteristicRb.TabStop = true;
-            this.characteristicRb.Text = "Characteristic";
-            this.characteristicRb.UseVisualStyleBackColor = true;
-            this.characteristicRb.CheckedChanged += new System.EventHandler(this.characteristicRb_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -910,16 +996,17 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Agility";
             // 
-            // tabPage2
+            // tabPage3
             // 
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(992, 388);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage3.Controls.Add(this.groupBox4);
+            this.tabPage3.Controls.Add(this.groupBox7);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(992, 388);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Equipment";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -930,11 +1017,11 @@
             this.groupBox4.Controls.Add(this.armorTypeCb);
             this.groupBox4.Controls.Add(this.armorLocationCb);
             this.groupBox4.Controls.Add(this.addNewArmorBt);
-            this.groupBox4.Controls.Add(this.armorDataGridView);
-            this.groupBox4.Location = new System.Drawing.Point(6, 6);
+            this.groupBox4.Controls.Add(this.armorDgv);
+            this.groupBox4.Location = new System.Drawing.Point(484, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(502, 214);
-            this.groupBox4.TabIndex = 21;
+            this.groupBox4.TabIndex = 25;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Armor";
             // 
@@ -994,33 +1081,521 @@
             this.addNewArmorBt.Size = new System.Drawing.Size(107, 23);
             this.addNewArmorBt.TabIndex = 21;
             this.addNewArmorBt.Text = "Add New";
-            this.addNewArmorBt.Click += addNewArmorBt_Click;
             this.addNewArmorBt.UseVisualStyleBackColor = true;
             // 
-            // armorDataGridView
+            // armorDgv
             // 
-            this.armorDataGridView.AllowUserToAddRows = false;
-            this.armorDataGridView.AllowUserToDeleteRows = false;
-            this.armorDataGridView.BackgroundColor = System.Drawing.Color.White;
-            this.armorDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.armorDataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.armorDataGridView.Location = new System.Drawing.Point(6, 72);
-            this.armorDataGridView.Name = "armorDataGridView";
-            this.armorDataGridView.Size = new System.Drawing.Size(490, 136);
-            this.armorDataGridView.TabIndex = 20;
+            this.armorDgv.AllowUserToAddRows = false;
+            this.armorDgv.AllowUserToDeleteRows = false;
+            this.armorDgv.BackgroundColor = System.Drawing.Color.White;
+            this.armorDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.armorDgv.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.armorDgv.Location = new System.Drawing.Point(6, 72);
+            this.armorDgv.Name = "armorDgv";
+            this.armorDgv.Size = new System.Drawing.Size(490, 136);
+            this.armorDgv.TabIndex = 20;
             // 
-            // tabPage3
+            // groupBox7
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(992, 388);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "+";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.groupBox7.Controls.Add(this.addNewWeaponBt);
+            this.groupBox7.Controls.Add(this.weaponMaterialCb);
+            this.groupBox7.Controls.Add(this.weaponTypeCb);
+            this.groupBox7.Controls.Add(this.weaponNameTb);
+            this.groupBox7.Controls.Add(this.label37);
+            this.groupBox7.Controls.Add(this.weaponsDgv);
+            this.groupBox7.Location = new System.Drawing.Point(6, 6);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(472, 214);
+            this.groupBox7.TabIndex = 24;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Weapons";
+            // 
+            // addNewWeaponBt
+            // 
+            this.addNewWeaponBt.Location = new System.Drawing.Point(306, 18);
+            this.addNewWeaponBt.Name = "addNewWeaponBt";
+            this.addNewWeaponBt.Size = new System.Drawing.Size(75, 23);
+            this.addNewWeaponBt.TabIndex = 5;
+            this.addNewWeaponBt.Text = "Add New";
+            this.addNewWeaponBt.UseVisualStyleBackColor = true;
+            // 
+            // weaponMaterialCb
+            // 
+            this.weaponMaterialCb.FormattingEnabled = true;
+            this.weaponMaterialCb.Location = new System.Drawing.Point(179, 45);
+            this.weaponMaterialCb.Name = "weaponMaterialCb";
+            this.weaponMaterialCb.Size = new System.Drawing.Size(121, 21);
+            this.weaponMaterialCb.TabIndex = 4;
+            // 
+            // weaponTypeCb
+            // 
+            this.weaponTypeCb.FormattingEnabled = true;
+            this.weaponTypeCb.Location = new System.Drawing.Point(179, 18);
+            this.weaponTypeCb.Name = "weaponTypeCb";
+            this.weaponTypeCb.Size = new System.Drawing.Size(121, 21);
+            this.weaponTypeCb.TabIndex = 3;
+            // 
+            // weaponNameTb
+            // 
+            this.weaponNameTb.Location = new System.Drawing.Point(73, 19);
+            this.weaponNameTb.Name = "weaponNameTb";
+            this.weaponNameTb.Size = new System.Drawing.Size(100, 20);
+            this.weaponNameTb.TabIndex = 2;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(6, 22);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(61, 13);
+            this.label37.TabIndex = 1;
+            this.label37.Text = "Item Name:";
+            // 
+            // weaponsDgv
+            // 
+            this.weaponsDgv.AllowUserToAddRows = false;
+            this.weaponsDgv.AutoGenerateColumns = false;
+            this.weaponsDgv.BackgroundColor = System.Drawing.Color.White;
+            this.weaponsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.weaponsDgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn1,
+            this.numberOfDiceDataGridViewTextBoxColumn,
+            this.diceSidesDataGridViewTextBoxColumn,
+            this.damageModDataGridViewTextBoxColumn,
+            this.penetrationDataGridViewTextBoxColumn,
+            this.encumbranceValueDataGridViewTextBoxColumn,
+            this.enchantmentLevelDataGridViewTextBoxColumn,
+            this.priceDataGridViewTextBoxColumn,
+            this.typeDataGridViewTextBoxColumn,
+            this.reachDataGridViewTextBoxColumn,
+            this.handednessDataGridViewTextBoxColumn,
+            this.sizeDataGridViewTextBoxColumn,
+            this.qualityDataGridViewTextBoxColumn,
+            this.materialDataGridViewTextBoxColumn,
+            this.isDireDataGridViewCheckBoxColumn});
+            this.weaponsDgv.DataSource = this.weaponsBindingSource;
+            this.weaponsDgv.Location = new System.Drawing.Point(6, 72);
+            this.weaponsDgv.Name = "weaponsDgv";
+            this.weaponsDgv.Size = new System.Drawing.Size(460, 136);
+            this.weaponsDgv.TabIndex = 0;
+            // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            // 
+            // numberOfDiceDataGridViewTextBoxColumn
+            // 
+            this.numberOfDiceDataGridViewTextBoxColumn.DataPropertyName = "NumberOfDice";
+            this.numberOfDiceDataGridViewTextBoxColumn.HeaderText = "NumberOfDice";
+            this.numberOfDiceDataGridViewTextBoxColumn.Name = "numberOfDiceDataGridViewTextBoxColumn";
+            // 
+            // diceSidesDataGridViewTextBoxColumn
+            // 
+            this.diceSidesDataGridViewTextBoxColumn.DataPropertyName = "DiceSides";
+            this.diceSidesDataGridViewTextBoxColumn.HeaderText = "DiceSides";
+            this.diceSidesDataGridViewTextBoxColumn.Name = "diceSidesDataGridViewTextBoxColumn";
+            // 
+            // damageModDataGridViewTextBoxColumn
+            // 
+            this.damageModDataGridViewTextBoxColumn.DataPropertyName = "DamageMod";
+            this.damageModDataGridViewTextBoxColumn.HeaderText = "DamageMod";
+            this.damageModDataGridViewTextBoxColumn.Name = "damageModDataGridViewTextBoxColumn";
+            // 
+            // penetrationDataGridViewTextBoxColumn
+            // 
+            this.penetrationDataGridViewTextBoxColumn.DataPropertyName = "Penetration";
+            this.penetrationDataGridViewTextBoxColumn.HeaderText = "Penetration";
+            this.penetrationDataGridViewTextBoxColumn.Name = "penetrationDataGridViewTextBoxColumn";
+            // 
+            // encumbranceValueDataGridViewTextBoxColumn
+            // 
+            this.encumbranceValueDataGridViewTextBoxColumn.DataPropertyName = "EncumbranceValue";
+            this.encumbranceValueDataGridViewTextBoxColumn.HeaderText = "EncumbranceValue";
+            this.encumbranceValueDataGridViewTextBoxColumn.Name = "encumbranceValueDataGridViewTextBoxColumn";
+            // 
+            // enchantmentLevelDataGridViewTextBoxColumn
+            // 
+            this.enchantmentLevelDataGridViewTextBoxColumn.DataPropertyName = "EnchantmentLevel";
+            this.enchantmentLevelDataGridViewTextBoxColumn.HeaderText = "EnchantmentLevel";
+            this.enchantmentLevelDataGridViewTextBoxColumn.Name = "enchantmentLevelDataGridViewTextBoxColumn";
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            // 
+            // reachDataGridViewTextBoxColumn
+            // 
+            this.reachDataGridViewTextBoxColumn.DataPropertyName = "Reach";
+            this.reachDataGridViewTextBoxColumn.HeaderText = "Reach";
+            this.reachDataGridViewTextBoxColumn.Name = "reachDataGridViewTextBoxColumn";
+            // 
+            // handednessDataGridViewTextBoxColumn
+            // 
+            this.handednessDataGridViewTextBoxColumn.DataPropertyName = "Handedness";
+            this.handednessDataGridViewTextBoxColumn.HeaderText = "Handedness";
+            this.handednessDataGridViewTextBoxColumn.Name = "handednessDataGridViewTextBoxColumn";
+            // 
+            // sizeDataGridViewTextBoxColumn
+            // 
+            this.sizeDataGridViewTextBoxColumn.DataPropertyName = "Size";
+            this.sizeDataGridViewTextBoxColumn.HeaderText = "Size";
+            this.sizeDataGridViewTextBoxColumn.Name = "sizeDataGridViewTextBoxColumn";
+            // 
+            // qualityDataGridViewTextBoxColumn
+            // 
+            this.qualityDataGridViewTextBoxColumn.DataPropertyName = "Quality";
+            this.qualityDataGridViewTextBoxColumn.HeaderText = "Quality";
+            this.qualityDataGridViewTextBoxColumn.Name = "qualityDataGridViewTextBoxColumn";
+            // 
+            // materialDataGridViewTextBoxColumn
+            // 
+            this.materialDataGridViewTextBoxColumn.DataPropertyName = "Material";
+            this.materialDataGridViewTextBoxColumn.HeaderText = "Material";
+            this.materialDataGridViewTextBoxColumn.Name = "materialDataGridViewTextBoxColumn";
+            // 
+            // isDireDataGridViewCheckBoxColumn
+            // 
+            this.isDireDataGridViewCheckBoxColumn.DataPropertyName = "IsDire";
+            this.isDireDataGridViewCheckBoxColumn.HeaderText = "IsDire";
+            this.isDireDataGridViewCheckBoxColumn.Name = "isDireDataGridViewCheckBoxColumn";
+            // 
+            // weaponsBindingSource
+            // 
+            this.weaponsBindingSource.DataMember = "Weapons";
+            this.weaponsBindingSource.DataSource = this.characterBindingSource;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox8);
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(992, 388);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Combat & Rolls";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.successOrFailLb);
+            this.groupBox3.Controls.Add(this.skillsCb);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Controls.Add(this.rollSuccessesTb);
+            this.groupBox3.Controls.Add(this.label28);
+            this.groupBox3.Controls.Add(this.rollBreakdownTb);
+            this.groupBox3.Controls.Add(this.label27);
+            this.groupBox3.Controls.Add(this.rollResultTb);
+            this.groupBox3.Controls.Add(this.rollBt);
+            this.groupBox3.Controls.Add(this.characteristicCb);
+            this.groupBox3.Controls.Add(this.skillRb);
+            this.groupBox3.Controls.Add(this.characteristicRb);
+            this.groupBox3.Location = new System.Drawing.Point(6, 168);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(502, 136);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Rolls";
+            // 
+            // successOrFailLb
+            // 
+            this.successOrFailLb.AutoSize = true;
+            this.successOrFailLb.Location = new System.Drawing.Point(336, 97);
+            this.successOrFailLb.Name = "successOrFailLb";
+            this.successOrFailLb.Size = new System.Drawing.Size(83, 13);
+            this.successOrFailLb.TabIndex = 13;
+            this.successOrFailLb.Text = "Crticial success!";
+            this.successOrFailLb.Visible = false;
+            // 
+            // skillsCb
+            // 
+            this.skillsCb.FormattingEnabled = true;
+            this.skillsCb.Location = new System.Drawing.Point(101, 45);
+            this.skillsCb.Name = "skillsCb";
+            this.skillsCb.Size = new System.Drawing.Size(121, 21);
+            this.skillsCb.TabIndex = 12;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(251, 44);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(62, 13);
+            this.label29.TabIndex = 11;
+            this.label29.Text = "Successes:";
+            // 
+            // rollSuccessesTb
+            // 
+            this.rollSuccessesTb.Location = new System.Drawing.Point(319, 41);
+            this.rollSuccessesTb.Name = "rollSuccessesTb";
+            this.rollSuccessesTb.Size = new System.Drawing.Size(100, 20);
+            this.rollSuccessesTb.TabIndex = 10;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(249, 69);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(64, 13);
+            this.label28.TabIndex = 9;
+            this.label28.Text = "Breakdown:";
+            // 
+            // rollBreakdownTb
+            // 
+            this.rollBreakdownTb.Location = new System.Drawing.Point(319, 66);
+            this.rollBreakdownTb.Name = "rollBreakdownTb";
+            this.rollBreakdownTb.Size = new System.Drawing.Size(100, 20);
+            this.rollBreakdownTb.TabIndex = 8;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(273, 21);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(40, 13);
+            this.label27.TabIndex = 7;
+            this.label27.Text = "Result:";
+            // 
+            // rollResultTb
+            // 
+            this.rollResultTb.Location = new System.Drawing.Point(319, 16);
+            this.rollResultTb.Name = "rollResultTb";
+            this.rollResultTb.Size = new System.Drawing.Size(100, 20);
+            this.rollResultTb.TabIndex = 6;
+            // 
+            // rollBt
+            // 
+            this.rollBt.Location = new System.Drawing.Point(6, 69);
+            this.rollBt.Name = "rollBt";
+            this.rollBt.Size = new System.Drawing.Size(89, 23);
+            this.rollBt.TabIndex = 3;
+            this.rollBt.Text = "Roll!";
+            this.rollBt.UseVisualStyleBackColor = true;
+            // 
+            // characteristicCb
+            // 
+            this.characteristicCb.FormattingEnabled = true;
+            this.characteristicCb.Location = new System.Drawing.Point(101, 18);
+            this.characteristicCb.Name = "characteristicCb";
+            this.characteristicCb.Size = new System.Drawing.Size(121, 21);
+            this.characteristicCb.TabIndex = 2;
+            // 
+            // skillRb
+            // 
+            this.skillRb.AutoSize = true;
+            this.skillRb.Location = new System.Drawing.Point(7, 46);
+            this.skillRb.Name = "skillRb";
+            this.skillRb.Size = new System.Drawing.Size(44, 17);
+            this.skillRb.TabIndex = 1;
+            this.skillRb.Text = "Skill";
+            this.skillRb.UseVisualStyleBackColor = true;
+            // 
+            // characteristicRb
+            // 
+            this.characteristicRb.AutoSize = true;
+            this.characteristicRb.Checked = true;
+            this.characteristicRb.Location = new System.Drawing.Point(6, 19);
+            this.characteristicRb.Name = "characteristicRb";
+            this.characteristicRb.Size = new System.Drawing.Size(89, 17);
+            this.characteristicRb.TabIndex = 0;
+            this.characteristicRb.TabStop = true;
+            this.characteristicRb.Text = "Characteristic";
+            this.characteristicRb.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label39);
+            this.groupBox8.Controls.Add(this.weaponResultBreakdownTb);
+            this.groupBox8.Controls.Add(this.label38);
+            this.groupBox8.Controls.Add(this.weaponResultTb);
+            this.groupBox8.Controls.Add(this.weaponRollBt);
+            this.groupBox8.Controls.Add(this.label26);
+            this.groupBox8.Controls.Add(this.weaponCb);
+            this.groupBox8.Location = new System.Drawing.Point(6, 7);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(208, 155);
+            this.groupBox8.TabIndex = 24;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Combat Rolls";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(6, 79);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(64, 13);
+            this.label39.TabIndex = 6;
+            this.label39.Text = "Breakdown:";
+            // 
+            // weaponResultBreakdownTb
+            // 
+            this.weaponResultBreakdownTb.Location = new System.Drawing.Point(76, 76);
+            this.weaponResultBreakdownTb.Name = "weaponResultBreakdownTb";
+            this.weaponResultBreakdownTb.Size = new System.Drawing.Size(121, 20);
+            this.weaponResultBreakdownTb.TabIndex = 5;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 52);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(40, 13);
+            this.label38.TabIndex = 4;
+            this.label38.Text = "Result:";
+            // 
+            // weaponResultTb
+            // 
+            this.weaponResultTb.Location = new System.Drawing.Point(76, 49);
+            this.weaponResultTb.Name = "weaponResultTb";
+            this.weaponResultTb.Size = new System.Drawing.Size(121, 20);
+            this.weaponResultTb.TabIndex = 3;
+            // 
+            // weaponRollBt
+            // 
+            this.weaponRollBt.Enabled = false;
+            this.weaponRollBt.Location = new System.Drawing.Point(122, 102);
+            this.weaponRollBt.Name = "weaponRollBt";
+            this.weaponRollBt.Size = new System.Drawing.Size(75, 23);
+            this.weaponRollBt.TabIndex = 2;
+            this.weaponRollBt.Text = "Roll";
+            this.weaponRollBt.UseVisualStyleBackColor = true;
+            this.weaponRollBt.Click += new System.EventHandler(this.weaponRollBt_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 22);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(51, 13);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "Weapon:";
+            // 
+            // weaponCb
+            // 
+            this.weaponCb.DataSource = this.weaponsBindingSource;
+            this.weaponCb.DisplayMember = "Name";
+            this.weaponCb.FormattingEnabled = true;
+            this.weaponCb.Location = new System.Drawing.Point(76, 19);
+            this.weaponCb.Name = "weaponCb";
+            this.weaponCb.Size = new System.Drawing.Size(121, 21);
+            this.weaponCb.TabIndex = 0;
+            this.weaponCb.SelectedIndexChanged += new System.EventHandler(this.weaponCb_SelectedIndexChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.applyDamageBt);
+            this.groupBox5.Controls.Add(this.label36);
+            this.groupBox5.Controls.Add(this.finalDamageReceivedTb);
+            this.groupBox5.Controls.Add(this.hitLocationCb);
+            this.groupBox5.Controls.Add(this.receivedPenTb);
+            this.groupBox5.Controls.Add(this.label35);
+            this.groupBox5.Controls.Add(this.label34);
+            this.groupBox5.Controls.Add(this.label32);
+            this.groupBox5.Controls.Add(this.receivedDamageTb);
+            this.groupBox5.Location = new System.Drawing.Point(813, 7);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(173, 155);
+            this.groupBox5.TabIndex = 22;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Received Damage";
+            // 
+            // applyDamageBt
+            // 
+            this.applyDamageBt.Location = new System.Drawing.Point(61, 125);
+            this.applyDamageBt.Name = "applyDamageBt";
+            this.applyDamageBt.Size = new System.Drawing.Size(102, 23);
+            this.applyDamageBt.TabIndex = 8;
+            this.applyDamageBt.Text = "Apply Damage";
+            this.applyDamageBt.UseVisualStyleBackColor = true;
+            this.applyDamageBt.Click += new System.EventHandler(this.applyDamageBt_Click);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 102);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(40, 13);
+            this.label36.TabIndex = 7;
+            this.label36.Text = "Result:";
+            // 
+            // finalDamageReceivedTb
+            // 
+            this.finalDamageReceivedTb.Location = new System.Drawing.Point(63, 99);
+            this.finalDamageReceivedTb.Name = "finalDamageReceivedTb";
+            this.finalDamageReceivedTb.Size = new System.Drawing.Size(100, 20);
+            this.finalDamageReceivedTb.TabIndex = 6;
+            // 
+            // hitLocationCb
+            // 
+            this.hitLocationCb.FormattingEnabled = true;
+            this.hitLocationCb.Location = new System.Drawing.Point(63, 72);
+            this.hitLocationCb.Name = "hitLocationCb";
+            this.hitLocationCb.Size = new System.Drawing.Size(100, 21);
+            this.hitLocationCb.TabIndex = 5;
+            this.hitLocationCb.SelectedIndexChanged += new System.EventHandler(this.receivedDamage_ParameterChange);
+            // 
+            // receivedPenTb
+            // 
+            this.receivedPenTb.Location = new System.Drawing.Point(63, 46);
+            this.receivedPenTb.Name = "receivedPenTb";
+            this.receivedPenTb.Size = new System.Drawing.Size(100, 20);
+            this.receivedPenTb.TabIndex = 4;
+            this.receivedPenTb.Text = "0";
+            this.receivedPenTb.TextChanged += new System.EventHandler(this.receivedDamage_ParameterChange);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 75);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(51, 13);
+            this.label35.TabIndex = 3;
+            this.label35.Text = "Location:";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(6, 49);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(29, 13);
+            this.label34.TabIndex = 2;
+            this.label34.Text = "Pen:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 23);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(50, 13);
+            this.label32.TabIndex = 1;
+            this.label32.Text = "Damage:";
+            // 
+            // receivedDamageTb
+            // 
+            this.receivedDamageTb.Location = new System.Drawing.Point(63, 20);
+            this.receivedDamageTb.Name = "receivedDamageTb";
+            this.receivedDamageTb.Size = new System.Drawing.Size(100, 20);
+            this.receivedDamageTb.TabIndex = 0;
+            this.receivedDamageTb.Text = "0";
+            this.receivedDamageTb.TextChanged += new System.EventHandler(this.receivedDamage_ParameterChange);
             // 
             // charactersCb
             // 
+            this.charactersCb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.charactersCb.FormattingEnabled = true;
             this.charactersCb.Location = new System.Drawing.Point(130, 447);
             this.charactersCb.Margin = new System.Windows.Forms.Padding(2);
@@ -1031,6 +1606,7 @@
             // 
             // label30
             // 
+            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(9, 449);
             this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -1041,6 +1617,7 @@
             // 
             // btAddCharacter
             // 
+            this.btAddCharacter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btAddCharacter.Location = new System.Drawing.Point(247, 447);
             this.btAddCharacter.Margin = new System.Windows.Forms.Padding(2);
             this.btAddCharacter.Name = "btAddCharacter";
@@ -1073,29 +1650,30 @@
             // saveMi
             // 
             this.saveMi.Name = "saveMi";
-            this.saveMi.Size = new System.Drawing.Size(152, 22);
+            this.saveMi.ShortcutKeyDisplayString = "Ctrl+S";
+            this.saveMi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveMi.Size = new System.Drawing.Size(193, 22);
             this.saveMi.Text = "Save";
             this.saveMi.Click += new System.EventHandler(this.saveMi_Click);
             // 
             // saveAsMi
             // 
             this.saveAsMi.Name = "saveAsMi";
-            this.saveAsMi.Size = new System.Drawing.Size(152, 22);
+            this.saveAsMi.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsMi.Size = new System.Drawing.Size(193, 22);
             this.saveAsMi.Text = "Save as...";
             this.saveAsMi.Click += new System.EventHandler(this.saveAsMi_Click);
             // 
             // loadMi
             // 
             this.loadMi.Name = "loadMi";
-            this.loadMi.Size = new System.Drawing.Size(152, 22);
+            this.loadMi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.loadMi.Size = new System.Drawing.Size(193, 22);
             this.loadMi.Text = "Load...";
             this.loadMi.Click += new System.EventHandler(this.loadMi_Click);
             // 
-            // characterBindingSource
-            // 
-            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
-            // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1106,13 +1684,19 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.MinimumSize = new System.Drawing.Size(1040, 515);
+            this.Name = "MainWindow";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.skillsDgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbModLuck)).EndInit();
@@ -1135,13 +1719,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.nbIntelligence)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbStrength)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbEndurance)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.armorDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armorDgv)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1195,19 +1789,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox woundThresholdTb;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton skillRb;
-        private System.Windows.Forms.RadioButton characteristicRb;
-        private System.Windows.Forms.ComboBox characteristicCb;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.TextBox skillLevelTb;
-        private System.Windows.Forms.Button rollBt;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox rollBreakdownTb;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox rollResultTb;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox rollSuccessesTb;
         private System.Windows.Forms.NumericUpDown nbAgility;
         private System.Windows.Forms.NumericUpDown nbIntelligence;
         private System.Windows.Forms.NumericUpDown nbStrength;
@@ -1237,6 +1818,32 @@
         private System.Windows.Forms.ToolStripMenuItem saveMi;
         private System.Windows.Forms.ToolStripMenuItem saveAsMi;
         private System.Windows.Forms.ToolStripMenuItem loadMi;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ComboBox hitLocationCb;
+        private System.Windows.Forms.TextBox receivedPenTb;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox receivedDamageTb;
+        private System.Windows.Forms.Button applyDamageBt;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox finalDamageReceivedTb;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.DataGridView skillsDgv;
+        private System.Windows.Forms.Button addSkillBt;
+        private System.Windows.Forms.BindingSource skillsBindingSource;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox weaponCb;
+        private System.Windows.Forms.BindingSource weaponsBindingSource;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.TextBox weaponResultTb;
+        private System.Windows.Forms.Button weaponRollBt;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox weaponResultBreakdownTb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rankDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.TextBox armorNameTb;
@@ -1245,7 +1852,50 @@
         private System.Windows.Forms.ComboBox armorTypeCb;
         private System.Windows.Forms.ComboBox armorLocationCb;
         private System.Windows.Forms.Button addNewArmorBt;
-        private System.Windows.Forms.DataGridView armorDataGridView;
+        private System.Windows.Forms.DataGridView armorDgv;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button addNewWeaponBt;
+        private System.Windows.Forms.ComboBox weaponMaterialCb;
+        private System.Windows.Forms.ComboBox weaponTypeCb;
+        private System.Windows.Forms.TextBox weaponNameTb;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.DataGridView weaponsDgv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfDiceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn diceSidesDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn damageModDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn penetrationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn encumbranceValueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn enchantmentLevelDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reachDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn handednessDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qualityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn materialDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isDireDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox spellDamageTb;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox spellRollBreakdownTb;
+        private System.Windows.Forms.Button castSpellBt;
+        private System.Windows.Forms.Button addSpellBt;
+        private System.Windows.Forms.DataGridView spellsDgv;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label successOrFailLb;
+        private System.Windows.Forms.ComboBox skillsCb;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox rollSuccessesTb;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox rollBreakdownTb;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TextBox rollResultTb;
+        private System.Windows.Forms.Button rollBt;
+        private System.Windows.Forms.ComboBox characteristicCb;
+        private System.Windows.Forms.RadioButton skillRb;
+        private System.Windows.Forms.RadioButton characteristicRb;
     }
 }
 

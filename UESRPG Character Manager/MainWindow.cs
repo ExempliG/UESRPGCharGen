@@ -14,20 +14,22 @@ using System.Xml.Serialization;
 
 namespace UESRPG_Character_Manager
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
         private List<Character> _characterList;
         private Character _selectedChar;
         private int _selectedIndex = 0;
-        private string _currentFile = "char.xml";
+        private string _currentFile = "";
 
         private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
         private bool _isLoading = false;
 
-        public Form1 ()
+        public MainWindow ()
         {
             InitializeComponent ();
+            saveMi.Enabled = false;
+
             _characterList = new List<Character> ();
             _selectedChar = new Character ();
             _characterList.Add (_selectedChar);
@@ -35,9 +37,22 @@ namespace UESRPG_Character_Manager
             charactersCb.Items.Add (_selectedChar.Name);
             charactersCb.SelectedIndex = 0;
             armorLocationCb.DataSource = ArmorLocationsData.Names;
+            hitLocationCb.DataSource = ArmorLocationsData.Names;
             armorTypeCb.DataSource = ArmorQualityData.Names;
             armorMaterialCb.DataSource = ArmorTypeData.Names;
             armorQualityCb.DataSource = ArmorMaterialData.Names;
+
+            for (int i = 0; i < (int)WeaponType.MAX; i++)
+            {
+                weaponTypeCb.Items.Add ((WeaponType)i);
+            }
+            weaponTypeCb.SelectedIndex = 0;
+
+            for (int i = 0; i < (int)WeaponMaterial.MAX; i++)
+            {
+                weaponMaterialCb.Items.Add ((WeaponMaterial)i);
+            }
+            weaponMaterialCb.SelectedIndex = 0;
 
             foreach (string characteristic in Characteristics.CharacteristicNames)
             {
@@ -45,6 +60,9 @@ namespace UESRPG_Character_Manager
             }
 
             characteristicCb.SelectedIndex = 0;
+
+            skillsCb.Items.Add ("Untrained");
+            skillsCb.SelectedIndex = 0;
         }
 
         private Character SelectedCharacter ()
@@ -165,11 +183,89 @@ namespace UESRPG_Character_Manager
             woundThresholdTb.Text = "" + (SelectedCharacter ().WoundThreshold);
             maxHealthTb.Text = "" + (SelectedCharacter ().MaxHealth);
             damageBonusTb.Text = "" + (SelectedCharacter ().DamageBonus);
-            armorDataGridView.DataSource = null;
+
+            armorDgv.DataSource = null;
             if (SelectedCharacter ().ArmorPieces.Count > 0)
             {
-                armorDataGridView.DataSource = SelectedCharacter ().ArmorPieces;
+                armorDgv.DataSource = SelectedCharacter ().ArmorPieces;
             }
+
+            weaponsDgv.DataSource = null;
+            weaponCb.DataSource = null;
+            if (SelectedCharacter ().Weapons.Count > 0)
+            {
+                weaponsDgv.DataSource = SelectedCharacter ().Weapons;
+                weaponCb.DataSource = SelectedCharacter ().Weapons;
+            }
+
+            skillsDgv.DataSource = null;
+            if (SelectedCharacter ().Skills.Count > 0)
+            {
+                skillsDgv.DataSource = SelectedCharacter ().Skills;
+            }
+
+            spellsDgv.DataSource = null;
+            if (SelectedCharacter ().Spells.Count > 0)
+            {
+                spellsDgv.DataSource = SelectedCharacter ().Spells;
+            }
+
+            int selectedIndex = skillsCb.SelectedIndex;
+            skillsCb.Items.Clear ();
+            skillsCb.Items.Add ("Untrained");
+            for (int i = 0; i < SelectedCharacter ().Skills.Count; i++)
+            {
+                Skill skill = SelectedCharacter ().Skills[i];
+                skillsCb.Items.Add (skill);
+            }
+            if (selectedIndex < skillsCb.Items.Count)
+            {
+                skillsCb.SelectedIndex = selectedIndex;
+            }
+            else
+            {
+                skillsCb.SelectedIndex = 0;
+            }
+        }
+
+        private void skillsCb_SelectedIndexChanged (object sender, EventArgs e)
+        {
+            if (skillRb.Checked)
+            {
+                updateCharacteristicCb ();
+            }
+        }
+
+        private void updateCharacteristicCb ()
+        {
+            object selectedItem = skillsCb.SelectedItem;
+            if (selectedItem.GetType () == typeof (Skill) && skillRb.Checked)
+            {
+                Skill skill = (Skill)selectedItem;
+                characteristicCb.Items.Clear ();
+                foreach (int characteristic in skill.Characteristics)
+                {
+                    characteristicCb.Items.Add (Characteristics.CharacteristicNames[characteristic]);
+                }
+                if (characteristicCb.Items.Count > 0)
+                {
+                    characteristicCb.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                reloadCharacteristicCb ();
+            }
+        }
+
+        private void reloadCharacteristicCb ()
+        {
+            characteristicCb.Items.Clear ();
+            foreach (string characteristic in Characteristics.CharacteristicNames)
+            {
+                characteristicCb.Items.Add (characteristic);
+            }
+            characteristicCb.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -179,8 +275,7 @@ namespace UESRPG_Character_Manager
         /// <param name="e"></param>
         private void skillRb_CheckedChanged (object sender, EventArgs e)
         {
-            bool isActive = skillRb.Checked;
-            skillLevelTb.Enabled = isActive;
+            updateCharacteristicCb ();
 
             softRoll (sender, e);
         }
@@ -192,6 +287,8 @@ namespace UESRPG_Character_Manager
         /// <param name="e"></param>
         private void characteristicRb_CheckedChanged (object sender, EventArgs e)
         {
+            updateCharacteristicCb ();
+
             softRoll (sender, e);
         }
 
@@ -202,32 +299,19 @@ namespace UESRPG_Character_Manager
         /// <param name="e"></param>
         private void rollBt_Click (object sender, EventArgs e)
         {
+            rollBt_Click (sender, e, 0);
+        }
+
+        private void rollBt_Click (object sender, EventArgs e, int extraDifficulty = 0)
+        {
             bool isSkillRoll = skillRb.Checked;
 
             Random r = new Random ();
 
-            int characteristicIndex = characteristicCb.SelectedIndex;
-            int characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
-
-            int result = r.Next (0, 100);
+            int result = r.Next (1, 100);
             rollResultTb.Text = "" + result;
 
-            int difference = 0;
-
-            if (isSkillRoll)
-            {
-                int skillLevel = 0;
-                int.TryParse (skillLevelTb.Text, out skillLevel);
-
-                characteristic = (characteristic + (skillLevel * 10));
-            }
-
-            difference = (characteristic - result);
-
-            int successes = SelectedCharacter ().GetBonus (difference);
-
-            rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
-            rollSuccessesTb.Text = "" + successes;
+            softRoll (sender, e, extraDifficulty);
         }
 
         /// <summary>
@@ -239,24 +323,62 @@ namespace UESRPG_Character_Manager
         /// <param name="e"></param>
         private void softRoll (object sender, EventArgs e)
         {
+            softRoll (sender, e, 0);
+        }
+
+        private void softRoll (object sender, EventArgs e, int extraDifficulty = 0)
+        {
             bool isSkillRoll = skillRb.Checked;
-
-            Random r = new Random ();
-
-            int characteristicIndex = characteristicCb.SelectedIndex;
-            int characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
             {
+                int luck = SelectedCharacter ().Luck;
+                if (result <= SelectedCharacter ().GetBonus (luck))
+                {
+                    successOrFailLb.Text = "Critical success!";
+                    successOrFailLb.Visible = true;
+                }
+                else if (result >= (95 + SelectedCharacter ().GetBonus (luck)))
+                {
+                    successOrFailLb.Text = "Critical failure!";
+                    successOrFailLb.Visible = true;
+                }
+                else
+                {
+                    successOrFailLb.Visible = false;
+                }
+
                 int difference = 0;
+
+                int characteristicIndex = 0;
+                int characteristic = 0;
 
                 if (isSkillRoll)
                 {
-                    int skillLevel = 0;
-                    int.TryParse (skillLevelTb.Text, out skillLevel);
+                    // if we haven't selected a skill, we are rolling an untrained skill
+                    if (skillsCb.SelectedItem.GetType () != typeof (Skill))
+                    {
+                        characteristicIndex = characteristicCb.SelectedIndex;
+                        characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
-                    characteristic = (characteristic + (skillLevel * 10));
+                        characteristic = (int)(((float)characteristic / 2) + 0.5f);
+                    }
+                    else
+                    {
+                        Skill skill = (Skill)skillsCb.SelectedItem;
+
+                        characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
+                        characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
+
+                        int skillLevel = skill.Rank - 1;
+                        characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
+                    }
+                }
+                else
+                {
+                    characteristicIndex = characteristicCb.SelectedIndex;
+                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
                 }
 
                 difference = (characteristic - result);
@@ -285,6 +407,7 @@ namespace UESRPG_Character_Manager
             {
                 xml.Serialize (fs, _characterList);
                 _currentFile = fileName;
+                saveMi.Enabled = true;
             }
             catch (IOException e)
             {
@@ -312,7 +435,17 @@ namespace UESRPG_Character_Manager
 
                 try
                 {
-                    _characterList = (List<Character>)xml.Deserialize (fs);
+                    List<Character> loadedList = (List<Character>)xml.Deserialize (fs);
+
+                    // Ensure that our selected character is in the range of the new list.
+                    if (loadedList.Count > 1)
+                    {
+                        _selectedIndex = 0;
+                    }
+                    _characterList = loadedList;
+                    _currentFile = fileName;
+                    saveMi.Enabled = true;
+
                 }
                 catch (IOException)
                 {
@@ -324,12 +457,13 @@ namespace UESRPG_Character_Manager
                 }
                 characteristicLoaded ();
 
-                nameTb.Text = SelectedCharacter ().Name;
                 charactersCb.Items.Clear ();
                 foreach (Character c in _characterList)
                 {
                     charactersCb.Items.Add (c.Name);
                 }
+                charactersCb.SelectedIndex = 0;
+                nameTb.Text = SelectedCharacter ().Name;
             }
         }
 
@@ -369,10 +503,10 @@ namespace UESRPG_Character_Manager
             sfd.AddExtension = true;
             sfd.DefaultExt = ".xml";
             sfd.Filter = _FileTypeString;
-            sfd.ShowDialog ();
+            DialogResult result = sfd.ShowDialog ();
 
             string fileName = sfd.FileName;
-            if (!string.IsNullOrEmpty (fileName))
+            if (!string.IsNullOrEmpty (fileName) && result == DialogResult.OK)
             {
                 SaveChar (fileName);
             }
@@ -381,6 +515,163 @@ namespace UESRPG_Character_Manager
         private void loadMi_Click (object sender, EventArgs e)
         {
             LoadChar ();
+        }
+
+        private void receivedDamage_ParameterChange (object sender, EventArgs e)
+        {
+            updateDamage ();
+        }
+
+        private void updateDamage ()
+        {
+            int damage = 0;
+            int pen = 0;
+            ArmorLocations location = (ArmorLocations)hitLocationCb.SelectedIndex;
+
+            if (int.TryParse (receivedDamageTb.Text, out damage) && int.TryParse (receivedPenTb.Text, out pen))
+            {
+                double armorMitigation = SelectedCharacter ().GetArmorPiece (location).AR;
+                armorMitigation = Math.Max(armorMitigation - pen, 0);
+                damage = Math.Max(damage - (int)armorMitigation, 0);
+
+                finalDamageReceivedTb.Text = damage.ToString ();
+            }
+        }
+
+        private void applyDamageBt_Click (object sender, EventArgs e)
+        {
+            int damage;
+            if (int.TryParse (finalDamageReceivedTb.Text, out damage))
+            {
+                SelectedCharacter ().CurrentHealth -= damage;
+                characteristicLoaded();
+            }
+        }
+
+        private void addSkillBt_Click (object sender, EventArgs e)
+        {
+            int skillIndex = skillsCb.SelectedIndex;
+            EditSkill es = new EditSkill (SelectedCharacter ());
+            es.ShowDialog ();
+            updateEverything ();
+            skillsCb.SelectedIndex = skillIndex;
+        }
+
+        private void armorDataGridView_ChangeOccurred (object sender, EventArgs e)
+        {
+            updateDamage ();
+        }
+
+        private void addNewWeaponBt_Click (object sender, EventArgs e)
+        {
+            WeaponType type = (WeaponType)weaponTypeCb.SelectedItem;
+            WeaponMaterial material = (WeaponMaterial)weaponMaterialCb.SelectedItem;
+
+            Weapon template = WeaponTemplates.DefaultWeapons[(int)type];
+            WeaponMaterialModifier modifier = WeaponTemplates.Materials[(int)material];
+
+            Weapon result = (template * modifier);
+            result.Name = weaponNameTb.Text;
+
+            SelectedCharacter ().Weapons.Add (result);
+            updateEverything ();
+        }
+
+        private void weaponRollBt_Click (object sender, EventArgs e)
+        {
+            Random r = new Random ();
+
+            Weapon selectedWeapon = (Weapon)weaponCb.SelectedItem;
+            int resultTotal = 0;
+            string breakdownString = "";
+
+            for (int i = 0; i < selectedWeapon.NumberOfDice; i++)
+            {
+                int roll = r.Next (1, selectedWeapon.DiceSides);
+                breakdownString += string.Format ("{0} + ", roll);
+                resultTotal += roll;
+            }
+
+            breakdownString += string.Format ("{0}", selectedWeapon.DamageMod);
+            resultTotal += selectedWeapon.DamageMod;
+
+            weaponResultTb.Text = string.Format ("{0} pen {1}", resultTotal, selectedWeapon.Penetration);
+            weaponResultBreakdownTb.Text = breakdownString;
+        }
+
+        private void weaponCb_SelectedIndexChanged (object sender, EventArgs e)
+        {
+            if (weaponCb.SelectedIndex > -1 && weaponCb.SelectedItem.GetType () == typeof (Weapon))
+            {
+                weaponRollBt.Enabled = true;
+            }
+            else
+            {
+                weaponRollBt.Enabled = false;
+            }
+        }
+
+        private void addSpellBt_Click (object sender, EventArgs e)
+        {
+            EditSpell es = new EditSpell (SelectedCharacter ());
+            es.ShowDialog ();
+            updateEverything ();
+        }
+
+        private void castSpellBt_Click (object sender, EventArgs e)
+        {
+            if (spellsDgv.SelectedRows.Count != 1)
+            {
+                MessageBox.Show ("Please select 1 spell to cast.");
+                return;
+            }
+
+            Spell s = SelectedCharacter ().Spells[spellsDgv.CurrentCell.RowIndex];
+
+            if (SelectedCharacter ().CurrentMagicka < s.Cost)
+            {
+                MessageBox.Show ("You don't have enough magicka to cast this spell!");
+            }
+            else
+            {
+                SelectedCharacter ().CurrentMagicka -= s.Cost;
+
+                int skillIndex = -1;
+                for (int i = 0; i < SelectedCharacter ().Skills.Count; i++)
+                {
+                    if (SelectedCharacter ().Skills[i].Name == s.AssociatedSkill)
+                    {
+                        skillIndex = i;
+                        break;
+                    }
+                }
+
+                if (skillIndex > -1)
+                {
+                    skillRb.Checked = true;
+                    // add 1 because of the "Untrained" option
+                    skillsCb.SelectedIndex = skillIndex + 1;
+                    rollBt_Click (sender, e, s.Difficulty);
+                    spellRollBreakdownTb.Text = rollBreakdownTb.Text;
+                    if (int.Parse (rollResultTb.Text) >= 0 && s.DoesDamage)
+                    {
+                        Random r = new Random ();
+                        int totalResult = 0;
+                        for (int i = 0; i < s.NumberOfDice; i++)
+                        {
+                            totalResult += r.Next (1, s.DiceSides);
+                        }
+
+                        spellDamageTb.Text = string.Format ("{0} pen {1}", totalResult, s.Penetration);
+                    }
+                    else
+                    {
+                        spellDamageTb.Text = "N/A";
+                    }
+                }
+            }
+
+            characteristicLoaded ();
         }
     }
 }
