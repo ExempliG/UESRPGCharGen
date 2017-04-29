@@ -28,6 +28,11 @@ namespace UESRPG_Character_Manager
         public MainWindow ()
         {
             InitializeComponent ();
+
+            /*CUSTOM EVENT BINDINGS*/
+            this.rollBt.Click += rollBt_Click;
+            /*END CUSTOM EVENT BINDINGS*/
+
             saveMi.Enabled = false;
 
             _characterList = new List<Character> ();
