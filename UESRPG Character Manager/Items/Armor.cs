@@ -35,6 +35,10 @@ namespace UESRPG_Character_Manager
             Location = location;
         }
 
+        /// <todo>
+        /// This could use some work. I dispute the notion that an Armor's material should not be a member variable,
+        /// calling into question the need for this method.
+        /// </todo>
         public static double CalculateAR(ArmorTypes type, ArmorMaterials material, ArmorQualities quality)
         {
             double result = 0;

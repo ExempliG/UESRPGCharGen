@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager
 {
+    /// <summary>
+    /// Holds constant data about Characteristics
+    /// </summary>
     static class Characteristics
     {
         public const int Strength = 0;

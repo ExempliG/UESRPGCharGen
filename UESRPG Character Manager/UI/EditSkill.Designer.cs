@@ -114,23 +114,13 @@
             // 
             this.skillRankNud.Location = new System.Drawing.Point(231, 13);
             this.skillRankNud.Maximum = new decimal(new int[] {
-            6,
-            0,
-            0,
-            0});
-            this.skillRankNud.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
             this.skillRankNud.Name = "skillRankNud";
             this.skillRankNud.Size = new System.Drawing.Size(41, 20);
             this.skillRankNud.TabIndex = 2;
-            this.skillRankNud.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // cancelBt
             // 

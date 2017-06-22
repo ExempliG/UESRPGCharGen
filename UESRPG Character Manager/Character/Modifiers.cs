@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager
 {
+    /// <summary>
+    /// Stores the named Modifier indices.
+    /// </summary>
     static class Modifiers
     {
         public const int Health = 0;

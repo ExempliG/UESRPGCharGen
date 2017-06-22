@@ -24,6 +24,9 @@ namespace UESRPG_Character_Manager
         public WeaponMaterial Material { get; set; }
         public bool IsDire { get; set; }
 
+        /// <summary>
+        /// This empty default constructor exists only because XmlSerializer requires a default constructor.
+        /// </summary>
         public Weapon ()
         {
 
@@ -49,6 +52,13 @@ namespace UESRPG_Character_Manager
             Material = WeaponMaterial.MAX;
         }
 
+        /// <summary>
+        /// Adjust a weapon's stats by a Material Modifier.
+        /// </summary>
+        /// <param name="a">The weapon</param>
+        /// <param name="b">The material modifier</param>
+        /// <returns>The adjusted weapon</returns>
+        /// <todo>This doesn't need to be an operator. You just thought it would be cool.</todo>
         public static Weapon operator * (Weapon a, WeaponMaterialModifier b)
         {
             Weapon result = new Weapon ();
@@ -75,11 +85,16 @@ namespace UESRPG_Character_Manager
             return result;
         }
 
+        /// <summary>
+        /// Material adjustment is commutative.
+        /// </summary>
+        /// <todo>Will be obsolete when the operator is changed to a Real Function(TM)</todo>
         public static Weapon operator * (WeaponMaterialModifier a, Weapon b)
         {
             return (b * a);
         }
 
+        /// <todo>Be more respectful of the IComparable interface, dude.</todo>
         public int CompareTo (object obj)
         {
             return ((IComparable)Type).CompareTo (((Weapon)obj).Type);
@@ -113,6 +128,10 @@ namespace UESRPG_Character_Manager
         }
     }
 
+    /// <summary>
+    /// Weapon Template helper class
+    /// </summary>
+    /// <todo>For real, load these things from a .csv. TRUST</todo>
     public static class WeaponTemplates
     {
         static bool IsLoaded = false;

@@ -1304,7 +1304,7 @@
             this.groupBox3.Controls.Add(this.characteristicCb);
             this.groupBox3.Controls.Add(this.skillRb);
             this.groupBox3.Controls.Add(this.characteristicRb);
-            this.groupBox3.Location = new System.Drawing.Point(6, 168);
+            this.groupBox3.Location = new System.Drawing.Point(6, 7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(502, 136);
             this.groupBox3.TabIndex = 26;
@@ -1328,6 +1328,7 @@
             this.skillsCb.Name = "skillsCb";
             this.skillsCb.Size = new System.Drawing.Size(121, 21);
             this.skillsCb.TabIndex = 12;
+            this.skillsCb.SelectedIndexChanged += new System.EventHandler(this.skillsCb_SelectedIndexChanged);
             // 
             // label29
             // 
@@ -1385,6 +1386,7 @@
             this.rollBt.TabIndex = 3;
             this.rollBt.Text = "Roll!";
             this.rollBt.UseVisualStyleBackColor = true;
+            this.rollBt.Click += new System.EventHandler(this.rollBt_Click);
             // 
             // characteristicCb
             // 
@@ -1425,12 +1427,12 @@
             this.groupBox8.Controls.Add(this.weaponRollBt);
             this.groupBox8.Controls.Add(this.label26);
             this.groupBox8.Controls.Add(this.weaponCb);
-            this.groupBox8.Location = new System.Drawing.Point(6, 7);
+            this.groupBox8.Location = new System.Drawing.Point(6, 149);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(208, 155);
             this.groupBox8.TabIndex = 24;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Combat Rolls";
+            this.groupBox8.Text = "Weapon Damage";
             // 
             // label39
             // 

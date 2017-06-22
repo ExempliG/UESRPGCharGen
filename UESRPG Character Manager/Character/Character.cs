@@ -9,6 +9,10 @@ using System.Xml.Serialization;
 
 namespace UESRPG_Character_Manager
 {
+    /// <summary>
+    /// Embodies a generic Skill.
+    /// </summary>
+    /// <todo>Skills should be able to calculate their own difficulty.</todo>
     public class Skill
     {
         [XmlAttribute ()]
@@ -24,6 +28,10 @@ namespace UESRPG_Character_Manager
         }
     }
 
+    /// <summary>
+    /// Embodies a generic Spell.
+    /// </summary>
+    /// <todo>Add support for... *sigh* shadow magic.</todo>
     public class Spell
     {
         [XmlAttribute ()]
@@ -50,6 +58,10 @@ namespace UESRPG_Character_Manager
         private List<Spell> _spells;
         private List<Skill> _skills;
 
+        private int _engVersion = 0;
+        private int _minorVersion = 0;
+        private int _majorVersion = 0;
+
         private string _name = "Player";
 
         public Character ()
@@ -62,9 +74,9 @@ namespace UESRPG_Character_Manager
             _modifiers = new int[Modifiers.NumberOfModifiers];
         }
 
-        public int GetBonus (int attribute)
+        public int GetBonus (int characteristic)
         {
-            return attribute / 10;
+            return characteristic / 10;
         }
 
         public int GetCharacteristic (int index)
@@ -77,6 +89,27 @@ namespace UESRPG_Character_Manager
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        [XmlAttribute ()]
+        public int EngVersion
+        {
+            get { return _engVersion; }
+            set { _engVersion = value; }
+        }
+
+        [XmlAttribute ()]
+        public int MinorVersion
+        {
+            get { return _minorVersion; }
+            set { _minorVersion = value; }
+        }
+
+        [XmlAttribute ()]
+        public int MajorVersion
+        {
+            get { return _majorVersion; }
+            set { _majorVersion = value; }
         }
 
 /******************
@@ -131,10 +164,14 @@ namespace UESRPG_Character_Manager
             set { _armorPieces = value; }
         }
 
-        //
-        // Add a piece of armor.  Replacing any existing piece that
-        // belongs to the same body part
-        //
+        /// <summary>
+        /// Add a piece of armor, replacing any existing piece that belongs to the same body part
+        /// </summary>
+        /// <param name="piece">An Armor object to equip</param>
+        /// <todo>
+        /// Make this good (no but really, we should have an inventory
+        /// instead of just blasting away Armor pieces)
+        /// </todo>
         public void AddArmorPiece(Armor piece)
         {
             bool addNew = true;
@@ -391,6 +428,22 @@ namespace UESRPG_Character_Manager
             get
             {
                 return GetBonus (Luck) + LuckPointsMod;
+            }
+        }
+
+        /// <summary>
+        /// Perform necessary updates on a Character object based on its stored version.
+        /// </summary>
+        public void Update ()
+        {
+            if (MajorVersion <= 0 && MinorVersion <= 0 && EngVersion < 1)
+            {
+                // Skills were 1 point too high in version 0.0.0 because I forgot that "Trained" is rank 0.
+                // We adjust for that here.
+                foreach (Skill s in _skills)
+                {
+                    s.Rank -= 1;
+                }
             }
         }
     }

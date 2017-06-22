@@ -23,14 +23,14 @@ namespace UESRPG_Character_Manager
 
         private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
-        private bool _isLoading = false;
+        private bool _characterStatsMutex = false;
 
         public MainWindow ()
         {
             InitializeComponent ();
 
             /*CUSTOM EVENT BINDINGS*/
-            this.rollBt.Click += rollBt_Click;
+            this.rollResultTb.TextChanged += softRoll;
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
@@ -89,9 +89,9 @@ namespace UESRPG_Character_Manager
         /// <param name="e"></param>
         private void characteristicChanged (object sender, EventArgs e)
         {
-            if (!_isLoading)
+            if (!_characterStatsMutex)
             {
-                _isLoading = true;
+                _characterStatsMutex = true;
                 SelectedCharacter ().Strength = (int)nbStrength.Value;
                 SelectedCharacter ().Endurance = (int)nbEndurance.Value;
                 SelectedCharacter ().Agility = (int)nbAgility.Value;
@@ -128,20 +128,20 @@ namespace UESRPG_Character_Manager
                 SelectedCharacter ().DamageBonusMod = (int)nbModDamageBonus.Value;
                 SelectedCharacter ().LuckPointsMod = (int)nbModLuck.Value;
 
-                updateEverything ();
-                _isLoading = false;
+                updateCalculatedFields ();
+                _characterStatsMutex = false;
             }
         }
 
         /// <summary>
-        /// characteristicLoaded will update the UI representation of the character to match its data.
+        /// Update the UI representation of the character to match its data.
         /// This function will do nothing if Characteristics are currently being updated somewhere else.
         /// </summary>
-        private void characteristicLoaded ()
+        private void refreshUIRepresentation ()
         {
-            if (!_isLoading)
+            if (!_characterStatsMutex)
             {
-                _isLoading = true;
+                _characterStatsMutex = true;
                 nbStrength.Value = SelectedCharacter ().Strength;
                 nbEndurance.Value = SelectedCharacter ().Endurance;
                 nbAgility.Value = SelectedCharacter ().Agility;
@@ -168,15 +168,15 @@ namespace UESRPG_Character_Manager
                 nbModDamageBonus.Value = SelectedCharacter ().DamageBonusMod;
                 nbModLuck.Value = SelectedCharacter ().LuckPointsMod;
 
-                updateEverything ();
-                _isLoading = false;
+                updateCalculatedFields ();
+                _characterStatsMutex = false;
             }
         }
 
         /// <summary>
-        /// Updates all calculated fields.
+        /// Updates the UI representation of all the current Character's calculated fields.
         /// </summary>
-        private void updateEverything ()
+        private void updateCalculatedFields ()
         {
             maxLuckPointsTb.Text = "" + (SelectedCharacter ().MaximumLuckPoints);
             initiativeRatingTb.Text = "" + (SelectedCharacter ().InitiativeRating);
@@ -188,7 +188,14 @@ namespace UESRPG_Character_Manager
             woundThresholdTb.Text = "" + (SelectedCharacter ().WoundThreshold);
             maxHealthTb.Text = "" + (SelectedCharacter ().MaxHealth);
             damageBonusTb.Text = "" + (SelectedCharacter ().DamageBonus);
+        }
 
+        /// <summary>
+        /// Update all UI elements with Data Bindings.
+        /// </summary>
+        /// <todo>Refactor this to reduce code repetition</todo>
+        private void updateDataBindings ()
+        {
             armorDgv.DataSource = null;
             if (SelectedCharacter ().ArmorPieces.Count > 0)
             {
@@ -241,10 +248,14 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        /// <summary>
+        /// This function will determine which Characteristics govern the selected skill and remove all other Characteristics from the Characteristic CB.
+        /// </summary>
+        /// <todo>Rework this to eliminate type checking wizardry</todo>
         private void updateCharacteristicCb ()
         {
             object selectedItem = skillsCb.SelectedItem;
-            if (selectedItem.GetType () == typeof (Skill) && skillRb.Checked)
+            if ((selectedItem.GetType () == typeof (Skill)) && skillRb.Checked)
             {
                 Skill skill = (Skill)selectedItem;
                 characteristicCb.Items.Clear ();
@@ -263,6 +274,9 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        /// <summary>
+        /// Restores the Characteristics CB to include all Characteristics.
+        /// </summary>
         private void reloadCharacteristicCb ()
         {
             characteristicCb.Items.Clear ();
@@ -274,7 +288,7 @@ namespace UESRPG_Character_Manager
         }
 
         /// <summary>
-        /// Will disable the skillLevel textbox if a skill roll is not selected, and perform a soft roll
+        /// Will disable the skillLevel textbox if a skill roll is not selected and perform a soft roll
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -286,7 +300,7 @@ namespace UESRPG_Character_Manager
         }
 
         /// <summary>
-        /// Will perform a soft roll
+        /// Will disable the skillLevel textbox if a skill roll is not selected and perform a soft roll
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -307,10 +321,15 @@ namespace UESRPG_Character_Manager
             rollBt_Click (sender, e, 0);
         }
 
+        /// <summary>
+        /// Rolls against selected parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="extraDifficulty">An extra difficulty modifier, in case a particular check is harder or easier</param>
+        /// <todo>Expose the extraDifficulty modifier somewhere</todo>
         private void rollBt_Click (object sender, EventArgs e, int extraDifficulty = 0)
         {
-            bool isSkillRoll = skillRb.Checked;
-
             Random r = new Random ();
 
             int result = r.Next (1, 100);
@@ -331,6 +350,17 @@ namespace UESRPG_Character_Manager
             softRoll (sender, e, 0);
         }
 
+        /// <summary>
+        /// A soft roll performs all of the calculations of a regular roll, but does not change the roll result.
+        /// This is useful for using outside roll values with the app, since we don't want to replace the player's
+        /// entered roll.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <todo>
+        /// Expose the extraDifficulty modifier somewhere. This function is expected to change a lot to remove
+        /// much of the Character logic (and especially the Untrained Skill wizardry).
+        /// </todo>
         private void softRoll (object sender, EventArgs e, int extraDifficulty = 0)
         {
             bool isSkillRoll = skillRb.Checked;
@@ -367,7 +397,7 @@ namespace UESRPG_Character_Manager
                         characteristicIndex = characteristicCb.SelectedIndex;
                         characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
-                        characteristic = (int)(((float)characteristic / 2) + 0.5f);
+                        characteristic = ((characteristic - 20) + extraDifficulty);
                     }
                     else
                     {
@@ -376,7 +406,7 @@ namespace UESRPG_Character_Manager
                         characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
                         characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
-                        int skillLevel = skill.Rank - 1;
+                        int skillLevel = skill.Rank;
                         characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
                     }
                 }
@@ -404,12 +434,24 @@ namespace UESRPG_Character_Manager
             theNb.Select (0, 3);
         }
 
+        /// <summary>
+        /// Performs the saving of a Character list.
+        /// </summary>
+        /// <param name="fileName">The filename to save the list as.</param>
         private void SaveChar (string fileName)
         {
             XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
             FileStream fs = new FileStream (fileName, FileMode.Create);
             try
             {
+                foreach (Character c in _characterList)
+                {
+                    c.EngVersion = Program.CurrentEngVersion;
+                    c.MinorVersion = Program.CurrentMinorVersion;
+                    c.MajorVersion = Program.CurrentMinorVersion;
+                }
+
+                
                 xml.Serialize (fs, _characterList);
                 _currentFile = fileName;
                 saveMi.Enabled = true;
@@ -424,6 +466,10 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        /// <summary>
+        /// Handle the loading of a Character list.
+        /// </summary>
+        /// <todo>Re-evaluate this whole mess.</todo>
         private void LoadChar ()
         {
             OpenFileDialog ofd = new OpenFileDialog ();
@@ -451,6 +497,12 @@ namespace UESRPG_Character_Manager
                     _currentFile = fileName;
                     saveMi.Enabled = true;
 
+                    foreach (Character c in _characterList)
+                    {
+                        // Perform any necessary updates.
+                        c.Update ();
+                    }
+
                 }
                 catch (IOException)
                 {
@@ -460,7 +512,7 @@ namespace UESRPG_Character_Manager
                 {
                     fs.Close ();
                 }
-                characteristicLoaded ();
+                refreshUIRepresentation ();
 
                 charactersCb.Items.Clear ();
                 foreach (Character c in _characterList)
@@ -483,18 +535,17 @@ namespace UESRPG_Character_Manager
         {
             _selectedIndex = charactersCb.SelectedIndex;
             nameTb.Text = SelectedCharacter ().Name;
-            characteristicLoaded ();
+            refreshUIRepresentation ();
+            updateDataBindings ();
         }
 
         private void addNewArmorBt_Click (object sender, EventArgs e)
         {
-            // here we create new armor object
             double ar = Armor.CalculateAR ((ArmorTypes)armorMaterialCb.SelectedIndex,
                                            (ArmorMaterials)armorQualityCb.SelectedIndex,
                                            (ArmorQualities)armorTypeCb.SelectedIndex);
             SelectedCharacter ().AddArmorPiece (new Armor (armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
-            System.Console.WriteLine ("After Adding new armor piece");
-            updateEverything ();
+            updateDataBindings ();
         }
 
         private void saveMi_Click (object sender, EventArgs e)
@@ -522,11 +573,18 @@ namespace UESRPG_Character_Manager
             LoadChar ();
         }
 
+
+/// <todo>YOU SHOULD REALLY SPLIT MAINWINDOW INTO RELEVANT PARTIAL CLASSES, MOSTLY BELOW THIS LINE</todo>
+
+
         private void receivedDamage_ParameterChange (object sender, EventArgs e)
         {
             updateDamage ();
         }
 
+        /// <summary>
+        /// Calculate the total damage received to a particular location.
+        /// </summary>
         private void updateDamage ()
         {
             int damage = 0;
@@ -536,8 +594,8 @@ namespace UESRPG_Character_Manager
             if (int.TryParse (receivedDamageTb.Text, out damage) && int.TryParse (receivedPenTb.Text, out pen))
             {
                 double armorMitigation = SelectedCharacter ().GetArmorPiece (location).AR;
-                armorMitigation = Math.Max(armorMitigation - pen, 0);
-                damage = Math.Max(damage - (int)armorMitigation, 0);
+                armorMitigation = Math.Max(armorMitigation - pen, 0);                       // Pen reduces armorMitigation to a lower limit of zero.
+                damage = Math.Max(damage - (int)armorMitigation, 0);                        // armorMitigation then reduces received damage to a lower limit of zero.
 
                 finalDamageReceivedTb.Text = damage.ToString ();
             }
@@ -549,7 +607,7 @@ namespace UESRPG_Character_Manager
             if (int.TryParse (finalDamageReceivedTb.Text, out damage))
             {
                 SelectedCharacter ().CurrentHealth -= damage;
-                characteristicLoaded();
+                refreshUIRepresentation();
             }
         }
 
@@ -558,7 +616,7 @@ namespace UESRPG_Character_Manager
             int skillIndex = skillsCb.SelectedIndex;
             EditSkill es = new EditSkill (SelectedCharacter ());
             es.ShowDialog ();
-            updateEverything ();
+            updateDataBindings ();
             skillsCb.SelectedIndex = skillIndex;
         }
 
@@ -579,7 +637,7 @@ namespace UESRPG_Character_Manager
             result.Name = weaponNameTb.Text;
 
             SelectedCharacter ().Weapons.Add (result);
-            updateEverything ();
+            updateDataBindings ();
         }
 
         private void weaponRollBt_Click (object sender, EventArgs e)
@@ -620,9 +678,10 @@ namespace UESRPG_Character_Manager
         {
             EditSpell es = new EditSpell (SelectedCharacter ());
             es.ShowDialog ();
-            updateEverything ();
+            updateDataBindings ();
         }
 
+        /// <todo>make this good</todo>
         private void castSpellBt_Click (object sender, EventArgs e)
         {
             if (spellsDgv.SelectedRows.Count != 1)
@@ -676,7 +735,7 @@ namespace UESRPG_Character_Manager
                 }
             }
 
-            characteristicLoaded ();
+            refreshUIRepresentation ();
         }
     }
 }
