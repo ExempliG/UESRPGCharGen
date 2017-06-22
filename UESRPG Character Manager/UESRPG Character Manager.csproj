@@ -46,39 +46,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArmorConstants.cs" />
-    <Compile Include="Character.cs" />
-    <Compile Include="Characteristics.cs" />
-    <Compile Include="Armor.cs" />
-    <Compile Include="EditSkill.cs">
+    <Compile Include="Items\ArmorConstants.cs" />
+    <Compile Include="Character\Character.cs" />
+    <Compile Include="Character\Characteristics.cs" />
+    <Compile Include="Items\Armor.cs" />
+    <Compile Include="UI\EditSkill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditSkill.Designer.cs">
+    <Compile Include="UI\EditSkill.Designer.cs">
       <DependentUpon>EditSkill.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditSpell.cs">
+    <Compile Include="UI\EditSpell.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditSpell.Designer.cs">
+    <Compile Include="UI\EditSpell.Designer.cs">
       <DependentUpon>EditSpell.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="UI\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="UI\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modifiers.cs" />
+    <Compile Include="Character\Modifiers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Weapon.cs" />
-    <EmbeddedResource Include="EditSkill.resx">
+    <Compile Include="Items\Weapon.cs" />
+    <EmbeddedResource Include="UI\EditSkill.resx">
       <DependentUpon>EditSkill.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditSpell.resx">
+    <EmbeddedResource Include="UI\EditSpell.resx">
       <DependentUpon>EditSpell.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="UI\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
