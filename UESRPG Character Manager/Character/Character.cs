@@ -21,6 +21,7 @@ namespace UESRPG_Character_Manager
         public int Rank { get; set; }
         public string Description { get; set; }
         public int[] Characteristics { get; set; }
+        public bool isDefaultSkill = false;
 
         public override string ToString ()
         {
@@ -71,6 +72,16 @@ namespace UESRPG_Character_Manager
             _weapons = new List<Weapon> ();
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
+            Skill untrainedSkill = new Skill();
+            untrainedSkill.Name = "Untrained";
+            untrainedSkill.Rank = -2;
+            untrainedSkill.isDefaultSkill = true;
+            untrainedSkill.Characteristics = new int[Characteristics.NumberOfCharacteristics];
+            for(int i = 0; i < Characteristics.NumberOfCharacteristics; i++)
+            {
+                untrainedSkill.Characteristics[i] = i;
+            }
+            _skills.Add(untrainedSkill);
             _modifiers = new int[Modifiers.NumberOfModifiers];
         }
 

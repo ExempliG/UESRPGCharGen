@@ -182,6 +182,7 @@
             this.saveMi = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMi = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
+            this.editSkillBt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -333,6 +334,7 @@
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.editSkillBt);
             this.groupBox6.Controls.Add(this.addSkillBt);
             this.groupBox6.Controls.Add(this.skillsDgv);
             this.groupBox6.Location = new System.Drawing.Point(484, 37);
@@ -368,6 +370,7 @@
             this.skillsDgv.DataSource = this.skillsBindingSource;
             this.skillsDgv.Location = new System.Drawing.Point(7, 48);
             this.skillsDgv.Name = "skillsDgv";
+            this.skillsDgv.ReadOnly = true;
             this.skillsDgv.Size = new System.Drawing.Size(489, 100);
             this.skillsDgv.TabIndex = 0;
             // 
@@ -376,18 +379,21 @@
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // rankDataGridViewTextBoxColumn
             // 
             this.rankDataGridViewTextBoxColumn.DataPropertyName = "Rank";
             this.rankDataGridViewTextBoxColumn.HeaderText = "Rank";
             this.rankDataGridViewTextBoxColumn.Name = "rankDataGridViewTextBoxColumn";
+            this.rankDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
             this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
             this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
             this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
             this.descriptionDataGridViewTextBoxColumn.Width = 240;
             // 
             // skillsBindingSource
@@ -1675,11 +1681,21 @@
             this.loadMi.Text = "Load...";
             this.loadMi.Click += new System.EventHandler(this.loadMi_Click);
             // 
+            // editSkillBt
+            // 
+            this.editSkillBt.Location = new System.Drawing.Point(87, 19);
+            this.editSkillBt.Name = "editSkillBt";
+            this.editSkillBt.Size = new System.Drawing.Size(75, 23);
+            this.editSkillBt.TabIndex = 2;
+            this.editSkillBt.Text = "Edit Skill";
+            this.editSkillBt.UseVisualStyleBackColor = true;
+            this.editSkillBt.Click += new System.EventHandler(this.editSkillBt_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 476);
+            this.ClientSize = new System.Drawing.Size(1024, 477);
             this.Controls.Add(this.btAddCharacter);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.charactersCb);
@@ -1688,7 +1704,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1040, 515);
             this.Name = "MainWindow";
-            this.Text = "Form1";
+            this.Text = "UESRPG Character Generator";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -1898,6 +1914,7 @@
         private System.Windows.Forms.ComboBox characteristicCb;
         private System.Windows.Forms.RadioButton skillRb;
         private System.Windows.Forms.RadioButton characteristicRb;
+        private System.Windows.Forms.Button editSkillBt;
     }
 }
 

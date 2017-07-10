@@ -31,6 +31,7 @@ namespace UESRPG_Character_Manager
 
             /*CUSTOM EVENT BINDINGS*/
             this.rollResultTb.TextChanged += softRoll;
+            this.skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
@@ -66,8 +67,7 @@ namespace UESRPG_Character_Manager
 
             characteristicCb.SelectedIndex = 0;
 
-            skillsCb.Items.Add ("Untrained");
-            skillsCb.SelectedIndex = 0;
+            updateDataBindings();
         }
 
         private Character SelectedCharacter ()
@@ -224,7 +224,7 @@ namespace UESRPG_Character_Manager
 
             int selectedIndex = skillsCb.SelectedIndex;
             skillsCb.Items.Clear ();
-            skillsCb.Items.Add ("Untrained");
+
             for (int i = 0; i < SelectedCharacter ().Skills.Count; i++)
             {
                 Skill skill = SelectedCharacter ().Skills[i];
@@ -288,7 +288,7 @@ namespace UESRPG_Character_Manager
         }
 
         /// <summary>
-        /// Will disable the skillLevel textbox if a skill roll is not selected and perform a soft roll
+        /// Will filter the Characteristic combobox for the selected skill and perform a soft roll
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -300,7 +300,7 @@ namespace UESRPG_Character_Manager
         }
 
         /// <summary>
-        /// Will disable the skillLevel textbox if a skill roll is not selected and perform a soft roll
+        /// Will filter the Characteristic combobox for the selected skill and perform a soft roll
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -391,26 +391,15 @@ namespace UESRPG_Character_Manager
 
                 if (isSkillRoll)
                 {
-                    // if we haven't selected a skill, we are rolling an untrained skill
-                    if (skillsCb.SelectedItem.GetType () != typeof (Skill))
-                    {
-                        characteristicIndex = characteristicCb.SelectedIndex;
-                        characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
+                    Skill skill = (Skill)skillsCb.SelectedItem;
 
-                        characteristic = ((characteristic - 20) + extraDifficulty);
-                    }
-                    else
-                    {
-                        Skill skill = (Skill)skillsCb.SelectedItem;
+                    characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
+                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
 
-                        characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
-                        characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
-
-                        int skillLevel = skill.Rank;
-                        characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
-                    }
+                    int skillLevel = skill.Rank;
+                    characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
                 }
-                else
+                else   // Otherwise it's a Characteristic roll
                 {
                     characteristicIndex = characteristicCb.SelectedIndex;
                     characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
@@ -614,8 +603,14 @@ namespace UESRPG_Character_Manager
         private void addSkillBt_Click (object sender, EventArgs e)
         {
             int skillIndex = skillsCb.SelectedIndex;
-            EditSkill es = new EditSkill (SelectedCharacter ());
+            EditSkill es = new EditSkill();
             es.ShowDialog ();
+
+            Skill newSkill;
+            if (es.GetSkill(out newSkill))
+            {
+                SelectedCharacter().Skills.Add(newSkill);
+            }
             updateDataBindings ();
             skillsCb.SelectedIndex = skillIndex;
         }
@@ -736,6 +731,35 @@ namespace UESRPG_Character_Manager
             }
 
             refreshUIRepresentation ();
+        }
+
+        private void editSkillBt_Click(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
+            if(theRows.Count == 1)
+            {
+                int selectedIndex = theRows[0].Index;
+                EditSkill es = new EditSkill(SelectedCharacter().Skills[selectedIndex]);
+                es.Show();
+            }
+
+            updateDataBindings();
+        }
+
+        private void skillsDgv_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
+            if (theRows.Count == 1)
+            {
+                int selectedIndex = theRows[0].Index;
+                bool canEdit = !(SelectedCharacter().Skills[selectedIndex].isDefaultSkill);
+
+                editSkillBt.Enabled = canEdit;
+            }
+            else
+            {
+                editSkillBt.Enabled = false;
+            }
         }
     }
 }

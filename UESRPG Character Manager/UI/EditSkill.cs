@@ -12,13 +12,13 @@ namespace UESRPG_Character_Manager
 {
     public partial class EditSkill : Form
     {
-        private Character _character;
+        private Skill _skill;
 
-        public EditSkill (Character character)
+        public EditSkill ( )
         {
             InitializeComponent ();
 
-            _character = character;
+            _skill = new Skill();
 
             skillCharacteristicsClb.Sorted = false;
             foreach (string characteristic in Characteristics.CharacteristicNames)
@@ -27,19 +27,58 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        public EditSkill (Skill skill)
+        {
+            InitializeComponent();
+
+            _skill = skill;
+
+            skillCharacteristicsClb.Sorted = false;
+            foreach (string characteristic in Characteristics.CharacteristicNames)
+            {
+                skillCharacteristicsClb.Items.Add(characteristic);
+            }
+
+            skillNameTb.Text = _skill.Name;
+            for (int i = 0; i < _skill.Characteristics.Length; i++)
+            {
+                int characteristicIndex = _skill.Characteristics[i];
+                skillCharacteristicsClb.SetItemChecked(characteristicIndex, true);
+            }
+            skillRankNud.Value = _skill.Rank;
+
+            skillDescriptionRtb.Text = _skill.Description;
+        }
+
+        public bool GetSkill(out Skill theSkill)
+        {
+            bool result = false;
+
+            if(DialogResult == DialogResult.OK)
+            {
+                result = true;
+                theSkill = _skill;
+            }
+            else
+            {
+                theSkill = null;
+            }
+
+            return result;
+        }
+
         private void confirmBt_Click (object sender, EventArgs e)
         {
-            Skill s = new Skill ();
-            s.Name = skillNameTb.Text;
-            s.Characteristics = new int[skillCharacteristicsClb.CheckedIndices.Count];
-            for (int i = 0; i < s.Characteristics.Length; i++)
+            _skill.Name = skillNameTb.Text;
+            _skill.Characteristics = new int[skillCharacteristicsClb.CheckedIndices.Count];
+            for (int i = 0; i < _skill.Characteristics.Length; i++)
             {
-                s.Characteristics[i] = skillCharacteristicsClb.CheckedIndices[i];
+                _skill.Characteristics[i] = skillCharacteristicsClb.CheckedIndices[i];
             }
-            s.Description = skillDescriptionRtb.Text;
-            s.Rank = (int)skillRankNud.Value;
+            _skill.Description = skillDescriptionRtb.Text;
+            _skill.Rank = (int)skillRankNud.Value;
 
-            _character.Skills.Add (s);
+            DialogResult = DialogResult.OK;
 
             Close ();
         }
