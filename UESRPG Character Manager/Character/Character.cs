@@ -47,6 +47,11 @@ namespace UESRPG_Character_Manager
         public int NumberOfDice { get; set; }
         public int DiceSides { get; set; }
         public int Penetration { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 
     //[XmlRoot("Character", IsNullable = false)]
@@ -72,16 +77,6 @@ namespace UESRPG_Character_Manager
             _weapons = new List<Weapon> ();
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
-            Skill untrainedSkill = new Skill();
-            untrainedSkill.Name = "Untrained";
-            untrainedSkill.Rank = -2;
-            untrainedSkill.isDefaultSkill = true;
-            untrainedSkill.Characteristics = new int[Characteristics.NumberOfCharacteristics];
-            for(int i = 0; i < Characteristics.NumberOfCharacteristics; i++)
-            {
-                untrainedSkill.Characteristics[i] = i;
-            }
-            _skills.Add(untrainedSkill);
             _modifiers = new int[Modifiers.NumberOfModifiers];
         }
 
@@ -455,6 +450,27 @@ namespace UESRPG_Character_Manager
                 {
                     s.Rank -= 1;
                 }
+            }
+
+            // We always want to ensure the presence of an "Untrained" skill for each character on Load.
+            IEnumerable<Skill> untrainedSearch = from skill in _skills
+                                                 where skill.Name == "Untrained"
+                                                 where skill.Rank == -2
+                                                 where skill.isDefaultSkill == true
+                                                 where skill.Characteristics.Length == Characteristics.NumberOfCharacteristics
+                                                 select skill;
+            if (untrainedSearch.Count() == 0)
+            {
+                Skill untrainedSkill = new Skill();
+                untrainedSkill.Name = "Untrained";
+                untrainedSkill.Rank = -2;
+                untrainedSkill.isDefaultSkill = true;
+                untrainedSkill.Characteristics = new int[Characteristics.NumberOfCharacteristics];
+                for (int i = 0; i < Characteristics.NumberOfCharacteristics; i++)
+                {
+                    untrainedSkill.Characteristics[i] = i;
+                }
+                _skills.Insert(0, untrainedSkill);
             }
         }
     }

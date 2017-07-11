@@ -24,6 +24,7 @@ namespace UESRPG_Character_Manager
         private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
         private bool _characterStatsMutex = false;
+        private bool _updatingDataBindings = false;
 
         public MainWindow ()
         {
@@ -38,6 +39,7 @@ namespace UESRPG_Character_Manager
 
             _characterList = new List<Character> ();
             _selectedChar = new Character ();
+            _selectedChar.Update();
             _characterList.Add (_selectedChar);
 
             charactersCb.Items.Add (_selectedChar.Name);
@@ -196,6 +198,8 @@ namespace UESRPG_Character_Manager
         /// <todo>Refactor this to reduce code repetition</todo>
         private void updateDataBindings ()
         {
+            _updatingDataBindings = true;
+
             armorDgv.DataSource = null;
             if (SelectedCharacter ().ArmorPieces.Count > 0)
             {
@@ -217,9 +221,11 @@ namespace UESRPG_Character_Manager
             }
 
             spellsDgv.DataSource = null;
+            spellsCb.DataSource = null;
             if (SelectedCharacter ().Spells.Count > 0)
             {
                 spellsDgv.DataSource = SelectedCharacter ().Spells;
+                spellsCb.DataSource = SelectedCharacter().Spells;
             }
 
             int selectedIndex = skillsCb.SelectedIndex;
@@ -238,6 +244,8 @@ namespace UESRPG_Character_Manager
             {
                 skillsCb.SelectedIndex = 0;
             }
+
+            _updatingDataBindings = false;
         }
 
         private void skillsCb_SelectedIndexChanged (object sender, EventArgs e)
@@ -251,11 +259,10 @@ namespace UESRPG_Character_Manager
         /// <summary>
         /// This function will determine which Characteristics govern the selected skill and remove all other Characteristics from the Characteristic CB.
         /// </summary>
-        /// <todo>Rework this to eliminate type checking wizardry</todo>
         private void updateCharacteristicCb ()
         {
             object selectedItem = skillsCb.SelectedItem;
-            if ((selectedItem.GetType () == typeof (Skill)) && skillRb.Checked)
+            if (selectedItem != null && skillRb.Checked)
             {
                 Skill skill = (Skill)selectedItem;
                 characteristicCb.Items.Clear ();
@@ -295,6 +302,7 @@ namespace UESRPG_Character_Manager
         private void skillRb_CheckedChanged (object sender, EventArgs e)
         {
             updateCharacteristicCb ();
+            extraDifficultyNud.Value = 0;
 
             softRoll (sender, e);
         }
@@ -307,6 +315,7 @@ namespace UESRPG_Character_Manager
         private void characteristicRb_CheckedChanged (object sender, EventArgs e)
         {
             updateCharacteristicCb ();
+            extraDifficultyNud.Value = 0;
 
             softRoll (sender, e);
         }
@@ -316,26 +325,16 @@ namespace UESRPG_Character_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void rollBt_Click (object sender, EventArgs e)
-        {
-            rollBt_Click (sender, e, 0);
-        }
-
-        /// <summary>
-        /// Rolls against selected parameters
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         /// <param name="extraDifficulty">An extra difficulty modifier, in case a particular check is harder or easier</param>
         /// <todo>Expose the extraDifficulty modifier somewhere</todo>
-        private void rollBt_Click (object sender, EventArgs e, int extraDifficulty = 0)
+        private void rollBt_Click (object sender, EventArgs e)
         {
             Random r = new Random ();
 
             int result = r.Next (1, 100);
             rollResultTb.Text = "" + result;
 
-            softRoll (sender, e, extraDifficulty);
+            softRoll (sender, e);
         }
 
         /// <summary>
@@ -347,7 +346,8 @@ namespace UESRPG_Character_Manager
         /// <param name="e"></param>
         private void softRoll (object sender, EventArgs e)
         {
-            softRoll (sender, e, 0);
+            int extraDifficulty = (int)extraDifficultyNud.Value;
+            softRoll (sender, e, extraDifficulty);
         }
 
         /// <summary>
@@ -357,32 +357,15 @@ namespace UESRPG_Character_Manager
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// <todo>
-        /// Expose the extraDifficulty modifier somewhere. This function is expected to change a lot to remove
-        /// much of the Character logic (and especially the Untrained Skill wizardry).
-        /// </todo>
-        private void softRoll (object sender, EventArgs e, int extraDifficulty = 0)
+        /// <todo> We can probably encapsulate this further by containing all the Skill/Characteristic Check logic in the Character class.</todo>
+        private void softRoll (object sender, EventArgs e, int extraDifficulty)
         {
             bool isSkillRoll = skillRb.Checked;
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
             {
-                int luck = SelectedCharacter ().Luck;
-                if (result <= SelectedCharacter ().GetBonus (luck))
-                {
-                    successOrFailLb.Text = "Critical success!";
-                    successOrFailLb.Visible = true;
-                }
-                else if (result >= (95 + SelectedCharacter ().GetBonus (luck)))
-                {
-                    successOrFailLb.Text = "Critical failure!";
-                    successOrFailLb.Visible = true;
-                }
-                else
-                {
-                    successOrFailLb.Visible = false;
-                }
+                updateCriticalLabel(result);
 
                 int difference = 0;
 
@@ -402,7 +385,7 @@ namespace UESRPG_Character_Manager
                 else   // Otherwise it's a Characteristic roll
                 {
                     characteristicIndex = characteristicCb.SelectedIndex;
-                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
+                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex) + extraDifficulty;
                 }
 
                 difference = (characteristic - result);
@@ -411,6 +394,29 @@ namespace UESRPG_Character_Manager
 
                 rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
                 rollSuccessesTb.Text = "" + successes;
+            }
+        }
+
+        /// <summary>
+        /// Will update the "Critical" label for a given rollResult based on the currently-selected Character.
+        /// </summary>
+        /// <param name="rollResult">The roll result used to update.</param>
+        private void updateCriticalLabel(int rollResult)
+        {
+            int luck = SelectedCharacter().Luck;
+            if (rollResult <= SelectedCharacter().GetBonus(luck))
+            {
+                successOrFailLb.Text = "Critical success!";
+                successOrFailLb.Visible = true;
+            }
+            else if (rollResult >= (95 + SelectedCharacter().GetBonus(luck)))
+            {
+                successOrFailLb.Text = "Critical failure!";
+                successOrFailLb.Visible = true;
+            }
+            else
+            {
+                successOrFailLb.Visible = false;
             }
         }
 
@@ -516,6 +522,7 @@ namespace UESRPG_Character_Manager
         private void btAddCharacter_Click (object sender, EventArgs e)
         {
             Character newChar = new Character ();
+            newChar.Update();
             _characterList.Add (newChar);
             charactersCb.Items.Add (newChar.Name);
         }
@@ -657,6 +664,36 @@ namespace UESRPG_Character_Manager
             weaponResultBreakdownTb.Text = breakdownString;
         }
 
+        private void spellRollBt_Click(object sender, EventArgs e)
+        {
+            Random r = new Random();
+
+            Spell selectedSpell = (Spell)spellsCb.SelectedItem;
+            int resultTotal = 0;
+            string breakdownString = "";
+
+            for (int i = 0; i < selectedSpell.NumberOfDice; i++)
+            {
+                string formatString;
+
+                if (i == selectedSpell.NumberOfDice - 1)
+                {
+                    formatString = "{0}";
+                }
+                else
+                {
+                    formatString = "{0} + ";
+                }
+
+                int roll = r.Next(1, selectedSpell.DiceSides);
+                breakdownString += string.Format(formatString, roll);
+                resultTotal += roll;
+            }
+
+            spellResultTb.Text = string.Format("{0} pen {1}", resultTotal, selectedSpell.Penetration);
+            spellResultBreakdownTb.Text = breakdownString;
+        }
+
         private void weaponCb_SelectedIndexChanged (object sender, EventArgs e)
         {
             if (weaponCb.SelectedIndex > -1 && weaponCb.SelectedItem.GetType () == typeof (Weapon))
@@ -674,63 +711,6 @@ namespace UESRPG_Character_Manager
             EditSpell es = new EditSpell (SelectedCharacter ());
             es.ShowDialog ();
             updateDataBindings ();
-        }
-
-        /// <todo>make this good</todo>
-        private void castSpellBt_Click (object sender, EventArgs e)
-        {
-            if (spellsDgv.SelectedRows.Count != 1)
-            {
-                MessageBox.Show ("Please select 1 spell to cast.");
-                return;
-            }
-
-            Spell s = SelectedCharacter ().Spells[spellsDgv.CurrentCell.RowIndex];
-
-            if (SelectedCharacter ().CurrentMagicka < s.Cost)
-            {
-                MessageBox.Show ("You don't have enough magicka to cast this spell!");
-            }
-            else
-            {
-                SelectedCharacter ().CurrentMagicka -= s.Cost;
-
-                int skillIndex = -1;
-                for (int i = 0; i < SelectedCharacter ().Skills.Count; i++)
-                {
-                    if (SelectedCharacter ().Skills[i].Name == s.AssociatedSkill)
-                    {
-                        skillIndex = i;
-                        break;
-                    }
-                }
-
-                if (skillIndex > -1)
-                {
-                    skillRb.Checked = true;
-                    // add 1 because of the "Untrained" option
-                    skillsCb.SelectedIndex = skillIndex + 1;
-                    rollBt_Click (sender, e, s.Difficulty);
-                    spellRollBreakdownTb.Text = rollBreakdownTb.Text;
-                    if (int.Parse (rollResultTb.Text) >= 0 && s.DoesDamage)
-                    {
-                        Random r = new Random ();
-                        int totalResult = 0;
-                        for (int i = 0; i < s.NumberOfDice; i++)
-                        {
-                            totalResult += r.Next (1, s.DiceSides);
-                        }
-
-                        spellDamageTb.Text = string.Format ("{0} pen {1}", totalResult, s.Penetration);
-                    }
-                    else
-                    {
-                        spellDamageTb.Text = "N/A";
-                    }
-                }
-            }
-
-            refreshUIRepresentation ();
         }
 
         private void editSkillBt_Click(object sender, EventArgs e)
@@ -760,6 +740,38 @@ namespace UESRPG_Character_Manager
             {
                 editSkillBt.Enabled = false;
             }
+        }
+
+        private void spellsCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool allowRoll = false;
+
+            if (spellsCb.Items.Count > 0)
+            {
+                if (spellsCb.SelectedItem != null && spellsCb.SelectedItem.GetType() == typeof(Spell))
+                {
+                    Spell selectedSpell = (Spell)spellsCb.SelectedItem;
+
+                    // Set up the skill roll for the user, assuming this event was not triggered in updateDataBindings.
+                    if (!_updatingDataBindings)
+                    {
+                        skillRb.Checked = true;
+                        IEnumerable<Skill> skillSearch = from skill in SelectedCharacter().Skills
+                                                         where skill.Name == selectedSpell.AssociatedSkill
+                                                         select skill;
+                        if (skillSearch.Count() == 1)
+                        {
+                            int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
+                            skillsCb.SelectedIndex = skillIndex;
+                            extraDifficultyNud.Value = selectedSpell.Difficulty;
+                        }
+                    }
+
+                    allowRoll = selectedSpell.DoesDamage;
+                }
+            }
+
+            spellRollBt.Enabled = allowRoll;
         }
     }
 }
