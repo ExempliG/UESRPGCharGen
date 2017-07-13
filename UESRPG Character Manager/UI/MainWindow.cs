@@ -33,6 +33,7 @@ namespace UESRPG_Character_Manager
             /*CUSTOM EVENT BINDINGS*/
             this.rollResultTb.TextChanged += softRoll;
             this.skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
+            this.characterNotesRtb.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
@@ -70,6 +71,11 @@ namespace UESRPG_Character_Manager
             characteristicCb.SelectedIndex = 0;
 
             updateDataBindings();
+        }
+
+        private void characterNotesRtb_LostFocus(object sender, EventArgs e)
+        {
+            SelectedCharacter().Notes = characterNotesRtb.Text;
         }
 
         private Character SelectedCharacter ()
@@ -169,6 +175,8 @@ namespace UESRPG_Character_Manager
                 nbModInitiativeRating.Value = SelectedCharacter ().InitiativeRatingMod;
                 nbModDamageBonus.Value = SelectedCharacter ().DamageBonusMod;
                 nbModLuck.Value = SelectedCharacter ().LuckPointsMod;
+
+                characterNotesRtb.Text = SelectedCharacter().Notes;
 
                 updateCalculatedFields ();
                 _characterStatsMutex = false;
@@ -772,6 +780,11 @@ namespace UESRPG_Character_Manager
             }
 
             spellRollBt.Enabled = allowRoll;
+        }
+
+        private void notesCommitChangesBt_Click(object sender, EventArgs e)
+        {
+            SelectedCharacter().Notes = characterNotesRtb.Text;
         }
     }
 }

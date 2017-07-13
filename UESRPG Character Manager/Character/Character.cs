@@ -63,6 +63,7 @@ namespace UESRPG_Character_Manager
         private List<Weapon> _weapons;
         private List<Spell> _spells;
         private List<Skill> _skills;
+        private string _notes;
 
         private int _engVersion = 0;
         private int _minorVersion = 0;
@@ -95,6 +96,12 @@ namespace UESRPG_Character_Manager
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public string Notes
+        {
+            get { return _notes; }
+            set { _notes = value; }
         }
 
         [XmlAttribute ()]
