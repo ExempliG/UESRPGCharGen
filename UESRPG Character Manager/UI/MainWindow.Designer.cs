@@ -139,6 +139,7 @@
             this.isDireDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.healthLb = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.spellRollBt = new System.Windows.Forms.Button();
             this.spellResultBreakdownTb = new System.Windows.Forms.TextBox();
@@ -182,6 +183,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.receivedDamageTb = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.notesCommitChangesBt = new System.Windows.Forms.Button();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
             this.charactersCb = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -192,7 +194,7 @@
             this.saveAsMi = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.notesCommitChangesBt = new System.Windows.Forms.Button();
+            this.hitLocationLb = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -272,6 +274,8 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox9.Controls.Add(this.addSpellBt);
             this.groupBox9.Controls.Add(this.spellsDgv);
             this.groupBox9.Location = new System.Drawing.Point(484, 197);
@@ -293,6 +297,9 @@
             // 
             // spellsDgv
             // 
+            this.spellsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spellsDgv.BackgroundColor = System.Drawing.Color.White;
             this.spellsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.spellsDgv.Location = new System.Drawing.Point(6, 48);
@@ -997,6 +1004,9 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.armorNameTb);
             this.groupBox4.Controls.Add(this.armorQualityCb);
@@ -1007,7 +1017,7 @@
             this.groupBox4.Controls.Add(this.armorDgv);
             this.groupBox4.Location = new System.Drawing.Point(484, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(502, 214);
+            this.groupBox4.Size = new System.Drawing.Size(502, 370);
             this.groupBox4.TabIndex = 25;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Armor";
@@ -1075,16 +1085,21 @@
             // 
             this.armorDgv.AllowUserToAddRows = false;
             this.armorDgv.AllowUserToDeleteRows = false;
+            this.armorDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.armorDgv.BackgroundColor = System.Drawing.Color.White;
             this.armorDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.armorDgv.GridColor = System.Drawing.SystemColors.ControlLight;
             this.armorDgv.Location = new System.Drawing.Point(6, 72);
             this.armorDgv.Name = "armorDgv";
-            this.armorDgv.Size = new System.Drawing.Size(490, 136);
+            this.armorDgv.Size = new System.Drawing.Size(490, 292);
             this.armorDgv.TabIndex = 20;
             // 
             // groupBox7
             // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox7.Controls.Add(this.addNewWeaponBt);
             this.groupBox7.Controls.Add(this.weaponMaterialCb);
             this.groupBox7.Controls.Add(this.weaponTypeCb);
@@ -1093,7 +1108,7 @@
             this.groupBox7.Controls.Add(this.weaponsDgv);
             this.groupBox7.Location = new System.Drawing.Point(6, 6);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(472, 214);
+            this.groupBox7.Size = new System.Drawing.Size(472, 376);
             this.groupBox7.TabIndex = 24;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Weapons";
@@ -1143,6 +1158,8 @@
             // weaponsDgv
             // 
             this.weaponsDgv.AllowUserToAddRows = false;
+            this.weaponsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.weaponsDgv.AutoGenerateColumns = false;
             this.weaponsDgv.BackgroundColor = System.Drawing.Color.White;
             this.weaponsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1165,7 +1182,7 @@
             this.weaponsDgv.DataSource = this.weaponsBindingSource;
             this.weaponsDgv.Location = new System.Drawing.Point(6, 72);
             this.weaponsDgv.Name = "weaponsDgv";
-            this.weaponsDgv.Size = new System.Drawing.Size(460, 136);
+            this.weaponsDgv.Size = new System.Drawing.Size(460, 298);
             this.weaponsDgv.TabIndex = 0;
             // 
             // nameDataGridViewTextBoxColumn1
@@ -1266,6 +1283,7 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.healthLb);
             this.tabPage2.Controls.Add(this.groupBox10);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox8);
@@ -1277,6 +1295,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Combat & Rolls";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // healthLb
+            // 
+            this.healthLb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.healthLb.AutoSize = true;
+            this.healthLb.Location = new System.Drawing.Point(813, 171);
+            this.healthLb.Name = "healthLb";
+            this.healthLb.Size = new System.Drawing.Size(41, 13);
+            this.healthLb.TabIndex = 28;
+            this.healthLb.Text = "Health:";
             // 
             // groupBox10
             // 
@@ -1296,6 +1324,7 @@
             // 
             // spellRollBt
             // 
+            this.spellRollBt.Enabled = false;
             this.spellRollBt.Location = new System.Drawing.Point(167, 98);
             this.spellRollBt.Name = "spellRollBt";
             this.spellRollBt.Size = new System.Drawing.Size(75, 23);
@@ -1362,8 +1391,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.hitLocationLb);
             this.groupBox3.Controls.Add(this.extraDifficultyNud);
             this.groupBox3.Controls.Add(this.label42);
             this.groupBox3.Controls.Add(this.successOrFailLb);
@@ -1388,6 +1416,16 @@
             // extraDifficultyNud
             // 
             this.extraDifficultyNud.Location = new System.Drawing.Point(101, 73);
+            this.extraDifficultyNud.Maximum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            0});
+            this.extraDifficultyNud.Minimum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            -2147483648});
             this.extraDifficultyNud.Name = "extraDifficultyNud";
             this.extraDifficultyNud.Size = new System.Drawing.Size(120, 20);
             this.extraDifficultyNud.TabIndex = 15;
@@ -1404,7 +1442,7 @@
             // successOrFailLb
             // 
             this.successOrFailLb.AutoSize = true;
-            this.successOrFailLb.Location = new System.Drawing.Point(336, 97);
+            this.successOrFailLb.Location = new System.Drawing.Point(413, 89);
             this.successOrFailLb.Name = "successOrFailLb";
             this.successOrFailLb.Size = new System.Drawing.Size(83, 13);
             this.successOrFailLb.TabIndex = 13;
@@ -1433,7 +1471,7 @@
             // 
             this.rollSuccessesTb.Location = new System.Drawing.Point(319, 41);
             this.rollSuccessesTb.Name = "rollSuccessesTb";
-            this.rollSuccessesTb.Size = new System.Drawing.Size(100, 20);
+            this.rollSuccessesTb.Size = new System.Drawing.Size(177, 20);
             this.rollSuccessesTb.TabIndex = 10;
             // 
             // label28
@@ -1449,7 +1487,7 @@
             // 
             this.rollBreakdownTb.Location = new System.Drawing.Point(319, 66);
             this.rollBreakdownTb.Name = "rollBreakdownTb";
-            this.rollBreakdownTb.Size = new System.Drawing.Size(100, 20);
+            this.rollBreakdownTb.Size = new System.Drawing.Size(177, 20);
             this.rollBreakdownTb.TabIndex = 8;
             // 
             // label27
@@ -1465,7 +1503,7 @@
             // 
             this.rollResultTb.Location = new System.Drawing.Point(319, 16);
             this.rollResultTb.Name = "rollResultTb";
-            this.rollResultTb.Size = new System.Drawing.Size(100, 20);
+            this.rollResultTb.Size = new System.Drawing.Size(177, 20);
             this.rollResultTb.TabIndex = 6;
             // 
             // rollBt
@@ -1591,6 +1629,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.applyDamageBt);
             this.groupBox5.Controls.Add(this.label36);
             this.groupBox5.Controls.Add(this.finalDamageReceivedTb);
@@ -1699,8 +1738,22 @@
             this.tabPage4.Text = "Notes";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // notesCommitChangesBt
+            // 
+            this.notesCommitChangesBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.notesCommitChangesBt.Location = new System.Drawing.Point(889, 362);
+            this.notesCommitChangesBt.Name = "notesCommitChangesBt";
+            this.notesCommitChangesBt.Size = new System.Drawing.Size(97, 23);
+            this.notesCommitChangesBt.TabIndex = 1;
+            this.notesCommitChangesBt.Text = "Commit Changes";
+            this.notesCommitChangesBt.UseVisualStyleBackColor = true;
+            this.notesCommitChangesBt.Click += new System.EventHandler(this.notesCommitChangesBt_Click);
+            // 
             // characterNotesRtb
             // 
+            this.characterNotesRtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.characterNotesRtb.Location = new System.Drawing.Point(7, 7);
             this.characterNotesRtb.Name = "characterNotesRtb";
             this.characterNotesRtb.Size = new System.Drawing.Size(979, 349);
@@ -1792,15 +1845,15 @@
             this.skillsBindingSource1.DataMember = "Skills";
             this.skillsBindingSource1.DataSource = this.characterBindingSource;
             // 
-            // notesCommitChangesBt
+            // hitLocationLb
             // 
-            this.notesCommitChangesBt.Location = new System.Drawing.Point(889, 362);
-            this.notesCommitChangesBt.Name = "notesCommitChangesBt";
-            this.notesCommitChangesBt.Size = new System.Drawing.Size(97, 23);
-            this.notesCommitChangesBt.TabIndex = 1;
-            this.notesCommitChangesBt.Text = "Commit Changes";
-            this.notesCommitChangesBt.UseVisualStyleBackColor = true;
-            this.notesCommitChangesBt.Click += new System.EventHandler(this.notesCommitChangesBt_Click);
+            this.hitLocationLb.AutoSize = true;
+            this.hitLocationLb.Location = new System.Drawing.Point(104, 107);
+            this.hitLocationLb.Name = "hitLocationLb";
+            this.hitLocationLb.Size = new System.Drawing.Size(36, 13);
+            this.hitLocationLb.TabIndex = 16;
+            this.hitLocationLb.Text = "Head!";
+            this.hitLocationLb.Visible = false;
             // 
             // MainWindow
             // 
@@ -1856,6 +1909,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
@@ -2041,6 +2095,8 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.RichTextBox characterNotesRtb;
         private System.Windows.Forms.Button notesCommitChangesBt;
+        private System.Windows.Forms.Label healthLb;
+        private System.Windows.Forms.Label hitLocationLb;
     }
 }
 

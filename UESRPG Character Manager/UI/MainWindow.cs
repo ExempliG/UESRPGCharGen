@@ -160,6 +160,7 @@ namespace UESRPG_Character_Manager
                 nbLuck.Value = SelectedCharacter ().Luck;
 
                 healthTb.Text = SelectedCharacter ().CurrentHealth.ToString ();
+                healthLb.Text = string.Format("Health: {0} / {1}", SelectedCharacter().CurrentHealth, SelectedCharacter().MaxHealth);
                 staminaTb.Text = SelectedCharacter ().CurrentStamina.ToString ();
                 magickaTb.Text = SelectedCharacter ().CurrentMagicka.ToString ();
                 luckPointsTb.Text = SelectedCharacter ().CurrentLuckPoints.ToString ();
@@ -244,13 +245,17 @@ namespace UESRPG_Character_Manager
                 Skill skill = SelectedCharacter ().Skills[i];
                 skillsCb.Items.Add (skill);
             }
-            if (selectedIndex < skillsCb.Items.Count)
+            if (selectedIndex < skillsCb.Items.Count && selectedIndex != -1)
             {
                 skillsCb.SelectedIndex = selectedIndex;
             }
-            else
+            else if (skillsCb.Items.Count >= 1)
             {
                 skillsCb.SelectedIndex = 0;
+            }
+            else
+            {
+                // do nothing
             }
 
             _updatingDataBindings = false;
@@ -369,11 +374,13 @@ namespace UESRPG_Character_Manager
         private void softRoll (object sender, EventArgs e, int extraDifficulty)
         {
             bool isSkillRoll = skillRb.Checked;
+            bool success = true;
 
             int result = 0;
             if (int.TryParse (rollResultTb.Text, out result))
             {
                 updateCriticalLabel(result);
+                updateHitLocationLabel(result);
 
                 int difference = 0;
 
@@ -382,26 +389,50 @@ namespace UESRPG_Character_Manager
 
                 if (isSkillRoll)
                 {
-                    Skill skill = (Skill)skillsCb.SelectedItem;
+                    if (skillsCb.Items.Count >= 1)
+                    {
+                        Skill skill = (Skill)skillsCb.SelectedItem;
 
-                    characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
-                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
+                        characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
+                        characteristic = SelectedCharacter().GetCharacteristic(characteristicIndex);
 
-                    int skillLevel = skill.Rank;
-                    characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
+                        int skillLevel = skill.Rank;
+                        rollBreakdownTb.Text = string.Format("({0} + skill {1} + diff {2}) - {3} =",
+                                                             characteristic,
+                                                             skillLevel * 10,
+                                                             extraDifficulty,
+                                                             result);
+                        characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
+                    }
+                    else
+                    {
+                        success = false;
+                    }
                 }
                 else   // Otherwise it's a Characteristic roll
                 {
                     characteristicIndex = characteristicCb.SelectedIndex;
-                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex) + extraDifficulty;
+                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
+                    rollBreakdownTb.Text = string.Format("({0} + diff {1}) - {2} =",
+                                                         characteristic,
+                                                         extraDifficulty,
+                                                         result);
+                    characteristic += extraDifficulty;
                 }
 
-                difference = (characteristic - result);
+                if (success)
+                {
+                    difference = (characteristic - result);
 
-                int successes = SelectedCharacter ().GetBonus (difference);
+                    int successes = SelectedCharacter().GetBonus(difference);
 
-                rollBreakdownTb.Text = String.Format ("{0} - {1} = {2}", characteristic, result, difference);
-                rollSuccessesTb.Text = "" + successes;
+                    rollBreakdownTb.Text += String.Format("{0}", difference);
+                    rollSuccessesTb.Text = "" + successes;
+                }
+                else
+                {
+                    rollBreakdownTb.Text = "No skill selected!";
+                }
             }
         }
 
@@ -426,6 +457,39 @@ namespace UESRPG_Character_Manager
             {
                 successOrFailLb.Visible = false;
             }
+        }
+
+        private void updateHitLocationLabel(int rollResult)
+        {
+            int tensDigit = (rollResult / 10);
+            int tensComponent = tensDigit * 10;
+            int onesComponent = rollResult - tensComponent;
+
+            if(onesComponent == 0)
+            {
+                hitLocationLb.Text = "Head!";
+            }
+            else if(onesComponent >= 1 && onesComponent <= 2)
+            {
+                hitLocationLb.Text = "Right Arm!";
+            }
+            else if(onesComponent >= 3 && onesComponent <= 4)
+            {
+                hitLocationLb.Text = "Left Arm!";
+            }
+            else if(onesComponent >= 5 && onesComponent <= 7)
+            {
+                hitLocationLb.Text = "Body!";
+            }
+            else if(onesComponent == 8)
+            {
+                hitLocationLb.Text = "Right Leg!";
+            }
+            else if (onesComponent == 9)
+            {
+                hitLocationLb.Text = "Left Leg!";
+            }
+            hitLocationLb.Visible = true;
         }
 
         /// <summary>
@@ -524,6 +588,8 @@ namespace UESRPG_Character_Manager
                 }
                 charactersCb.SelectedIndex = 0;
                 nameTb.Text = SelectedCharacter ().Name;
+
+                updateDataBindings();
             }
         }
 
@@ -665,8 +731,9 @@ namespace UESRPG_Character_Manager
                 resultTotal += roll;
             }
 
-            breakdownString += string.Format ("{0}", selectedWeapon.DamageMod);
+            breakdownString += string.Format ("{0} + bonus {1}", selectedWeapon.DamageMod, SelectedCharacter().DamageBonus);
             resultTotal += selectedWeapon.DamageMod;
+            resultTotal += SelectedCharacter().DamageBonus;
 
             weaponResultTb.Text = string.Format ("{0} pen {1}", resultTotal, selectedWeapon.Penetration);
             weaponResultBreakdownTb.Text = breakdownString;
