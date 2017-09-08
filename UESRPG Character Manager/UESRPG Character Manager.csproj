@@ -50,6 +50,12 @@
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Characteristics.cs" />
     <Compile Include="Items\Armor.cs" />
+    <Compile Include="UI\CharacterCharacteristicsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterCharacteristicsView.Designer.cs">
+      <DependentUpon>CharacterCharacteristicsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\EditSkill.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Items\Weapon.cs" />
+    <EmbeddedResource Include="UI\CharacterCharacteristicsView.resx">
+      <DependentUpon>CharacterCharacteristicsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\EditSkill.resx">
       <DependentUpon>EditSkill.cs</DependentUpon>
     </EmbeddedResource>

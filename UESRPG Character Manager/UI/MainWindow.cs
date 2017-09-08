@@ -100,14 +100,6 @@ namespace UESRPG_Character_Manager
             if (!_characterStatsMutex)
             {
                 _characterStatsMutex = true;
-                SelectedCharacter ().Strength = (int)nbStrength.Value;
-                SelectedCharacter ().Endurance = (int)nbEndurance.Value;
-                SelectedCharacter ().Agility = (int)nbAgility.Value;
-                SelectedCharacter ().Intelligence = (int)nbIntelligence.Value;
-                SelectedCharacter ().Willpower = (int)nbWillpower.Value;
-                SelectedCharacter ().Perception = (int)nbPerception.Value;
-                SelectedCharacter ().Personality = (int)nbPersonality.Value;
-                SelectedCharacter ().Luck = (int)nbLuck.Value;
 
                 int health = 0;
                 int.TryParse (healthTb.Text, out health);
@@ -150,14 +142,7 @@ namespace UESRPG_Character_Manager
             if (!_characterStatsMutex)
             {
                 _characterStatsMutex = true;
-                nbStrength.Value = SelectedCharacter ().Strength;
-                nbEndurance.Value = SelectedCharacter ().Endurance;
-                nbAgility.Value = SelectedCharacter ().Agility;
-                nbIntelligence.Value = SelectedCharacter ().Intelligence;
-                nbWillpower.Value = SelectedCharacter ().Willpower;
-                nbPerception.Value = SelectedCharacter ().Perception;
-                nbPersonality.Value = SelectedCharacter ().Personality;
-                nbLuck.Value = SelectedCharacter ().Luck;
+                charaView_statsPage.UpdateView();
 
                 healthTb.Text = SelectedCharacter ().CurrentHealth.ToString ();
                 healthLb.Text = string.Format("Health: {0} / {1}", SelectedCharacter().CurrentHealth, SelectedCharacter().MaxHealth);
@@ -559,6 +544,7 @@ namespace UESRPG_Character_Manager
                     if (loadedList.Count > 1)
                     {
                         _selectedIndex = 0;
+                        charaView_statsPage.SetActiveCharacter(SelectedCharacter());
                     }
                     _characterList = loadedList;
                     _currentFile = fileName;
@@ -604,6 +590,7 @@ namespace UESRPG_Character_Manager
         private void charactersCb_SelectedIndexChanged (object sender, EventArgs e)
         {
             _selectedIndex = charactersCb.SelectedIndex;
+            charaView_statsPage.SetActiveCharacter(SelectedCharacter());
             nameTb.Text = SelectedCharacter ().Name;
             refreshUIRepresentation ();
             updateDataBindings ();
