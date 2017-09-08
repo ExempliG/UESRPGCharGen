@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacteristicsView();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.addSpellBt = new System.Windows.Forms.Button();
             this.spellsDgv = new System.Windows.Forms.DataGridView();
@@ -169,16 +170,13 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.notesCommitChangesBt = new System.Windows.Forms.Button();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
-            this.charactersCb = new System.Windows.Forms.ComboBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.btAddCharacter = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveMi = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMi = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacteristicsView();
+            this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -246,6 +244,13 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // charaView_statsPage
+            // 
+            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
+            this.charaView_statsPage.Name = "charaView_statsPage";
+            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
+            this.charaView_statsPage.TabIndex = 27;
             // 
             // groupBox9
             // 
@@ -1576,40 +1581,6 @@
             this.characterNotesRtb.TabIndex = 0;
             this.characterNotesRtb.Text = "";
             // 
-            // charactersCb
-            // 
-            this.charactersCb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.charactersCb.FormattingEnabled = true;
-            this.charactersCb.Location = new System.Drawing.Point(130, 447);
-            this.charactersCb.Margin = new System.Windows.Forms.Padding(2);
-            this.charactersCb.Name = "charactersCb";
-            this.charactersCb.Size = new System.Drawing.Size(114, 21);
-            this.charactersCb.TabIndex = 1;
-            this.charactersCb.SelectedIndexChanged += new System.EventHandler(this.charactersCb_SelectedIndexChanged);
-            // 
-            // label30
-            // 
-            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(9, 449);
-            this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(101, 13);
-            this.label30.TabIndex = 2;
-            this.label30.Text = "Selected Character:";
-            // 
-            // btAddCharacter
-            // 
-            this.btAddCharacter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btAddCharacter.Location = new System.Drawing.Point(247, 447);
-            this.btAddCharacter.Margin = new System.Windows.Forms.Padding(2);
-            this.btAddCharacter.Name = "btAddCharacter";
-            this.btAddCharacter.Size = new System.Drawing.Size(80, 19);
-            this.btAddCharacter.TabIndex = 3;
-            this.btAddCharacter.Text = "Add Character";
-            this.btAddCharacter.UseVisualStyleBackColor = true;
-            this.btAddCharacter.Click += new System.EventHandler(this.btAddCharacter_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1661,21 +1632,19 @@
             this.skillsBindingSource1.DataMember = "Skills";
             this.skillsBindingSource1.DataSource = this.characterBindingSource;
             // 
-            // charaView_statsPage
+            // characterSelector
             // 
-            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
-            this.charaView_statsPage.Name = "charaView_statsPage";
-            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
-            this.charaView_statsPage.TabIndex = 27;
+            this.characterSelector.Location = new System.Drawing.Point(12, 447);
+            this.characterSelector.Name = "characterSelector";
+            this.characterSelector.Size = new System.Drawing.Size(322, 23);
+            this.characterSelector.TabIndex = 5;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1024, 477);
-            this.Controls.Add(this.btAddCharacter);
-            this.Controls.Add(this.label30);
-            this.Controls.Add(this.charactersCb);
+            this.Controls.Add(this.characterSelector);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -1781,9 +1750,6 @@
         private System.Windows.Forms.NumericUpDown nbModStamina;
         private System.Windows.Forms.NumericUpDown nbModWoundThreshold;
         private System.Windows.Forms.NumericUpDown nbModHealth;
-        private System.Windows.Forms.ComboBox charactersCb;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Button btAddCharacter;
         private System.Windows.Forms.TextBox nameTb;
         private System.Windows.Forms.Label label31;
     private System.Windows.Forms.BindingSource characterBindingSource;
@@ -1884,6 +1850,7 @@
         private System.Windows.Forms.Label healthLb;
         private System.Windows.Forms.Label hitLocationLb;
         private UI.CharacteristicsView charaView_statsPage;
+        private UI.MainWindow.CharacterSelector characterSelector;
     }
 }
 

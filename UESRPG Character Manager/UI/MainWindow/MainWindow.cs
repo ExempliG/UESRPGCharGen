@@ -16,9 +16,6 @@ namespace UESRPG_Character_Manager
 {
     public partial class MainWindow : Form
     {
-        private List<Character> _characterList;
-        private Character _selectedChar;
-        private int _selectedIndex = 0;
         private string _currentFile = "";
 
         private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
@@ -38,13 +35,6 @@ namespace UESRPG_Character_Manager
 
             saveMi.Enabled = false;
 
-            _characterList = new List<Character> ();
-            _selectedChar = new Character ();
-            _selectedChar.Update();
-            _characterList.Add (_selectedChar);
-
-            charactersCb.Items.Add (_selectedChar.Name);
-            charactersCb.SelectedIndex = 0;
             armorLocationCb.DataSource = ArmorLocationsData.Names;
             hitLocationCb.DataSource = ArmorLocationsData.Names;
             armorTypeCb.DataSource = ArmorQualityData.Names;
@@ -80,13 +70,14 @@ namespace UESRPG_Character_Manager
 
         private Character SelectedCharacter ()
         {
-            return _characterList[_selectedIndex];
+            return characterSelector.GetActiveCharacter();
+            //return _characterList[_selectedIndex];
         }
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
             SelectedCharacter ().Name = nameTb.Text;
-            charactersCb.Items[_selectedIndex] = nameTb.Text;
+            //charactersCb.Items[_selectedIndex] = nameTb.Text;
         }
 
         /// <summary>
@@ -142,7 +133,10 @@ namespace UESRPG_Character_Manager
             if (!_characterStatsMutex)
             {
                 _characterStatsMutex = true;
-                charaView_statsPage.UpdateView();
+                if (characterSelector.HasActiveCharacter())
+                {
+                    charaView_statsPage.UpdateView();
+                }
 
                 healthTb.Text = SelectedCharacter ().CurrentHealth.ToString ();
                 healthLb.Text = string.Format("Health: {0} / {1}", SelectedCharacter().CurrentHealth, SelectedCharacter().MaxHealth);
@@ -496,15 +490,15 @@ namespace UESRPG_Character_Manager
             FileStream fs = new FileStream (fileName, FileMode.Create);
             try
             {
-                foreach (Character c in _characterList)
+                List<Character> listToSave = characterSelector.GetCharacterList();
+                foreach (Character c in listToSave)
                 {
                     c.EngVersion = Program.CurrentEngVersion;
                     c.MinorVersion = Program.CurrentMinorVersion;
                     c.MajorVersion = Program.CurrentMinorVersion;
                 }
 
-                
-                xml.Serialize (fs, _characterList);
+                xml.Serialize (fs, listToSave);
                 _currentFile = fileName;
                 saveMi.Enabled = true;
             }
@@ -540,22 +534,18 @@ namespace UESRPG_Character_Manager
                 {
                     List<Character> loadedList = (List<Character>)xml.Deserialize (fs);
 
-                    // Ensure that our selected character is in the range of the new list.
-                    if (loadedList.Count > 1)
-                    {
-                        _selectedIndex = 0;
-                        charaView_statsPage.SetActiveCharacter(SelectedCharacter());
-                    }
-                    _characterList = loadedList;
+                    //_characterList = loadedList;
                     _currentFile = fileName;
                     saveMi.Enabled = true;
 
-                    foreach (Character c in _characterList)
+                    foreach (Character c in loadedList)
                     {
                         // Perform any necessary updates.
                         c.Update ();
                     }
 
+                    characterSelector.LoadCharacterList(loadedList);
+                    charaView_statsPage.SetActiveCharacter(SelectedCharacter());
                 }
                 catch (IOException)
                 {
@@ -566,34 +556,10 @@ namespace UESRPG_Character_Manager
                     fs.Close ();
                 }
                 refreshUIRepresentation ();
-
-                charactersCb.Items.Clear ();
-                foreach (Character c in _characterList)
-                {
-                    charactersCb.Items.Add (c.Name);
-                }
-                charactersCb.SelectedIndex = 0;
                 nameTb.Text = SelectedCharacter ().Name;
 
                 updateDataBindings();
             }
-        }
-
-        private void btAddCharacter_Click (object sender, EventArgs e)
-        {
-            Character newChar = new Character ();
-            newChar.Update();
-            _characterList.Add (newChar);
-            charactersCb.Items.Add (newChar.Name);
-        }
-
-        private void charactersCb_SelectedIndexChanged (object sender, EventArgs e)
-        {
-            _selectedIndex = charactersCb.SelectedIndex;
-            charaView_statsPage.SetActiveCharacter(SelectedCharacter());
-            nameTb.Text = SelectedCharacter ().Name;
-            refreshUIRepresentation ();
-            updateDataBindings ();
         }
 
         private void addNewArmorBt_Click (object sender, EventArgs e)

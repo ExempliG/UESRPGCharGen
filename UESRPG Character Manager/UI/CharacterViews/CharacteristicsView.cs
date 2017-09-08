@@ -23,7 +23,10 @@ namespace UESRPG_Character_Manager.UI
         {
             _activeCharacter = c;
 
-            UpdateView();
+            if (_activeCharacter != null)
+            {
+                UpdateView();
+            }
         }
 
         public void UpdateView()
