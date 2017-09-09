@@ -12,11 +12,12 @@ using System.Collections;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace UESRPG_Character_Manager
+namespace UESRPG_Character_Manager.UI.MainWindow
 {
     public partial class MainWindow : Form
     {
         private string _currentFile = "";
+        private Character _activeCharacter;
 
         private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
@@ -26,6 +27,12 @@ namespace UESRPG_Character_Manager
         public MainWindow ()
         {
             InitializeComponent ();
+
+            // Subscribe Character views to the character change event
+            characterSelector.SelectedCharacterChanged += OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += charaView_statsPage.OnSelectedCharacterChanged;
+            //characterSelector.SelectedCharacterChanged += 
+            characterSelector.ForceUpdate();
 
             /*CUSTOM EVENT BINDINGS*/
             this.rollResultTb.TextChanged += softRoll;
@@ -63,6 +70,11 @@ namespace UESRPG_Character_Manager
             updateDataBindings();
         }
 
+        private void OnSelectedCharacterChanged(object sender, EventArgs e)
+        {
+            _activeCharacter = ((CharacterSelector)sender).GetActiveCharacter();
+        }
+
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
         {
             SelectedCharacter().Notes = characterNotesRtb.Text;
@@ -70,8 +82,8 @@ namespace UESRPG_Character_Manager
 
         private Character SelectedCharacter ()
         {
-            return characterSelector.GetActiveCharacter();
-            //return _characterList[_selectedIndex];
+            //return characterSelector.GetActiveCharacter();
+            return _activeCharacter;
         }
 
         private void nameTb_TextChanged (object sender, EventArgs e)
@@ -168,7 +180,7 @@ namespace UESRPG_Character_Manager
         /// </summary>
         private void updateCalculatedFields ()
         {
-            maxLuckPointsTb.Text = "" + (SelectedCharacter ().MaximumLuckPoints);
+            /*maxLuckPointsTb.Text = "" + (SelectedCharacter ().MaximumLuckPoints);
             initiativeRatingTb.Text = "" + (SelectedCharacter ().InitiativeRating);
             maxActionPointsTb.Text = "" + (SelectedCharacter ().MaximumAp);
             maxStaminaTb.Text = "" + (SelectedCharacter ().Stamina);
@@ -177,7 +189,7 @@ namespace UESRPG_Character_Manager
             carryRatingTb.Text = "" + (SelectedCharacter ().CarryRating);
             woundThresholdTb.Text = "" + (SelectedCharacter ().WoundThreshold);
             maxHealthTb.Text = "" + (SelectedCharacter ().MaxHealth);
-            damageBonusTb.Text = "" + (SelectedCharacter ().DamageBonus);
+            damageBonusTb.Text = "" + (SelectedCharacter ().DamageBonus);*/
         }
 
         /// <summary>
@@ -545,7 +557,6 @@ namespace UESRPG_Character_Manager
                     }
 
                     characterSelector.LoadCharacterList(loadedList);
-                    charaView_statsPage.SetActiveCharacter(SelectedCharacter());
                 }
                 catch (IOException)
                 {

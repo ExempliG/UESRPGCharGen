@@ -30,6 +30,12 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             _selectedChar.Update();
             _characterList.Add(_selectedChar);
             UpdateCharacterComboBox();
+            OnSelectedCharacterChanged();
+        }
+
+        public void ForceUpdate()
+        {
+            OnSelectedCharacterChanged();
         }
 
         public bool HasActiveCharacter()

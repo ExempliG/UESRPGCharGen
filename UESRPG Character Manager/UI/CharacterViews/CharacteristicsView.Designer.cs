@@ -1,4 +1,4 @@
-﻿namespace UESRPG_Character_Manager.UI
+﻿namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     partial class CharacteristicsView
     {
