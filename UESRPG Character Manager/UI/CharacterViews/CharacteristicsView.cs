@@ -99,11 +99,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
                 characteristicChange();
                 _characteristicMutex = false;
 
-                OnCharacteristicChanged();
+                onCharacteristicChanged();
             }
         }
 
-        protected void OnCharacteristicChanged()
+        protected void onCharacteristicChanged()
         {
             // Invoke the event if subscribers exist
             CharacteristicChanged?.Invoke(this, new System.EventArgs());

@@ -61,27 +61,25 @@ namespace UESRPG_Character_Manager
         /// <todo>This doesn't need to be an operator. You just thought it would be cool.</todo>
         public static Weapon operator * (Weapon a, WeaponMaterialModifier b)
         {
-            Weapon result = new Weapon ();
-            result.NumberOfDice = a.NumberOfDice;
-            result.DiceSides = a.DiceSides;
-            result.DamageMod = a.DamageMod;
-            result.Penetration = a.Penetration;
-            result.EncumbranceValue = a.EncumbranceValue;
-            result.EnchantmentLevel = a.EnchantmentLevel;
-            result.Price = a.Price;
-            result.Type = a.Type;
-            result.Reach = a.Reach;
-            result.Handedness = a.Handedness;
-            result.Size = a.Size;
-            result.DamageMod = a.DamageMod + b.DamageMod;
-            result.Penetration = a.Penetration + b.PenetrationMod;
-            result.EncumbranceValue = a.EncumbranceValue * b.EncumbranceMod;
             float enchLev = a.EnchantmentLevel;
-            result.EnchantmentLevel = (int)((enchLev * b.EnchantMod) + 0.5);
             float price = a.Price;
-            result.Price = (int)((price * b.PriceMod) + 0.5);
-            result.IsDire = b.IsDire;
-            result.Material = b.Material;
+
+            Weapon result = new Weapon()
+            {
+                NumberOfDice = a.NumberOfDice,
+                DiceSides = a.DiceSides,
+                Type = a.Type,
+                Reach = a.Reach,
+                Handedness = a.Handedness,
+                Size = a.Size,
+                DamageMod = a.DamageMod + b.DamageMod,
+                Penetration = a.Penetration + b.PenetrationMod,
+                EncumbranceValue = a.EncumbranceValue * b.EncumbranceMod,
+                EnchantmentLevel = (int)((enchLev * b.EnchantMod) + 0.5),
+                Price = (int)((price * b.PriceMod) + 0.5),
+                IsDire = b.IsDire,
+                Material = b.Material
+            };
             return result;
         }
 
@@ -134,7 +132,7 @@ namespace UESRPG_Character_Manager
     /// <todo>For real, load these things from a .csv. TRUST</todo>
     public static class WeaponTemplates
     {
-        static bool IsLoaded = false;
+        static bool _s_isLoaded = false;
 
         private static Weapon[] _DefaultWeapons =
         {

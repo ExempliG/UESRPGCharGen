@@ -154,9 +154,14 @@ namespace UESRPG_Character_Manager.UI
 
         private int tryParseAttribute(string textVal)
         {
-            int value = 0;
-            int.TryParse(textVal, out value);
-            return value;
+            if (int.TryParse(textVal, out int value))
+            {
+                return value;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         private void changeAttribute(Action attributeChange)

@@ -24,7 +24,7 @@ namespace UESRPG_Character_Manager
             _skill = new Skill();
 
             skillCharacteristicsClb.Sorted = false;
-            foreach (string characteristic in Characteristics.CharacteristicNames)
+            foreach (string characteristic in Characteristics.s_characteristicNames)
             {
                 skillCharacteristicsClb.Items.Add (characteristic);
             }
@@ -37,7 +37,7 @@ namespace UESRPG_Character_Manager
             _skill = skill;
 
             skillCharacteristicsClb.Sorted = false;
-            foreach (string characteristic in Characteristics.CharacteristicNames)
+            foreach (string characteristic in Characteristics.s_characteristicNames)
             {
                 skillCharacteristicsClb.Items.Add(characteristic);
             }

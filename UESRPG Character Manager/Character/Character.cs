@@ -73,12 +73,12 @@ namespace UESRPG_Character_Manager
 
         public Character ()
         {
-            _characteristics = new int[Characteristics.NumberOfCharacteristics];
+            _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
             _armorPieces = new List<Armor>();
             _weapons = new List<Weapon> ();
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
-            _modifiers = new int[Modifiers.NumberOfModifiers];
+            _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
         }
 
         public int GetBonus (int characteristic)
@@ -130,43 +130,43 @@ namespace UESRPG_Character_Manager
  *****************/
         public int Strength
         {
-            get { return _characteristics[Characteristics.Strength]; }
-            set { _characteristics[Characteristics.Strength] = value; }
+            get { return _characteristics[Characteristics.STRENGTH]; }
+            set { _characteristics[Characteristics.STRENGTH] = value; }
         }
         public int Endurance
         {
-            get { return _characteristics[Characteristics.Endurance]; }
-            set { _characteristics[Characteristics.Endurance] = value; }
+            get { return _characteristics[Characteristics.ENDURANCE]; }
+            set { _characteristics[Characteristics.ENDURANCE] = value; }
         }
         public int Agility
         {
-            get { return _characteristics[Characteristics.Agility]; }
-            set { _characteristics[Characteristics.Agility] = value; }
+            get { return _characteristics[Characteristics.AGILITY]; }
+            set { _characteristics[Characteristics.AGILITY] = value; }
         }
         public int Intelligence
         {
-            get { return _characteristics[Characteristics.Intelligence]; }
-            set { _characteristics[Characteristics.Intelligence] = value; }
+            get { return _characteristics[Characteristics.INTELLIGENCE]; }
+            set { _characteristics[Characteristics.INTELLIGENCE] = value; }
         }
         public int Willpower
         {
-            get { return _characteristics[Characteristics.Willpower]; }
-            set { _characteristics[Characteristics.Willpower] = value; }
+            get { return _characteristics[Characteristics.WILLPOWER]; }
+            set { _characteristics[Characteristics.WILLPOWER] = value; }
         }
         public int Perception
         {
-            get { return _characteristics[Characteristics.Perception]; }
-            set { _characteristics[Characteristics.Perception] = value; }
+            get { return _characteristics[Characteristics.PERCEPTION]; }
+            set { _characteristics[Characteristics.PERCEPTION] = value; }
         }
         public int Personality
         {
-            get { return _characteristics[Characteristics.Personality]; }
-            set { _characteristics[Characteristics.Personality] = value; }
+            get { return _characteristics[Characteristics.PERSONALITY]; }
+            set { _characteristics[Characteristics.PERSONALITY] = value; }
         }
         public int Luck
         {
-            get { return _characteristics[Characteristics.Luck]; }
-            set { _characteristics[Characteristics.Luck] = value; }
+            get { return _characteristics[Characteristics.LUCK]; }
+            set { _characteristics[Characteristics.LUCK] = value; }
         }
 /************
  * EQUIPMENT
@@ -264,53 +264,53 @@ namespace UESRPG_Character_Manager
  ***********/
         public int HealthMod
         {
-            get { return _modifiers[Modifiers.Health]; }
-            set { _modifiers[Modifiers.Health] = value; }
+            get { return _modifiers[Modifiers.HEALTH]; }
+            set { _modifiers[Modifiers.HEALTH] = value; }
         }
         public int WoundThresholdMod
         {
-            get { return _modifiers[Modifiers.WoundThreshold]; }
-            set { _modifiers[Modifiers.WoundThreshold] = value; }
+            get { return _modifiers[Modifiers.WOUND_THRESHOLD]; }
+            set { _modifiers[Modifiers.WOUND_THRESHOLD] = value; }
         }
         public int StaminaMod
         {
-            get { return _modifiers[Modifiers.Stamina]; }
-            set { _modifiers[Modifiers.Stamina] = value; }
+            get { return _modifiers[Modifiers.STAMINA]; }
+            set { _modifiers[Modifiers.STAMINA] = value; }
         }
         public int MagickaMod
         {
-            get { return _modifiers[Modifiers.Magicka]; }
-            set { _modifiers[Modifiers.Magicka] = value; }
+            get { return _modifiers[Modifiers.MAGICKA]; }
+            set { _modifiers[Modifiers.MAGICKA] = value; }
         }
         public int ActionPointsMod
         {
-            get { return _modifiers[Modifiers.ActionPoints]; }
-            set { _modifiers[Modifiers.ActionPoints] = value; }
+            get { return _modifiers[Modifiers.ACTION_POINTS]; }
+            set { _modifiers[Modifiers.ACTION_POINTS] = value; }
         }
         public int MovementRatingMod
         {
-            get { return _modifiers[Modifiers.MovementRating]; }
-            set { _modifiers[Modifiers.MovementRating] = value; }
+            get { return _modifiers[Modifiers.MOVEMENT_RATING]; }
+            set { _modifiers[Modifiers.MOVEMENT_RATING] = value; }
         }
         public int CarryRatingMod
         {
-            get { return _modifiers[Modifiers.CarryRating]; }
-            set { _modifiers[Modifiers.CarryRating] = value; }
+            get { return _modifiers[Modifiers.CARRY_RATING]; }
+            set { _modifiers[Modifiers.CARRY_RATING] = value; }
         }
         public int InitiativeRatingMod
         {
-            get { return _modifiers[Modifiers.InitiativeRating]; }
-            set { _modifiers[Modifiers.InitiativeRating] = value; }
+            get { return _modifiers[Modifiers.INITIATIVE_RATING]; }
+            set { _modifiers[Modifiers.INITIATIVE_RATING] = value; }
         }
         public int DamageBonusMod
         {
-            get { return _modifiers[Modifiers.DamageBonus]; }
-            set { _modifiers[Modifiers.DamageBonus] = value; }
+            get { return _modifiers[Modifiers.DAMAGE_BONUS]; }
+            set { _modifiers[Modifiers.DAMAGE_BONUS] = value; }
         }
         public int LuckPointsMod
         {
-            get { return _modifiers[Modifiers.LuckPoints]; }
-            set { _modifiers[Modifiers.LuckPoints] = value; }
+            get { return _modifiers[Modifiers.LUCK_POINTS]; }
+            set { _modifiers[Modifiers.LUCK_POINTS] = value; }
         }
 
         public int CurrentHealth
@@ -464,16 +464,18 @@ namespace UESRPG_Character_Manager
                                                  where skill.Name == "Untrained"
                                                  where skill.Rank == -2
                                                  where skill.isDefaultSkill == true
-                                                 where skill.Characteristics.Length == Characteristics.NumberOfCharacteristics
+                                                 where skill.Characteristics.Length == Characteristics.NUMBER_OF_CHARACTERISTICS
                                                  select skill;
             if (untrainedSearch.Count() == 0)
             {
-                Skill untrainedSkill = new Skill();
-                untrainedSkill.Name = "Untrained";
-                untrainedSkill.Rank = -2;
-                untrainedSkill.isDefaultSkill = true;
-                untrainedSkill.Characteristics = new int[Characteristics.NumberOfCharacteristics];
-                for (int i = 0; i < Characteristics.NumberOfCharacteristics; i++)
+                Skill untrainedSkill = new Skill()
+                {
+                    Name = "Untrained",
+                    Rank = -2,
+                    isDefaultSkill = true,
+                    Characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS]
+                };
+                for (int i = 0; i < Characteristics.NUMBER_OF_CHARACTERISTICS; i++)
                 {
                     untrainedSkill.Characteristics[i] = i;
                 }

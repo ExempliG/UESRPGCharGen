@@ -34,14 +34,16 @@ namespace UESRPG_Character_Manager
 
         private void confirmBt_Click (object sender, EventArgs e)
         {
-            Spell s = new Spell ();
-            s.Name = spellNameTb.Text;
-            s.Cost = (int)costNud.Value;
-            s.Difficulty = (int)difficultyNud.Value;
-            s.Level = (int)spellLevelNud.Value;
-            s.AssociatedSkill = ((Skill)associatedSkillCb.SelectedItem).Name;
-            s.Description = spellDescriptionRtb.Text;
-            s.DoesDamage = damageCb.Checked;
+            Spell s = new Spell()
+            {
+                Name = spellNameTb.Text,
+                Cost = (int)costNud.Value,
+                Difficulty = (int)difficultyNud.Value,
+                Level = (int)spellLevelNud.Value,
+                AssociatedSkill = ((Skill)associatedSkillCb.SelectedItem).Name,
+                Description = spellDescriptionRtb.Text,
+                DoesDamage = damageCb.Checked
+            };
             if (s.DoesDamage)
             {
                 s.NumberOfDice = (int)numberOfDiceNud.Value;

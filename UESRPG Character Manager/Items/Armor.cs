@@ -42,9 +42,9 @@ namespace UESRPG_Character_Manager
         public static double CalculateAR(ArmorTypes type, ArmorMaterials material, ArmorQualities quality)
         {
             double result = 0;
-            result += ArmorTypeData.Modifiers[(int)type];
-            result += ArmorMaterialData.Modifiers[(int)material];
-            result += result * ArmorQualityData.Modifiers[(int)quality];
+            result += ArmorTypeData.s_modifiers[(int)type];
+            result += ArmorMaterialData.s_modifiers[(int)material];
+            result += result * ArmorQualityData.s_modifiers[(int)quality];
 
             return result;
         }

@@ -19,7 +19,7 @@ namespace UESRPG_Character_Manager
     public static class ArmorLocationsData
     {
 
-        public static string[] Names =
+        public static string[] s_names =
         {
             "Head",
             "Left Arm",
@@ -42,7 +42,7 @@ namespace UESRPG_Character_Manager
 
     public static class ArmorQualityData
     {
-        public static string[] Names =
+        public static string[] s_names =
         {
             "Terrible",
             "Poor", 
@@ -52,7 +52,7 @@ namespace UESRPG_Character_Manager
             "Exquisite"
         };
 
-        public static double[] Modifiers =
+        public static double[] s_modifiers =
         {
             -.20,
             -.10,
@@ -77,7 +77,7 @@ namespace UESRPG_Character_Manager
 
     public static class ArmorTypeData
     {
-        public static string[] Names =
+        public static string[] s_names =
         {
             "Natural/Cured",
             "Padded/Quilted",
@@ -89,7 +89,7 @@ namespace UESRPG_Character_Manager
             "Full Plate"
         };
 
-        public static double[] Modifiers =
+        public static double[] s_modifiers =
         {
             8,
             12,
@@ -125,7 +125,7 @@ namespace UESRPG_Character_Manager
 
     public static class ArmorMaterialData
     {
-        public static string[] Names =
+        public static string[] s_names =
         {
             "Adamantium",
             "Bone",
@@ -146,7 +146,7 @@ namespace UESRPG_Character_Manager
             "Steel"
         };
 
-        public static double[] Modifiers =
+        public static double[] s_modifiers =
         {
             6,
             -10,

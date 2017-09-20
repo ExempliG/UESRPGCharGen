@@ -19,9 +19,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         private string _currentFile = "";
         private Character _activeCharacter;
 
-        private const string _FileTypeString = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+        private const string FILE_TYPE_STRING = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
-        private bool _characterStatsMutex = false;
         private bool _updatingDataBindings = false;
 
         public MainWindow ()
@@ -29,7 +28,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             InitializeComponent ();
 
             // Subscribe Character views to the character change event
-            characterSelector.SelectedCharacterChanged += OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += onSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += charaView_statsPage.OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += attributesView_statsPage.OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += skillListView_statsPage.OnSelectedCharacterChanged;
@@ -43,11 +42,11 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             saveMi.Enabled = false;
 
-            armorLocationCb.DataSource = ArmorLocationsData.Names;
-            hitLocationCb.DataSource = ArmorLocationsData.Names;
-            armorTypeCb.DataSource = ArmorQualityData.Names;
-            armorMaterialCb.DataSource = ArmorTypeData.Names;
-            armorQualityCb.DataSource = ArmorMaterialData.Names;
+            armorLocationCb.DataSource = ArmorLocationsData.s_names;
+            hitLocationCb.DataSource = ArmorLocationsData.s_names;
+            armorTypeCb.DataSource = ArmorQualityData.s_names;
+            armorMaterialCb.DataSource = ArmorTypeData.s_names;
+            armorQualityCb.DataSource = ArmorMaterialData.s_names;
 
             for (int i = 0; i < (int)WeaponType.MAX; i++)
             {
@@ -61,7 +60,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             }
             weaponMaterialCb.SelectedIndex = 0;
 
-            foreach (string characteristic in Characteristics.CharacteristicNames)
+            foreach (string characteristic in Characteristics.s_characteristicNames)
             {
                 characteristicCb.Items.Add (characteristic);
             }
@@ -71,17 +70,17 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             updateDataBindings();
         }
 
-        private void OnSelectedCharacterChanged(object sender, EventArgs e)
+        private void onSelectedCharacterChanged(object sender, EventArgs e)
         {
             _activeCharacter = ((CharacterSelector)sender).GetActiveCharacter();
         }
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
         {
-            SelectedCharacter().Notes = characterNotesRtb.Text;
+            selectedCharacter().Notes = characterNotesRtb.Text;
         }
 
-        private Character SelectedCharacter ()
+        private Character selectedCharacter ()
         {
             //return characterSelector.GetActiveCharacter();
             return _activeCharacter;
@@ -89,7 +88,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
-            SelectedCharacter ().Name = nameTb.Text;
+            selectedCharacter ().Name = nameTb.Text;
         }
 
         /// <summary>
@@ -101,33 +100,33 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             _updatingDataBindings = true;
 
             armorDgv.DataSource = null;
-            if (SelectedCharacter ().ArmorPieces.Count > 0)
+            if (selectedCharacter ().ArmorPieces.Count > 0)
             {
-                armorDgv.DataSource = SelectedCharacter ().ArmorPieces;
+                armorDgv.DataSource = selectedCharacter ().ArmorPieces;
             }
 
             weaponsDgv.DataSource = null;
             weaponCb.DataSource = null;
-            if (SelectedCharacter ().Weapons.Count > 0)
+            if (selectedCharacter ().Weapons.Count > 0)
             {
-                weaponsDgv.DataSource = SelectedCharacter ().Weapons;
-                weaponCb.DataSource = SelectedCharacter ().Weapons;
+                weaponsDgv.DataSource = selectedCharacter ().Weapons;
+                weaponCb.DataSource = selectedCharacter ().Weapons;
             }
 
             spellsDgv.DataSource = null;
             spellsCb.DataSource = null;
-            if (SelectedCharacter ().Spells.Count > 0)
+            if (selectedCharacter ().Spells.Count > 0)
             {
-                spellsDgv.DataSource = SelectedCharacter ().Spells;
-                spellsCb.DataSource = SelectedCharacter().Spells;
+                spellsDgv.DataSource = selectedCharacter ().Spells;
+                spellsCb.DataSource = selectedCharacter().Spells;
             }
 
             int selectedIndex = skillsCb.SelectedIndex;
             skillsCb.Items.Clear ();
 
-            for (int i = 0; i < SelectedCharacter ().Skills.Count; i++)
+            for (int i = 0; i < selectedCharacter ().Skills.Count; i++)
             {
-                Skill skill = SelectedCharacter ().Skills[i];
+                Skill skill = selectedCharacter ().Skills[i];
                 skillsCb.Items.Add (skill);
             }
             if (selectedIndex < skillsCb.Items.Count && selectedIndex != -1)
@@ -166,7 +165,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 characteristicCb.Items.Clear ();
                 foreach (int characteristic in skill.Characteristics)
                 {
-                    characteristicCb.Items.Add (Characteristics.CharacteristicNames[characteristic]);
+                    characteristicCb.Items.Add (Characteristics.s_characteristicNames[characteristic]);
                 }
                 if (characteristicCb.Items.Count > 0)
                 {
@@ -185,7 +184,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         private void reloadCharacteristicCb ()
         {
             characteristicCb.Items.Clear ();
-            foreach (string characteristic in Characteristics.CharacteristicNames)
+            foreach (string characteristic in Characteristics.s_characteristicNames)
             {
                 characteristicCb.Items.Add (characteristic);
             }
@@ -261,8 +260,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             bool isSkillRoll = skillRb.Checked;
             bool success = true;
 
-            int result = 0;
-            if (int.TryParse (rollResultTb.Text, out result))
+            if (int.TryParse(rollResultTb.Text, out int result))
             {
                 updateCriticalLabel(result);
                 updateHitLocationLabel(result);
@@ -279,7 +277,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                         Skill skill = (Skill)skillsCb.SelectedItem;
 
                         characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
-                        characteristic = SelectedCharacter().GetCharacteristic(characteristicIndex);
+                        characteristic = selectedCharacter().GetCharacteristic(characteristicIndex);
 
                         int skillLevel = skill.Rank;
                         rollBreakdownTb.Text = string.Format("({0} + skill {1} + diff {2}) - {3} =",
@@ -297,7 +295,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 else   // Otherwise it's a Characteristic roll
                 {
                     characteristicIndex = characteristicCb.SelectedIndex;
-                    characteristic = SelectedCharacter ().GetCharacteristic (characteristicIndex);
+                    characteristic = selectedCharacter().GetCharacteristic(characteristicIndex);
                     rollBreakdownTb.Text = string.Format("({0} + diff {1}) - {2} =",
                                                          characteristic,
                                                          extraDifficulty,
@@ -309,7 +307,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 {
                     difference = (characteristic - result);
 
-                    int successes = SelectedCharacter().GetBonus(difference);
+                    int successes = selectedCharacter().GetBonus(difference);
 
                     rollBreakdownTb.Text += String.Format("{0}", difference);
                     rollSuccessesTb.Text = "" + successes;
@@ -327,13 +325,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// <param name="rollResult">The roll result used to update.</param>
         private void updateCriticalLabel(int rollResult)
         {
-            int luck = SelectedCharacter().Luck;
-            if (rollResult <= SelectedCharacter().GetBonus(luck))
+            int luck = selectedCharacter().Luck;
+            if (rollResult <= selectedCharacter().GetBonus(luck))
             {
                 successOrFailLb.Text = "Critical success!";
                 successOrFailLb.Visible = true;
             }
-            else if (rollResult >= (95 + SelectedCharacter().GetBonus(luck)))
+            else if (rollResult >= (95 + selectedCharacter().GetBonus(luck)))
             {
                 successOrFailLb.Text = "Critical failure!";
                 successOrFailLb.Visible = true;
@@ -380,7 +378,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// <summary>
         /// This function is bound to our NumericUpDowns' GotFocus event. It will cause the numeric values to be highlighted when tabbed into.
         /// </summary>
-        private void NumberBoxFocus (object sender, EventArgs e)
+        private void numberBoxFocus (object sender, EventArgs e)
         {
             NumericUpDown theNb = (NumericUpDown)sender;
             theNb.Select (0, 3);
@@ -390,7 +388,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// Performs the saving of a Character list.
         /// </summary>
         /// <param name="fileName">The filename to save the list as.</param>
-        private void SaveChar (string fileName)
+        private void saveChar (string fileName)
         {
             XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
             FileStream fs = new FileStream (fileName, FileMode.Create);
@@ -399,9 +397,9 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 List<Character> listToSave = characterSelector.GetCharacterList();
                 foreach (Character c in listToSave)
                 {
-                    c.EngVersion = Program.CurrentEngVersion;
-                    c.MinorVersion = Program.CurrentMinorVersion;
-                    c.MajorVersion = Program.CurrentMinorVersion;
+                    c.EngVersion = Program.CURRENT_ENG_VERSION;
+                    c.MinorVersion = Program.CURRENT_MINOR_VERSION;
+                    c.MajorVersion = Program.CURRENT_MINOR_VERSION;
                 }
 
                 xml.Serialize (fs, listToSave);
@@ -422,11 +420,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// Handle the loading of a Character list.
         /// </summary>
         /// <todo>Re-evaluate this whole mess.</todo>
-        private void LoadChar ()
+        private void loadChar ()
         {
-            OpenFileDialog ofd = new OpenFileDialog ();
-            ofd.DefaultExt = ".xml";
-            ofd.Filter = _FileTypeString;
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                DefaultExt = ".xml",
+                Filter = FILE_TYPE_STRING
+            };
             ofd.ShowDialog();
 
             string fileName = ofd.FileName;
@@ -461,7 +461,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     fs.Close ();
                 }
 
-                nameTb.Text = SelectedCharacter ().Name;
+                nameTb.Text = selectedCharacter ().Name;
 
                 updateDataBindings();
             }
@@ -472,33 +472,35 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             double ar = Armor.CalculateAR ((ArmorTypes)armorMaterialCb.SelectedIndex,
                                            (ArmorMaterials)armorQualityCb.SelectedIndex,
                                            (ArmorQualities)armorTypeCb.SelectedIndex);
-            SelectedCharacter ().AddArmorPiece (new Armor (armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
+            selectedCharacter ().AddArmorPiece (new Armor (armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
             updateDataBindings ();
         }
 
         private void saveMi_Click (object sender, EventArgs e)
         {
-            SaveChar (_currentFile);
+            saveChar (_currentFile);
         }
 
         private void saveAsMi_Click (object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog ();
-            sfd.AddExtension = true;
-            sfd.DefaultExt = ".xml";
-            sfd.Filter = _FileTypeString;
+            SaveFileDialog sfd = new SaveFileDialog()
+            {
+                AddExtension = true,
+                DefaultExt = ".xml",
+                Filter = FILE_TYPE_STRING
+            };
             DialogResult result = sfd.ShowDialog ();
 
             string fileName = sfd.FileName;
             if (!string.IsNullOrEmpty (fileName) && result == DialogResult.OK)
             {
-                SaveChar (fileName);
+                saveChar (fileName);
             }
         }
 
         private void loadMi_Click (object sender, EventArgs e)
         {
-            LoadChar ();
+            loadChar ();
         }
 
 
@@ -515,13 +517,11 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// </summary>
         private void updateDamage ()
         {
-            int damage = 0;
-            int pen = 0;
             ArmorLocations location = (ArmorLocations)hitLocationCb.SelectedIndex;
 
-            if (int.TryParse (receivedDamageTb.Text, out damage) && int.TryParse (receivedPenTb.Text, out pen))
+            if (int.TryParse (receivedDamageTb.Text, out int damage) && int.TryParse (receivedPenTb.Text, out int pen))
             {
-                double armorMitigation = SelectedCharacter ().GetArmorPiece (location).AR;
+                double armorMitigation = selectedCharacter ().GetArmorPiece (location).AR;
                 armorMitigation = Math.Max(armorMitigation - pen, 0);                       // Pen reduces armorMitigation to a lower limit of zero.
                 damage = Math.Max(damage - (int)armorMitigation, 0);                        // armorMitigation then reduces received damage to a lower limit of zero.
 
@@ -531,10 +531,9 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void applyDamageBt_Click (object sender, EventArgs e)
         {
-            int damage;
-            if (int.TryParse (finalDamageReceivedTb.Text, out damage))
+            if (int.TryParse (finalDamageReceivedTb.Text, out int damage))
             {
-                SelectedCharacter ().CurrentHealth -= damage;
+                selectedCharacter ().CurrentHealth -= damage;
             }
         }
 
@@ -554,7 +553,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             Weapon result = (template * modifier);
             result.Name = weaponNameTb.Text;
 
-            SelectedCharacter ().Weapons.Add (result);
+            selectedCharacter ().Weapons.Add (result);
             updateDataBindings ();
         }
 
@@ -573,9 +572,9 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 resultTotal += roll;
             }
 
-            breakdownString += string.Format ("{0} + bonus {1}", selectedWeapon.DamageMod, SelectedCharacter().DamageBonus);
+            breakdownString += string.Format ("{0} + bonus {1}", selectedWeapon.DamageMod, selectedCharacter().DamageBonus);
             resultTotal += selectedWeapon.DamageMod;
-            resultTotal += SelectedCharacter().DamageBonus;
+            resultTotal += selectedCharacter().DamageBonus;
 
             weaponResultTb.Text = string.Format ("{0} pen {1}", resultTotal, selectedWeapon.Penetration);
             weaponResultBreakdownTb.Text = breakdownString;
@@ -625,7 +624,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void addSpellBt_Click (object sender, EventArgs e)
         {
-            EditSpell es = new EditSpell (SelectedCharacter ());
+            EditSpell es = new EditSpell (selectedCharacter ());
             es.ShowDialog ();
             updateDataBindings ();
         }
@@ -644,7 +643,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     if (!_updatingDataBindings)
                     {
                         skillRb.Checked = true;
-                        IEnumerable<Skill> skillSearch = from skill in SelectedCharacter().Skills
+                        IEnumerable<Skill> skillSearch = from skill in selectedCharacter().Skills
                                                          where skill.Name == selectedSpell.AssociatedSkill
                                                          select skill;
                         if (skillSearch.Count() == 1)
@@ -664,7 +663,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void notesCommitChangesBt_Click(object sender, EventArgs e)
         {
-            SelectedCharacter().Notes = characterNotesRtb.Text;
+            selectedCharacter().Notes = characterNotesRtb.Text;
         }
     }
 }

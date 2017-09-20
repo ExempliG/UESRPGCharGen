@@ -29,13 +29,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             _selectedChar = new Character();
             _selectedChar.Update();
             _characterList.Add(_selectedChar);
-            UpdateCharacterComboBox();
-            OnSelectedCharacterChanged();
+            updateCharacterComboBox();
+            onSelectedCharacterChanged();
         }
 
         public void ForceUpdate()
         {
-            OnSelectedCharacterChanged();
+            onSelectedCharacterChanged();
         }
 
         public bool HasActiveCharacter()
@@ -59,7 +59,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             _characterList = loadedList;
 
-            UpdateCharacterComboBox();
+            updateCharacterComboBox();
         }
 
         public List<Character> GetCharacterList()
@@ -67,7 +67,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             return _characterList;
         }
 
-        private void UpdateCharacterComboBox()
+        private void updateCharacterComboBox()
         {
             charactersCb.Items.Clear();
             foreach (Character c in _characterList)
@@ -84,11 +84,11 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             {
                 _selectedChar = _characterList[_selectedIndex];
 
-                OnSelectedCharacterChanged();
+                onSelectedCharacterChanged();
             }
         }
 
-        protected void OnSelectedCharacterChanged()
+        protected void onSelectedCharacterChanged()
         {
             // Invoke the event if subscribers exist
             SelectedCharacterChanged?.Invoke(this, new System.EventArgs());

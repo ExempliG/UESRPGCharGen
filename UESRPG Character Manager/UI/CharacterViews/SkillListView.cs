@@ -31,15 +31,15 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             _activeCharacter = ((CharacterSelector)sender).GetActiveCharacter();
 
-            UpdateView();
+            updateView();
         }
 
-        protected void OnSkillListChanged()
+        protected void onSkillListChanged()
         {
             SkillListChanged?.Invoke(this, new System.EventArgs());
         }
 
-        private void UpdateView()
+        private void updateView()
         {
             skillsDgv.DataSource = null;
             if (_activeCharacter.Skills.Count > 0)
@@ -53,13 +53,12 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             EditSkill es = new EditSkill();
             es.ShowDialog();
 
-            Skill newSkill;
-            if (es.GetSkill(out newSkill))
+            if (es.GetSkill(out Skill newSkill))
             {
                 _activeCharacter.Skills.Add(newSkill);
             }
 
-            UpdateView();
+            updateView();
         }
 
         private void editSkillBt_Click(object sender, EventArgs e)
@@ -72,7 +71,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
                 es.Show();
             }
 
-            UpdateView();
+            updateView();
         }
 
         private void skillsDgv_SelectionChanged(object sender, EventArgs e)
