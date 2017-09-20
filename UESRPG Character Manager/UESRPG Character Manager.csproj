@@ -50,6 +50,18 @@
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Characteristics.cs" />
     <Compile Include="Items\Armor.cs" />
+    <Compile Include="UI\ActionViews\CheckRollView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\CheckRollView.Designer.cs">
+      <DependentUpon>CheckRollView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\ArmorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\ArmorView.Designer.cs">
+      <DependentUpon>ArmorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CharacterViews\AttributesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -67,6 +79,18 @@
     </Compile>
     <Compile Include="UI\CharacterViews\SkillListView.Designer.cs">
       <DependentUpon>SkillListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\SpellListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\SpellListView.Designer.cs">
+      <DependentUpon>SpellListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\WeaponsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\WeaponsView.Designer.cs">
+      <DependentUpon>WeaponsView.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\EditSkill.cs">
       <SubType>Form</SubType>
@@ -96,6 +120,12 @@
     <Compile Include="UI\MainWindow\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
+      <DependentUpon>CheckRollView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\ArmorView.resx">
+      <DependentUpon>ArmorView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterViews\AttributesView.resx">
       <DependentUpon>AttributesView.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,6 +134,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterViews\SkillListView.resx">
       <DependentUpon>SkillListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\SpellListView.resx">
+      <DependentUpon>SpellListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\WeaponsView.resx">
+      <DependentUpon>WeaponsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\EditSkill.resx">
       <DependentUpon>EditSkill.cs</DependentUpon>

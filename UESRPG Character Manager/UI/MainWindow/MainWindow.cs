@@ -29,43 +29,35 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             // Subscribe Character views to the character change event
             characterSelector.SelectedCharacterChanged += onSelectedCharacterChanged;
+
             characterSelector.SelectedCharacterChanged += charaView_statsPage.OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += attributesView_statsPage.OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += skillListView_statsPage.OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += spellListView_statsPage.OnSelectedCharacterChanged;
+
+            characterSelector.SelectedCharacterChanged += weaponsView_equipPage.OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += armorView_equipPage.OnSelectedCharacterChanged;
+
+            characterSelector.SelectedCharacterChanged += checkRollView_rollsPage.OnSelectedCharacterChanged;
+
             characterSelector.ForceUpdate();
             charaView_statsPage.CharacteristicChanged += attributesView_statsPage.OnCharacteristicChanged;
 
             /*CUSTOM EVENT BINDINGS*/
-            this.rollResultTb.TextChanged += softRoll;
+            //this.rollResultTb.TextChanged += softRoll;
             this.characterNotesRtb.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
 
-            armorLocationCb.DataSource = ArmorLocationsData.s_names;
             hitLocationCb.DataSource = ArmorLocationsData.s_names;
-            armorTypeCb.DataSource = ArmorQualityData.s_names;
-            armorMaterialCb.DataSource = ArmorTypeData.s_names;
-            armorQualityCb.DataSource = ArmorMaterialData.s_names;
 
-            for (int i = 0; i < (int)WeaponType.MAX; i++)
-            {
-                weaponTypeCb.Items.Add ((WeaponType)i);
-            }
-            weaponTypeCb.SelectedIndex = 0;
-
-            for (int i = 0; i < (int)WeaponMaterial.MAX; i++)
-            {
-                weaponMaterialCb.Items.Add ((WeaponMaterial)i);
-            }
-            weaponMaterialCb.SelectedIndex = 0;
-
-            foreach (string characteristic in Characteristics.s_characteristicNames)
+            /*foreach (string characteristic in Characteristics.s_characteristicNames)
             {
                 characteristicCb.Items.Add (characteristic);
             }
 
-            characteristicCb.SelectedIndex = 0;
+            characteristicCb.SelectedIndex = 0;*/
 
             updateDataBindings();
         }
@@ -99,47 +91,16 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             _updatingDataBindings = true;
 
-            armorDgv.DataSource = null;
-            if (selectedCharacter ().ArmorPieces.Count > 0)
-            {
-                armorDgv.DataSource = selectedCharacter ().ArmorPieces;
-            }
-
-            weaponsDgv.DataSource = null;
             weaponCb.DataSource = null;
             if (selectedCharacter ().Weapons.Count > 0)
             {
-                weaponsDgv.DataSource = selectedCharacter ().Weapons;
                 weaponCb.DataSource = selectedCharacter ().Weapons;
             }
 
-            spellsDgv.DataSource = null;
             spellsCb.DataSource = null;
-            if (selectedCharacter ().Spells.Count > 0)
+            if (selectedCharacter().Spells.Count > 0)
             {
-                spellsDgv.DataSource = selectedCharacter ().Spells;
                 spellsCb.DataSource = selectedCharacter().Spells;
-            }
-
-            int selectedIndex = skillsCb.SelectedIndex;
-            skillsCb.Items.Clear ();
-
-            for (int i = 0; i < selectedCharacter ().Skills.Count; i++)
-            {
-                Skill skill = selectedCharacter ().Skills[i];
-                skillsCb.Items.Add (skill);
-            }
-            if (selectedIndex < skillsCb.Items.Count && selectedIndex != -1)
-            {
-                skillsCb.SelectedIndex = selectedIndex;
-            }
-            else if (skillsCb.Items.Count >= 1)
-            {
-                skillsCb.SelectedIndex = 0;
-            }
-            else
-            {
-                // do nothing
             }
 
             _updatingDataBindings = false;
@@ -147,10 +108,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void skillsCb_SelectedIndexChanged (object sender, EventArgs e)
         {
-            if (skillRb.Checked)
+            /*if (skillRb.Checked)
             {
                 updateCharacteristicCb ();
-            }
+            }*/
         }
 
         /// <summary>
@@ -158,7 +119,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// </summary>
         private void updateCharacteristicCb ()
         {
-            object selectedItem = skillsCb.SelectedItem;
+            /*object selectedItem = skillsCb.SelectedItem;
             if (selectedItem != null && skillRb.Checked)
             {
                 Skill skill = (Skill)selectedItem;
@@ -175,7 +136,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             else
             {
                 reloadCharacteristicCb ();
-            }
+            }*/
         }
 
         /// <summary>
@@ -183,12 +144,12 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// </summary>
         private void reloadCharacteristicCb ()
         {
-            characteristicCb.Items.Clear ();
+            /*characteristicCb.Items.Clear ();
             foreach (string characteristic in Characteristics.s_characteristicNames)
             {
                 characteristicCb.Items.Add (characteristic);
             }
-            characteristicCb.SelectedIndex = 0;
+            characteristicCb.SelectedIndex = 0;*/
         }
 
         /// <summary>
@@ -198,10 +159,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// <param name="e"></param>
         private void skillRb_CheckedChanged (object sender, EventArgs e)
         {
-            updateCharacteristicCb ();
+            /*updateCharacteristicCb ();
             extraDifficultyNud.Value = 0;
 
-            softRoll (sender, e);
+            softRoll (sender, e);*/
         }
 
         /// <summary>
@@ -211,10 +172,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// <param name="e"></param>
         private void characteristicRb_CheckedChanged (object sender, EventArgs e)
         {
-            updateCharacteristicCb ();
+            /*updateCharacteristicCb ();
             extraDifficultyNud.Value = 0;
 
-            softRoll (sender, e);
+            softRoll (sender, e);*/
         }
 
         /// <summary>
@@ -226,153 +187,12 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         /// <todo>Expose the extraDifficulty modifier somewhere</todo>
         private void rollBt_Click (object sender, EventArgs e)
         {
-            Random r = new Random ();
+            /*Random r = new Random ();
 
             int result = r.Next (1, 100);
             rollResultTb.Text = "" + result;
 
-            softRoll (sender, e);
-        }
-
-        /// <summary>
-        /// A soft roll performs all of the calculations of a regular roll, but does not change the roll result.
-        /// This is useful for using outside roll values with the app, since we don't want to replace the player's
-        /// entered roll.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void softRoll (object sender, EventArgs e)
-        {
-            int extraDifficulty = (int)extraDifficultyNud.Value;
-            softRoll (sender, e, extraDifficulty);
-        }
-
-        /// <summary>
-        /// A soft roll performs all of the calculations of a regular roll, but does not change the roll result.
-        /// This is useful for using outside roll values with the app, since we don't want to replace the player's
-        /// entered roll.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <todo> We can probably encapsulate this further by containing all the Skill/Characteristic Check logic in the Character class.</todo>
-        private void softRoll (object sender, EventArgs e, int extraDifficulty)
-        {
-            bool isSkillRoll = skillRb.Checked;
-            bool success = true;
-
-            if (int.TryParse(rollResultTb.Text, out int result))
-            {
-                updateCriticalLabel(result);
-                updateHitLocationLabel(result);
-
-                int difference = 0;
-
-                int characteristicIndex = 0;
-                int characteristic = 0;
-
-                if (isSkillRoll)
-                {
-                    if (skillsCb.Items.Count >= 1)
-                    {
-                        Skill skill = (Skill)skillsCb.SelectedItem;
-
-                        characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
-                        characteristic = selectedCharacter().GetCharacteristic(characteristicIndex);
-
-                        int skillLevel = skill.Rank;
-                        rollBreakdownTb.Text = string.Format("({0} + skill {1} + diff {2}) - {3} =",
-                                                             characteristic,
-                                                             skillLevel * 10,
-                                                             extraDifficulty,
-                                                             result);
-                        characteristic = (characteristic + (skillLevel * 10) + extraDifficulty);
-                    }
-                    else
-                    {
-                        success = false;
-                    }
-                }
-                else   // Otherwise it's a Characteristic roll
-                {
-                    characteristicIndex = characteristicCb.SelectedIndex;
-                    characteristic = selectedCharacter().GetCharacteristic(characteristicIndex);
-                    rollBreakdownTb.Text = string.Format("({0} + diff {1}) - {2} =",
-                                                         characteristic,
-                                                         extraDifficulty,
-                                                         result);
-                    characteristic += extraDifficulty;
-                }
-
-                if (success)
-                {
-                    difference = (characteristic - result);
-
-                    int successes = selectedCharacter().GetBonus(difference);
-
-                    rollBreakdownTb.Text += String.Format("{0}", difference);
-                    rollSuccessesTb.Text = "" + successes;
-                }
-                else
-                {
-                    rollBreakdownTb.Text = "No skill selected!";
-                }
-            }
-        }
-
-        /// <summary>
-        /// Will update the "Critical" label for a given rollResult based on the currently-selected Character.
-        /// </summary>
-        /// <param name="rollResult">The roll result used to update.</param>
-        private void updateCriticalLabel(int rollResult)
-        {
-            int luck = selectedCharacter().Luck;
-            if (rollResult <= selectedCharacter().GetBonus(luck))
-            {
-                successOrFailLb.Text = "Critical success!";
-                successOrFailLb.Visible = true;
-            }
-            else if (rollResult >= (95 + selectedCharacter().GetBonus(luck)))
-            {
-                successOrFailLb.Text = "Critical failure!";
-                successOrFailLb.Visible = true;
-            }
-            else
-            {
-                successOrFailLb.Visible = false;
-            }
-        }
-
-        private void updateHitLocationLabel(int rollResult)
-        {
-            int tensDigit = (rollResult / 10);
-            int tensComponent = tensDigit * 10;
-            int onesComponent = rollResult - tensComponent;
-
-            if(onesComponent == 0)
-            {
-                hitLocationLb.Text = "Head!";
-            }
-            else if(onesComponent >= 1 && onesComponent <= 2)
-            {
-                hitLocationLb.Text = "Right Arm!";
-            }
-            else if(onesComponent >= 3 && onesComponent <= 4)
-            {
-                hitLocationLb.Text = "Left Arm!";
-            }
-            else if(onesComponent >= 5 && onesComponent <= 7)
-            {
-                hitLocationLb.Text = "Body!";
-            }
-            else if(onesComponent == 8)
-            {
-                hitLocationLb.Text = "Right Leg!";
-            }
-            else if (onesComponent == 9)
-            {
-                hitLocationLb.Text = "Left Leg!";
-            }
-            hitLocationLb.Visible = true;
+            softRoll (sender, e);*/
         }
 
         /// <summary>
@@ -467,15 +287,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             }
         }
 
-        private void addNewArmorBt_Click (object sender, EventArgs e)
-        {
-            double ar = Armor.CalculateAR ((ArmorTypes)armorMaterialCb.SelectedIndex,
-                                           (ArmorMaterials)armorQualityCb.SelectedIndex,
-                                           (ArmorQualities)armorTypeCb.SelectedIndex);
-            selectedCharacter ().AddArmorPiece (new Armor (armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
-            updateDataBindings ();
-        }
-
         private void saveMi_Click (object sender, EventArgs e)
         {
             saveChar (_currentFile);
@@ -540,21 +351,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         private void armorDataGridView_ChangeOccurred (object sender, EventArgs e)
         {
             updateDamage ();
-        }
-
-        private void addNewWeaponBt_Click (object sender, EventArgs e)
-        {
-            WeaponType type = (WeaponType)weaponTypeCb.SelectedItem;
-            WeaponMaterial material = (WeaponMaterial)weaponMaterialCb.SelectedItem;
-
-            Weapon template = WeaponTemplates.DefaultWeapons[(int)type];
-            WeaponMaterialModifier modifier = WeaponTemplates.Materials[(int)material];
-
-            Weapon result = (template * modifier);
-            result.Name = weaponNameTb.Text;
-
-            selectedCharacter ().Weapons.Add (result);
-            updateDataBindings ();
         }
 
         private void weaponRollBt_Click (object sender, EventArgs e)
@@ -642,15 +438,15 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     // Set up the skill roll for the user, assuming this event was not triggered in updateDataBindings.
                     if (!_updatingDataBindings)
                     {
-                        skillRb.Checked = true;
+                        //skillRb.Checked = true;
                         IEnumerable<Skill> skillSearch = from skill in selectedCharacter().Skills
                                                          where skill.Name == selectedSpell.AssociatedSkill
                                                          select skill;
                         if (skillSearch.Count() == 1)
                         {
-                            int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
-                            skillsCb.SelectedIndex = skillIndex;
-                            extraDifficultyNud.Value = selectedSpell.Difficulty;
+                            //int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
+                            //skillsCb.SelectedIndex = skillIndex;
+                            //extraDifficultyNud.Value = selectedSpell.Difficulty;
                         }
                     }
 

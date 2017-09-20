@@ -31,48 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
+            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
             this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
             this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.addSpellBt = new System.Windows.Forms.Button();
-            this.spellsDgv = new System.Windows.Forms.DataGridView();
-            this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.armorNameTb = new System.Windows.Forms.TextBox();
-            this.armorQualityCb = new System.Windows.Forms.ComboBox();
-            this.armorMaterialCb = new System.Windows.Forms.ComboBox();
-            this.armorTypeCb = new System.Windows.Forms.ComboBox();
-            this.armorLocationCb = new System.Windows.Forms.ComboBox();
-            this.addNewArmorBt = new System.Windows.Forms.Button();
-            this.armorDgv = new System.Windows.Forms.DataGridView();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.addNewWeaponBt = new System.Windows.Forms.Button();
-            this.weaponMaterialCb = new System.Windows.Forms.ComboBox();
-            this.weaponTypeCb = new System.Windows.Forms.ComboBox();
-            this.weaponNameTb = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.weaponsDgv = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberOfDiceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.diceSidesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.damageModDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.penetrationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.encumbranceValueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.enchantmentLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reachDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.handednessDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qualityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.materialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isDireDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
+            this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.healthLb = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -84,22 +51,7 @@
             this.label40 = new System.Windows.Forms.Label();
             this.spellsCb = new System.Windows.Forms.ComboBox();
             this.spellsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.hitLocationLb = new System.Windows.Forms.Label();
-            this.extraDifficultyNud = new System.Windows.Forms.NumericUpDown();
-            this.label42 = new System.Windows.Forms.Label();
-            this.successOrFailLb = new System.Windows.Forms.Label();
-            this.skillsCb = new System.Windows.Forms.ComboBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.rollSuccessesTb = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.rollBreakdownTb = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.rollResultTb = new System.Windows.Forms.TextBox();
-            this.rollBt = new System.Windows.Forms.Button();
-            this.characteristicCb = new System.Windows.Forms.ComboBox();
-            this.skillRb = new System.Windows.Forms.RadioButton();
-            this.characteristicRb = new System.Windows.Forms.RadioButton();
+            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label39 = new System.Windows.Forms.Label();
             this.weaponResultBreakdownTb = new System.Windows.Forms.TextBox();
@@ -108,6 +60,7 @@
             this.weaponRollBt = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
             this.weaponCb = new System.Windows.Forms.ComboBox();
+            this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.applyDamageBt = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
@@ -121,6 +74,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.notesCommitChangesBt = new System.Windows.Forms.Button();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
+            this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveMi = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,27 +82,19 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
+            this.checkRollView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.armorDgv)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.extraDifficultyNud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -170,10 +116,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.spellListView_statsPage);
             this.tabPage1.Controls.Add(this.skillListView_statsPage);
             this.tabPage1.Controls.Add(this.attributesView_statsPage);
             this.tabPage1.Controls.Add(this.charaView_statsPage);
-            this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.nameTb);
             this.tabPage1.Controls.Add(this.label31);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -183,6 +129,20 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // spellListView_statsPage
+            // 
+            this.spellListView_statsPage.Location = new System.Drawing.Point(484, 198);
+            this.spellListView_statsPage.Name = "spellListView_statsPage";
+            this.spellListView_statsPage.Size = new System.Drawing.Size(504, 170);
+            this.spellListView_statsPage.TabIndex = 8;
+            // 
+            // skillListView_statsPage
+            // 
+            this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
+            this.skillListView_statsPage.Name = "skillListView_statsPage";
+            this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
+            this.skillListView_statsPage.TabIndex = 4;
             // 
             // attributesView_statsPage
             // 
@@ -197,50 +157,6 @@
             this.charaView_statsPage.Name = "charaView_statsPage";
             this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
             this.charaView_statsPage.TabIndex = 2;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox9.Controls.Add(this.addSpellBt);
-            this.groupBox9.Controls.Add(this.spellsDgv);
-            this.groupBox9.Location = new System.Drawing.Point(484, 197);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(502, 169);
-            this.groupBox9.TabIndex = 26;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Spells";
-            // 
-            // addSpellBt
-            // 
-            this.addSpellBt.Location = new System.Drawing.Point(7, 19);
-            this.addSpellBt.Name = "addSpellBt";
-            this.addSpellBt.Size = new System.Drawing.Size(75, 23);
-            this.addSpellBt.TabIndex = 1;
-            this.addSpellBt.Text = "Add Spell";
-            this.addSpellBt.UseVisualStyleBackColor = true;
-            this.addSpellBt.Click += new System.EventHandler(this.addSpellBt_Click);
-            // 
-            // spellsDgv
-            // 
-            this.spellsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.spellsDgv.BackgroundColor = System.Drawing.Color.White;
-            this.spellsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.spellsDgv.Location = new System.Drawing.Point(6, 48);
-            this.spellsDgv.Name = "spellsDgv";
-            this.spellsDgv.Size = new System.Drawing.Size(494, 115);
-            this.spellsDgv.TabIndex = 0;
-            // 
-            // skillsBindingSource
-            // 
-            this.skillsBindingSource.DataMember = "Skills";
-            this.skillsBindingSource.DataSource = this.characterBindingSource;
-            // 
-            // characterBindingSource
-            // 
-            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
             // 
             // nameTb
             // 
@@ -263,8 +179,8 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox4);
-            this.tabPage3.Controls.Add(this.groupBox7);
+            this.tabPage3.Controls.Add(this.armorView_equipPage);
+            this.tabPage3.Controls.Add(this.weaponsView_equipPage);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -273,290 +189,26 @@
             this.tabPage3.Text = "Equipment";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
+            // armorView_equipPage
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.label33);
-            this.groupBox4.Controls.Add(this.armorNameTb);
-            this.groupBox4.Controls.Add(this.armorQualityCb);
-            this.groupBox4.Controls.Add(this.armorMaterialCb);
-            this.groupBox4.Controls.Add(this.armorTypeCb);
-            this.groupBox4.Controls.Add(this.armorLocationCb);
-            this.groupBox4.Controls.Add(this.addNewArmorBt);
-            this.groupBox4.Controls.Add(this.armorDgv);
-            this.groupBox4.Location = new System.Drawing.Point(484, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(502, 370);
-            this.groupBox4.TabIndex = 25;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Armor";
+            this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
+            this.armorView_equipPage.Name = "armorView_equipPage";
+            this.armorView_equipPage.Size = new System.Drawing.Size(504, 370);
+            this.armorView_equipPage.TabIndex = 27;
             // 
-            // label33
+            // weaponsView_equipPage
             // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(90, 22);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(61, 13);
-            this.label33.TabIndex = 27;
-            this.label33.Text = "Item Name:";
-            // 
-            // armorNameTb
-            // 
-            this.armorNameTb.Location = new System.Drawing.Point(157, 19);
-            this.armorNameTb.Name = "armorNameTb";
-            this.armorNameTb.Size = new System.Drawing.Size(97, 20);
-            this.armorNameTb.TabIndex = 26;
-            // 
-            // armorQualityCb
-            // 
-            this.armorQualityCb.FormattingEnabled = true;
-            this.armorQualityCb.Location = new System.Drawing.Point(368, 45);
-            this.armorQualityCb.Name = "armorQualityCb";
-            this.armorQualityCb.Size = new System.Drawing.Size(107, 21);
-            this.armorQualityCb.TabIndex = 25;
-            // 
-            // armorMaterialCb
-            // 
-            this.armorMaterialCb.FormattingEnabled = true;
-            this.armorMaterialCb.Location = new System.Drawing.Point(260, 45);
-            this.armorMaterialCb.Name = "armorMaterialCb";
-            this.armorMaterialCb.Size = new System.Drawing.Size(100, 21);
-            this.armorMaterialCb.TabIndex = 24;
-            // 
-            // armorTypeCb
-            // 
-            this.armorTypeCb.FormattingEnabled = true;
-            this.armorTypeCb.Location = new System.Drawing.Point(157, 45);
-            this.armorTypeCb.Name = "armorTypeCb";
-            this.armorTypeCb.Size = new System.Drawing.Size(97, 21);
-            this.armorTypeCb.TabIndex = 23;
-            // 
-            // armorLocationCb
-            // 
-            this.armorLocationCb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.armorLocationCb.FormattingEnabled = true;
-            this.armorLocationCb.Location = new System.Drawing.Point(260, 18);
-            this.armorLocationCb.Name = "armorLocationCb";
-            this.armorLocationCb.Size = new System.Drawing.Size(100, 21);
-            this.armorLocationCb.TabIndex = 22;
-            // 
-            // addNewArmorBt
-            // 
-            this.addNewArmorBt.Location = new System.Drawing.Point(368, 16);
-            this.addNewArmorBt.Name = "addNewArmorBt";
-            this.addNewArmorBt.Size = new System.Drawing.Size(107, 23);
-            this.addNewArmorBt.TabIndex = 21;
-            this.addNewArmorBt.Text = "Add New";
-            this.addNewArmorBt.UseVisualStyleBackColor = true;
-            this.addNewArmorBt.Click += new System.EventHandler(this.addNewArmorBt_Click);
-            // 
-            // armorDgv
-            // 
-            this.armorDgv.AllowUserToAddRows = false;
-            this.armorDgv.AllowUserToDeleteRows = false;
-            this.armorDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.armorDgv.BackgroundColor = System.Drawing.Color.White;
-            this.armorDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.armorDgv.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.armorDgv.Location = new System.Drawing.Point(6, 72);
-            this.armorDgv.Name = "armorDgv";
-            this.armorDgv.Size = new System.Drawing.Size(490, 292);
-            this.armorDgv.TabIndex = 20;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox7.Controls.Add(this.addNewWeaponBt);
-            this.groupBox7.Controls.Add(this.weaponMaterialCb);
-            this.groupBox7.Controls.Add(this.weaponTypeCb);
-            this.groupBox7.Controls.Add(this.weaponNameTb);
-            this.groupBox7.Controls.Add(this.label37);
-            this.groupBox7.Controls.Add(this.weaponsDgv);
-            this.groupBox7.Location = new System.Drawing.Point(6, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(472, 376);
-            this.groupBox7.TabIndex = 24;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Weapons";
-            // 
-            // addNewWeaponBt
-            // 
-            this.addNewWeaponBt.Location = new System.Drawing.Point(306, 18);
-            this.addNewWeaponBt.Name = "addNewWeaponBt";
-            this.addNewWeaponBt.Size = new System.Drawing.Size(75, 23);
-            this.addNewWeaponBt.TabIndex = 5;
-            this.addNewWeaponBt.Text = "Add New";
-            this.addNewWeaponBt.UseVisualStyleBackColor = true;
-            this.addNewWeaponBt.Click += new System.EventHandler(this.addNewWeaponBt_Click);
-            // 
-            // weaponMaterialCb
-            // 
-            this.weaponMaterialCb.FormattingEnabled = true;
-            this.weaponMaterialCb.Location = new System.Drawing.Point(179, 45);
-            this.weaponMaterialCb.Name = "weaponMaterialCb";
-            this.weaponMaterialCb.Size = new System.Drawing.Size(121, 21);
-            this.weaponMaterialCb.TabIndex = 4;
-            // 
-            // weaponTypeCb
-            // 
-            this.weaponTypeCb.FormattingEnabled = true;
-            this.weaponTypeCb.Location = new System.Drawing.Point(179, 18);
-            this.weaponTypeCb.Name = "weaponTypeCb";
-            this.weaponTypeCb.Size = new System.Drawing.Size(121, 21);
-            this.weaponTypeCb.TabIndex = 3;
-            // 
-            // weaponNameTb
-            // 
-            this.weaponNameTb.Location = new System.Drawing.Point(73, 19);
-            this.weaponNameTb.Name = "weaponNameTb";
-            this.weaponNameTb.Size = new System.Drawing.Size(100, 20);
-            this.weaponNameTb.TabIndex = 2;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(6, 22);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(61, 13);
-            this.label37.TabIndex = 1;
-            this.label37.Text = "Item Name:";
-            // 
-            // weaponsDgv
-            // 
-            this.weaponsDgv.AllowUserToAddRows = false;
-            this.weaponsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.weaponsDgv.AutoGenerateColumns = false;
-            this.weaponsDgv.BackgroundColor = System.Drawing.Color.White;
-            this.weaponsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.weaponsDgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn1,
-            this.numberOfDiceDataGridViewTextBoxColumn,
-            this.diceSidesDataGridViewTextBoxColumn,
-            this.damageModDataGridViewTextBoxColumn,
-            this.penetrationDataGridViewTextBoxColumn,
-            this.encumbranceValueDataGridViewTextBoxColumn,
-            this.enchantmentLevelDataGridViewTextBoxColumn,
-            this.priceDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
-            this.reachDataGridViewTextBoxColumn,
-            this.handednessDataGridViewTextBoxColumn,
-            this.sizeDataGridViewTextBoxColumn,
-            this.qualityDataGridViewTextBoxColumn,
-            this.materialDataGridViewTextBoxColumn,
-            this.isDireDataGridViewCheckBoxColumn});
-            this.weaponsDgv.DataSource = this.weaponsBindingSource;
-            this.weaponsDgv.Location = new System.Drawing.Point(6, 72);
-            this.weaponsDgv.Name = "weaponsDgv";
-            this.weaponsDgv.Size = new System.Drawing.Size(460, 298);
-            this.weaponsDgv.TabIndex = 0;
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            // 
-            // numberOfDiceDataGridViewTextBoxColumn
-            // 
-            this.numberOfDiceDataGridViewTextBoxColumn.DataPropertyName = "NumberOfDice";
-            this.numberOfDiceDataGridViewTextBoxColumn.HeaderText = "NumberOfDice";
-            this.numberOfDiceDataGridViewTextBoxColumn.Name = "numberOfDiceDataGridViewTextBoxColumn";
-            // 
-            // diceSidesDataGridViewTextBoxColumn
-            // 
-            this.diceSidesDataGridViewTextBoxColumn.DataPropertyName = "DiceSides";
-            this.diceSidesDataGridViewTextBoxColumn.HeaderText = "DiceSides";
-            this.diceSidesDataGridViewTextBoxColumn.Name = "diceSidesDataGridViewTextBoxColumn";
-            // 
-            // damageModDataGridViewTextBoxColumn
-            // 
-            this.damageModDataGridViewTextBoxColumn.DataPropertyName = "DamageMod";
-            this.damageModDataGridViewTextBoxColumn.HeaderText = "DamageMod";
-            this.damageModDataGridViewTextBoxColumn.Name = "damageModDataGridViewTextBoxColumn";
-            // 
-            // penetrationDataGridViewTextBoxColumn
-            // 
-            this.penetrationDataGridViewTextBoxColumn.DataPropertyName = "Penetration";
-            this.penetrationDataGridViewTextBoxColumn.HeaderText = "Penetration";
-            this.penetrationDataGridViewTextBoxColumn.Name = "penetrationDataGridViewTextBoxColumn";
-            // 
-            // encumbranceValueDataGridViewTextBoxColumn
-            // 
-            this.encumbranceValueDataGridViewTextBoxColumn.DataPropertyName = "EncumbranceValue";
-            this.encumbranceValueDataGridViewTextBoxColumn.HeaderText = "EncumbranceValue";
-            this.encumbranceValueDataGridViewTextBoxColumn.Name = "encumbranceValueDataGridViewTextBoxColumn";
-            // 
-            // enchantmentLevelDataGridViewTextBoxColumn
-            // 
-            this.enchantmentLevelDataGridViewTextBoxColumn.DataPropertyName = "EnchantmentLevel";
-            this.enchantmentLevelDataGridViewTextBoxColumn.HeaderText = "EnchantmentLevel";
-            this.enchantmentLevelDataGridViewTextBoxColumn.Name = "enchantmentLevelDataGridViewTextBoxColumn";
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            // 
-            // reachDataGridViewTextBoxColumn
-            // 
-            this.reachDataGridViewTextBoxColumn.DataPropertyName = "Reach";
-            this.reachDataGridViewTextBoxColumn.HeaderText = "Reach";
-            this.reachDataGridViewTextBoxColumn.Name = "reachDataGridViewTextBoxColumn";
-            // 
-            // handednessDataGridViewTextBoxColumn
-            // 
-            this.handednessDataGridViewTextBoxColumn.DataPropertyName = "Handedness";
-            this.handednessDataGridViewTextBoxColumn.HeaderText = "Handedness";
-            this.handednessDataGridViewTextBoxColumn.Name = "handednessDataGridViewTextBoxColumn";
-            // 
-            // sizeDataGridViewTextBoxColumn
-            // 
-            this.sizeDataGridViewTextBoxColumn.DataPropertyName = "Size";
-            this.sizeDataGridViewTextBoxColumn.HeaderText = "Size";
-            this.sizeDataGridViewTextBoxColumn.Name = "sizeDataGridViewTextBoxColumn";
-            // 
-            // qualityDataGridViewTextBoxColumn
-            // 
-            this.qualityDataGridViewTextBoxColumn.DataPropertyName = "Quality";
-            this.qualityDataGridViewTextBoxColumn.HeaderText = "Quality";
-            this.qualityDataGridViewTextBoxColumn.Name = "qualityDataGridViewTextBoxColumn";
-            // 
-            // materialDataGridViewTextBoxColumn
-            // 
-            this.materialDataGridViewTextBoxColumn.DataPropertyName = "Material";
-            this.materialDataGridViewTextBoxColumn.HeaderText = "Material";
-            this.materialDataGridViewTextBoxColumn.Name = "materialDataGridViewTextBoxColumn";
-            // 
-            // isDireDataGridViewCheckBoxColumn
-            // 
-            this.isDireDataGridViewCheckBoxColumn.DataPropertyName = "IsDire";
-            this.isDireDataGridViewCheckBoxColumn.HeaderText = "IsDire";
-            this.isDireDataGridViewCheckBoxColumn.Name = "isDireDataGridViewCheckBoxColumn";
-            // 
-            // weaponsBindingSource
-            // 
-            this.weaponsBindingSource.DataMember = "Weapons";
-            this.weaponsBindingSource.DataSource = this.characterBindingSource;
+            this.weaponsView_equipPage.Location = new System.Drawing.Point(4, 6);
+            this.weaponsView_equipPage.Name = "weaponsView_equipPage";
+            this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
+            this.weaponsView_equipPage.TabIndex = 26;
             // 
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.checkRollView_rollsPage);
             this.tabPage2.Controls.Add(this.healthLb);
             this.tabPage2.Controls.Add(this.groupBox10);
-            this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -660,174 +312,9 @@
             this.spellsBindingSource.DataMember = "Spells";
             this.spellsBindingSource.DataSource = this.characterBindingSource;
             // 
-            // groupBox3
+            // characterBindingSource
             // 
-            this.groupBox3.Controls.Add(this.hitLocationLb);
-            this.groupBox3.Controls.Add(this.extraDifficultyNud);
-            this.groupBox3.Controls.Add(this.label42);
-            this.groupBox3.Controls.Add(this.successOrFailLb);
-            this.groupBox3.Controls.Add(this.skillsCb);
-            this.groupBox3.Controls.Add(this.label29);
-            this.groupBox3.Controls.Add(this.rollSuccessesTb);
-            this.groupBox3.Controls.Add(this.label28);
-            this.groupBox3.Controls.Add(this.rollBreakdownTb);
-            this.groupBox3.Controls.Add(this.label27);
-            this.groupBox3.Controls.Add(this.rollResultTb);
-            this.groupBox3.Controls.Add(this.rollBt);
-            this.groupBox3.Controls.Add(this.characteristicCb);
-            this.groupBox3.Controls.Add(this.skillRb);
-            this.groupBox3.Controls.Add(this.characteristicRb);
-            this.groupBox3.Location = new System.Drawing.Point(6, 7);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(502, 136);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Rolls";
-            // 
-            // hitLocationLb
-            // 
-            this.hitLocationLb.AutoSize = true;
-            this.hitLocationLb.Location = new System.Drawing.Point(104, 107);
-            this.hitLocationLb.Name = "hitLocationLb";
-            this.hitLocationLb.Size = new System.Drawing.Size(36, 13);
-            this.hitLocationLb.TabIndex = 16;
-            this.hitLocationLb.Text = "Head!";
-            this.hitLocationLb.Visible = false;
-            // 
-            // extraDifficultyNud
-            // 
-            this.extraDifficultyNud.Location = new System.Drawing.Point(101, 73);
-            this.extraDifficultyNud.Maximum = new decimal(new int[] {
-            2000000000,
-            0,
-            0,
-            0});
-            this.extraDifficultyNud.Minimum = new decimal(new int[] {
-            2000000000,
-            0,
-            0,
-            -2147483648});
-            this.extraDifficultyNud.Name = "extraDifficultyNud";
-            this.extraDifficultyNud.Size = new System.Drawing.Size(120, 20);
-            this.extraDifficultyNud.TabIndex = 15;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(6, 75);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(77, 13);
-            this.label42.TabIndex = 14;
-            this.label42.Text = "Extra Difficulty:";
-            // 
-            // successOrFailLb
-            // 
-            this.successOrFailLb.AutoSize = true;
-            this.successOrFailLb.Location = new System.Drawing.Point(413, 89);
-            this.successOrFailLb.Name = "successOrFailLb";
-            this.successOrFailLb.Size = new System.Drawing.Size(83, 13);
-            this.successOrFailLb.TabIndex = 13;
-            this.successOrFailLb.Text = "Crticial success!";
-            this.successOrFailLb.Visible = false;
-            // 
-            // skillsCb
-            // 
-            this.skillsCb.FormattingEnabled = true;
-            this.skillsCb.Location = new System.Drawing.Point(101, 45);
-            this.skillsCb.Name = "skillsCb";
-            this.skillsCb.Size = new System.Drawing.Size(121, 21);
-            this.skillsCb.TabIndex = 12;
-            this.skillsCb.SelectedIndexChanged += new System.EventHandler(this.skillsCb_SelectedIndexChanged);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(251, 44);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(62, 13);
-            this.label29.TabIndex = 11;
-            this.label29.Text = "Successes:";
-            // 
-            // rollSuccessesTb
-            // 
-            this.rollSuccessesTb.Location = new System.Drawing.Point(319, 41);
-            this.rollSuccessesTb.Name = "rollSuccessesTb";
-            this.rollSuccessesTb.Size = new System.Drawing.Size(177, 20);
-            this.rollSuccessesTb.TabIndex = 10;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(249, 69);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(64, 13);
-            this.label28.TabIndex = 9;
-            this.label28.Text = "Breakdown:";
-            // 
-            // rollBreakdownTb
-            // 
-            this.rollBreakdownTb.Location = new System.Drawing.Point(319, 66);
-            this.rollBreakdownTb.Name = "rollBreakdownTb";
-            this.rollBreakdownTb.Size = new System.Drawing.Size(177, 20);
-            this.rollBreakdownTb.TabIndex = 8;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(273, 21);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(40, 13);
-            this.label27.TabIndex = 7;
-            this.label27.Text = "Result:";
-            // 
-            // rollResultTb
-            // 
-            this.rollResultTb.Location = new System.Drawing.Point(319, 16);
-            this.rollResultTb.Name = "rollResultTb";
-            this.rollResultTb.Size = new System.Drawing.Size(177, 20);
-            this.rollResultTb.TabIndex = 6;
-            // 
-            // rollBt
-            // 
-            this.rollBt.Location = new System.Drawing.Point(6, 102);
-            this.rollBt.Name = "rollBt";
-            this.rollBt.Size = new System.Drawing.Size(89, 23);
-            this.rollBt.TabIndex = 3;
-            this.rollBt.Text = "Roll!";
-            this.rollBt.UseVisualStyleBackColor = true;
-            this.rollBt.Click += new System.EventHandler(this.rollBt_Click);
-            // 
-            // characteristicCb
-            // 
-            this.characteristicCb.FormattingEnabled = true;
-            this.characteristicCb.Location = new System.Drawing.Point(101, 18);
-            this.characteristicCb.Name = "characteristicCb";
-            this.characteristicCb.Size = new System.Drawing.Size(121, 21);
-            this.characteristicCb.TabIndex = 2;
-            // 
-            // skillRb
-            // 
-            this.skillRb.AutoSize = true;
-            this.skillRb.Location = new System.Drawing.Point(7, 46);
-            this.skillRb.Name = "skillRb";
-            this.skillRb.Size = new System.Drawing.Size(44, 17);
-            this.skillRb.TabIndex = 1;
-            this.skillRb.Text = "Skill";
-            this.skillRb.UseVisualStyleBackColor = true;
-            this.skillRb.CheckedChanged += new System.EventHandler(this.skillRb_CheckedChanged);
-            // 
-            // characteristicRb
-            // 
-            this.characteristicRb.AutoSize = true;
-            this.characteristicRb.Checked = true;
-            this.characteristicRb.Location = new System.Drawing.Point(6, 19);
-            this.characteristicRb.Name = "characteristicRb";
-            this.characteristicRb.Size = new System.Drawing.Size(89, 17);
-            this.characteristicRb.TabIndex = 0;
-            this.characteristicRb.TabStop = true;
-            this.characteristicRb.Text = "Characteristic";
-            this.characteristicRb.UseVisualStyleBackColor = true;
-            this.characteristicRb.CheckedChanged += new System.EventHandler(this.characteristicRb_CheckedChanged);
+            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
             // 
             // groupBox8
             // 
@@ -907,6 +394,11 @@
             this.weaponCb.Size = new System.Drawing.Size(166, 21);
             this.weaponCb.TabIndex = 0;
             this.weaponCb.SelectedIndexChanged += new System.EventHandler(this.weaponCb_SelectedIndexChanged);
+            // 
+            // weaponsBindingSource
+            // 
+            this.weaponsBindingSource.DataMember = "Weapons";
+            this.weaponsBindingSource.DataSource = this.characterBindingSource;
             // 
             // groupBox5
             // 
@@ -1041,6 +533,11 @@
             this.characterNotesRtb.TabIndex = 0;
             this.characterNotesRtb.Text = "";
             // 
+            // skillsBindingSource
+            // 
+            this.skillsBindingSource.DataMember = "Skills";
+            this.skillsBindingSource.DataSource = this.characterBindingSource;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1099,12 +596,12 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
-            // skillListView_statsPage
+            // checkRollView_rollsPage
             // 
-            this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
-            this.skillListView_statsPage.Name = "skillListView_statsPage";
-            this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
-            this.skillListView_statsPage.TabIndex = 4;
+            this.checkRollView_rollsPage.Location = new System.Drawing.Point(6, 6);
+            this.checkRollView_rollsPage.Name = "checkRollView_rollsPage";
+            this.checkRollView_rollsPage.Size = new System.Drawing.Size(504, 137);
+            this.checkRollView_rollsPage.TabIndex = 29;
             // 
             // MainWindow
             // 
@@ -1121,31 +618,20 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.armorDgv)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.extraDifficultyNud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).EndInit();
@@ -1188,55 +674,6 @@
         private System.Windows.Forms.Button weaponRollBt;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.TextBox weaponResultBreakdownTb;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox armorNameTb;
-        private System.Windows.Forms.ComboBox armorQualityCb;
-        private System.Windows.Forms.ComboBox armorMaterialCb;
-        private System.Windows.Forms.ComboBox armorTypeCb;
-        private System.Windows.Forms.ComboBox armorLocationCb;
-        private System.Windows.Forms.Button addNewArmorBt;
-        private System.Windows.Forms.DataGridView armorDgv;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button addNewWeaponBt;
-        private System.Windows.Forms.ComboBox weaponMaterialCb;
-        private System.Windows.Forms.ComboBox weaponTypeCb;
-        private System.Windows.Forms.TextBox weaponNameTb;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.DataGridView weaponsDgv;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfDiceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn diceSidesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn damageModDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn penetrationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn encumbranceValueDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn enchantmentLevelDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reachDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn handednessDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sizeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn qualityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn materialDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isDireDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Button addSpellBt;
-        private System.Windows.Forms.DataGridView spellsDgv;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label successOrFailLb;
-        private System.Windows.Forms.ComboBox skillsCb;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox rollSuccessesTb;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox rollBreakdownTb;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox rollResultTb;
-        private System.Windows.Forms.Button rollBt;
-        private System.Windows.Forms.ComboBox characteristicCb;
-        private System.Windows.Forms.RadioButton skillRb;
-        private System.Windows.Forms.RadioButton characteristicRb;
-        private System.Windows.Forms.NumericUpDown extraDifficultyNud;
-        private System.Windows.Forms.Label label42;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.Button spellRollBt;
         private System.Windows.Forms.TextBox spellResultBreakdownTb;
@@ -1251,11 +688,14 @@
         private System.Windows.Forms.RichTextBox characterNotesRtb;
         private System.Windows.Forms.Button notesCommitChangesBt;
         private System.Windows.Forms.Label healthLb;
-        private System.Windows.Forms.Label hitLocationLb;
         private UI.CharacterViews.CharacteristicsView charaView_statsPage;
         private UI.MainWindow.CharacterSelector characterSelector;
         private AttributesView attributesView_statsPage;
         private CharacterViews.SkillListView skillListView_statsPage;
+        private CharacterViews.SpellListView spellListView_statsPage;
+        private CharacterViews.WeaponsView weaponsView_equipPage;
+        private CharacterViews.ArmorView armorView_equipPage;
+        private ActionViews.CheckRollView checkRollView_rollsPage;
     }
 }
 
