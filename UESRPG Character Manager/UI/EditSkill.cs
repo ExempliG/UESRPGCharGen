@@ -18,6 +18,9 @@ namespace UESRPG_Character_Manager
         {
             InitializeComponent ();
 
+            // Don't allow the user to delete a skill that doesn't exist
+            deleteBt.Enabled = false;
+
             _skill = new Skill();
 
             skillCharacteristicsClb.Sorted = false;
@@ -86,6 +89,19 @@ namespace UESRPG_Character_Manager
         private void cancelBt_Click (object sender, EventArgs e)
         {
             Close ();
+        }
+
+        private void deleteBt_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(this,
+                                                  string.Format("Are you sure you wish to delete the skill \"{0}\"?", skillNameTb.Text),
+                                                  "Warning!",
+                                                  MessageBoxButtons.YesNo);
+
+            if(result == DialogResult.Yes)
+            {
+                MessageBox.Show("Skill MURDERED");
+            }
         }
     }
 }

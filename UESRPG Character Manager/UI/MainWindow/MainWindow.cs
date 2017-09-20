@@ -31,12 +31,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             // Subscribe Character views to the character change event
             characterSelector.SelectedCharacterChanged += OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += charaView_statsPage.OnSelectedCharacterChanged;
-            //characterSelector.SelectedCharacterChanged += 
+            characterSelector.SelectedCharacterChanged += attributesView_statsPage.OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += skillListView_statsPage.OnSelectedCharacterChanged;
             characterSelector.ForceUpdate();
+            charaView_statsPage.CharacteristicChanged += attributesView_statsPage.OnCharacteristicChanged;
 
             /*CUSTOM EVENT BINDINGS*/
             this.rollResultTb.TextChanged += softRoll;
-            this.skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
             this.characterNotesRtb.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/
 
@@ -89,107 +90,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
             SelectedCharacter ().Name = nameTb.Text;
-            //charactersCb.Items[_selectedIndex] = nameTb.Text;
-        }
-
-        /// <summary>
-        /// A characteristic changed, so we will update all the character's values/mods and re-calculate the calculated fields.
-        /// This function will do nothing if Characteristics are currently being updated somewhere else.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void characteristicChanged (object sender, EventArgs e)
-        {
-            if (!_characterStatsMutex)
-            {
-                _characterStatsMutex = true;
-
-                int health = 0;
-                int.TryParse (healthTb.Text, out health);
-                SelectedCharacter ().CurrentHealth = health;
-                int stamina = 0;
-                int.TryParse (staminaTb.Text, out stamina);
-                SelectedCharacter ().CurrentStamina = stamina;
-                int magicka = 0;
-                int.TryParse (magickaTb.Text, out magicka);
-                SelectedCharacter ().CurrentMagicka = magicka;
-                int luck = 0;
-                int.TryParse (luckPointsTb.Text, out luck);
-                SelectedCharacter ().CurrentLuckPoints = luck;
-                int ap = 0;
-                int.TryParse (actionPointsTb.Text, out ap);
-                SelectedCharacter ().CurrentAp = ap;
-
-                SelectedCharacter ().HealthMod = (int)nbModHealth.Value;
-                SelectedCharacter ().WoundThresholdMod = (int)nbModWoundThreshold.Value;
-                SelectedCharacter ().StaminaMod = (int)nbModStamina.Value;
-                SelectedCharacter ().MagickaMod = (int)nbModMagicka.Value;
-                SelectedCharacter ().ActionPointsMod = (int)nbModActionPoints.Value;
-                SelectedCharacter ().MovementRatingMod = (int)nbModMovementRating.Value;
-                SelectedCharacter ().CarryRatingMod = (int)nbModCarryRating.Value;
-                SelectedCharacter ().InitiativeRatingMod = (int)nbModInitiativeRating.Value;
-                SelectedCharacter ().DamageBonusMod = (int)nbModDamageBonus.Value;
-                SelectedCharacter ().LuckPointsMod = (int)nbModLuck.Value;
-
-                updateCalculatedFields ();
-                _characterStatsMutex = false;
-            }
-        }
-
-        /// <summary>
-        /// Update the UI representation of the character to match its data.
-        /// This function will do nothing if Characteristics are currently being updated somewhere else.
-        /// </summary>
-        private void refreshUIRepresentation ()
-        {
-            if (!_characterStatsMutex)
-            {
-                _characterStatsMutex = true;
-                if (characterSelector.HasActiveCharacter())
-                {
-                    charaView_statsPage.UpdateView();
-                }
-
-                healthTb.Text = SelectedCharacter ().CurrentHealth.ToString ();
-                healthLb.Text = string.Format("Health: {0} / {1}", SelectedCharacter().CurrentHealth, SelectedCharacter().MaxHealth);
-                staminaTb.Text = SelectedCharacter ().CurrentStamina.ToString ();
-                magickaTb.Text = SelectedCharacter ().CurrentMagicka.ToString ();
-                luckPointsTb.Text = SelectedCharacter ().CurrentLuckPoints.ToString ();
-                actionPointsTb.Text = SelectedCharacter ().CurrentAp.ToString ();
-
-                nbModHealth.Value = SelectedCharacter ().HealthMod;
-                nbModWoundThreshold.Value = SelectedCharacter ().WoundThresholdMod;
-                nbModStamina.Value = SelectedCharacter ().StaminaMod;
-                nbModMagicka.Value = SelectedCharacter ().MagickaMod;
-                nbModActionPoints.Value = SelectedCharacter ().ActionPointsMod;
-                nbModMovementRating.Value = SelectedCharacter ().MovementRatingMod;
-                nbModCarryRating.Value = SelectedCharacter ().CarryRatingMod;
-                nbModInitiativeRating.Value = SelectedCharacter ().InitiativeRatingMod;
-                nbModDamageBonus.Value = SelectedCharacter ().DamageBonusMod;
-                nbModLuck.Value = SelectedCharacter ().LuckPointsMod;
-
-                characterNotesRtb.Text = SelectedCharacter().Notes;
-
-                updateCalculatedFields ();
-                _characterStatsMutex = false;
-            }
-        }
-
-        /// <summary>
-        /// Updates the UI representation of all the current Character's calculated fields.
-        /// </summary>
-        private void updateCalculatedFields ()
-        {
-            /*maxLuckPointsTb.Text = "" + (SelectedCharacter ().MaximumLuckPoints);
-            initiativeRatingTb.Text = "" + (SelectedCharacter ().InitiativeRating);
-            maxActionPointsTb.Text = "" + (SelectedCharacter ().MaximumAp);
-            maxStaminaTb.Text = "" + (SelectedCharacter ().Stamina);
-            maxMagickaTb.Text = "" + (SelectedCharacter ().MagickaPool);
-            movementRatingTb.Text = "" + (SelectedCharacter ().MovementRating);
-            carryRatingTb.Text = "" + (SelectedCharacter ().CarryRating);
-            woundThresholdTb.Text = "" + (SelectedCharacter ().WoundThreshold);
-            maxHealthTb.Text = "" + (SelectedCharacter ().MaxHealth);
-            damageBonusTb.Text = "" + (SelectedCharacter ().DamageBonus);*/
         }
 
         /// <summary>
@@ -212,12 +112,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             {
                 weaponsDgv.DataSource = SelectedCharacter ().Weapons;
                 weaponCb.DataSource = SelectedCharacter ().Weapons;
-            }
-
-            skillsDgv.DataSource = null;
-            if (SelectedCharacter ().Skills.Count > 0)
-            {
-                skillsDgv.DataSource = SelectedCharacter ().Skills;
             }
 
             spellsDgv.DataSource = null;
@@ -566,7 +460,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 {
                     fs.Close ();
                 }
-                refreshUIRepresentation ();
+
                 nameTb.Text = SelectedCharacter ().Name;
 
                 updateDataBindings();
@@ -641,23 +535,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             if (int.TryParse (finalDamageReceivedTb.Text, out damage))
             {
                 SelectedCharacter ().CurrentHealth -= damage;
-                refreshUIRepresentation();
             }
-        }
-
-        private void addSkillBt_Click (object sender, EventArgs e)
-        {
-            int skillIndex = skillsCb.SelectedIndex;
-            EditSkill es = new EditSkill();
-            es.ShowDialog ();
-
-            Skill newSkill;
-            if (es.GetSkill(out newSkill))
-            {
-                SelectedCharacter().Skills.Add(newSkill);
-            }
-            updateDataBindings ();
-            skillsCb.SelectedIndex = skillIndex;
         }
 
         private void armorDataGridView_ChangeOccurred (object sender, EventArgs e)
@@ -750,35 +628,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             EditSpell es = new EditSpell (SelectedCharacter ());
             es.ShowDialog ();
             updateDataBindings ();
-        }
-
-        private void editSkillBt_Click(object sender, EventArgs e)
-        {
-            DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
-            if(theRows.Count == 1)
-            {
-                int selectedIndex = theRows[0].Index;
-                EditSkill es = new EditSkill(SelectedCharacter().Skills[selectedIndex]);
-                es.Show();
-            }
-
-            updateDataBindings();
-        }
-
-        private void skillsDgv_SelectionChanged(object sender, EventArgs e)
-        {
-            DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
-            if (theRows.Count == 1)
-            {
-                int selectedIndex = theRows[0].Index;
-                bool canEdit = !(SelectedCharacter().Skills[selectedIndex].isDefaultSkill);
-
-                editSkillBt.Enabled = canEdit;
-            }
-            else
-            {
-                editSkillBt.Enabled = false;
-            }
         }
 
         private void spellsCb_SelectedIndexChanged(object sender, EventArgs e)

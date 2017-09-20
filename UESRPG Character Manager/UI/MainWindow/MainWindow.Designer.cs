@@ -31,17 +31,11 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
             this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.addSpellBt = new System.Windows.Forms.Button();
             this.spellsDgv = new System.Windows.Forms.DataGridView();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.editSkillBt = new System.Windows.Forms.Button();
-            this.addSkillBt = new System.Windows.Forms.Button();
-            this.skillsDgv = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rankDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameTb = new System.Windows.Forms.TextBox();
@@ -134,13 +128,11 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.attributesView1 = new UESRPG_Character_Manager.UI.AttributesView();
+            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).BeginInit();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.skillsDgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -178,10 +170,10 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.attributesView1);
+            this.tabPage1.Controls.Add(this.skillListView_statsPage);
+            this.tabPage1.Controls.Add(this.attributesView_statsPage);
             this.tabPage1.Controls.Add(this.charaView_statsPage);
             this.tabPage1.Controls.Add(this.groupBox9);
-            this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.nameTb);
             this.tabPage1.Controls.Add(this.label31);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -192,12 +184,19 @@
             this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // attributesView_statsPage
+            // 
+            this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
+            this.attributesView_statsPage.Name = "attributesView_statsPage";
+            this.attributesView_statsPage.Size = new System.Drawing.Size(344, 329);
+            this.attributesView_statsPage.TabIndex = 3;
+            // 
             // charaView_statsPage
             // 
             this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
             this.charaView_statsPage.Name = "charaView_statsPage";
             this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
-            this.charaView_statsPage.TabIndex = 27;
+            this.charaView_statsPage.TabIndex = 2;
             // 
             // groupBox9
             // 
@@ -234,83 +233,6 @@
             this.spellsDgv.Size = new System.Drawing.Size(494, 115);
             this.spellsDgv.TabIndex = 0;
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.Controls.Add(this.editSkillBt);
-            this.groupBox6.Controls.Add(this.addSkillBt);
-            this.groupBox6.Controls.Add(this.skillsDgv);
-            this.groupBox6.Location = new System.Drawing.Point(484, 37);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(502, 154);
-            this.groupBox6.TabIndex = 9;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Skills";
-            // 
-            // editSkillBt
-            // 
-            this.editSkillBt.Location = new System.Drawing.Point(87, 19);
-            this.editSkillBt.Name = "editSkillBt";
-            this.editSkillBt.Size = new System.Drawing.Size(75, 23);
-            this.editSkillBt.TabIndex = 2;
-            this.editSkillBt.Text = "Edit Skill";
-            this.editSkillBt.UseVisualStyleBackColor = true;
-            this.editSkillBt.Click += new System.EventHandler(this.editSkillBt_Click);
-            // 
-            // addSkillBt
-            // 
-            this.addSkillBt.Location = new System.Drawing.Point(6, 19);
-            this.addSkillBt.Name = "addSkillBt";
-            this.addSkillBt.Size = new System.Drawing.Size(75, 23);
-            this.addSkillBt.TabIndex = 1;
-            this.addSkillBt.Text = "Add Skill";
-            this.addSkillBt.UseVisualStyleBackColor = true;
-            this.addSkillBt.Click += new System.EventHandler(this.addSkillBt_Click);
-            // 
-            // skillsDgv
-            // 
-            this.skillsDgv.AllowUserToAddRows = false;
-            this.skillsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.skillsDgv.AutoGenerateColumns = false;
-            this.skillsDgv.BackgroundColor = System.Drawing.Color.White;
-            this.skillsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.skillsDgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
-            this.rankDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn});
-            this.skillsDgv.DataSource = this.skillsBindingSource;
-            this.skillsDgv.Location = new System.Drawing.Point(7, 48);
-            this.skillsDgv.Name = "skillsDgv";
-            this.skillsDgv.ReadOnly = true;
-            this.skillsDgv.Size = new System.Drawing.Size(489, 100);
-            this.skillsDgv.TabIndex = 0;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // rankDataGridViewTextBoxColumn
-            // 
-            this.rankDataGridViewTextBoxColumn.DataPropertyName = "Rank";
-            this.rankDataGridViewTextBoxColumn.HeaderText = "Rank";
-            this.rankDataGridViewTextBoxColumn.Name = "rankDataGridViewTextBoxColumn";
-            this.rankDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.descriptionDataGridViewTextBoxColumn.Width = 240;
-            // 
             // skillsBindingSource
             // 
             this.skillsBindingSource.DataMember = "Skills";
@@ -326,7 +248,7 @@
             this.nameTb.Margin = new System.Windows.Forms.Padding(2);
             this.nameTb.Name = "nameTb";
             this.nameTb.Size = new System.Drawing.Size(81, 20);
-            this.nameTb.TabIndex = 8;
+            this.nameTb.TabIndex = 1;
             this.nameTb.TextChanged += new System.EventHandler(this.nameTb_TextChanged);
             // 
             // label31
@@ -1100,11 +1022,11 @@
             // notesCommitChangesBt
             // 
             this.notesCommitChangesBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.notesCommitChangesBt.Location = new System.Drawing.Point(889, 362);
+            this.notesCommitChangesBt.Location = new System.Drawing.Point(895, 362);
             this.notesCommitChangesBt.Name = "notesCommitChangesBt";
-            this.notesCommitChangesBt.Size = new System.Drawing.Size(97, 23);
+            this.notesCommitChangesBt.Size = new System.Drawing.Size(91, 23);
             this.notesCommitChangesBt.TabIndex = 1;
-            this.notesCommitChangesBt.Text = "Commit Changes";
+            this.notesCommitChangesBt.Text = "Update Notes";
             this.notesCommitChangesBt.UseVisualStyleBackColor = true;
             this.notesCommitChangesBt.Click += new System.EventHandler(this.notesCommitChangesBt_Click);
             // 
@@ -1177,12 +1099,12 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
-            // attributesView1
+            // skillListView_statsPage
             // 
-            this.attributesView1.Location = new System.Drawing.Point(134, 37);
-            this.attributesView1.Name = "attributesView1";
-            this.attributesView1.Size = new System.Drawing.Size(344, 329);
-            this.attributesView1.TabIndex = 28;
+            this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
+            this.skillListView_statsPage.Name = "skillListView_statsPage";
+            this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
+            this.skillListView_statsPage.TabIndex = 4;
             // 
             // MainWindow
             // 
@@ -1201,8 +1123,6 @@
             this.tabPage1.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.skillsDgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -1258,9 +1178,6 @@
         private System.Windows.Forms.Button applyDamageBt;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox finalDamageReceivedTb;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.DataGridView skillsDgv;
-        private System.Windows.Forms.Button addSkillBt;
         private System.Windows.Forms.BindingSource skillsBindingSource;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label26;
@@ -1271,9 +1188,6 @@
         private System.Windows.Forms.Button weaponRollBt;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.TextBox weaponResultBreakdownTb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rankDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.TextBox armorNameTb;
@@ -1321,7 +1235,6 @@
         private System.Windows.Forms.ComboBox characteristicCb;
         private System.Windows.Forms.RadioButton skillRb;
         private System.Windows.Forms.RadioButton characteristicRb;
-        private System.Windows.Forms.Button editSkillBt;
         private System.Windows.Forms.NumericUpDown extraDifficultyNud;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.GroupBox groupBox10;
@@ -1341,7 +1254,8 @@
         private System.Windows.Forms.Label hitLocationLb;
         private UI.CharacterViews.CharacteristicsView charaView_statsPage;
         private UI.MainWindow.CharacterSelector characterSelector;
-        private AttributesView attributesView1;
+        private AttributesView attributesView_statsPage;
+        private CharacterViews.SkillListView skillListView_statsPage;
     }
 }
 

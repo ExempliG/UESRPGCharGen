@@ -59,6 +59,7 @@
             this.editSkillBt.TabIndex = 2;
             this.editSkillBt.Text = "Edit Skill";
             this.editSkillBt.UseVisualStyleBackColor = true;
+            this.editSkillBt.Click += new System.EventHandler(this.editSkillBt_Click);
             // 
             // addSkillBt
             // 
@@ -68,6 +69,7 @@
             this.addSkillBt.TabIndex = 1;
             this.addSkillBt.Text = "Add Skill";
             this.addSkillBt.UseVisualStyleBackColor = true;
+            this.addSkillBt.Click += new System.EventHandler(this.addSkillBt_Click);
             // 
             // skillsDgv
             // 

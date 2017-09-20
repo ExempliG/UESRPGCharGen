@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.skillRankNud = new System.Windows.Forms.NumericUpDown();
             this.cancelBt = new System.Windows.Forms.Button();
+            this.deleteBt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.skillRankNud)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             // 
             // confirmBt
             // 
-            this.confirmBt.Location = new System.Drawing.Point(116, 255);
+            this.confirmBt.Location = new System.Drawing.Point(35, 255);
             this.confirmBt.Name = "confirmBt";
             this.confirmBt.Size = new System.Drawing.Size(75, 23);
             this.confirmBt.TabIndex = 5;
@@ -127,16 +128,27 @@
             this.cancelBt.Location = new System.Drawing.Point(197, 255);
             this.cancelBt.Name = "cancelBt";
             this.cancelBt.Size = new System.Drawing.Size(75, 23);
-            this.cancelBt.TabIndex = 8;
+            this.cancelBt.TabIndex = 7;
             this.cancelBt.Text = "Cancel";
             this.cancelBt.UseVisualStyleBackColor = true;
             this.cancelBt.Click += new System.EventHandler(this.cancelBt_Click);
+            // 
+            // deleteBt
+            // 
+            this.deleteBt.Location = new System.Drawing.Point(116, 255);
+            this.deleteBt.Name = "deleteBt";
+            this.deleteBt.Size = new System.Drawing.Size(75, 23);
+            this.deleteBt.TabIndex = 6;
+            this.deleteBt.Text = "Delete";
+            this.deleteBt.UseVisualStyleBackColor = true;
+            this.deleteBt.Click += new System.EventHandler(this.deleteBt_Click);
             // 
             // EditSkill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 291);
+            this.Controls.Add(this.deleteBt);
             this.Controls.Add(this.cancelBt);
             this.Controls.Add(this.skillRankNud);
             this.Controls.Add(this.label4);
@@ -167,5 +179,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown skillRankNud;
         private System.Windows.Forms.Button cancelBt;
+        private System.Windows.Forms.Button deleteBt;
     }
 }

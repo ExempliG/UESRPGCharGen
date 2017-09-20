@@ -14,6 +14,10 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class CharacteristicsView : UserControl
     {
+        public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
+        [Description("Fires when one of the Characteristics is changed by the user.")]
+        public event CharacteristicChangedHandler CharacteristicChanged;
+
         private Character _activeCharacter;
         private bool _characteristicMutex;
 
@@ -49,82 +53,60 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void nbStrength_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Strength = (int)nbStrength.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Strength = (int)nbStrength.Value; });
         }
 
         private void nbEndurance_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Endurance = (int)nbEndurance.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Endurance = (int)nbEndurance.Value; });
         }
 
         private void nbAgility_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Agility = (int)nbAgility.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Agility = (int)nbAgility.Value; });
         }
 
         private void nbIntelligence_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Intelligence = (int)nbIntelligence.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Intelligence = (int)nbIntelligence.Value; });
         }
 
         private void nbWillpower_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Willpower = (int)nbWillpower.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Willpower = (int)nbWillpower.Value; });
         }
 
         private void nbPerception_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Perception = (int)nbPerception.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Perception = (int)nbPerception.Value; });
         }
 
         private void nbPersonality_ValueChanged(object sender, EventArgs e)
         {
-            if (!_characteristicMutex)
-            {
-                _characteristicMutex = true;
-                _activeCharacter.Personality = (int)nbPersonality.Value;
-                _characteristicMutex = false;
-            }
+            changeCharacteristic(delegate () { _activeCharacter.Personality = (int)nbPersonality.Value; });
         }
 
         private void nbLuck_ValueChanged(object sender, EventArgs e)
         {
+            changeCharacteristic(delegate() { _activeCharacter.Luck = (int)nbLuck.Value; });
+        }
+
+        private void changeCharacteristic(Action characteristicChange)
+        {
             if (!_characteristicMutex)
             {
                 _characteristicMutex = true;
-                _activeCharacter.Luck = (int)nbLuck.Value;
+                characteristicChange();
                 _characteristicMutex = false;
+
+                OnCharacteristicChanged();
             }
+        }
+
+        protected void OnCharacteristicChanged()
+        {
+            // Invoke the event if subscribers exist
+            CharacteristicChanged?.Invoke(this, new System.EventArgs());
         }
     }
 }
