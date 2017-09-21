@@ -39,27 +39,26 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             characterSelector.SelectedCharacterChanged += armorView_equipPage.OnSelectedCharacterChanged;
 
             characterSelector.SelectedCharacterChanged += checkRollView_rollsPage.OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += weaponDamageView_rollsPage.OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += spellDamageView_rollsPage.OnSelectedCharacterChanged;
 
             characterSelector.ForceUpdate();
+
             charaView_statsPage.CharacteristicChanged += attributesView_statsPage.OnCharacteristicChanged;
 
+            spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
+
+            spellListView_statsPage.SpellListChanged += spellDamageView_rollsPage.OnSpellListChanged;
+
+            skillListView_statsPage.SkillListChanged += checkRollView_rollsPage.OnSkillListChanged;
+
             /*CUSTOM EVENT BINDINGS*/
-            //this.rollResultTb.TextChanged += softRoll;
             this.characterNotesRtb.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
 
             hitLocationCb.DataSource = ArmorLocationsData.s_names;
-
-            /*foreach (string characteristic in Characteristics.s_characteristicNames)
-            {
-                characteristicCb.Items.Add (characteristic);
-            }
-
-            characteristicCb.SelectedIndex = 0;*/
-
-            updateDataBindings();
         }
 
         private void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -69,130 +68,12 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
         {
-            selectedCharacter().Notes = characterNotesRtb.Text;
-        }
-
-        private Character selectedCharacter ()
-        {
-            //return characterSelector.GetActiveCharacter();
-            return _activeCharacter;
+            _activeCharacter.Notes = characterNotesRtb.Text;
         }
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
-            selectedCharacter ().Name = nameTb.Text;
-        }
-
-        /// <summary>
-        /// Update all UI elements with Data Bindings.
-        /// </summary>
-        /// <todo>Refactor this to reduce code repetition</todo>
-        private void updateDataBindings ()
-        {
-            _updatingDataBindings = true;
-
-            weaponCb.DataSource = null;
-            if (selectedCharacter ().Weapons.Count > 0)
-            {
-                weaponCb.DataSource = selectedCharacter ().Weapons;
-            }
-
-            spellsCb.DataSource = null;
-            if (selectedCharacter().Spells.Count > 0)
-            {
-                spellsCb.DataSource = selectedCharacter().Spells;
-            }
-
-            _updatingDataBindings = false;
-        }
-
-        private void skillsCb_SelectedIndexChanged (object sender, EventArgs e)
-        {
-            /*if (skillRb.Checked)
-            {
-                updateCharacteristicCb ();
-            }*/
-        }
-
-        /// <summary>
-        /// This function will determine which Characteristics govern the selected skill and remove all other Characteristics from the Characteristic CB.
-        /// </summary>
-        private void updateCharacteristicCb ()
-        {
-            /*object selectedItem = skillsCb.SelectedItem;
-            if (selectedItem != null && skillRb.Checked)
-            {
-                Skill skill = (Skill)selectedItem;
-                characteristicCb.Items.Clear ();
-                foreach (int characteristic in skill.Characteristics)
-                {
-                    characteristicCb.Items.Add (Characteristics.s_characteristicNames[characteristic]);
-                }
-                if (characteristicCb.Items.Count > 0)
-                {
-                    characteristicCb.SelectedIndex = 0;
-                }
-            }
-            else
-            {
-                reloadCharacteristicCb ();
-            }*/
-        }
-
-        /// <summary>
-        /// Restores the Characteristics CB to include all Characteristics.
-        /// </summary>
-        private void reloadCharacteristicCb ()
-        {
-            /*characteristicCb.Items.Clear ();
-            foreach (string characteristic in Characteristics.s_characteristicNames)
-            {
-                characteristicCb.Items.Add (characteristic);
-            }
-            characteristicCb.SelectedIndex = 0;*/
-        }
-
-        /// <summary>
-        /// Will filter the Characteristic combobox for the selected skill and perform a soft roll
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void skillRb_CheckedChanged (object sender, EventArgs e)
-        {
-            /*updateCharacteristicCb ();
-            extraDifficultyNud.Value = 0;
-
-            softRoll (sender, e);*/
-        }
-
-        /// <summary>
-        /// Will filter the Characteristic combobox for the selected skill and perform a soft roll
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void characteristicRb_CheckedChanged (object sender, EventArgs e)
-        {
-            /*updateCharacteristicCb ();
-            extraDifficultyNud.Value = 0;
-
-            softRoll (sender, e);*/
-        }
-
-        /// <summary>
-        /// Rolls against selected parameters
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <param name="extraDifficulty">An extra difficulty modifier, in case a particular check is harder or easier</param>
-        /// <todo>Expose the extraDifficulty modifier somewhere</todo>
-        private void rollBt_Click (object sender, EventArgs e)
-        {
-            /*Random r = new Random ();
-
-            int result = r.Next (1, 100);
-            rollResultTb.Text = "" + result;
-
-            softRoll (sender, e);*/
+            _activeCharacter.Name = nameTb.Text;
         }
 
         /// <summary>
@@ -260,7 +141,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 {
                     List<Character> loadedList = (List<Character>)xml.Deserialize (fs);
 
-                    //_characterList = loadedList;
                     _currentFile = fileName;
                     saveMi.Enabled = true;
 
@@ -281,9 +161,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     fs.Close ();
                 }
 
-                nameTb.Text = selectedCharacter ().Name;
-
-                updateDataBindings();
+                nameTb.Text = _activeCharacter.Name;
             }
         }
 
@@ -332,7 +210,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             if (int.TryParse (receivedDamageTb.Text, out int damage) && int.TryParse (receivedPenTb.Text, out int pen))
             {
-                double armorMitigation = selectedCharacter ().GetArmorPiece (location).AR;
+                double armorMitigation = _activeCharacter.GetArmorPiece (location).AR;
                 armorMitigation = Math.Max(armorMitigation - pen, 0);                       // Pen reduces armorMitigation to a lower limit of zero.
                 damage = Math.Max(damage - (int)armorMitigation, 0);                        // armorMitigation then reduces received damage to a lower limit of zero.
 
@@ -344,122 +222,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             if (int.TryParse (finalDamageReceivedTb.Text, out int damage))
             {
-                selectedCharacter ().CurrentHealth -= damage;
+                _activeCharacter.CurrentHealth -= damage;
             }
-        }
-
-        private void armorDataGridView_ChangeOccurred (object sender, EventArgs e)
-        {
-            updateDamage ();
-        }
-
-        private void weaponRollBt_Click (object sender, EventArgs e)
-        {
-            Random r = new Random ();
-
-            Weapon selectedWeapon = (Weapon)weaponCb.SelectedItem;
-            int resultTotal = 0;
-            string breakdownString = "";
-
-            for (int i = 0; i < selectedWeapon.NumberOfDice; i++)
-            {
-                int roll = r.Next (1, selectedWeapon.DiceSides);
-                breakdownString += string.Format ("{0} + ", roll);
-                resultTotal += roll;
-            }
-
-            breakdownString += string.Format ("{0} + bonus {1}", selectedWeapon.DamageMod, selectedCharacter().DamageBonus);
-            resultTotal += selectedWeapon.DamageMod;
-            resultTotal += selectedCharacter().DamageBonus;
-
-            weaponResultTb.Text = string.Format ("{0} pen {1}", resultTotal, selectedWeapon.Penetration);
-            weaponResultBreakdownTb.Text = breakdownString;
-        }
-
-        private void spellRollBt_Click(object sender, EventArgs e)
-        {
-            Random r = new Random();
-
-            Spell selectedSpell = (Spell)spellsCb.SelectedItem;
-            int resultTotal = 0;
-            string breakdownString = "";
-
-            for (int i = 0; i < selectedSpell.NumberOfDice; i++)
-            {
-                string formatString;
-
-                if (i == selectedSpell.NumberOfDice - 1)
-                {
-                    formatString = "{0}";
-                }
-                else
-                {
-                    formatString = "{0} + ";
-                }
-
-                int roll = r.Next(1, selectedSpell.DiceSides);
-                breakdownString += string.Format(formatString, roll);
-                resultTotal += roll;
-            }
-
-            spellResultTb.Text = string.Format("{0} pen {1}", resultTotal, selectedSpell.Penetration);
-            spellResultBreakdownTb.Text = breakdownString;
-        }
-
-        private void weaponCb_SelectedIndexChanged (object sender, EventArgs e)
-        {
-            if (weaponCb.SelectedIndex > -1 && weaponCb.SelectedItem.GetType () == typeof (Weapon))
-            {
-                weaponRollBt.Enabled = true;
-            }
-            else
-            {
-                weaponRollBt.Enabled = false;
-            }
-        }
-
-        private void addSpellBt_Click (object sender, EventArgs e)
-        {
-            EditSpell es = new EditSpell (selectedCharacter ());
-            es.ShowDialog ();
-            updateDataBindings ();
-        }
-
-        private void spellsCb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool allowRoll = false;
-
-            if (spellsCb.Items.Count > 0)
-            {
-                if (spellsCb.SelectedItem != null && spellsCb.SelectedItem.GetType() == typeof(Spell))
-                {
-                    Spell selectedSpell = (Spell)spellsCb.SelectedItem;
-
-                    // Set up the skill roll for the user, assuming this event was not triggered in updateDataBindings.
-                    if (!_updatingDataBindings)
-                    {
-                        //skillRb.Checked = true;
-                        IEnumerable<Skill> skillSearch = from skill in selectedCharacter().Skills
-                                                         where skill.Name == selectedSpell.AssociatedSkill
-                                                         select skill;
-                        if (skillSearch.Count() == 1)
-                        {
-                            //int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
-                            //skillsCb.SelectedIndex = skillIndex;
-                            //extraDifficultyNud.Value = selectedSpell.Difficulty;
-                        }
-                    }
-
-                    allowRoll = selectedSpell.DoesDamage;
-                }
-            }
-
-            spellRollBt.Enabled = allowRoll;
         }
 
         private void notesCommitChangesBt_Click(object sender, EventArgs e)
         {
-            selectedCharacter().Notes = characterNotesRtb.Text;
+            _activeCharacter.Notes = characterNotesRtb.Text;
         }
     }
 }

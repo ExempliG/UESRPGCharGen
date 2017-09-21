@@ -41,26 +41,10 @@
             this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
             this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.spellDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
+            this.weaponDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
+            this.checkRollView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.healthLb = new System.Windows.Forms.Label();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.spellRollBt = new System.Windows.Forms.Button();
-            this.spellResultBreakdownTb = new System.Windows.Forms.TextBox();
-            this.spellResultTb = new System.Windows.Forms.TextBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.spellsCb = new System.Windows.Forms.ComboBox();
-            this.spellsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.weaponResultBreakdownTb = new System.Windows.Forms.TextBox();
-            this.label38 = new System.Windows.Forms.Label();
-            this.weaponResultTb = new System.Windows.Forms.TextBox();
-            this.weaponRollBt = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
-            this.weaponCb = new System.Windows.Forms.ComboBox();
-            this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.applyDamageBt = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
@@ -74,6 +58,9 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.notesCommitChangesBt = new System.Windows.Forms.Button();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
+            this.spellsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,18 +69,15 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.checkRollView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).BeginInit();
@@ -206,10 +190,10 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.spellDamageView_rollsPage);
+            this.tabPage2.Controls.Add(this.weaponDamageView_rollsPage);
             this.tabPage2.Controls.Add(this.checkRollView_rollsPage);
             this.tabPage2.Controls.Add(this.healthLb);
-            this.tabPage2.Controls.Add(this.groupBox10);
-            this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -218,6 +202,27 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Combat & Rolls";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // spellDamageView_rollsPage
+            // 
+            this.spellDamageView_rollsPage.Location = new System.Drawing.Point(262, 149);
+            this.spellDamageView_rollsPage.Name = "spellDamageView_rollsPage";
+            this.spellDamageView_rollsPage.Size = new System.Drawing.Size(249, 156);
+            this.spellDamageView_rollsPage.TabIndex = 31;
+            // 
+            // weaponDamageView_rollsPage
+            // 
+            this.weaponDamageView_rollsPage.Location = new System.Drawing.Point(6, 149);
+            this.weaponDamageView_rollsPage.Name = "weaponDamageView_rollsPage";
+            this.weaponDamageView_rollsPage.Size = new System.Drawing.Size(250, 156);
+            this.weaponDamageView_rollsPage.TabIndex = 30;
+            // 
+            // checkRollView_rollsPage
+            // 
+            this.checkRollView_rollsPage.Location = new System.Drawing.Point(6, 6);
+            this.checkRollView_rollsPage.Name = "checkRollView_rollsPage";
+            this.checkRollView_rollsPage.Size = new System.Drawing.Size(504, 137);
+            this.checkRollView_rollsPage.TabIndex = 29;
             // 
             // healthLb
             // 
@@ -228,177 +233,6 @@
             this.healthLb.Size = new System.Drawing.Size(41, 13);
             this.healthLb.TabIndex = 28;
             this.healthLb.Text = "Health:";
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.spellRollBt);
-            this.groupBox10.Controls.Add(this.spellResultBreakdownTb);
-            this.groupBox10.Controls.Add(this.spellResultTb);
-            this.groupBox10.Controls.Add(this.label43);
-            this.groupBox10.Controls.Add(this.label41);
-            this.groupBox10.Controls.Add(this.label40);
-            this.groupBox10.Controls.Add(this.spellsCb);
-            this.groupBox10.Location = new System.Drawing.Point(260, 149);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(248, 155);
-            this.groupBox10.TabIndex = 27;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Spell Damage";
-            // 
-            // spellRollBt
-            // 
-            this.spellRollBt.Enabled = false;
-            this.spellRollBt.Location = new System.Drawing.Point(167, 98);
-            this.spellRollBt.Name = "spellRollBt";
-            this.spellRollBt.Size = new System.Drawing.Size(75, 23);
-            this.spellRollBt.TabIndex = 6;
-            this.spellRollBt.Text = "Roll";
-            this.spellRollBt.UseVisualStyleBackColor = true;
-            this.spellRollBt.Click += new System.EventHandler(this.spellRollBt_Click);
-            // 
-            // spellResultBreakdownTb
-            // 
-            this.spellResultBreakdownTb.Location = new System.Drawing.Point(76, 72);
-            this.spellResultBreakdownTb.Name = "spellResultBreakdownTb";
-            this.spellResultBreakdownTb.Size = new System.Drawing.Size(166, 20);
-            this.spellResultBreakdownTb.TabIndex = 5;
-            // 
-            // spellResultTb
-            // 
-            this.spellResultTb.Location = new System.Drawing.Point(76, 46);
-            this.spellResultTb.Name = "spellResultTb";
-            this.spellResultTb.Size = new System.Drawing.Size(166, 20);
-            this.spellResultTb.TabIndex = 4;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(6, 75);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(64, 13);
-            this.label43.TabIndex = 3;
-            this.label43.Text = "Breakdown:";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(6, 49);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(40, 13);
-            this.label41.TabIndex = 2;
-            this.label41.Text = "Result:";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(6, 22);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(33, 13);
-            this.label40.TabIndex = 1;
-            this.label40.Text = "Spell:";
-            // 
-            // spellsCb
-            // 
-            this.spellsCb.DataSource = this.spellsBindingSource;
-            this.spellsCb.FormattingEnabled = true;
-            this.spellsCb.Location = new System.Drawing.Point(76, 19);
-            this.spellsCb.Name = "spellsCb";
-            this.spellsCb.Size = new System.Drawing.Size(166, 21);
-            this.spellsCb.TabIndex = 0;
-            this.spellsCb.SelectedIndexChanged += new System.EventHandler(this.spellsCb_SelectedIndexChanged);
-            // 
-            // spellsBindingSource
-            // 
-            this.spellsBindingSource.DataMember = "Spells";
-            this.spellsBindingSource.DataSource = this.characterBindingSource;
-            // 
-            // characterBindingSource
-            // 
-            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.label39);
-            this.groupBox8.Controls.Add(this.weaponResultBreakdownTb);
-            this.groupBox8.Controls.Add(this.label38);
-            this.groupBox8.Controls.Add(this.weaponResultTb);
-            this.groupBox8.Controls.Add(this.weaponRollBt);
-            this.groupBox8.Controls.Add(this.label26);
-            this.groupBox8.Controls.Add(this.weaponCb);
-            this.groupBox8.Location = new System.Drawing.Point(6, 149);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(248, 155);
-            this.groupBox8.TabIndex = 24;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Weapon Damage";
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(6, 75);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(64, 13);
-            this.label39.TabIndex = 6;
-            this.label39.Text = "Breakdown:";
-            // 
-            // weaponResultBreakdownTb
-            // 
-            this.weaponResultBreakdownTb.Location = new System.Drawing.Point(76, 72);
-            this.weaponResultBreakdownTb.Name = "weaponResultBreakdownTb";
-            this.weaponResultBreakdownTb.Size = new System.Drawing.Size(166, 20);
-            this.weaponResultBreakdownTb.TabIndex = 5;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(6, 49);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(40, 13);
-            this.label38.TabIndex = 4;
-            this.label38.Text = "Result:";
-            // 
-            // weaponResultTb
-            // 
-            this.weaponResultTb.Location = new System.Drawing.Point(76, 46);
-            this.weaponResultTb.Name = "weaponResultTb";
-            this.weaponResultTb.Size = new System.Drawing.Size(166, 20);
-            this.weaponResultTb.TabIndex = 3;
-            // 
-            // weaponRollBt
-            // 
-            this.weaponRollBt.Enabled = false;
-            this.weaponRollBt.Location = new System.Drawing.Point(167, 98);
-            this.weaponRollBt.Name = "weaponRollBt";
-            this.weaponRollBt.Size = new System.Drawing.Size(75, 23);
-            this.weaponRollBt.TabIndex = 2;
-            this.weaponRollBt.Text = "Roll";
-            this.weaponRollBt.UseVisualStyleBackColor = true;
-            this.weaponRollBt.Click += new System.EventHandler(this.weaponRollBt_Click);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(6, 22);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(51, 13);
-            this.label26.TabIndex = 1;
-            this.label26.Text = "Weapon:";
-            // 
-            // weaponCb
-            // 
-            this.weaponCb.DataSource = this.weaponsBindingSource;
-            this.weaponCb.DisplayMember = "Name";
-            this.weaponCb.FormattingEnabled = true;
-            this.weaponCb.Location = new System.Drawing.Point(76, 19);
-            this.weaponCb.Name = "weaponCb";
-            this.weaponCb.Size = new System.Drawing.Size(166, 21);
-            this.weaponCb.TabIndex = 0;
-            this.weaponCb.SelectedIndexChanged += new System.EventHandler(this.weaponCb_SelectedIndexChanged);
-            // 
-            // weaponsBindingSource
-            // 
-            this.weaponsBindingSource.DataMember = "Weapons";
-            this.weaponsBindingSource.DataSource = this.characterBindingSource;
             // 
             // groupBox5
             // 
@@ -533,6 +367,20 @@
             this.characterNotesRtb.TabIndex = 0;
             this.characterNotesRtb.Text = "";
             // 
+            // spellsBindingSource
+            // 
+            this.spellsBindingSource.DataMember = "Spells";
+            this.spellsBindingSource.DataSource = this.characterBindingSource;
+            // 
+            // characterBindingSource
+            // 
+            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
+            // 
+            // weaponsBindingSource
+            // 
+            this.weaponsBindingSource.DataMember = "Weapons";
+            this.weaponsBindingSource.DataSource = this.characterBindingSource;
+            // 
             // skillsBindingSource
             // 
             this.skillsBindingSource.DataMember = "Skills";
@@ -596,13 +444,6 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
-            // checkRollView_rollsPage
-            // 
-            this.checkRollView_rollsPage.Location = new System.Drawing.Point(6, 6);
-            this.checkRollView_rollsPage.Name = "checkRollView_rollsPage";
-            this.checkRollView_rollsPage.Size = new System.Drawing.Size(504, 137);
-            this.checkRollView_rollsPage.TabIndex = 29;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -621,16 +462,12 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -665,23 +502,7 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox finalDamageReceivedTb;
         private System.Windows.Forms.BindingSource skillsBindingSource;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.ComboBox weaponCb;
         private System.Windows.Forms.BindingSource weaponsBindingSource;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.TextBox weaponResultTb;
-        private System.Windows.Forms.Button weaponRollBt;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.TextBox weaponResultBreakdownTb;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.Button spellRollBt;
-        private System.Windows.Forms.TextBox spellResultBreakdownTb;
-        private System.Windows.Forms.TextBox spellResultTb;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.ComboBox spellsCb;
         private System.Windows.Forms.BindingSource spellsBindingSource;
         private System.Windows.Forms.BindingSource skillsBindingSource1;
         private System.Windows.Forms.TabPage tabPage4;
@@ -696,6 +517,8 @@
         private CharacterViews.WeaponsView weaponsView_equipPage;
         private CharacterViews.ArmorView armorView_equipPage;
         private ActionViews.CheckRollView checkRollView_rollsPage;
+        private ActionViews.WeaponDamageView weaponDamageView_rollsPage;
+        private ActionViews.SpellDamageView spellDamageView_rollsPage;
     }
 }
 

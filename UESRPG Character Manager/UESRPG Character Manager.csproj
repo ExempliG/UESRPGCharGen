@@ -56,6 +56,18 @@
     <Compile Include="UI\ActionViews\CheckRollView.Designer.cs">
       <DependentUpon>CheckRollView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ActionViews\SpellDamageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\SpellDamageView.Designer.cs">
+      <DependentUpon>SpellDamageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ActionViews\WeaponDamageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\WeaponDamageView.Designer.cs">
+      <DependentUpon>WeaponDamageView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CharacterViews\ArmorView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +134,12 @@
     </Compile>
     <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
       <DependentUpon>CheckRollView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\SpellDamageView.resx">
+      <DependentUpon>SpellDamageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\WeaponDamageView.resx">
+      <DependentUpon>WeaponDamageView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterViews\ArmorView.resx">
       <DependentUpon>ArmorView.cs</DependentUpon>

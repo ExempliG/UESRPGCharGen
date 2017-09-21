@@ -24,7 +24,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             InitializeComponent();
 
-            this.skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
+            skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
         }
 
         public void OnSelectedCharacterChanged(object sender, EventArgs e)
@@ -59,6 +59,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
 
             updateView();
+            onSkillListChanged();
         }
 
         private void editSkillBt_Click(object sender, EventArgs e)
@@ -68,10 +69,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             {
                 int selectedIndex = theRows[0].Index;
                 EditSkill es = new EditSkill(_activeCharacter.Skills[selectedIndex]);
-                es.Show();
+                es.ShowDialog();
             }
 
             updateView();
+            onSkillListChanged();
         }
 
         private void skillsDgv_SelectionChanged(object sender, EventArgs e)

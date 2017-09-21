@@ -37,6 +37,27 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             updateView();
         }
 
+        public void OnSkillListChanged(object sender, EventArgs e)
+        {
+            updateView();
+        }
+
+        public void OnSelectedSpellChanged(object sender, EventArgs e)
+        {
+            Spell activeSpell = ((SpellDamageView)sender).GetActiveSpell();
+
+            skillRb.Checked = true;
+            IEnumerable<Skill> skillSearch = from skill in _activeCharacter.Skills
+                                             where skill.Name == activeSpell.AssociatedSkill
+                                             select skill;
+            if (skillSearch.Count() == 1)
+            {
+                int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
+                skillsCb.SelectedIndex = skillIndex;
+                extraDifficultyNud.Value = activeSpell.Difficulty;
+            }
+        }
+
         private void updateView()
         {
             int selectedIndex = skillsCb.SelectedIndex;
@@ -285,7 +306,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void characteristicCb_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            softRoll(sender, e);
         }
 
         private void skillsCb_SelectedIndexChanged(object sender, EventArgs e)
@@ -298,12 +319,12 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void rollResultTb_TextChanged(object sender, EventArgs e)
         {
-
+            softRoll(sender, e);
         }
 
         private void extraDifficultyNud_ValueChanged(object sender, EventArgs e)
         {
-
+            softRoll(sender, e);
         }
     }
 }
