@@ -21,8 +21,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private const string FILE_TYPE_STRING = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
-        private bool _updatingDataBindings = false;
-
         public MainWindow ()
         {
             InitializeComponent ();
