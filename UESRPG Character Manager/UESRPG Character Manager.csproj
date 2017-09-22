@@ -56,6 +56,12 @@
     <Compile Include="UI\ActionViews\CheckRollView.Designer.cs">
       <DependentUpon>CheckRollView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ActionViews\ReceivedDamageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\ReceivedDamageView.Designer.cs">
+      <DependentUpon>ReceivedDamageView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ActionViews\SpellDamageView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     </Compile>
     <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
       <DependentUpon>CheckRollView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\ReceivedDamageView.resx">
+      <DependentUpon>ReceivedDamageView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ActionViews\SpellDamageView.resx">
       <DependentUpon>SpellDamageView.cs</DependentUpon>

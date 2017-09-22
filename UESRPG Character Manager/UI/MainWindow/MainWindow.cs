@@ -39,6 +39,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             characterSelector.SelectedCharacterChanged += checkRollView_rollsPage.OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += weaponDamageView_rollsPage.OnSelectedCharacterChanged;
             characterSelector.SelectedCharacterChanged += spellDamageView_rollsPage.OnSelectedCharacterChanged;
+            characterSelector.SelectedCharacterChanged += receivedDamageView_rollsPage.OnSelectedCharacterChanged;
 
             characterSelector.ForceUpdate();
 
@@ -55,8 +56,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
-
-            hitLocationCb.DataSource = ArmorLocationsData.s_names;
         }
 
         private void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -188,40 +187,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         private void loadMi_Click (object sender, EventArgs e)
         {
             loadChar ();
-        }
-
-
-/// <todo>YOU SHOULD REALLY SPLIT MAINWINDOW INTO RELEVANT PARTIAL CLASSES, MOSTLY BELOW THIS LINE</todo>
-
-
-        private void receivedDamage_ParameterChange (object sender, EventArgs e)
-        {
-            updateDamage ();
-        }
-
-        /// <summary>
-        /// Calculate the total damage received to a particular location.
-        /// </summary>
-        private void updateDamage ()
-        {
-            ArmorLocations location = (ArmorLocations)hitLocationCb.SelectedIndex;
-
-            if (int.TryParse (receivedDamageTb.Text, out int damage) && int.TryParse (receivedPenTb.Text, out int pen))
-            {
-                double armorMitigation = _activeCharacter.GetArmorPiece (location).AR;
-                armorMitigation = Math.Max(armorMitigation - pen, 0);                       // Pen reduces armorMitigation to a lower limit of zero.
-                damage = Math.Max(damage - (int)armorMitigation, 0);                        // armorMitigation then reduces received damage to a lower limit of zero.
-
-                finalDamageReceivedTb.Text = damage.ToString ();
-            }
-        }
-
-        private void applyDamageBt_Click (object sender, EventArgs e)
-        {
-            if (int.TryParse (finalDamageReceivedTb.Text, out int damage))
-            {
-                _activeCharacter.CurrentHealth -= damage;
-            }
         }
 
         private void notesCommitChangesBt_Click(object sender, EventArgs e)

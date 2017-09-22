@@ -44,17 +44,6 @@
             this.spellDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
             this.weaponDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
             this.checkRollView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
-            this.healthLb = new System.Windows.Forms.Label();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.applyDamageBt = new System.Windows.Forms.Button();
-            this.label36 = new System.Windows.Forms.Label();
-            this.finalDamageReceivedTb = new System.Windows.Forms.TextBox();
-            this.hitLocationCb = new System.Windows.Forms.ComboBox();
-            this.receivedPenTb = new System.Windows.Forms.TextBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.receivedDamageTb = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.notesCommitChangesBt = new System.Windows.Forms.Button();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
@@ -69,11 +58,11 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
+            this.receivedDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
@@ -190,11 +179,10 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.receivedDamageView_rollsPage);
             this.tabPage2.Controls.Add(this.spellDamageView_rollsPage);
             this.tabPage2.Controls.Add(this.weaponDamageView_rollsPage);
             this.tabPage2.Controls.Add(this.checkRollView_rollsPage);
-            this.tabPage2.Controls.Add(this.healthLb);
-            this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -223,115 +211,6 @@
             this.checkRollView_rollsPage.Name = "checkRollView_rollsPage";
             this.checkRollView_rollsPage.Size = new System.Drawing.Size(504, 137);
             this.checkRollView_rollsPage.TabIndex = 29;
-            // 
-            // healthLb
-            // 
-            this.healthLb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.healthLb.AutoSize = true;
-            this.healthLb.Location = new System.Drawing.Point(813, 171);
-            this.healthLb.Name = "healthLb";
-            this.healthLb.Size = new System.Drawing.Size(41, 13);
-            this.healthLb.TabIndex = 28;
-            this.healthLb.Text = "Health:";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.applyDamageBt);
-            this.groupBox5.Controls.Add(this.label36);
-            this.groupBox5.Controls.Add(this.finalDamageReceivedTb);
-            this.groupBox5.Controls.Add(this.hitLocationCb);
-            this.groupBox5.Controls.Add(this.receivedPenTb);
-            this.groupBox5.Controls.Add(this.label35);
-            this.groupBox5.Controls.Add(this.label34);
-            this.groupBox5.Controls.Add(this.label32);
-            this.groupBox5.Controls.Add(this.receivedDamageTb);
-            this.groupBox5.Location = new System.Drawing.Point(813, 7);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(173, 155);
-            this.groupBox5.TabIndex = 22;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Received Damage";
-            // 
-            // applyDamageBt
-            // 
-            this.applyDamageBt.Location = new System.Drawing.Point(61, 125);
-            this.applyDamageBt.Name = "applyDamageBt";
-            this.applyDamageBt.Size = new System.Drawing.Size(102, 23);
-            this.applyDamageBt.TabIndex = 8;
-            this.applyDamageBt.Text = "Apply Damage";
-            this.applyDamageBt.UseVisualStyleBackColor = true;
-            this.applyDamageBt.Click += new System.EventHandler(this.applyDamageBt_Click);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(6, 102);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(40, 13);
-            this.label36.TabIndex = 7;
-            this.label36.Text = "Result:";
-            // 
-            // finalDamageReceivedTb
-            // 
-            this.finalDamageReceivedTb.Location = new System.Drawing.Point(63, 99);
-            this.finalDamageReceivedTb.Name = "finalDamageReceivedTb";
-            this.finalDamageReceivedTb.Size = new System.Drawing.Size(100, 20);
-            this.finalDamageReceivedTb.TabIndex = 6;
-            // 
-            // hitLocationCb
-            // 
-            this.hitLocationCb.FormattingEnabled = true;
-            this.hitLocationCb.Location = new System.Drawing.Point(63, 72);
-            this.hitLocationCb.Name = "hitLocationCb";
-            this.hitLocationCb.Size = new System.Drawing.Size(100, 21);
-            this.hitLocationCb.TabIndex = 5;
-            this.hitLocationCb.SelectedIndexChanged += new System.EventHandler(this.receivedDamage_ParameterChange);
-            // 
-            // receivedPenTb
-            // 
-            this.receivedPenTb.Location = new System.Drawing.Point(63, 46);
-            this.receivedPenTb.Name = "receivedPenTb";
-            this.receivedPenTb.Size = new System.Drawing.Size(100, 20);
-            this.receivedPenTb.TabIndex = 4;
-            this.receivedPenTb.Text = "0";
-            this.receivedPenTb.TextChanged += new System.EventHandler(this.receivedDamage_ParameterChange);
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(6, 75);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(51, 13);
-            this.label35.TabIndex = 3;
-            this.label35.Text = "Location:";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(6, 49);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(29, 13);
-            this.label34.TabIndex = 2;
-            this.label34.Text = "Pen:";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 23);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(50, 13);
-            this.label32.TabIndex = 1;
-            this.label32.Text = "Damage:";
-            // 
-            // receivedDamageTb
-            // 
-            this.receivedDamageTb.Location = new System.Drawing.Point(63, 20);
-            this.receivedDamageTb.Name = "receivedDamageTb";
-            this.receivedDamageTb.Size = new System.Drawing.Size(100, 20);
-            this.receivedDamageTb.TabIndex = 0;
-            this.receivedDamageTb.Text = "0";
-            this.receivedDamageTb.TextChanged += new System.EventHandler(this.receivedDamage_ParameterChange);
             // 
             // tabPage4
             // 
@@ -444,6 +323,13 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
+            // receivedDamageView_rollsPage
+            // 
+            this.receivedDamageView_rollsPage.Location = new System.Drawing.Point(516, 6);
+            this.receivedDamageView_rollsPage.Name = "receivedDamageView_rollsPage";
+            this.receivedDamageView_rollsPage.Size = new System.Drawing.Size(175, 185);
+            this.receivedDamageView_rollsPage.TabIndex = 32;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,9 +347,6 @@
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
@@ -491,16 +374,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveMi;
         private System.Windows.Forms.ToolStripMenuItem saveAsMi;
         private System.Windows.Forms.ToolStripMenuItem loadMi;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.ComboBox hitLocationCb;
-        private System.Windows.Forms.TextBox receivedPenTb;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.TextBox receivedDamageTb;
-        private System.Windows.Forms.Button applyDamageBt;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.TextBox finalDamageReceivedTb;
         private System.Windows.Forms.BindingSource skillsBindingSource;
         private System.Windows.Forms.BindingSource weaponsBindingSource;
         private System.Windows.Forms.BindingSource spellsBindingSource;
@@ -508,7 +381,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.RichTextBox characterNotesRtb;
         private System.Windows.Forms.Button notesCommitChangesBt;
-        private System.Windows.Forms.Label healthLb;
         private UI.CharacterViews.CharacteristicsView charaView_statsPage;
         private UI.MainWindow.CharacterSelector characterSelector;
         private AttributesView attributesView_statsPage;
@@ -519,6 +391,7 @@
         private ActionViews.CheckRollView checkRollView_rollsPage;
         private ActionViews.WeaponDamageView weaponDamageView_rollsPage;
         private ActionViews.SpellDamageView spellDamageView_rollsPage;
+        private ActionViews.ReceivedDamageView receivedDamageView_rollsPage;
     }
 }
 
