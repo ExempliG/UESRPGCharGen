@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CharacterController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Items\ArmorConstants.cs" />
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Characteristics.cs" />

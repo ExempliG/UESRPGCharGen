@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
@@ -37,11 +38,13 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
                 weaponMaterialCb.Items.Add((WeaponMaterial)i);
             }
             weaponMaterialCb.SelectedIndex = 0;
+
+            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
         }
 
-        public void OnSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, EventArgs e)
         {
-            _activeCharacter = ((CharacterSelector)sender).GetActiveCharacter();
+            _activeCharacter = CharacterController.Instance.ActiveCharacter;
 
             updateView();
         }

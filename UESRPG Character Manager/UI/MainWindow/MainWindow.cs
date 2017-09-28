@@ -12,6 +12,8 @@ using System.Collections;
 using System.IO;
 using System.Xml.Serialization;
 
+using UESRPG_Character_Manager.Controllers;
+
 namespace UESRPG_Character_Manager.UI.MainWindow
 {
     public partial class MainWindow : Form
@@ -26,22 +28,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             InitializeComponent ();
 
             // Subscribe Character views to the character change event
-            characterSelector.SelectedCharacterChanged += onSelectedCharacterChanged;
-
-            characterSelector.SelectedCharacterChanged += charaView_statsPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += attributesView_statsPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += skillListView_statsPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += spellListView_statsPage.OnSelectedCharacterChanged;
-
-            characterSelector.SelectedCharacterChanged += weaponsView_equipPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += armorView_equipPage.OnSelectedCharacterChanged;
-
-            characterSelector.SelectedCharacterChanged += checkRollView_rollsPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += weaponDamageView_rollsPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += spellDamageView_rollsPage.OnSelectedCharacterChanged;
-            characterSelector.SelectedCharacterChanged += receivedDamageView_rollsPage.OnSelectedCharacterChanged;
-
-            characterSelector.ForceUpdate();
+            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.ForceUpdate();
 
             charaView_statsPage.CharacteristicChanged += attributesView_statsPage.OnCharacteristicChanged;
 
@@ -60,7 +48,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void onSelectedCharacterChanged(object sender, EventArgs e)
         {
-            _activeCharacter = ((CharacterSelector)sender).GetActiveCharacter();
+            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            nameTb.Text = _activeCharacter.Name;
         }
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
@@ -82,89 +71,18 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             theNb.Select (0, 3);
         }
 
-        /// <summary>
-        /// Performs the saving of a Character list.
-        /// </summary>
-        /// <param name="fileName">The filename to save the list as.</param>
-        private void saveChar (string fileName)
-        {
-            XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
-            FileStream fs = new FileStream (fileName, FileMode.Create);
-            try
-            {
-                List<Character> listToSave = characterSelector.GetCharacterList();
-                foreach (Character c in listToSave)
-                {
-                    c.EngVersion = Program.CURRENT_ENG_VERSION;
-                    c.MinorVersion = Program.CURRENT_MINOR_VERSION;
-                    c.MajorVersion = Program.CURRENT_MINOR_VERSION;
-                }
-
-                xml.Serialize (fs, listToSave);
-                _currentFile = fileName;
-                saveMi.Enabled = true;
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show (string.Format ("File was not saved successfully for reason:\n{0}", e.Message));
-            }
-            finally
-            {
-                fs.Close ();
-            }
-        }
-
-        /// <summary>
-        /// Handle the loading of a Character list.
-        /// </summary>
-        /// <todo>Re-evaluate this whole mess.</todo>
-        private void loadChar ()
-        {
-            OpenFileDialog ofd = new OpenFileDialog()
-            {
-                DefaultExt = ".xml",
-                Filter = FILE_TYPE_STRING
-            };
-            ofd.ShowDialog();
-
-            string fileName = ofd.FileName;
-
-            if (!string.IsNullOrEmpty (fileName))
-            {
-                XmlSerializer xml = new XmlSerializer (typeof (List<Character>));
-                FileStream fs = new FileStream (fileName, FileMode.Open);
-
-                try
-                {
-                    List<Character> loadedList = (List<Character>)xml.Deserialize (fs);
-
-                    _currentFile = fileName;
-                    saveMi.Enabled = true;
-
-                    foreach (Character c in loadedList)
-                    {
-                        // Perform any necessary updates.
-                        c.Update ();
-                    }
-
-                    characterSelector.LoadCharacterList(loadedList);
-                }
-                catch (IOException)
-                {
-
-                }
-                finally
-                {
-                    fs.Close ();
-                }
-
-                nameTb.Text = _activeCharacter.Name;
-            }
-        }
-
         private void saveMi_Click (object sender, EventArgs e)
         {
-            saveChar (_currentFile);
+            if (!string.IsNullOrEmpty(_currentFile))
+            {
+                string message;
+                bool result = CharacterController.Instance.SaveChar(_currentFile, out message);
+
+                if(!result)
+                {
+                    MessageBox.Show(message);
+                }
+            }
         }
 
         private void saveAsMi_Click (object sender, EventArgs e)
@@ -175,18 +93,50 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 DefaultExt = ".xml",
                 Filter = FILE_TYPE_STRING
             };
-            DialogResult result = sfd.ShowDialog ();
+            DialogResult sfdResult = sfd.ShowDialog ();
 
-            string fileName = sfd.FileName;
-            if (!string.IsNullOrEmpty (fileName) && result == DialogResult.OK)
+            if (sfdResult == DialogResult.OK)
             {
-                saveChar (fileName);
+                string message;
+                bool result = CharacterController.Instance.SaveChar(sfd.FileName, out message);
+
+                if (result)
+                {
+                    _currentFile = sfd.FileName;
+                    saveMi.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show(message);
+                }
             }
         }
 
         private void loadMi_Click (object sender, EventArgs e)
         {
-            loadChar ();
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                DefaultExt = ".xml",
+                Filter = FILE_TYPE_STRING
+            };
+            DialogResult ofdResult = ofd.ShowDialog();
+
+            if (ofdResult == DialogResult.OK)
+            {
+                string message;
+                bool result = CharacterController.Instance.LoadChar(ofd.FileName, out message);
+
+                if (result)
+                {
+                    _currentFile = ofd.FileName;
+                    saveMi.Enabled = true;
+                    nameTb.Text = _activeCharacter.Name;
+                }
+                else
+                {
+                    MessageBox.Show(message);
+                }
+            }
         }
 
         private void notesCommitChangesBt_Click(object sender, EventArgs e)
