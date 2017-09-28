@@ -38,7 +38,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             skillListView_statsPage.SkillListChanged += checkRollView_rollsPage.OnSkillListChanged;
 
             /*CUSTOM EVENT BINDINGS*/
-            this.characterNotesRtb.LostFocus += characterNotesRtb_LostFocus;
+            this.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/
 
             saveMi.Enabled = false;
@@ -48,6 +48,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
             nameTb.Text = _activeCharacter.Name;
+            characterNotesRtb.Text = _activeCharacter.Notes;
         }
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
@@ -71,6 +72,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveMi_Click (object sender, EventArgs e)
         {
+            _activeCharacter.Notes = characterNotesRtb.Text;
+
             if (!string.IsNullOrEmpty(_currentFile))
             {
                 string message;
@@ -85,6 +88,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveAsMi_Click (object sender, EventArgs e)
         {
+            _activeCharacter.Notes = characterNotesRtb.Text;
+
             SaveFileDialog sfd = new SaveFileDialog()
             {
                 AddExtension = true,
@@ -129,17 +134,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     _currentFile = ofd.FileName;
                     saveMi.Enabled = true;
                     nameTb.Text = _activeCharacter.Name;
+                    characterNotesRtb.Text = _activeCharacter.Notes;
                 }
                 else
                 {
                     MessageBox.Show(message);
                 }
             }
-        }
-
-        private void notesCommitChangesBt_Click(object sender, EventArgs e)
-        {
-            _activeCharacter.Notes = characterNotesRtb.Text;
         }
     }
 }

@@ -41,11 +41,11 @@
             this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
             this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.receivedDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
             this.spellDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
             this.weaponDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
             this.checkRollView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.notesCommitChangesBt = new System.Windows.Forms.Button();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
             this.spellsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -58,7 +58,6 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.receivedDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -191,6 +190,13 @@
             this.tabPage2.Text = "Combat & Rolls";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // receivedDamageView_rollsPage
+            // 
+            this.receivedDamageView_rollsPage.Location = new System.Drawing.Point(516, 6);
+            this.receivedDamageView_rollsPage.Name = "receivedDamageView_rollsPage";
+            this.receivedDamageView_rollsPage.Size = new System.Drawing.Size(175, 185);
+            this.receivedDamageView_rollsPage.TabIndex = 32;
+            // 
             // spellDamageView_rollsPage
             // 
             this.spellDamageView_rollsPage.Location = new System.Drawing.Point(262, 149);
@@ -214,7 +220,6 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.notesCommitChangesBt);
             this.tabPage4.Controls.Add(this.characterNotesRtb);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -223,17 +228,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Notes";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // notesCommitChangesBt
-            // 
-            this.notesCommitChangesBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.notesCommitChangesBt.Location = new System.Drawing.Point(895, 362);
-            this.notesCommitChangesBt.Name = "notesCommitChangesBt";
-            this.notesCommitChangesBt.Size = new System.Drawing.Size(91, 23);
-            this.notesCommitChangesBt.TabIndex = 1;
-            this.notesCommitChangesBt.Text = "Update Notes";
-            this.notesCommitChangesBt.UseVisualStyleBackColor = true;
-            this.notesCommitChangesBt.Click += new System.EventHandler(this.notesCommitChangesBt_Click);
             // 
             // characterNotesRtb
             // 
@@ -323,13 +317,6 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
-            // receivedDamageView_rollsPage
-            // 
-            this.receivedDamageView_rollsPage.Location = new System.Drawing.Point(516, 6);
-            this.receivedDamageView_rollsPage.Name = "receivedDamageView_rollsPage";
-            this.receivedDamageView_rollsPage.Size = new System.Drawing.Size(175, 185);
-            this.receivedDamageView_rollsPage.TabIndex = 32;
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,7 +367,6 @@
         private System.Windows.Forms.BindingSource skillsBindingSource1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.RichTextBox characterNotesRtb;
-        private System.Windows.Forms.Button notesCommitChangesBt;
         private UI.CharacterViews.CharacteristicsView charaView_statsPage;
         private UI.MainWindow.CharacterSelector characterSelector;
         private AttributesView attributesView_statsPage;
