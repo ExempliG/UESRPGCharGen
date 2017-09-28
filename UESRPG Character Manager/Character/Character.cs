@@ -86,9 +86,24 @@ namespace UESRPG_Character_Manager
             return characteristic / 10;
         }
 
+        public void SetCharacteristic (int index, int value)
+        {
+            if (index > 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            {
+                _characteristics[index] = value;
+            }
+        }
+
         public int GetCharacteristic (int index)
         {
-            return _characteristics[index];
+            int result = -1;
+
+            if (index > 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            {
+                result = _characteristics[index];
+            }
+
+            return result;
         }
 
         [XmlAttribute()]

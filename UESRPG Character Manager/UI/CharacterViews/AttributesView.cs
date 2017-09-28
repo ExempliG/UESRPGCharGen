@@ -24,6 +24,8 @@ namespace UESRPG_Character_Manager.UI
             _attributesMutex = false;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.CharacteristicChanged += onCharacteristicChanged;
+            CharacterController.Instance.AttributeChanged += onAttributeChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -32,7 +34,7 @@ namespace UESRPG_Character_Manager.UI
             UpdateView();
         }
 
-        public void OnCharacteristicChanged(object sender, EventArgs e)
+        protected void onCharacteristicChanged(object sender, EventArgs e)
         {
             UpdateView();
         }
@@ -79,27 +81,27 @@ namespace UESRPG_Character_Manager.UI
         #region Attribute Event Handlers
         private void healthTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { _activeCharacter.CurrentHealth = tryParseAttribute(healthTb.Text); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(tryParseAttribute(healthTb.Text)); });
         }
 
         private void staminaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { _activeCharacter.CurrentStamina = tryParseAttribute(staminaTb.Text); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(tryParseAttribute(staminaTb.Text)); });
         }
 
         private void magickaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { _activeCharacter.CurrentMagicka = tryParseAttribute(magickaTb.Text); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(tryParseAttribute(magickaTb.Text)); });
         }
 
         private void actionPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { _activeCharacter.CurrentAp = tryParseAttribute(actionPointsTb.Text); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(tryParseAttribute(actionPointsTb.Text)); });
         }
 
         private void luckPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute( delegate() { _activeCharacter.CurrentLuckPoints = tryParseAttribute(luckPointsTb.Text); });
+            changeAttribute( delegate() { CharacterController.Instance.ChangeLuck(tryParseAttribute(luckPointsTb.Text)); });
         }
         #endregion
 
@@ -175,6 +177,11 @@ namespace UESRPG_Character_Manager.UI
                 attributeChange();
                 _attributesMutex = false;
             }
+        }
+
+        private void onAttributeChanged(object sender, EventArgs e)
+        {
+            UpdateView();
         }
     }
 }

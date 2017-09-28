@@ -19,8 +19,18 @@ namespace UESRPG_Character_Manager.Controllers
         public delegate void SelectedCharacterChangedHandler(object sender, EventArgs e);
         [Description("Fires when the selected character changes.")]
         public event SelectedCharacterChangedHandler SelectedCharacterChanged;
+
         public delegate void CharacterListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the list of characters is changed, either by adding characters or loading a new file.")]
         public event CharacterListChangedHandler CharacterListChanged;
+
+        public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
+        [Description("Fires when one of the Characteristics is changed by the user.")]
+        public event CharacteristicChangedHandler CharacteristicChanged;
+
+        public delegate void AttributeChangedHandler(object sender, EventArgs e);
+        [Description("Fires when one of the Attributes is changed by the user.")]
+        public event AttributeChangedHandler AttributeChanged;
 
         private static CharacterController _instance;
         private static bool _isInitialized;
@@ -81,6 +91,42 @@ namespace UESRPG_Character_Manager.Controllers
             _characterList.Add(newChar);
 
             return newChar;
+        }
+
+        public void ChangeCharacteristic(int characteristicIndex, int value)
+        {
+            _activeCharacter.SetCharacteristic(characteristicIndex, value);
+            onCharacteristicChanged();
+        }
+
+        public void ChangeHealth(int value)
+        {
+            _activeCharacter.CurrentHealth = value;
+            onAttributeChanged();
+        }
+
+        public void ChangeMagicka(int value)
+        {
+            _activeCharacter.CurrentMagicka = value;
+            onAttributeChanged();
+        }
+
+        public void ChangeStamina(int value)
+        {
+            _activeCharacter.CurrentStamina = value;
+            onAttributeChanged();
+        }
+
+        public void ChangeAP(int value)
+        {
+            _activeCharacter.CurrentAp = value;
+            onAttributeChanged();
+        }
+
+        public void ChangeLuck(int value)
+        {
+            _activeCharacter.CurrentLuckPoints = value;
+            onAttributeChanged();
         }
 
         public void ForceUpdate()
@@ -190,13 +236,22 @@ namespace UESRPG_Character_Manager.Controllers
 
         protected void onSelectedCharacterChanged()
         {
-            // Invoke the event if subscribers exist
             SelectedCharacterChanged?.Invoke(this, new System.EventArgs());
         }
 
         protected void onCharacterListChanged()
         {
             CharacterListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onCharacteristicChanged()
+        {
+            CharacteristicChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onAttributeChanged()
+        {
+            AttributeChanged?.Invoke(this, new System.EventArgs());
         }
     }
 }

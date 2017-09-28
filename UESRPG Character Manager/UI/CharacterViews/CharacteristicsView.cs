@@ -15,10 +15,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class CharacteristicsView : UserControl
     {
-        public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
-        [Description("Fires when one of the Characteristics is changed by the user.")]
-        public event CharacteristicChangedHandler CharacteristicChanged;
-
         private Character _activeCharacter;
         private bool _characteristicMutex;
 
@@ -56,42 +52,42 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void nbStrength_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Strength = (int)nbStrength.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.STRENGTH, (int)nbStrength.Value); });
         }
 
         private void nbEndurance_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Endurance = (int)nbEndurance.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.ENDURANCE, (int)nbEndurance.Value); });
         }
 
         private void nbAgility_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Agility = (int)nbAgility.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.AGILITY, (int)nbAgility.Value); });
         }
 
         private void nbIntelligence_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Intelligence = (int)nbIntelligence.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.INTELLIGENCE, (int)nbIntelligence.Value); });
         }
 
         private void nbWillpower_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Willpower = (int)nbWillpower.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.WILLPOWER, (int)nbWillpower.Value); });
         }
 
         private void nbPerception_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Perception = (int)nbPerception.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.PERCEPTION, (int)nbPerception.Value); });
         }
 
         private void nbPersonality_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate () { _activeCharacter.Personality = (int)nbPersonality.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.PERSONALITY, (int)nbPersonality.Value); });
         }
 
         private void nbLuck_ValueChanged(object sender, EventArgs e)
         {
-            changeCharacteristic(delegate() { _activeCharacter.Luck = (int)nbLuck.Value; });
+            changeCharacteristic(delegate () { CharacterController.Instance.ChangeCharacteristic(Characteristics.LUCK, (int)nbLuck.Value); });
         }
 
         private void changeCharacteristic(Action characteristicChange)
@@ -101,15 +97,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
                 _characteristicMutex = true;
                 characteristicChange();
                 _characteristicMutex = false;
-
-                onCharacteristicChanged();
             }
-        }
-
-        protected void onCharacteristicChanged()
-        {
-            // Invoke the event if subscribers exist
-            CharacteristicChanged?.Invoke(this, new System.EventArgs());
         }
     }
 }

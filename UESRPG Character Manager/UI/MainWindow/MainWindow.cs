@@ -31,8 +31,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             CharacterController.Instance.ForceUpdate();
 
-            charaView_statsPage.CharacteristicChanged += attributesView_statsPage.OnCharacteristicChanged;
-
             spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
 
             spellListView_statsPage.SpellListChanged += spellDamageView_rollsPage.OnSpellListChanged;

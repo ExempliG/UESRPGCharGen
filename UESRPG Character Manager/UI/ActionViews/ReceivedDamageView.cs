@@ -24,6 +24,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             hitLocationCb.DataSource = ArmorLocationsData.s_names;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.AttributeChanged += onAttributeChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -82,10 +83,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         {
             if (int.TryParse(finalDamageReceivedTb.Text, out int damage))
             {
-                _activeCharacter.CurrentHealth -= damage;
+                CharacterController.Instance.ChangeHealth(_activeCharacter.CurrentHealth - damage);
 
                 updateView();
             }
+        }
+
+        private void onAttributeChanged(object sender, EventArgs e)
+        {
+            updateView();
         }
     }
 }
