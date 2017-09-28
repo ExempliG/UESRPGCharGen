@@ -46,6 +46,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void onSelectedCharacterChanged(object sender, EventArgs e)
         {
+            if (_activeCharacter != null)
+            {
+                _activeCharacter.Notes = characterNotesRtb.Text;
+            }
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
             nameTb.Text = _activeCharacter.Name;
             characterNotesRtb.Text = _activeCharacter.Notes;
