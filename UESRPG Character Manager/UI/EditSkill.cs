@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using UESRPG_Character_Manager.Controllers;
+
 namespace UESRPG_Character_Manager
 {
     public partial class EditSkill : Form
@@ -100,7 +102,10 @@ namespace UESRPG_Character_Manager
 
             if(result == DialogResult.Yes)
             {
-                MessageBox.Show("Skill MURDERED");
+                CharacterController.Instance.DeleteSkill(_skill);
+                MessageBox.Show("Skill deleted!");
+
+                Close();
             }
         }
     }

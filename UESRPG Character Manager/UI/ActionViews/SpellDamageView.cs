@@ -28,6 +28,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             InitializeComponent();
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.SpellListChanged += onSpellListChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -37,7 +38,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             updateView();
         }
 
-        public void OnSpellListChanged(object sender, EventArgs e)
+        protected void onSpellListChanged(object sender, EventArgs e)
         {
             updateView();
         }

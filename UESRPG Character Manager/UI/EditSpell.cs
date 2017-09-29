@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using UESRPG_Character_Manager.Controllers;
+
 namespace UESRPG_Character_Manager
 {
     public partial class EditSpell : Form
@@ -50,7 +52,7 @@ namespace UESRPG_Character_Manager
                 s.DiceSides = (int)diceSidesNud.Value;
                 s.Penetration = (int)penNud.Value;
             }
-            _selectedChar.Spells.Add (s);
+            CharacterController.Instance.AddSpell(s);
             Close ();
         }
 

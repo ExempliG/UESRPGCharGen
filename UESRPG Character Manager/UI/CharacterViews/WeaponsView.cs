@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.Items;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
@@ -66,7 +67,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Weapon template = WeaponTemplates.DefaultWeapons[(int)type];
             WeaponMaterialModifier modifier = WeaponTemplates.Materials[(int)material];
 
-            Weapon result = (template * modifier);
+            Weapon result = Weapon.ApplyMaterial(template, modifier);
             result.Name = weaponNameTb.Text;
 
             _activeCharacter.Weapons.Add(result);

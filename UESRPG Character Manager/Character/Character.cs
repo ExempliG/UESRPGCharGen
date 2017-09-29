@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Xml.Serialization;
 
+using UESRPG_Character_Manager.Items;
+
 namespace UESRPG_Character_Manager
 {
     /// <summary>
@@ -146,42 +148,34 @@ namespace UESRPG_Character_Manager
         public int Strength
         {
             get { return _characteristics[Characteristics.STRENGTH]; }
-            set { _characteristics[Characteristics.STRENGTH] = value; }
         }
         public int Endurance
         {
             get { return _characteristics[Characteristics.ENDURANCE]; }
-            set { _characteristics[Characteristics.ENDURANCE] = value; }
         }
         public int Agility
         {
             get { return _characteristics[Characteristics.AGILITY]; }
-            set { _characteristics[Characteristics.AGILITY] = value; }
         }
         public int Intelligence
         {
             get { return _characteristics[Characteristics.INTELLIGENCE]; }
-            set { _characteristics[Characteristics.INTELLIGENCE] = value; }
         }
         public int Willpower
         {
             get { return _characteristics[Characteristics.WILLPOWER]; }
-            set { _characteristics[Characteristics.WILLPOWER] = value; }
         }
         public int Perception
         {
             get { return _characteristics[Characteristics.PERCEPTION]; }
-            set { _characteristics[Characteristics.PERCEPTION] = value; }
         }
         public int Personality
         {
             get { return _characteristics[Characteristics.PERSONALITY]; }
-            set { _characteristics[Characteristics.PERSONALITY] = value; }
         }
         public int Luck
         {
             get { return _characteristics[Characteristics.LUCK]; }
-            set { _characteristics[Characteristics.LUCK] = value; }
         }
 /************
  * EQUIPMENT
@@ -274,58 +268,70 @@ namespace UESRPG_Character_Manager
             set { _skills = value; }
         }
 
+        public void DeleteSkill(Skill skillToDelete)
+        {
+            IEnumerable<Spell> relatedSpells = from Spell s in Spells
+                                               where s.AssociatedSkill.Equals(skillToDelete.Name)
+                                               select s;
+            foreach (Spell s in relatedSpells)
+            {
+                s.AssociatedSkill = "Untrained";
+            }
+
+            Skills.Remove(skillToDelete);
+        }
+
 /************
  * MODIFIERS
  ***********/
+
+        public void SetModifier(int modifierIndex, int value)
+        {
+            if(modifierIndex >= 0 && modifierIndex < Modifiers.NUMBER_OF_MODIFIERS)
+            {
+                _modifiers[modifierIndex] = value;
+            }
+        }
+
         public int HealthMod
         {
             get { return _modifiers[Modifiers.HEALTH]; }
-            set { _modifiers[Modifiers.HEALTH] = value; }
         }
         public int WoundThresholdMod
         {
             get { return _modifiers[Modifiers.WOUND_THRESHOLD]; }
-            set { _modifiers[Modifiers.WOUND_THRESHOLD] = value; }
         }
         public int StaminaMod
         {
             get { return _modifiers[Modifiers.STAMINA]; }
-            set { _modifiers[Modifiers.STAMINA] = value; }
         }
         public int MagickaMod
         {
             get { return _modifiers[Modifiers.MAGICKA]; }
-            set { _modifiers[Modifiers.MAGICKA] = value; }
         }
         public int ActionPointsMod
         {
             get { return _modifiers[Modifiers.ACTION_POINTS]; }
-            set { _modifiers[Modifiers.ACTION_POINTS] = value; }
         }
         public int MovementRatingMod
         {
             get { return _modifiers[Modifiers.MOVEMENT_RATING]; }
-            set { _modifiers[Modifiers.MOVEMENT_RATING] = value; }
         }
         public int CarryRatingMod
         {
             get { return _modifiers[Modifiers.CARRY_RATING]; }
-            set { _modifiers[Modifiers.CARRY_RATING] = value; }
         }
         public int InitiativeRatingMod
         {
             get { return _modifiers[Modifiers.INITIATIVE_RATING]; }
-            set { _modifiers[Modifiers.INITIATIVE_RATING] = value; }
         }
         public int DamageBonusMod
         {
             get { return _modifiers[Modifiers.DAMAGE_BONUS]; }
-            set { _modifiers[Modifiers.DAMAGE_BONUS] = value; }
         }
         public int LuckPointsMod
         {
             get { return _modifiers[Modifiers.LUCK_POINTS]; }
-            set { _modifiers[Modifiers.LUCK_POINTS] = value; }
         }
 
         public int CurrentHealth

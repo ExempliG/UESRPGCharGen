@@ -31,6 +31,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             characteristicCb.SelectedIndex = 0;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.SkillListChanged += onSkillListChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -40,7 +41,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             updateView();
         }
 
-        public void OnSkillListChanged(object sender, EventArgs e)
+        protected void onSkillListChanged(object sender, EventArgs e)
         {
             updateView();
         }
@@ -105,7 +106,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// <todo> We can probably encapsulate this further by containing all the Skill/Characteristic Check logic in the Character class.</todo>
+        /// <todo> This functionality should mostly be contained within GameController.</todo>
         private void softRoll(object sender, EventArgs e, int extraDifficulty)
         {
             bool isSkillRoll = skillRb.Checked;
@@ -258,7 +259,6 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <param name="extraDifficulty">An extra difficulty modifier, in case a particular check is harder or easier</param>
-        /// <todo>Expose the extraDifficulty modifier somewhere</todo>
         private void rollBt_Click(object sender, EventArgs e)
         {
             Random r = new Random();

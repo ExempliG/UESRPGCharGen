@@ -33,10 +33,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
 
-            spellListView_statsPage.SpellListChanged += spellDamageView_rollsPage.OnSpellListChanged;
-
-            skillListView_statsPage.SkillListChanged += checkRollView_rollsPage.OnSkillListChanged;
-
             /*CUSTOM EVENT BINDINGS*/
             this.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/

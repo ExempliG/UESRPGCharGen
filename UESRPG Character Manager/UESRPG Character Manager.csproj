@@ -52,6 +52,7 @@
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Characteristics.cs" />
     <Compile Include="Items\Armor.cs" />
+    <Compile Include="Items\Item.cs" />
     <Compile Include="UI\ActionViews\CheckRollView.cs">
       <SubType>UserControl</SubType>
     </Compile>

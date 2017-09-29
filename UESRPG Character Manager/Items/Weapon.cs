@@ -4,18 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UESRPG_Character_Manager
+namespace UESRPG_Character_Manager.Items
 {
-    public class Weapon : IComparable
+    public class Weapon : Item, IComparable
     {
-        public string Name { get; set; }
         public int NumberOfDice { get; set; }
         public int DiceSides { get; set; }
         public int DamageMod { get; set; }
         public int Penetration { get; set; }
-        public float EncumbranceValue { get; set; }
         public int EnchantmentLevel { get; set; }
-        public int Price { get; set; }
         public WeaponType Type { get; set; }
         public WeaponReach Reach { get; set; }
         public WeaponHandedness Handedness { get; set; }
@@ -27,26 +24,33 @@ namespace UESRPG_Character_Manager
         /// <summary>
         /// This empty default constructor exists only because XmlSerializer requires a default constructor.
         /// </summary>
-        public Weapon ()
+        public Weapon () : base ("", "", 0, 0)
         {
 
         }
 
-        public Weapon (int NumberOfDice, int DiceSides, int DamageMod, int Penetration,
-                       float EncumbranceValue, int EnchantmentLevel, int Price, WeaponType Type,
-                       WeaponReach Reach, WeaponHandedness Handedness, WeaponSize Size)
+        public Weapon (int numberOfDice,
+                       int diceSides,
+                       int damageMod,
+                       int penetration,
+                       int encumbrance,
+                       int enchantmentLevel,
+                       int price,
+                       WeaponType type,
+                       WeaponReach reach,
+                       WeaponHandedness handedness,
+                       WeaponSize size) :
+            base("", "", encumbrance, price)
         {
-            this.NumberOfDice = NumberOfDice;
-            this.DiceSides = DiceSides;
-            this.DamageMod = DamageMod;
-            this.Penetration = Penetration;
-            this.EncumbranceValue = EncumbranceValue;
-            this.EnchantmentLevel = EnchantmentLevel;
-            this.Price = Price;
-            this.Type = Type;
-            this.Reach = Reach;
-            this.Handedness = Handedness;
-            this.Size = Size;
+            NumberOfDice = numberOfDice;
+            DiceSides = diceSides;
+            DamageMod = damageMod;
+            Penetration = penetration;
+            EnchantmentLevel = enchantmentLevel;
+            Type = type;
+            Reach = reach;
+            Handedness = handedness;
+            Size = size;
             IsDire = false;
             Quality = WeaponQuality.MAX;
             Material = WeaponMaterial.MAX;
@@ -58,8 +62,7 @@ namespace UESRPG_Character_Manager
         /// <param name="a">The weapon</param>
         /// <param name="b">The material modifier</param>
         /// <returns>The adjusted weapon</returns>
-        /// <todo>This doesn't need to be an operator. You just thought it would be cool.</todo>
-        public static Weapon operator * (Weapon a, WeaponMaterialModifier b)
+        public static Weapon ApplyMaterial (Weapon a, WeaponMaterialModifier b)
         {
             float enchLev = a.EnchantmentLevel;
             float price = a.Price;
@@ -74,22 +77,13 @@ namespace UESRPG_Character_Manager
                 Size = a.Size,
                 DamageMod = a.DamageMod + b.DamageMod,
                 Penetration = a.Penetration + b.PenetrationMod,
-                EncumbranceValue = a.EncumbranceValue * b.EncumbranceMod,
+                _encumbrance = a.Encumbrance * b.EncumbranceMod,
                 EnchantmentLevel = (int)((enchLev * b.EnchantMod) + 0.5),
-                Price = (int)((price * b.PriceMod) + 0.5),
+                _price = (int)((price * b.PriceMod) + 0.5),
                 IsDire = b.IsDire,
                 Material = b.Material
             };
             return result;
-        }
-
-        /// <summary>
-        /// Material adjustment is commutative.
-        /// </summary>
-        /// <todo>Will be obsolete when the operator is changed to a Real Function(TM)</todo>
-        public static Weapon operator * (WeaponMaterialModifier a, Weapon b)
-        {
-            return (b * a);
         }
 
         /// <todo>Be more respectful of the IComparable interface, dude.</todo>

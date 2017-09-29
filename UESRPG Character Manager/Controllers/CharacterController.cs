@@ -16,6 +16,7 @@ namespace UESRPG_Character_Manager.Controllers
     /// </summary>
     class CharacterController
     {
+        #region Event definitions
         public delegate void SelectedCharacterChangedHandler(object sender, EventArgs e);
         [Description("Fires when the selected character changes.")]
         public event SelectedCharacterChangedHandler SelectedCharacterChanged;
@@ -31,6 +32,15 @@ namespace UESRPG_Character_Manager.Controllers
         public delegate void AttributeChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Attributes is changed by the user.")]
         public event AttributeChangedHandler AttributeChanged;
+
+        public delegate void SkillListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when a skill is added, removed, or edited.")]
+        public event SkillListChangedHandler SkillListChanged;
+
+        public delegate void SpellListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the spell list changes via adding or renaming a spell.")]
+        public event SpellListChangedHandler SpellListChanged;
+        #endregion
 
         private static CharacterController _instance;
         private static bool _isInitialized;
@@ -93,10 +103,37 @@ namespace UESRPG_Character_Manager.Controllers
             return newChar;
         }
 
+        public void AddSkill(Skill skillToAdd)
+        {
+            _activeCharacter.Skills.Add(skillToAdd);
+            onSkillListChanged();
+        }
+
+        public void DeleteSkill(Skill skillToDelete)
+        {
+            _activeCharacter.DeleteSkill(skillToDelete);
+            onSkillListChanged();
+            onSpellListChanged(); // Deletion of a Skill marks all Spells which used that Skill with "Untrained"
+        }
+
+        public void AddSpell(Spell spellToAdd)
+        {
+            _activeCharacter.Spells.Add(spellToAdd);
+            onSpellListChanged();
+        }
+
         public void ChangeCharacteristic(int characteristicIndex, int value)
         {
             _activeCharacter.SetCharacteristic(characteristicIndex, value);
             onCharacteristicChanged();
+        }
+
+        public void ChangeModifier(int modifierIndex, int value)
+        {
+            _activeCharacter.SetModifier(modifierIndex, value);
+
+            // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
+            onAttributeChanged();
         }
 
         public void ChangeHealth(int value)
@@ -234,6 +271,7 @@ namespace UESRPG_Character_Manager.Controllers
             return result;
         }
 
+        #region Event callers
         protected void onSelectedCharacterChanged()
         {
             SelectedCharacterChanged?.Invoke(this, new System.EventArgs());
@@ -253,5 +291,16 @@ namespace UESRPG_Character_Manager.Controllers
         {
             AttributeChanged?.Invoke(this, new System.EventArgs());
         }
+
+        protected void onSkillListChanged()
+        {
+            SkillListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onSpellListChanged()
+        {
+            SpellListChanged?.Invoke(this, new System.EventArgs());
+        }
+        #endregion
     }
 }

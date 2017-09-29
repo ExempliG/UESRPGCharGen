@@ -15,10 +15,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class SpellListView : UserControl
     {
-        public delegate void SpellListChangedHandler(object sender, EventArgs e);
-        [Description("Fires when the spell list changes via adding or renaming a spell.")]
-        public event SpellListChangedHandler SpellListChanged;
-
         private Character _activeCharacter;
 
         public SpellListView()
@@ -28,11 +24,17 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             spellsDgv.CellValueChanged += onSpellListChanged;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.SpellListChanged += onSpellListChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
         {
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            updateView();
+        }
+
+        protected void onSpellListChanged(object sender, EventArgs e)
+        {
             updateView();
         }
 
@@ -50,12 +52,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             EditSpell es = new EditSpell(_activeCharacter);
             es.ShowDialog();
             updateView();
-            onSpellListChanged(this, new System.EventArgs());
-        }
-
-        private void onSpellListChanged(object sender, EventArgs e)
-        {
-            SpellListChanged?.Invoke(this, new System.EventArgs());
         }
     }
 }

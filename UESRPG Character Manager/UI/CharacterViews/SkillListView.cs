@@ -15,10 +15,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class SkillListView : UserControl
     {
-        public delegate void SkillListChangedHandler(object sender, EventArgs e);
-        [Description("Fires when a skill is added, removed, or edited.")]
-        public event SkillListChangedHandler SkillListChanged;
-
         private Character _activeCharacter;
 
         public SkillListView()
@@ -28,6 +24,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.SkillListChanged += onSkillListChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -37,9 +34,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             updateView();
         }
 
-        protected void onSkillListChanged()
+        protected void onSkillListChanged(object sender, EventArgs e)
         {
-            SkillListChanged?.Invoke(this, new System.EventArgs());
+            updateView();
         }
 
         private void updateView()
@@ -58,13 +55,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             if (es.GetSkill(out Skill newSkill))
             {
-                _activeCharacter.Skills.Add(newSkill);
+                CharacterController.Instance.AddSkill(newSkill);
             }
-
-            updateView();
-            onSkillListChanged();
         }
 
+        /// <todo>Do this properly so that it must go through the CharacterController to achieve the skill change.</todo>
         private void editSkillBt_Click(object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
@@ -76,7 +71,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
 
             updateView();
-            onSkillListChanged();
         }
 
         private void skillsDgv_SelectionChanged(object sender, EventArgs e)
