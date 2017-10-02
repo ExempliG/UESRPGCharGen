@@ -148,34 +148,42 @@ namespace UESRPG_Character_Manager
         public int Strength
         {
             get { return _characteristics[Characteristics.STRENGTH]; }
+            set { _characteristics[Characteristics.STRENGTH] = value; }
         }
         public int Endurance
         {
             get { return _characteristics[Characteristics.ENDURANCE]; }
+            set { _characteristics[Characteristics.ENDURANCE] = value; }
         }
         public int Agility
         {
             get { return _characteristics[Characteristics.AGILITY]; }
+            set { _characteristics[Characteristics.AGILITY] = value; }
         }
         public int Intelligence
         {
             get { return _characteristics[Characteristics.INTELLIGENCE]; }
+            set { _characteristics[Characteristics.INTELLIGENCE] = value; }
         }
         public int Willpower
         {
             get { return _characteristics[Characteristics.WILLPOWER]; }
+            set { _characteristics[Characteristics.WILLPOWER] = value; }
         }
         public int Perception
         {
             get { return _characteristics[Characteristics.PERCEPTION]; }
+            set { _characteristics[Characteristics.PERCEPTION] = value; }
         }
         public int Personality
         {
             get { return _characteristics[Characteristics.PERSONALITY]; }
+            set { _characteristics[Characteristics.PERSONALITY] = value; }
         }
         public int Luck
         {
             get { return _characteristics[Characteristics.LUCK]; }
+            set { _characteristics[Characteristics.LUCK] = value; }
         }
 /************
  * EQUIPMENT

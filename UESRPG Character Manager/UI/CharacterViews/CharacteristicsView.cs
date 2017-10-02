@@ -24,12 +24,18 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             _characteristicMutex = false;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.CharacteristicChanged += onCharacteristicChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
         {
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
 
+            UpdateView();
+        }
+
+        protected void onCharacteristicChanged(object sender, EventArgs e)
+        {
             UpdateView();
         }
 
