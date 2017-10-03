@@ -17,11 +17,13 @@ namespace UESRPG_Character_Manager.UI
     {
         private Character _activeCharacter;
         private bool _attributesMutex;
+        private bool _modifierMutex;
 
         public AttributesView()
         {
             InitializeComponent();
             _attributesMutex = false;
+            _modifierMutex = false;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             CharacterController.Instance.CharacteristicChanged += onCharacteristicChanged;
@@ -108,52 +110,52 @@ namespace UESRPG_Character_Manager.UI
         #region Modifier Event Handlers
         private void nbModHealth_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.HEALTH, (int)nbModHealth.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.HEALTH, (int)nbModHealth.Value); });
         }
 
         private void nbModWoundThreshold_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.WOUND_THRESHOLD, (int)nbModWoundThreshold.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.WOUND_THRESHOLD, (int)nbModWoundThreshold.Value); });
         }
 
         private void nbModStamina_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.STAMINA, (int)nbModStamina.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.STAMINA, (int)nbModStamina.Value); });
         }
 
         private void nbModMagicka_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.MAGICKA, (int)nbModMagicka.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.MAGICKA, (int)nbModMagicka.Value); });
         }
 
         private void nbModActionPoints_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.ACTION_POINTS, (int)nbModActionPoints.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.ACTION_POINTS, (int)nbModActionPoints.Value); });
         }
 
         private void nbModMovementRating_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.MOVEMENT_RATING, (int)nbModMovementRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.MOVEMENT_RATING, (int)nbModMovementRating.Value); });
         }
 
         private void nbModCarryRating_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.CARRY_RATING, (int)nbModCarryRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.CARRY_RATING, (int)nbModCarryRating.Value); });
         }
 
         private void nbModInitiativeRating_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.INITIATIVE_RATING, (int)nbModInitiativeRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.INITIATIVE_RATING, (int)nbModInitiativeRating.Value); });
         }
 
         private void nbModDamageBonus_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.DAMAGE_BONUS, (int)nbModDamageBonus.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.DAMAGE_BONUS, (int)nbModDamageBonus.Value); });
         }
 
         private void nbModLuck_ValueChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.LUCK_POINTS, (int)nbModLuck.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.LUCK_POINTS, (int)nbModLuck.Value); });
         }
         #endregion
 
@@ -176,6 +178,16 @@ namespace UESRPG_Character_Manager.UI
                 _attributesMutex = true;
                 attributeChange();
                 _attributesMutex = false;
+            }
+        }
+
+        private void changeModifier(Action modifierChange)
+        {
+            if (!_modifierMutex)
+            {
+                _modifierMutex = true;
+                modifierChange();
+                _modifierMutex = false;
             }
         }
 

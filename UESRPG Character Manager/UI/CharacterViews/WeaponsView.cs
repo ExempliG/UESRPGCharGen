@@ -16,17 +16,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class WeaponsView : UserControl
     {
-        public delegate void WeaponsChangedHandler(object sender, EventArgs e);
-        [Description("Fires when a Weapon is changed or added by the user.")]
-        public event WeaponsChangedHandler WeaponsChanged;
-
         private Character _activeCharacter;
 
         public WeaponsView()
         {
             InitializeComponent();
-
-            weaponsDgv.CellValueChanged += onWeaponsChanged;
 
             for (int i = 0; i < (int)WeaponType.MAX; i++)
             {
@@ -41,12 +35,18 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             weaponMaterialCb.SelectedIndex = 0;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.WeaponsChanged += onWeaponsChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
         {
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
 
+            updateView();
+        }
+
+        protected void onWeaponsChanged(object sender, EventArgs e)
+        {
             updateView();
         }
 
@@ -70,15 +70,8 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Weapon result = Weapon.ApplyMaterial(template, modifier);
             result.Name = weaponNameTb.Text;
 
-            _activeCharacter.Weapons.Add(result);
+            CharacterController.Instance.AddWeapon(result);
             updateView();
-
-            onWeaponsChanged(this, new System.EventArgs());
-        }
-
-        protected void onWeaponsChanged(object sender, EventArgs e)
-        {
-            WeaponsChanged?.Invoke(this, new System.EventArgs());
         }
     }
 }

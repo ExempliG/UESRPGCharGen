@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 
+using UESRPG_Character_Manager.Items;
+
 namespace UESRPG_Character_Manager.Controllers
 {
     /// <summary>
@@ -40,6 +42,10 @@ namespace UESRPG_Character_Manager.Controllers
         public delegate void SpellListChangedHandler(object sender, EventArgs e);
         [Description("Fires when the spell list changes via adding or renaming a spell.")]
         public event SpellListChangedHandler SpellListChanged;
+
+        public delegate void WeaponsChangedHandler(object sender, EventArgs e);
+        [Description("Fires when a Weapon is changed or added by the user.")]
+        public event WeaponsChangedHandler WeaponsChanged;
         #endregion
 
         private static CharacterController _instance;
@@ -120,6 +126,18 @@ namespace UESRPG_Character_Manager.Controllers
         {
             _activeCharacter.Spells.Add(spellToAdd);
             onSpellListChanged();
+        }
+
+        public void AddWeapon(Weapon weaponToAdd)
+        {
+            _activeCharacter.Weapons.Add(weaponToAdd);
+            onWeaponsChanged();
+        }
+
+        public void ChangeCharacterName(string newName)
+        {
+            _activeCharacter.Name = newName;
+            onCharacterListChanged();
         }
 
         public void ChangeCharacteristic(int characteristicIndex, int value)
@@ -300,6 +318,11 @@ namespace UESRPG_Character_Manager.Controllers
         protected void onSpellListChanged()
         {
             SpellListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onWeaponsChanged()
+        {
+            WeaponsChanged?.Invoke(this, new System.EventArgs());
         }
         #endregion
     }

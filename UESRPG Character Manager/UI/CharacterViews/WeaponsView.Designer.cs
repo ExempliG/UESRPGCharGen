@@ -99,12 +99,15 @@
             // weaponsDgv
             // 
             this.weaponsDgv.AllowUserToAddRows = false;
+            this.weaponsDgv.AllowUserToDeleteRows = false;
             this.weaponsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.weaponsDgv.BackgroundColor = System.Drawing.Color.White;
             this.weaponsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.weaponsDgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.weaponsDgv.Location = new System.Drawing.Point(6, 72);
             this.weaponsDgv.Name = "weaponsDgv";
+            this.weaponsDgv.ReadOnly = true;
             this.weaponsDgv.Size = new System.Drawing.Size(460, 298);
             this.weaponsDgv.TabIndex = 0;
             // 

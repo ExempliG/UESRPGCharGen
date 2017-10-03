@@ -58,7 +58,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
-            _activeCharacter.Name = nameTb.Text;
+            CharacterController.Instance.ChangeCharacterName(nameTb.Text);
         }
 
         /// <summary>

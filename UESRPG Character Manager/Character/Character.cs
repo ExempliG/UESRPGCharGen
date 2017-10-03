@@ -100,7 +100,7 @@ namespace UESRPG_Character_Manager
         {
             int result = -1;
 
-            if (index > 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
             {
                 result = _characteristics[index];
             }

@@ -23,12 +23,18 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             InitializeComponent();
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.WeaponsChanged += onWeaponsChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
         {
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
 
+            updateView();
+        }
+
+        protected void onWeaponsChanged(object sender, EventArgs e)
+        {
             updateView();
         }
 
