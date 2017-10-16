@@ -41,6 +41,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox7.Controls.Add(this.addNewWeaponBt);
             this.groupBox7.Controls.Add(this.weaponMaterialCb);
             this.groupBox7.Controls.Add(this.weaponTypeCb);
@@ -100,8 +102,9 @@
             // 
             this.weaponsDgv.AllowUserToAddRows = false;
             this.weaponsDgv.AllowUserToDeleteRows = false;
-            this.weaponsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.weaponsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.weaponsDgv.BackgroundColor = System.Drawing.Color.White;
             this.weaponsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.weaponsDgv.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;

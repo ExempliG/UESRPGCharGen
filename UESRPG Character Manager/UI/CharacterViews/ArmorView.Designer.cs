@@ -43,6 +43,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.armorNameTb);
             this.groupBox4.Controls.Add(this.armorQualityCb);

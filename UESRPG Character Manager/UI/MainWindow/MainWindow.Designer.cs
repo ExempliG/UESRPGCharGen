@@ -163,13 +163,18 @@
             // 
             // armorView_equipPage
             // 
+            this.armorView_equipPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
             this.armorView_equipPage.Name = "armorView_equipPage";
-            this.armorView_equipPage.Size = new System.Drawing.Size(504, 370);
+            this.armorView_equipPage.Size = new System.Drawing.Size(504, 376);
             this.armorView_equipPage.TabIndex = 27;
             // 
             // weaponsView_equipPage
             // 
+            this.weaponsView_equipPage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.weaponsView_equipPage.Location = new System.Drawing.Point(4, 6);
             this.weaponsView_equipPage.Name = "weaponsView_equipPage";
             this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
@@ -312,6 +317,7 @@
             // 
             // characterSelector
             // 
+            this.characterSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.characterSelector.Location = new System.Drawing.Point(12, 447);
             this.characterSelector.Name = "characterSelector";
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
