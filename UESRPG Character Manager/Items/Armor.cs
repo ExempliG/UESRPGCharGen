@@ -17,6 +17,7 @@ namespace UESRPG_Character_Manager.Items
             AR = 0.0;
             Qualities = new string[] { };
             Location = ArmorLocations.MAX;
+            _isEquippable = true;
         }
 
         public Armor(string name, double ar, int encumbrance, int price, ArmorLocations location, string[] qualities) :
@@ -25,6 +26,8 @@ namespace UESRPG_Character_Manager.Items
             AR = ar;
             Qualities = qualities;
             Location = location;
+            _isEquippable = true;
+            _equipSlots = new List<string> { location.ToString() };
         }
 
         /// <todo>

@@ -54,6 +54,18 @@ namespace UESRPG_Character_Manager.Items
             IsDire = false;
             Quality = WeaponQuality.MAX;
             Material = WeaponMaterial.MAX;
+
+            _isEquippable = true;
+            _equipSlots = new List<string>();
+            if(handedness == WeaponHandedness.ONE || handedness == WeaponHandedness.HAND_AND_A_HALF)
+            {
+                _equipSlots.Add("RIGHT_WEAPON");
+                _equipSlots.Add("LEFT_WEAPON");
+            }
+            if(handedness == WeaponHandedness.TWO || handedness == WeaponHandedness.HAND_AND_A_HALF)
+            {
+                _equipSlots.Add("TWO_HAND_WEAPON");
+            }
         }
 
         /// <summary>

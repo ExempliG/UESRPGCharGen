@@ -13,6 +13,9 @@ namespace UESRPG_Character_Manager.Items
         protected float _encumbrance;
         protected int _price;
 
+        protected bool _isEquippable = false;
+        protected List<string> _equipSlots;
+
         public Item(string name, string description, float encumbrance, int price)
         {
             _name = name;

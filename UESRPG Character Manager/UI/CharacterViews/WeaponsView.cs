@@ -22,10 +22,22 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             InitializeComponent();
 
+            List<WeaponType> types = new List<WeaponType>();
             for (int i = 0; i < (int)WeaponType.MAX; i++)
             {
-                weaponTypeCb.Items.Add((WeaponType)i);
+                types.Add((WeaponType)i);
             }
+
+            types.Sort(delegate (WeaponType a, WeaponType b)
+            {
+                return String.Compare(a.ToString(), b.ToString());
+            });
+
+            foreach(WeaponType type in types)
+            {
+                weaponTypeCb.Items.Add(type);
+            }
+
             weaponTypeCb.SelectedIndex = 0;
 
             for (int i = 0; i < (int)WeaponMaterial.MAX; i++)
