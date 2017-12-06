@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.editWeaponBt = new System.Windows.Forms.Button();
             this.addNewWeaponBt = new System.Windows.Forms.Button();
             this.weaponMaterialCb = new System.Windows.Forms.ComboBox();
             this.weaponTypeCb = new System.Windows.Forms.ComboBox();
@@ -43,6 +44,7 @@
             // 
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox7.Controls.Add(this.editWeaponBt);
             this.groupBox7.Controls.Add(this.addNewWeaponBt);
             this.groupBox7.Controls.Add(this.weaponMaterialCb);
             this.groupBox7.Controls.Add(this.weaponTypeCb);
@@ -55,6 +57,17 @@
             this.groupBox7.TabIndex = 25;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Weapons";
+            // 
+            // editWeaponBt
+            // 
+            this.editWeaponBt.Enabled = false;
+            this.editWeaponBt.Location = new System.Drawing.Point(387, 19);
+            this.editWeaponBt.Name = "editWeaponBt";
+            this.editWeaponBt.Size = new System.Drawing.Size(75, 23);
+            this.editWeaponBt.TabIndex = 6;
+            this.editWeaponBt.Text = "Edit Weapon";
+            this.editWeaponBt.UseVisualStyleBackColor = true;
+            this.editWeaponBt.Click += new System.EventHandler(this.editWeaponBt_Click);
             // 
             // addNewWeaponBt
             // 
@@ -112,7 +125,8 @@
             this.weaponsDgv.Name = "weaponsDgv";
             this.weaponsDgv.ReadOnly = true;
             this.weaponsDgv.Size = new System.Drawing.Size(460, 298);
-            this.weaponsDgv.TabIndex = 0;
+            this.weaponsDgv.TabIndex = 7;
+            this.weaponsDgv.SelectionChanged += new System.EventHandler(this.weaponsDgv_SelectionChanged);
             // 
             // WeaponsView
             // 
@@ -137,5 +151,6 @@
         private System.Windows.Forms.TextBox weaponNameTb;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.DataGridView weaponsDgv;
+        private System.Windows.Forms.Button editWeaponBt;
     }
 }

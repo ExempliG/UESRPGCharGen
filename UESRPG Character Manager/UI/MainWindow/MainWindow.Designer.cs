@@ -252,7 +252,7 @@
             // 
             // characterBindingSource
             // 
-            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.Character);
+            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.CharacterComponents.Character);
             // 
             // weaponsBindingSource
             // 

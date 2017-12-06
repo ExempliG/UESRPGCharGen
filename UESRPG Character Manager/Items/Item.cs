@@ -44,5 +44,17 @@ namespace UESRPG_Character_Manager.Items
         {
             get { return _price; }
         }
+
+        public bool IsEquippable
+        {
+            get { return _isEquippable; }
+            set { _isEquippable = value; }
+        }
+
+        public List<string> EquipSlots
+        {
+            get { return _equipSlots; }
+            set { _equipSlots = value; }
+        }
     }
 }

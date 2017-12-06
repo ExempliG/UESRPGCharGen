@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml.Serialization;
 
 using UESRPG_Character_Manager.Items;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.Controllers
 {
@@ -26,26 +27,6 @@ namespace UESRPG_Character_Manager.Controllers
         public delegate void CharacterListChangedHandler(object sender, EventArgs e);
         [Description("Fires when the list of characters is changed, either by adding characters or loading a new file.")]
         public event CharacterListChangedHandler CharacterListChanged;
-
-        public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
-        [Description("Fires when one of the Characteristics is changed by the user.")]
-        public event CharacteristicChangedHandler CharacteristicChanged;
-
-        public delegate void AttributeChangedHandler(object sender, EventArgs e);
-        [Description("Fires when one of the Attributes is changed by the user.")]
-        public event AttributeChangedHandler AttributeChanged;
-
-        public delegate void SkillListChangedHandler(object sender, EventArgs e);
-        [Description("Fires when a skill is added, removed, or edited.")]
-        public event SkillListChangedHandler SkillListChanged;
-
-        public delegate void SpellListChangedHandler(object sender, EventArgs e);
-        [Description("Fires when the spell list changes via adding or renaming a spell.")]
-        public event SpellListChangedHandler SpellListChanged;
-
-        public delegate void WeaponsChangedHandler(object sender, EventArgs e);
-        [Description("Fires when a Weapon is changed or added by the user.")]
-        public event WeaponsChangedHandler WeaponsChanged;
         #endregion
 
         private static CharacterController _instance;
@@ -111,27 +92,27 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void AddSkill(Skill skillToAdd)
         {
-            _activeCharacter.Skills.Add(skillToAdd);
-            onSkillListChanged();
+            _activeCharacter.AddSkill(skillToAdd);
+        }
+
+        public void EditSkill(Skill editedSkill)
+        {
+            _activeCharacter.EditSkill(editedSkill);
         }
 
         public void DeleteSkill(Skill skillToDelete)
         {
             _activeCharacter.DeleteSkill(skillToDelete);
-            onSkillListChanged();
-            onSpellListChanged(); // Deletion of a Skill marks all Spells which used that Skill with "Untrained"
         }
 
         public void AddSpell(Spell spellToAdd)
         {
             _activeCharacter.Spells.Add(spellToAdd);
-            onSpellListChanged();
         }
 
         public void AddWeapon(Weapon weaponToAdd)
         {
             _activeCharacter.Weapons.Add(weaponToAdd);
-            onWeaponsChanged();
         }
 
         public void ChangeCharacterName(string newName)
@@ -143,45 +124,36 @@ namespace UESRPG_Character_Manager.Controllers
         public void ChangeCharacteristic(int characteristicIndex, int value)
         {
             _activeCharacter.SetCharacteristic(characteristicIndex, value);
-            onCharacteristicChanged();
         }
 
         public void ChangeModifier(int modifierIndex, int value)
         {
             _activeCharacter.SetModifier(modifierIndex, value);
-
-            // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
-            onAttributeChanged();
         }
 
         public void ChangeHealth(int value)
         {
             _activeCharacter.CurrentHealth = value;
-            onAttributeChanged();
         }
 
         public void ChangeMagicka(int value)
         {
             _activeCharacter.CurrentMagicka = value;
-            onAttributeChanged();
         }
 
         public void ChangeStamina(int value)
         {
             _activeCharacter.CurrentStamina = value;
-            onAttributeChanged();
         }
 
         public void ChangeAP(int value)
         {
             _activeCharacter.CurrentAp = value;
-            onAttributeChanged();
         }
 
         public void ChangeLuck(int value)
         {
             _activeCharacter.CurrentLuckPoints = value;
-            onAttributeChanged();
         }
 
         public void ForceUpdate()
@@ -245,8 +217,12 @@ namespace UESRPG_Character_Manager.Controllers
                 XmlSerializer xml = new XmlSerializer(typeof(List<Character>));
                 FileStream fs = new FileStream(fileName, FileMode.Open);
 
+                // Grab the current "next" Skill ID, in case the load fails.
+                uint skillIdPlaceholder = Skill.NextAvailableId;
                 try
                 {
+                    // Reset the Skill ID index, since the previous character list is discarded.
+                    Skill.NextAvailableId = 0;
                     List<Character> loadedList = (List<Character>)xml.Deserialize(fs);
 
                     _currentFile = fileName;
@@ -275,6 +251,9 @@ namespace UESRPG_Character_Manager.Controllers
                 catch (IOException e)
                 {
                     message = string.Format("Failed to load character(s) for reason: {0}", e.Message);
+                    // Load failed, restore the old highest Skill ID so there are no collisions if the user wants to
+                    // continue with the current character list.
+                    Skill.NextAvailableId = skillIdPlaceholder;
                 }
                 finally
                 {
@@ -298,31 +277,6 @@ namespace UESRPG_Character_Manager.Controllers
         protected void onCharacterListChanged()
         {
             CharacterListChanged?.Invoke(this, new System.EventArgs());
-        }
-
-        protected void onCharacteristicChanged()
-        {
-            CharacteristicChanged?.Invoke(this, new System.EventArgs());
-        }
-
-        protected void onAttributeChanged()
-        {
-            AttributeChanged?.Invoke(this, new System.EventArgs());
-        }
-
-        protected void onSkillListChanged()
-        {
-            SkillListChanged?.Invoke(this, new System.EventArgs());
-        }
-
-        protected void onSpellListChanged()
-        {
-            SpellListChanged?.Invoke(this, new System.EventArgs());
-        }
-
-        protected void onWeaponsChanged()
-        {
-            WeaponsChanged?.Invoke(this, new System.EventArgs());
         }
         #endregion
     }

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {

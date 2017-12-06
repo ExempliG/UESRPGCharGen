@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager
 {
@@ -36,7 +37,7 @@ namespace UESRPG_Character_Manager
         {
             InitializeComponent();
 
-            _skill = skill;
+            _skill = (Skill)skill.Clone();
 
             skillCharacteristicsClb.Sorted = false;
             foreach (string characteristic in Characteristics.s_characteristicNames)
@@ -82,6 +83,8 @@ namespace UESRPG_Character_Manager
             }
             _skill.Description = skillDescriptionRtb.Text;
             _skill.Rank = (int)skillRankNud.Value;
+
+            CharacterController.Instance.EditSkill(_skill);
 
             DialogResult = DialogResult.OK;
 

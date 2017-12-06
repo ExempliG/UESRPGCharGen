@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.MainWindow
 {

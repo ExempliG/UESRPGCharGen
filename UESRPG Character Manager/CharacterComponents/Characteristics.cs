@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UESRPG_Character_Manager
+namespace UESRPG_Character_Manager.CharacterComponents
 {
     /// <summary>
     /// Holds constant data about Characteristics

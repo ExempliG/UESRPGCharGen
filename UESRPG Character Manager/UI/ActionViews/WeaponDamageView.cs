@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
@@ -23,7 +24,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             InitializeComponent();
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            CharacterController.Instance.WeaponsChanged += onWeaponsChanged;
+            Character.WeaponsChanged += onWeaponsChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)

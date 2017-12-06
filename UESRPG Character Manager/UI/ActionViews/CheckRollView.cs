@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
@@ -31,7 +32,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             characteristicCb.SelectedIndex = 0;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            CharacterController.Instance.SkillListChanged += onSkillListChanged;
+            Character.SkillListChanged += onSkillListChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)

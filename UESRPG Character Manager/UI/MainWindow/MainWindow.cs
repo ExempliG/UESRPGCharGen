@@ -13,6 +13,7 @@ using System.IO;
 using System.Xml.Serialization;
 
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.MainWindow
 {
@@ -20,6 +21,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
     {
         private string _currentFile = "";
         private Character _activeCharacter;
+        private bool _changingCharacter = false;
 
         private const string FILE_TYPE_STRING = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
 
@@ -42,6 +44,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void onSelectedCharacterChanged(object sender, EventArgs e)
         {
+            _changingCharacter = true;
             if (_activeCharacter != null)
             {
                 _activeCharacter.Notes = characterNotesRtb.Text;
@@ -49,6 +52,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             _activeCharacter = CharacterController.Instance.ActiveCharacter;
             nameTb.Text = _activeCharacter.Name;
             characterNotesRtb.Text = _activeCharacter.Notes;
+            _changingCharacter = false;
         }
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
@@ -58,7 +62,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
-            CharacterController.Instance.ChangeCharacterName(nameTb.Text);
+            if (!_changingCharacter)
+            {
+                CharacterController.Instance.ChangeCharacterName(nameTb.Text);
+            }
         }
 
         /// <summary>

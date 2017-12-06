@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
@@ -47,7 +48,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             weaponMaterialCb.SelectedIndex = 0;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            CharacterController.Instance.WeaponsChanged += onWeaponsChanged;
+            Character.WeaponsChanged += onWeaponsChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
@@ -71,6 +72,18 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
+        private void weaponsDgv_SelectionChanged(object sender, EventArgs e)
+        {
+            if(weaponsDgv.SelectedRows.Count == 1)
+            {
+                editWeaponBt.Enabled = true;
+            }
+            else
+            {
+                editWeaponBt.Enabled = false;
+            }
+        }
+
         private void addNewWeaponBt_Click(object sender, EventArgs e)
         {
             WeaponType type = (WeaponType)weaponTypeCb.SelectedItem;
@@ -84,6 +97,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             CharacterController.Instance.AddWeapon(result);
             updateView();
+        }
+
+        private void editWeaponBt_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

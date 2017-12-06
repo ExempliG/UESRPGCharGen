@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
@@ -28,7 +29,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             InitializeComponent();
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            CharacterController.Instance.SpellListChanged += onSpellListChanged;
+            Character.SpellListChanged += onSpellListChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)

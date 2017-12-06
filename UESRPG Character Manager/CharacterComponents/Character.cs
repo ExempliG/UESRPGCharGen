@@ -6,56 +6,12 @@ using System.Threading.Tasks;
 
 using System.Collections;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 using UESRPG_Character_Manager.Items;
 
-namespace UESRPG_Character_Manager
+namespace UESRPG_Character_Manager.CharacterComponents
 {
-    /// <summary>
-    /// Embodies a generic Skill.
-    /// </summary>
-    /// <todo>Skills should be able to calculate their own difficulty.</todo>
-    public class Skill
-    {
-        [XmlAttribute ()]
-        public string Name { get; set; }
-        [XmlAttribute ()]
-        public int Rank { get; set; }
-        public string Description { get; set; }
-        public int[] Characteristics { get; set; }
-        public bool isDefaultSkill = false;
-
-        public override string ToString ()
-        {
-            return Name;
-        }
-    }
-
-    /// <summary>
-    /// Embodies a generic Spell.
-    /// </summary>
-    /// <todo>Add support for... *sigh* shadow magic.</todo>
-    public class Spell
-    {
-        [XmlAttribute ()]
-        public string Name { get; set; }
-        [XmlAttribute ()]
-        public int Level { get; set; }
-        public int Cost { get; set; }
-        public int Difficulty { get; set; }
-        public string AssociatedSkill { get; set; }
-        public string Description { get; set; }
-        public bool DoesDamage { get; set; }
-        public int NumberOfDice { get; set; }
-        public int DiceSides { get; set; }
-        public int Penetration { get; set; }
-
-        public override string ToString()
-        {
-            return this.Name;
-        }
-    }
-
     //[XmlRoot("Character", IsNullable = false)]
     public class Character// : ICloneable
     {
@@ -86,26 +42,6 @@ namespace UESRPG_Character_Manager
         public int GetBonus (int characteristic)
         {
             return characteristic / 10;
-        }
-
-        public void SetCharacteristic (int index, int value)
-        {
-            if (index > 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
-            {
-                _characteristics[index] = value;
-            }
-        }
-
-        public int GetCharacteristic (int index)
-        {
-            int result = -1;
-
-            if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
-            {
-                result = _characteristics[index];
-            }
-
-            return result;
         }
 
         [XmlAttribute()]
@@ -140,6 +76,55 @@ namespace UESRPG_Character_Manager
         {
             get { return _majorVersion; }
             set { _majorVersion = value; }
+        }
+
+/******************
+ * EVENTS
+ * ***************/
+
+        public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
+        [Description("Fires when one of the Characteristics is changed by the user.")]
+        public static event CharacteristicChangedHandler CharacteristicChanged;
+
+        public delegate void AttributeChangedHandler(object sender, EventArgs e);
+        [Description("Fires when one of the Attributes is changed by the user.")]
+        public static event AttributeChangedHandler AttributeChanged;
+
+        public delegate void SkillListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when a skill is added, removed, or edited.")]
+        public static event SkillListChangedHandler SkillListChanged;
+
+        public delegate void SpellListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the spell list changes via adding or renaming a spell.")]
+        public static event SpellListChangedHandler SpellListChanged;
+
+        public delegate void WeaponsChangedHandler(object sender, EventArgs e);
+        [Description("Fires when a Weapon is changed or added by the user.")]
+        public static event WeaponsChangedHandler WeaponsChanged;
+
+        protected void onCharacteristicChanged()
+        {
+            CharacteristicChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onAttributeChanged()
+        {
+            AttributeChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onSkillListChanged()
+        {
+            SkillListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onSpellListChanged()
+        {
+            SpellListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onWeaponsChanged()
+        {
+            WeaponsChanged?.Invoke(this, new System.EventArgs());
         }
 
 /******************
@@ -185,6 +170,28 @@ namespace UESRPG_Character_Manager
             get { return _characteristics[Characteristics.LUCK]; }
             set { _characteristics[Characteristics.LUCK] = value; }
         }
+
+        public void SetCharacteristic (int index, int value)
+        {
+            if (index > 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            {
+                _characteristics[index] = value;
+                onCharacteristicChanged();
+            }
+        }
+
+        public int GetCharacteristic (int index)
+        {
+            int result = -1;
+
+            if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            {
+                result = _characteristics[index];
+            }
+
+            return result;
+        }
+
 /************
  * EQUIPMENT
  ***********/
@@ -267,26 +274,59 @@ namespace UESRPG_Character_Manager
         public List<Spell> Spells
         {
             get { return _spells; }
-            set { _spells = value; }
+            set
+            {
+                _spells = value;
+                onSpellListChanged();
+            }
         }
 
         public List<Skill> Skills
         {
             get { return _skills; }
-            set { _skills = value; }
+        }
+
+        public void AddSkill(Skill newSkill)
+        {
+            Skills.Add(newSkill);
+            onSkillListChanged();
+        }
+
+        public void EditSkill(Skill newSkill)
+        {
+            IEnumerable<Skill> skillSearch = from Skill s in Skills
+                                             where s.SkillId == newSkill.SkillId
+                                             select s;
+            if (skillSearch.Count() == 1)
+            {
+                Skill currentSkill = skillSearch.ElementAt(0);
+                int skillIndex = Skills.IndexOf(currentSkill);
+                updateSpellSkills(currentSkill.Name, newSkill.Name);
+                Skills[skillIndex] = newSkill;
+
+                onSkillListChanged();
+            }
         }
 
         public void DeleteSkill(Skill skillToDelete)
         {
+            updateSpellSkills(skillToDelete.Name, "Untrained");
+            Skills.Remove(skillToDelete);
+
+            onSkillListChanged();
+        }
+
+        private void updateSpellSkills(string oldSkillName, string newSkillName)
+        {
             IEnumerable<Spell> relatedSpells = from Spell s in Spells
-                                               where s.AssociatedSkill.Equals(skillToDelete.Name)
+                                               where s.AssociatedSkill.Equals(oldSkillName)
                                                select s;
             foreach (Spell s in relatedSpells)
             {
-                s.AssociatedSkill = "Untrained";
+                s.AssociatedSkill = newSkillName;
             }
 
-            Skills.Remove(skillToDelete);
+            onSpellListChanged();
         }
 
 /************
@@ -298,6 +338,8 @@ namespace UESRPG_Character_Manager
             if(modifierIndex >= 0 && modifierIndex < Modifiers.NUMBER_OF_MODIFIERS)
             {
                 _modifiers[modifierIndex] = value;
+                // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
+                onAttributeChanged();
             }
         }
 
@@ -342,9 +384,15 @@ namespace UESRPG_Character_Manager
             get { return _modifiers[Modifiers.LUCK_POINTS]; }
         }
 
+        private int _currentHealth;
         public int CurrentHealth
         {
-            get; set;
+            get { return _currentHealth; }
+            set
+            {
+                _currentHealth = value;
+                onAttributeChanged();
+            }
         }
 
         public int MaxHealth
@@ -363,9 +411,15 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        private int _currentStamina;
         public int CurrentStamina
         {
-            get; set;
+            get { return _currentStamina; }
+            set
+            {
+                _currentStamina = value;
+                onAttributeChanged();
+            }
         }
 
         public int Stamina
@@ -378,9 +432,15 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        private int _currentMagicka;
         public int CurrentMagicka
         {
-            get; set;
+            get { return _currentMagicka; }
+            set
+            {
+                _currentMagicka = value;
+                onAttributeChanged();
+            }
         }
 
         public int MagickaPool
@@ -415,9 +475,15 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        private int _currentAp;
         public int CurrentAp
         {
-            get; set;
+            get { return _currentAp; }
+            set
+            {
+                _currentAp = value;
+                onAttributeChanged();
+            }
         }
 
         public int MaximumAp
@@ -460,9 +526,15 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        private int _currentLuckPoints;
         public int CurrentLuckPoints
         {
-            get; set;
+            get { return _currentLuckPoints; }
+            set
+            {
+                _currentLuckPoints = value;
+                onAttributeChanged();
+            }
         }
 
         public int MaximumLuckPoints

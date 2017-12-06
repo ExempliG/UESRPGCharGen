@@ -8,6 +8,8 @@ namespace UESRPG_Character_Manager.Items
 {
     public class Weapon : Item, IComparable
     {
+        private WeaponHandedness _handedness;
+
         public int NumberOfDice { get; set; }
         public int DiceSides { get; set; }
         public int DamageMod { get; set; }
@@ -15,11 +17,34 @@ namespace UESRPG_Character_Manager.Items
         public int EnchantmentLevel { get; set; }
         public WeaponType Type { get; set; }
         public WeaponReach Reach { get; set; }
-        public WeaponHandedness Handedness { get; set; }
         public WeaponSize Size { get; set; }
         public WeaponQuality Quality { get; set; }
         public WeaponMaterial Material { get; set; }
         public bool IsDire { get; set; }
+
+        public WeaponHandedness Handedness
+        {
+            get
+            {
+                return _handedness;
+            }
+            set
+            {
+                // This ensures that equip slots are kept up-to-date.
+                _equipSlots = new List<string>();
+                if (value == WeaponHandedness.ONE || value == WeaponHandedness.HAND_AND_A_HALF)
+                {
+                    _equipSlots.Add("RIGHT_WEAPON");
+                    _equipSlots.Add("LEFT_WEAPON");
+                }
+                if (value == WeaponHandedness.TWO || value == WeaponHandedness.HAND_AND_A_HALF)
+                {
+                    _equipSlots.Add("TWO_HAND_WEAPON");
+                }
+
+                _handedness = value;
+            }
+        }
 
         /// <summary>
         /// This empty default constructor exists only because XmlSerializer requires a default constructor.
@@ -56,16 +81,6 @@ namespace UESRPG_Character_Manager.Items
             Material = WeaponMaterial.MAX;
 
             _isEquippable = true;
-            _equipSlots = new List<string>();
-            if(handedness == WeaponHandedness.ONE || handedness == WeaponHandedness.HAND_AND_A_HALF)
-            {
-                _equipSlots.Add("RIGHT_WEAPON");
-                _equipSlots.Add("LEFT_WEAPON");
-            }
-            if(handedness == WeaponHandedness.TWO || handedness == WeaponHandedness.HAND_AND_A_HALF)
-            {
-                _equipSlots.Add("TWO_HAND_WEAPON");
-            }
         }
 
         /// <summary>
