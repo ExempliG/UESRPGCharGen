@@ -54,5 +54,26 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             es.ShowDialog();
             updateView();
         }
+
+        private void spellEditBt_Click(object sender, EventArgs e)
+        {
+            int spellIndex = spellsDgv.SelectedRows[0].Index;
+            Spell selectedSpell = _activeCharacter.Spells[spellIndex];
+            EditSpell es = new EditSpell(_activeCharacter, selectedSpell);
+            es.ShowDialog();
+            updateView();
+        }
+
+        private void spellsDgv_SelectionChanged(object sender, EventArgs e)
+        {
+            if(spellsDgv.SelectedRows.Count == 1)
+            {
+                spellEditBt.Enabled = true;
+            }
+            else
+            {
+                spellEditBt.Enabled = false;
+            }
+        }
     }
 }

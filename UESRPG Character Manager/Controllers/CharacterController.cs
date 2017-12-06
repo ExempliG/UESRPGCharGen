@@ -107,7 +107,17 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void AddSpell(Spell spellToAdd)
         {
-            _activeCharacter.Spells.Add(spellToAdd);
+            _activeCharacter.AddSpell(spellToAdd);
+        }
+
+        public void EditSpell(Spell editedSpell)
+        {
+            _activeCharacter.EditSpell(editedSpell);
+        }
+
+        public void DeleteSpell(Spell spellToDelete)
+        {
+            _activeCharacter.DeleteSpell(spellToDelete);
         }
 
         public void AddWeapon(Weapon weaponToAdd)

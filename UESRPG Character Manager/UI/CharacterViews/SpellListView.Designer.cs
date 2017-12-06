@@ -31,12 +31,14 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.addSpellBt = new System.Windows.Forms.Button();
             this.spellsDgv = new System.Windows.Forms.DataGridView();
+            this.spellEditBt = new System.Windows.Forms.Button();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsDgv)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.spellEditBt);
             this.groupBox9.Controls.Add(this.addSpellBt);
             this.groupBox9.Controls.Add(this.spellsDgv);
             this.groupBox9.Location = new System.Drawing.Point(1, 1);
@@ -58,6 +60,8 @@
             // 
             // spellsDgv
             // 
+            this.spellsDgv.AllowUserToAddRows = false;
+            this.spellsDgv.AllowUserToDeleteRows = false;
             this.spellsDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -65,8 +69,21 @@
             this.spellsDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.spellsDgv.Location = new System.Drawing.Point(6, 48);
             this.spellsDgv.Name = "spellsDgv";
+            this.spellsDgv.ReadOnly = true;
             this.spellsDgv.Size = new System.Drawing.Size(494, 115);
             this.spellsDgv.TabIndex = 0;
+            this.spellsDgv.SelectionChanged += new System.EventHandler(this.spellsDgv_SelectionChanged);
+            // 
+            // spellEditBt
+            // 
+            this.spellEditBt.Enabled = false;
+            this.spellEditBt.Location = new System.Drawing.Point(88, 19);
+            this.spellEditBt.Name = "spellEditBt";
+            this.spellEditBt.Size = new System.Drawing.Size(75, 23);
+            this.spellEditBt.TabIndex = 2;
+            this.spellEditBt.Text = "Edit Spell";
+            this.spellEditBt.UseVisualStyleBackColor = true;
+            this.spellEditBt.Click += new System.EventHandler(this.spellEditBt_Click);
             // 
             // SpellListView
             // 
@@ -86,5 +103,6 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.Button addSpellBt;
         private System.Windows.Forms.DataGridView spellsDgv;
+        private System.Windows.Forms.Button spellEditBt;
     }
 }

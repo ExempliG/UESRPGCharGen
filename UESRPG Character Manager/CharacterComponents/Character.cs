@@ -268,18 +268,45 @@ namespace UESRPG_Character_Manager.CharacterComponents
         }
 
 /*********
- * SKILLS
- ********/
+ * SPELLS
+ *********/
 
         public List<Spell> Spells
         {
             get { return _spells; }
-            set
+        }
+
+        public void AddSpell(Spell newSpell)
+        {
+            Spells.Add(newSpell);
+            onSpellListChanged();
+        }
+
+        public void EditSpell(Spell newSpell)
+        {
+            IEnumerable<Spell> spellSearch = from Spell s in Spells
+                                             where s.SpellId == newSpell.SpellId
+                                             select s;
+            if (spellSearch.Count() == 1)
             {
-                _spells = value;
+                Spell currentSpell = spellSearch.ElementAt(0);
+                int spellIndex = Spells.IndexOf(currentSpell);
+                Spells[spellIndex] = newSpell;
+
                 onSpellListChanged();
             }
         }
+
+        public void DeleteSpell(Spell spellToDelete)
+        {
+            Spells.Remove(spellToDelete);
+
+            onSpellListChanged();
+        }
+
+/*********
+ * SKILLS
+ ********/
 
         public List<Skill> Skills
         {
