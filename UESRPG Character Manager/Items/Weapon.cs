@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager.Items
 {
-    public class Weapon : Item, IComparable
+    public class Weapon : Item, IComparable, ICloneable
     {
         private WeaponHandedness _handedness;
 
@@ -123,6 +123,29 @@ namespace UESRPG_Character_Manager.Items
         {
             return Name;
         }
+
+        public object Clone()
+        {
+            Weapon w = new Weapon();
+
+            w.DamageMod = this.DamageMod;
+            w.NumberOfDice = this.NumberOfDice;
+            w.DiceSides = this.DiceSides;
+            w.Penetration = this.Penetration;
+            w.EnchantmentLevel = this.EnchantmentLevel;
+            w._encumbrance = this.Encumbrance;
+            w._description = this.Description;
+            w._name = this.Name;
+            w._price = this.Price;
+            w.Quality = this.Quality;
+            w.Handedness = this.Handedness;
+            w.EquipSlots = this.EquipSlots;
+            w.Material = this.Material;
+            w.Reach = this.Reach;
+            w.Type = this.Type;
+
+            return w;
+        }
     }
 
     public struct WeaponMaterialModifier
@@ -235,6 +258,7 @@ namespace UESRPG_Character_Manager.Items
 
     public enum WeaponType
     {
+        CUSTOM,
         DAI_KATANA,
         GLAIVE,
         GRAND_MACE,
