@@ -105,7 +105,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
             EditWeapon ew = new EditWeapon(CharacterController.Instance.ActiveCharacter.Weapons[weaponIndex]);
-            ew.Show();
+            ew.ShowDialog();
         }
 
         private void deleteWeaponBt_Click(object sender, EventArgs e)
