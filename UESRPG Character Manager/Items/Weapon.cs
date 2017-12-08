@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Xml.Serialization;
+using System.ComponentModel;
+
 namespace UESRPG_Character_Manager.Items
 {
     public class Weapon : Item, IComparable, ICloneable
     {
+        public static uint NextAvailableId { get; set; }
+
         private WeaponHandedness _handedness;
 
         public int NumberOfDice { get; set; }
@@ -21,6 +26,9 @@ namespace UESRPG_Character_Manager.Items
         public WeaponQuality Quality { get; set; }
         public WeaponMaterial Material { get; set; }
         public bool IsDire { get; set; }
+
+        [XmlIgnore(), Browsable(false)]
+        public uint WeaponId { get; private set; }
 
         public WeaponHandedness Handedness
         {
@@ -51,7 +59,10 @@ namespace UESRPG_Character_Manager.Items
         /// </summary>
         public Weapon () : base ("", "", 0, 0)
         {
+            _isEquippable = true;
 
+            WeaponId = NextAvailableId;
+            NextAvailableId++;
         }
 
         public Weapon (int numberOfDice,
@@ -81,6 +92,15 @@ namespace UESRPG_Character_Manager.Items
             Material = WeaponMaterial.MAX;
 
             _isEquippable = true;
+
+            WeaponId = NextAvailableId;
+            NextAvailableId++;
+        }
+
+        // Private Weapon constructor used in cloning to preserve Weapon ID.
+        private Weapon(uint weaponId) : base("", "", 0, 0)
+        {
+            WeaponId = weaponId;
         }
 
         /// <summary>
@@ -126,7 +146,7 @@ namespace UESRPG_Character_Manager.Items
 
         public object Clone()
         {
-            Weapon w = new Weapon();
+            Weapon w = new Weapon(this.WeaponId);
 
             w.DamageMod = this.DamageMod;
             w.NumberOfDice = this.NumberOfDice;
@@ -142,6 +162,7 @@ namespace UESRPG_Character_Manager.Items
             w.EquipSlots = this.EquipSlots;
             w.Material = this.Material;
             w.Reach = this.Reach;
+            w.Size = this.Size;
             w.Type = this.Type;
 
             return w;

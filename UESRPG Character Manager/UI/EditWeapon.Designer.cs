@@ -89,7 +89,6 @@
             // 
             // penNud
             // 
-            this.penNud.Enabled = false;
             this.penNud.Location = new System.Drawing.Point(69, 45);
             this.penNud.Name = "penNud";
             this.penNud.Size = new System.Drawing.Size(38, 20);
@@ -106,7 +105,6 @@
             // 
             // diceSidesNud
             // 
-            this.diceSidesNud.Enabled = false;
             this.diceSidesNud.Location = new System.Drawing.Point(69, 19);
             this.diceSidesNud.Name = "diceSidesNud";
             this.diceSidesNud.Size = new System.Drawing.Size(38, 20);
@@ -123,7 +121,6 @@
             // 
             // numberOfDiceNud
             // 
-            this.numberOfDiceNud.Enabled = false;
             this.numberOfDiceNud.Location = new System.Drawing.Point(6, 19);
             this.numberOfDiceNud.Name = "numberOfDiceNud";
             this.numberOfDiceNud.Size = new System.Drawing.Size(38, 20);
@@ -148,6 +145,11 @@
             // enchantmentLevelNud
             // 
             this.enchantmentLevelNud.Location = new System.Drawing.Point(94, 90);
+            this.enchantmentLevelNud.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.enchantmentLevelNud.Name = "enchantmentLevelNud";
             this.enchantmentLevelNud.Size = new System.Drawing.Size(61, 20);
             this.enchantmentLevelNud.TabIndex = 4;
@@ -165,6 +167,11 @@
             // 
             this.encumbranceNud.DecimalPlaces = 3;
             this.encumbranceNud.Location = new System.Drawing.Point(94, 38);
+            this.encumbranceNud.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.encumbranceNud.Name = "encumbranceNud";
             this.encumbranceNud.Size = new System.Drawing.Size(61, 20);
             this.encumbranceNud.TabIndex = 2;
@@ -190,6 +197,11 @@
             // priceNud
             // 
             this.priceNud.Location = new System.Drawing.Point(94, 64);
+            this.priceNud.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.priceNud.Name = "priceNud";
             this.priceNud.Size = new System.Drawing.Size(61, 20);
             this.priceNud.TabIndex = 3;

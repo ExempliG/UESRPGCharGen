@@ -267,6 +267,34 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _weapons = value; }
         }
 
+        public void AddWeapon(Weapon newWeapon)
+        {
+            Weapons.Add(newWeapon);
+            onWeaponsChanged();
+        }
+
+        public void EditWeapon(Weapon newWeapon)
+        {
+            IEnumerable<Weapon> weaponSearch = from Weapon w in Weapons
+                                               where w.WeaponId == newWeapon.WeaponId
+                                               select w;
+            if(weaponSearch.Count() == 1)
+            {
+                Weapon currentWeapon = weaponSearch.ElementAt(0);
+                int weaponIndex = Weapons.IndexOf(currentWeapon);
+                Weapons[weaponIndex] = newWeapon;
+
+                onWeaponsChanged();
+            }
+        }
+
+        public void DeleteWeapon(Weapon weaponToDelete)
+        {
+            Weapons.Remove(weaponToDelete);
+
+            onWeaponsChanged();
+        }
+
 /*********
  * SPELLS
  *********/

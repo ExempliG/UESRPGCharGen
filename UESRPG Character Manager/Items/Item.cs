@@ -33,16 +33,19 @@ namespace UESRPG_Character_Manager.Items
         public string Description
         {
             get { return _description; }
+            set { _description = value; }
         }
 
         public float Encumbrance
         {
             get { return _encumbrance; }
+            set { _encumbrance = value; }
         }
 
         public int Price
         {
             get { return _price; }
+            set { _price = value; }
         }
 
         public bool IsEquippable

@@ -36,6 +36,7 @@
             this.weaponNameTb = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.weaponsDgv = new System.Windows.Forms.DataGridView();
+            this.deleteWeaponBt = new System.Windows.Forms.Button();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).BeginInit();
             this.SuspendLayout();
@@ -44,6 +45,7 @@
             // 
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox7.Controls.Add(this.deleteWeaponBt);
             this.groupBox7.Controls.Add(this.editWeaponBt);
             this.groupBox7.Controls.Add(this.addNewWeaponBt);
             this.groupBox7.Controls.Add(this.weaponMaterialCb);
@@ -61,7 +63,7 @@
             // editWeaponBt
             // 
             this.editWeaponBt.Enabled = false;
-            this.editWeaponBt.Location = new System.Drawing.Point(387, 19);
+            this.editWeaponBt.Location = new System.Drawing.Point(306, 45);
             this.editWeaponBt.Name = "editWeaponBt";
             this.editWeaponBt.Size = new System.Drawing.Size(75, 23);
             this.editWeaponBt.TabIndex = 6;
@@ -128,6 +130,17 @@
             this.weaponsDgv.TabIndex = 7;
             this.weaponsDgv.SelectionChanged += new System.EventHandler(this.weaponsDgv_SelectionChanged);
             // 
+            // deleteWeaponBt
+            // 
+            this.deleteWeaponBt.Enabled = false;
+            this.deleteWeaponBt.Location = new System.Drawing.Point(387, 45);
+            this.deleteWeaponBt.Name = "deleteWeaponBt";
+            this.deleteWeaponBt.Size = new System.Drawing.Size(75, 23);
+            this.deleteWeaponBt.TabIndex = 8;
+            this.deleteWeaponBt.Text = "Delete";
+            this.deleteWeaponBt.UseVisualStyleBackColor = true;
+            this.deleteWeaponBt.Click += new System.EventHandler(this.deleteWeaponBt_Click);
+            // 
             // WeaponsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,5 +165,6 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.DataGridView weaponsDgv;
         private System.Windows.Forms.Button editWeaponBt;
+        private System.Windows.Forms.Button deleteWeaponBt;
     }
 }

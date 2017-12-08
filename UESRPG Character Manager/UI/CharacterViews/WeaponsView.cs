@@ -77,10 +77,12 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             if(weaponsDgv.SelectedRows.Count == 1)
             {
                 editWeaponBt.Enabled = true;
+                deleteWeaponBt.Enabled = true;
             }
             else
             {
                 editWeaponBt.Enabled = false;
+                deleteWeaponBt.Enabled = false;
             }
         }
 
@@ -101,7 +103,15 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void editWeaponBt_Click(object sender, EventArgs e)
         {
+            int weaponIndex = weaponsDgv.SelectedRows[0].Index;
+            EditWeapon ew = new EditWeapon(CharacterController.Instance.ActiveCharacter.Weapons[weaponIndex]);
+            ew.Show();
+        }
 
+        private void deleteWeaponBt_Click(object sender, EventArgs e)
+        {
+            int weaponIndex = weaponsDgv.SelectedRows[0].Index;
+            CharacterController.Instance.DeleteWeapon(CharacterController.Instance.ActiveCharacter.Weapons[weaponIndex]);
         }
     }
 }

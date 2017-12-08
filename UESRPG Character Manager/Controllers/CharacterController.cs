@@ -122,7 +122,17 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void AddWeapon(Weapon weaponToAdd)
         {
-            _activeCharacter.Weapons.Add(weaponToAdd);
+            _activeCharacter.AddWeapon(weaponToAdd);
+        }
+
+        public void EditWeapon(Weapon weaponToEdit)
+        {
+            _activeCharacter.EditWeapon(weaponToEdit);
+        }
+
+        public void DeleteWeapon(Weapon weaponToDelete)
+        {
+            _activeCharacter.DeleteWeapon(weaponToDelete);
         }
 
         public void ChangeCharacterName(string newName)
@@ -227,12 +237,16 @@ namespace UESRPG_Character_Manager.Controllers
                 XmlSerializer xml = new XmlSerializer(typeof(List<Character>));
                 FileStream fs = new FileStream(fileName, FileMode.Open);
 
-                // Grab the current "next" Skill ID, in case the load fails.
+                // Grab the current "next" IDs, in case the load fails.
                 uint skillIdPlaceholder = Skill.NextAvailableId;
+                uint spellIdPlaceholder = Spell.NextAvailableId;
+                uint weaponIdPlaceholder = Weapon.NextAvailableId;
                 try
                 {
-                    // Reset the Skill ID index, since the previous character list is discarded.
+                    // Reset the ID indices, since the previous character list is discarded.
                     Skill.NextAvailableId = 0;
+                    Spell.NextAvailableId = 0;
+                    Weapon.NextAvailableId = 0;
                     List<Character> loadedList = (List<Character>)xml.Deserialize(fs);
 
                     _currentFile = fileName;
@@ -261,9 +275,11 @@ namespace UESRPG_Character_Manager.Controllers
                 catch (IOException e)
                 {
                     message = string.Format("Failed to load character(s) for reason: {0}", e.Message);
-                    // Load failed, restore the old highest Skill ID so there are no collisions if the user wants to
+                    // Load failed, restore the old highest IDs so there are no collisions if the user wants to
                     // continue with the current character list.
                     Skill.NextAvailableId = skillIdPlaceholder;
+                    Spell.NextAvailableId = spellIdPlaceholder;
+                    Weapon.NextAvailableId = weaponIdPlaceholder;
                 }
                 finally
                 {

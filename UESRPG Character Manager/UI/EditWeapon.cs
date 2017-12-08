@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.Items;
+using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager.UI
 {
@@ -78,23 +79,39 @@ namespace UESRPG_Character_Manager.UI
             penNud.Value = _weapon.Penetration;
             enchantmentLevelNud.Value = _weapon.EnchantmentLevel;
             encumbranceNud.Value = (decimal)_weapon.Encumbrance;
-             _weapon._price;
-            _weapon.Quality;
-            _weapon.Handedness;
-            _weapon.EquipSlots;
-            _weapon.Material;
-            _weapon.Reach;
-            _weapon.Type;
+            priceNud.Value = _weapon.Price;
+            direCb.Checked = _weapon.IsDire;
         }
 
         private void okBt_Click(object sender, EventArgs e)
         {
+            _weapon.Name = nameTb.Text;
+            _weapon.Description = weaponDescriptionRtb.Text;
+            _weapon.DamageMod = (int)damageModNud.Value;
+            _weapon.NumberOfDice = (int)numberOfDiceNud.Value;
+            _weapon.DiceSides = (int)diceSidesNud.Value;
+            _weapon.Penetration = (int)penNud.Value;
+            _weapon.EnchantmentLevel = (int)enchantmentLevelNud.Value;
+            _weapon.Encumbrance = (float)encumbranceNud.Value;
+            _weapon.Price = (int)priceNud.Value;
+            _weapon.IsDire = direCb.Checked;
+            _weapon.Type = (WeaponType)weaponTypeCb.SelectedItem;
+            _weapon.Material = (WeaponMaterial)weaponMaterialCb.SelectedItem;
+            _weapon.Quality = (WeaponQuality)weaponQualityCb.SelectedItem;
+            _weapon.Size = (WeaponSize)weaponSizeCb.SelectedItem;
+            _weapon.Handedness = (WeaponHandedness)weaponHandednessCb.SelectedItem;
+            _weapon.Reach = (WeaponReach)weaponReachCb.SelectedItem;
+
+            CharacterController.Instance.EditWeapon(_weapon);
+
             DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void cancelBt_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }
