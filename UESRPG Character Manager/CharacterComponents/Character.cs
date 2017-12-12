@@ -173,7 +173,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public void SetCharacteristic (int index, int value)
         {
-            if (index > 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
             {
                 _characteristics[index] = value;
                 onCharacteristicChanged();

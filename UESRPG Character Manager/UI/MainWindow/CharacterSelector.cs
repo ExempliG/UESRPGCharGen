@@ -32,12 +32,22 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void updateCharacterComboBox()
         {
+            int selectedIndex = charactersCb.SelectedIndex;
+
             charactersCb.Items.Clear();
             foreach (Character c in CharacterController.Instance.CharacterList)
             {
                 charactersCb.Items.Add(c.Name);
             }
-            charactersCb.SelectedIndex = 0;
+
+            if (charactersCb.Items.Count >= selectedIndex && selectedIndex >= 0)
+            {
+                charactersCb.SelectedIndex = selectedIndex;
+            }
+            else
+            {
+                charactersCb.SelectedIndex = 0;
+            }
         }
 
         private void charactersCb_SelectedIndexChanged(object sender, EventArgs e)
