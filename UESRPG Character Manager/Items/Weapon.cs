@@ -201,7 +201,8 @@ namespace UESRPG_Character_Manager.Items
 
         private static Weapon[] _DefaultWeapons =
         {
-            new Weapon(3, 10, 5, 2, 3, 200, 310, WeaponType.DAI_KATANA, WeaponReach.LONG, WeaponHandedness.TWO, WeaponSize.HUGE),
+            new Weapon(0,  0, 0,  0, 0,   0,   0, WeaponType.CUSTOM, WeaponReach.SHORT, WeaponHandedness.ONE, WeaponSize.SMALL),
+            new Weapon(3, 10, 5,  2, 3, 200, 310, WeaponType.DAI_KATANA, WeaponReach.LONG, WeaponHandedness.TWO, WeaponSize.HUGE),
             new Weapon(2, 10, 10, 5, 3, 175, 250, WeaponType.GLAIVE, WeaponReach.LONG, WeaponHandedness.TWO, WeaponSize.LARGE),
             new Weapon(2, 10, 5, 15, 3, 175, 180, WeaponType.GRAND_MACE, WeaponReach.LONG, WeaponHandedness.TWO, WeaponSize.HUGE),
             new Weapon(3, 10, 5, 10, 3, 200, 260, WeaponType.GREAT_AXE, WeaponReach.LONG, WeaponHandedness.TWO, WeaponSize.HUGE),
