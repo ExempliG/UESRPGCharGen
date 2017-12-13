@@ -9,7 +9,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
     /// <summary>
     /// Holds constant data about Characteristics
     /// </summary>
-    static class Characteristics
+    public static class Characteristics
     {
         public const int STRENGTH = 0;
         public const int ENDURANCE = 1;

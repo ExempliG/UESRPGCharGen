@@ -178,6 +178,10 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 _characteristics[index] = value;
                 onCharacteristicChanged();
             }
+            else
+            {
+                throw new ArgumentOutOfRangeException("index", "Attempted to modify an unsupported Characteristic.");
+            }
         }
 
         public int GetCharacteristic (int index)
@@ -187,6 +191,10 @@ namespace UESRPG_Character_Manager.CharacterComponents
             if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
             {
                 result = _characteristics[index];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("index", "Attempted to retrieve an unsupported Characteristic.");
             }
 
             return result;
