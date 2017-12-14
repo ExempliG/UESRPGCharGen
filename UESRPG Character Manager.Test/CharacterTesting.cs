@@ -112,7 +112,7 @@ namespace UESRPG_Character_Manager.Test
         [TestMethod]
         public void CharacteristicsView_ValidValues()
         {
-            CharacterController.Instance.AddCharacter();
+            CharacterController.Instance.Reset();
             Character testCharacter = CharacterController.Instance.ActiveCharacter;
 
             CharacteristicsView cv = new CharacteristicsView();
@@ -155,7 +155,7 @@ namespace UESRPG_Character_Manager.Test
         [TestMethod]
         public void CharacteristicsView_InvalidValues()
         {
-            CharacterController.Instance.AddCharacter();
+            CharacterController.Instance.Reset();
             Character testCharacter = CharacterController.Instance.ActiveCharacter;
 
             CharacteristicsView cv = new CharacteristicsView();

@@ -70,6 +70,15 @@ namespace UESRPG_Character_Manager.CharacterComponents {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attempted to retrieve an unsupported Characteristic..
+        /// </summary>
+        public static string GetUnsupportedCharacteristicMessage {
+            get {
+                return ResourceManager.GetString("GetUnsupportedCharacteristicMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attempted to modify an unsupported Characteristic..
         /// </summary>
         public static string SetUnsupportedCharacteristicMessage {

@@ -120,6 +120,9 @@
   <data name="CharacteristicValueOutOfRangeMessage" xml:space="preserve">
     <value>Attempted to set a Characteristic to an out of range value.</value>
   </data>
+  <data name="GetUnsupportedCharacteristicMessage" xml:space="preserve">
+    <value>Attempted to retrieve an unsupported Characteristic.</value>
+  </data>
   <data name="SetUnsupportedCharacteristicMessage" xml:space="preserve">
     <value>Attempted to modify an unsupported Characteristic.</value>
   </data>

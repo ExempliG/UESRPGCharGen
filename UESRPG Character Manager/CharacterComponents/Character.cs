@@ -241,7 +241,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             }
             else
             {
-                throw new ArgumentOutOfRangeException("index", "Attempted to retrieve an unsupported Characteristic.");
+                throw new ArgumentOutOfRangeException("index", CharacterExceptionMessages.GetUnsupportedCharacteristicMessage);
             }
 
             return result;

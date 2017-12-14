@@ -67,6 +67,17 @@ namespace UESRPG_Character_Manager.Controllers
             get { return _characterList; }
         }
 
+        public void Reset()
+        {
+            Skill.NextAvailableId = 0;
+            Spell.NextAvailableId = 0;
+            Weapon.NextAvailableId = 0;
+            _characterList = new List<Character>();
+            _activeCharacter = new Character();
+            _activeCharacter.Update();
+            _characterList.Add(_activeCharacter);
+        }
+
         public bool SelectCharacter(uint index)
         {
             bool result = false;
