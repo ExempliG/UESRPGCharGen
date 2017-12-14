@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterComponents\CharacterExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CharacterExceptionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="CharacterComponents\Skill.cs" />
     <Compile Include="CharacterComponents\Spell.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
@@ -149,6 +154,10 @@
     <Compile Include="UI\MainWindow\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CharacterComponents\CharacterExceptionMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CharacterExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
       <DependentUpon>CheckRollView.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,7 +16,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class CharacteristicsView : UserControl
     {
-        private Character _activeCharacter;
         private bool _characteristicMutex;
 
         public CharacteristicsView()
@@ -24,15 +23,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             InitializeComponent();
             _characteristicMutex = false;
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.CharacteristicChanged += onCharacteristicChanged;
-        }
-
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
-        {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
-
-            UpdateView();
         }
 
         protected void onCharacteristicChanged(object sender, EventArgs e)
@@ -45,14 +36,14 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             if (!_characteristicMutex)
             {
                 _characteristicMutex = true;
-                nbStrength.Value = _activeCharacter.Strength;
-                nbEndurance.Value = _activeCharacter.Endurance;
-                nbAgility.Value = _activeCharacter.Agility;
-                nbIntelligence.Value = _activeCharacter.Intelligence;
-                nbWillpower.Value = _activeCharacter.Willpower;
-                nbPerception.Value = _activeCharacter.Perception;
-                nbPersonality.Value = _activeCharacter.Personality;
-                nbLuck.Value = _activeCharacter.Luck;
+                nbStrength.Value = CharacterController.Instance.ActiveCharacter.Strength;
+                nbEndurance.Value = CharacterController.Instance.ActiveCharacter.Endurance;
+                nbAgility.Value = CharacterController.Instance.ActiveCharacter.Agility;
+                nbIntelligence.Value = CharacterController.Instance.ActiveCharacter.Intelligence;
+                nbWillpower.Value = CharacterController.Instance.ActiveCharacter.Willpower;
+                nbPerception.Value = CharacterController.Instance.ActiveCharacter.Perception;
+                nbPersonality.Value = CharacterController.Instance.ActiveCharacter.Personality;
+                nbLuck.Value = CharacterController.Instance.ActiveCharacter.Luck;
                 _characteristicMutex = false;
             }
         }

@@ -17,7 +17,7 @@ namespace UESRPG_Character_Manager.Controllers
     /// The CharacterController class handles all things dealing explicitly with Character objects, such as managing inventory, accessing stats,
     /// and saving/loading the Character list.
     /// </summary>
-    class CharacterController
+    public class CharacterController
     {
         #region Event definitions
         public delegate void SelectedCharacterChangedHandler(object sender, EventArgs e);

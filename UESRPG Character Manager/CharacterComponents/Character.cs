@@ -13,7 +13,7 @@ using UESRPG_Character_Manager.Items;
 namespace UESRPG_Character_Manager.CharacterComponents
 {
     //[XmlRoot("Character", IsNullable = false)]
-    public class Character// : ICloneable
+    public class Character : ICloneable
     {
         private int[] _characteristics;
         private int[] _modifiers;
@@ -78,9 +78,49 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _majorVersion = value; }
         }
 
-/******************
- * EVENTS
- * ***************/
+        object ICloneable.Clone ()
+        {
+            Character c = new Character ();
+
+            c.Name = Name;
+            c.Notes = Notes;
+            c._characteristics = (int[])_characteristics.Clone ();
+            c._modifiers = (int[])_modifiers.Clone ();
+
+            c._armorPieces = new List<Armor> ();
+            foreach (Armor piece in _armorPieces)
+            {
+                Armor newPiece = (Armor)piece.Clone();
+                c._armorPieces.Add(newPiece);
+            }
+
+            c._weapons = new List<Weapon>();
+            foreach (Weapon weapon in _weapons)
+            {
+                Weapon newWeapon = (Weapon)weapon.Clone();
+                c._weapons.Add(newWeapon);
+            }
+
+            c._skills = new List<Skill>();
+            foreach (Skill s in _skills)
+            {
+                Skill newSkill = (Skill)s.Clone();
+                c._skills.Add(newSkill);
+            }
+
+            c._spells = new List<Spell>();
+            foreach (Spell s in _spells)
+            {
+                Spell newSpell = (Spell)s.Clone();
+                c._spells.Add(newSpell);
+            }
+
+            return c;
+        }
+
+        /******************
+         * EVENTS
+         * ***************/
 
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]
@@ -173,14 +213,21 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public void SetCharacteristic (int index, int value)
         {
-            if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+            if (value >= Characteristics.MIN && value <= Characteristics.MAX)
             {
-                _characteristics[index] = value;
-                onCharacteristicChanged();
+                if (index >= 0 && index < Characteristics.NUMBER_OF_CHARACTERISTICS)
+                {
+                    _characteristics[index] = value;
+                    onCharacteristicChanged();
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("index", CharacterExceptionMessages.SetUnsupportedCharacteristicMessage);
+                }
             }
             else
             {
-                throw new ArgumentOutOfRangeException("index", "Attempted to modify an unsupported Characteristic.");
+                throw new ArgumentOutOfRangeException("value", CharacterExceptionMessages.CharacteristicValueOutOfRangeMessage);
             }
         }
 
@@ -251,23 +298,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
             }
             return result;
         }
-
-        /*object ICloneable.Clone ()
-        {
-            Character c = new Character ();
-
-            c.Name = Name;
-            c._characteristics = (int[])_characteristics.Clone ();
-            c._modifiers = (int[])_modifiers.Clone ();
-            c._armorPieces = new List<Armor> ();
-            foreach (Armor piece in _armorPieces)
-            {
-                Armor newPiece = piece;
-                c._armorPieces
-            }
-
-            return c;
-        }*/
 
         public List<Weapon> Weapons
         {

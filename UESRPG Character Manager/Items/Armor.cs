@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager.Items
 {
-    public class Armor : Item, IComparable
+    public class Armor : Item, IComparable, ICloneable
     {
         public double AR { get; set; }
         public string[] Qualities { get; set; }
@@ -47,6 +47,21 @@ namespace UESRPG_Character_Manager.Items
         public int CompareTo (object obj)
         {
             return ((IComparable)Location).CompareTo (((Armor)obj).Location);
+        }
+
+        public object Clone()
+        {
+            Armor newArmor = new Armor();
+
+            newArmor.Name = Name;
+            newArmor.Price = Price;
+            newArmor.Encumbrance = Encumbrance;
+            newArmor.Description = Description;
+            newArmor.AR = AR;
+            newArmor.Qualities = (string[])Qualities.Clone();
+            newArmor.Location = Location;
+
+            return newArmor;
         }
     }
 }

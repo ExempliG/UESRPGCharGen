@@ -22,5 +22,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public const int NUMBER_OF_CHARACTERISTICS = 8;
         public static string[] s_characteristicNames = { "Strength", "Endurance", "Agility", "Intelligence",
                                                        "Willpower", "Perception", "Personality", "Luck"};
+        public const int MAX = 100;
+        public const int MIN = 0;
     }
 }
