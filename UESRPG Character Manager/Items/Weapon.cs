@@ -144,7 +144,37 @@ namespace UESRPG_Character_Manager.Items
             return Name;
         }
 
-        public object Clone()
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(Weapon))
+            {
+                return false;
+            }
+
+            Weapon w = (Weapon)obj;
+
+            return
+            (
+                w.DamageMod == this.DamageMod &&
+                w.NumberOfDice == this.NumberOfDice &&
+                w.DiceSides == this.DiceSides &&
+                w.Penetration == this.Penetration &&
+                w.EnchantmentLevel == this.EnchantmentLevel &&
+                w._encumbrance == this.Encumbrance &&
+                w._description == this.Description &&
+                w._name == this.Name &&
+                w._price == this.Price &&
+                w.Quality == this.Quality &&
+                w.Handedness == this.Handedness &&
+                w.EquipSlots == this.EquipSlots &&
+                w.Material == this.Material &&
+                w.Reach == this.Reach &&
+                w.Size == this.Size &&
+                w.Type == this.Type
+            );
+        }
+
+        new public object Clone()
         {
             Weapon w = new Weapon(this.WeaponId);
 

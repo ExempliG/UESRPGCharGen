@@ -49,7 +49,7 @@ namespace UESRPG_Character_Manager.Items
             return ((IComparable)Location).CompareTo (((Armor)obj).Location);
         }
 
-        public object Clone()
+        new public object Clone()
         {
             Armor newArmor = new Armor();
 
@@ -62,6 +62,27 @@ namespace UESRPG_Character_Manager.Items
             newArmor.Location = Location;
 
             return newArmor;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(Armor))
+            {
+                return false;
+            }
+
+            Armor a = (Armor)obj;
+
+            return
+            (
+                a.Name == Name &&
+                a.Price == Price &&
+                a.Encumbrance == Encumbrance &&
+                a.Description == Description &&
+                a.AR == AR &&
+                a.Qualities.SequenceEqual(Qualities) &&
+                a.Location == Location
+            );
         }
     }
 }

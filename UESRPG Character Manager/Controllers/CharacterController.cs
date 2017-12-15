@@ -98,6 +98,8 @@ namespace UESRPG_Character_Manager.Controllers
             newChar.Update();
             _characterList.Add(newChar);
 
+            onCharacterListChanged();
+
             return newChar;
         }
 

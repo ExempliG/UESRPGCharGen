@@ -9,7 +9,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
     /// <summary>
     /// Stores the named Modifier indices.
     /// </summary>
-    static class Modifiers
+    public static class Modifiers
     {
         public const int HEALTH = 0;
         public const int WOUND_THRESHOLD = 1;

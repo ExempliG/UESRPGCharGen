@@ -66,5 +66,29 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
             return s;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(Spell))
+            {
+                return false;
+            }
+
+            Spell s = (Spell)obj;
+
+            return
+            (
+                s.Name == this.Name &&
+                s.Level == this.Level &&
+                s.Cost == this.Cost &&
+                s.Difficulty == this.Difficulty &&
+                s.AssociatedSkill == this.AssociatedSkill &&
+                s.Description == this.Description &&
+                s.DoesDamage == this.DoesDamage &&
+                s.NumberOfDice == this.NumberOfDice &&
+                s.DiceSides == this.DiceSides &&
+                s.Penetration == this.Penetration
+            );
+        }
     }
 }

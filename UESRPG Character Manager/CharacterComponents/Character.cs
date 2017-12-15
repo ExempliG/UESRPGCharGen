@@ -78,7 +78,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _majorVersion = value; }
         }
 
-        object ICloneable.Clone ()
+        public object Clone()
         {
             Character c = new Character ();
 
@@ -118,9 +118,9 @@ namespace UESRPG_Character_Manager.CharacterComponents
             return c;
         }
 
-        /******************
-         * EVENTS
-         * ***************/
+/******************
+ * EVENTS
+ * ***************/
 
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]
@@ -675,6 +675,57 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 }
                 _skills.Insert(0, untrainedSkill);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj.GetType() != typeof(Character))
+            {
+                return false;
+            }
+
+            Character c = (Character)obj;
+
+            bool result = 
+            (
+                c.Name == Name &&
+                c.Notes == Notes &&
+                c._characteristics.SequenceEqual(_characteristics) &&
+                c._modifiers.SequenceEqual(_modifiers)
+            );
+
+            if (result)
+            {
+                result =
+                (
+                    compareLists(c.ArmorPieces, ArmorPieces) &&
+                    compareLists(c.Weapons, Weapons) &&
+                    compareLists(c.Skills, Skills) &&
+                    compareLists(c.Spells, Spells)
+                );
+            }
+
+            return result;
+        }
+
+        private bool compareLists<T>(List<T> a, List<T> b)
+        {
+            if (a.Count == b.Count)
+            {
+                for (int i = 0; i < a.Count; i++)
+                {
+                    if (!a[i].Equals(b[i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager.Items
 {
-    public class Item
+    public class Item : ICloneable
     {
         protected string _name;
         protected string _description;
@@ -58,6 +58,40 @@ namespace UESRPG_Character_Manager.Items
         {
             get { return _equipSlots; }
             set { _equipSlots = value; }
+        }
+
+        public object Clone()
+        {
+            Item i = new Item(_name, _description, _encumbrance, _price);
+
+            i.IsEquippable = _isEquippable;
+            i.EquipSlots = new List<string>();
+            foreach(string slot in EquipSlots)
+            {
+                i.EquipSlots.Add(slot);
+            }
+
+            return i;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if(obj.GetType() != typeof(Item))
+            {
+                return false;
+            }
+
+            Item i = (Item)obj;
+
+            return
+            (
+                i.Name == Name &&
+                i.Description == Description &&
+                i.Encumbrance == Encumbrance &&
+                i.Price == Price &&
+                i.IsEquippable == IsEquippable &&
+                i.EquipSlots.SequenceEqual(EquipSlots)
+            );
         }
     }
 }

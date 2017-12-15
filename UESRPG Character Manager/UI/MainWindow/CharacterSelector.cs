@@ -60,8 +60,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void btAddCharacter_Click(object sender, EventArgs e)
         {
-            Character newChar = CharacterController.Instance.AddCharacter();
-            charactersCb.Items.Add(newChar.Name);
+            CharacterController.Instance.AddCharacter();
         }
 
         private void onCharacterListChanged(object sender, EventArgs e)

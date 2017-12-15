@@ -32,12 +32,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
             // Assign each skill a unique ID. This is used for skill editing purposes.
             SkillId = NextAvailableId;
             NextAvailableId++;
+
+            Characteristics = new int[0];
         }
 
         // A constructor used for duplicating Skill objects in the Clone method
         private Skill(uint skillId)
         {
             SkillId = skillId;
+
+            Characteristics = new int[0];
         }
 
         public override string ToString()
@@ -56,6 +60,25 @@ namespace UESRPG_Character_Manager.CharacterComponents
             s.isDefaultSkill = this.isDefaultSkill;
 
             return s;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(Skill))
+            {
+                return false;
+            }
+
+            Skill s = (Skill)obj;
+
+            return
+            (
+                s.Name == this.Name &&
+                s.Rank == this.Rank &&
+                s.Description == this.Description &&
+                s.Characteristics.SequenceEqual(Characteristics) &&
+                s.isDefaultSkill == this.isDefaultSkill
+            );
         }
     }
 }
