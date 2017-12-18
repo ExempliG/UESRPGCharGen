@@ -12,11 +12,10 @@ using UESRPG_Character_Manager.UI.MainWindow;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
 
-namespace UESRPG_Character_Manager.UI
+namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class AttributesView : UserControl
     {
-        private Character _activeCharacter;
         private bool _attributesMutex;
         private bool _modifierMutex;
 
@@ -33,7 +32,6 @@ namespace UESRPG_Character_Manager.UI
 
         protected void onSelectedCharacterChanged(object sender, EventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
             UpdateView();
         }
 
@@ -48,34 +46,34 @@ namespace UESRPG_Character_Manager.UI
             {
                 _attributesMutex = true;
 
-                maxHealthTb.Text = "" + (_activeCharacter.MaxHealth);
-                woundThresholdTb.Text = "" + (_activeCharacter.WoundThreshold);
-                maxStaminaTb.Text = "" + (_activeCharacter.Stamina);
-                maxMagickaTb.Text = "" + (_activeCharacter.MagickaPool);
-                maxActionPointsTb.Text = "" + (_activeCharacter.MaximumAp);
-                movementRatingTb.Text = "" + (_activeCharacter.MovementRating);
-                carryRatingTb.Text = "" + (_activeCharacter.CarryRating);
-                initiativeRatingTb.Text = "" + (_activeCharacter.InitiativeRating);
-                damageBonusTb.Text = "" + (_activeCharacter.DamageBonus);
-                maxLuckPointsTb.Text = "" + (_activeCharacter.MaximumLuckPoints);
+                maxHealthTb.Text = "" + (CharacterController.Instance.ActiveCharacter.MaxHealth);
+                woundThresholdTb.Text = "" + (CharacterController.Instance.ActiveCharacter.WoundThreshold);
+                maxStaminaTb.Text = "" + (CharacterController.Instance.ActiveCharacter.Stamina);
+                maxMagickaTb.Text = "" + (CharacterController.Instance.ActiveCharacter.MagickaPool);
+                maxActionPointsTb.Text = "" + (CharacterController.Instance.ActiveCharacter.MaximumAp);
+                movementRatingTb.Text = "" + (CharacterController.Instance.ActiveCharacter.MovementRating);
+                carryRatingTb.Text = "" + (CharacterController.Instance.ActiveCharacter.CarryRating);
+                initiativeRatingTb.Text = "" + (CharacterController.Instance.ActiveCharacter.InitiativeRating);
+                damageBonusTb.Text = "" + (CharacterController.Instance.ActiveCharacter.DamageBonus);
+                maxLuckPointsTb.Text = "" + (CharacterController.Instance.ActiveCharacter.MaximumLuckPoints);
 
-                nbModHealth.Value = _activeCharacter.HealthMod;
-                nbModWoundThreshold.Value = _activeCharacter.WoundThresholdMod;
-                nbModStamina.Value = _activeCharacter.StaminaMod;
-                nbModMagicka.Value = _activeCharacter.MagickaMod;
-                nbModActionPoints.Value = _activeCharacter.ActionPointsMod;
-                nbModMovementRating.Value = _activeCharacter.MovementRatingMod;
-                nbModCarryRating.Value = _activeCharacter.CarryRatingMod;
-                nbModInitiativeRating.Value = _activeCharacter.InitiativeRatingMod;
-                nbModDamageBonus.Value = _activeCharacter.DamageBonusMod;
-                nbModLuck.Value = _activeCharacter.LuckPointsMod;
+                nbModHealth.Value = CharacterController.Instance.ActiveCharacter.HealthMod;
+                nbModWoundThreshold.Value = CharacterController.Instance.ActiveCharacter.WoundThresholdMod;
+                nbModStamina.Value = CharacterController.Instance.ActiveCharacter.StaminaMod;
+                nbModMagicka.Value = CharacterController.Instance.ActiveCharacter.MagickaMod;
+                nbModActionPoints.Value = CharacterController.Instance.ActiveCharacter.ActionPointsMod;
+                nbModMovementRating.Value = CharacterController.Instance.ActiveCharacter.MovementRatingMod;
+                nbModCarryRating.Value = CharacterController.Instance.ActiveCharacter.CarryRatingMod;
+                nbModInitiativeRating.Value = CharacterController.Instance.ActiveCharacter.InitiativeRatingMod;
+                nbModDamageBonus.Value = CharacterController.Instance.ActiveCharacter.DamageBonusMod;
+                nbModLuck.Value = CharacterController.Instance.ActiveCharacter.LuckPointsMod;
 
 
-                healthTb.Text = "" + (_activeCharacter.CurrentHealth);
-                staminaTb.Text = "" + (_activeCharacter.CurrentStamina);
-                magickaTb.Text = "" + (_activeCharacter.CurrentMagicka);
-                actionPointsTb.Text = "" + (_activeCharacter.CurrentAp);
-                luckPointsTb.Text = "" + (_activeCharacter.CurrentLuckPoints);
+                healthTb.Text = "" + (CharacterController.Instance.ActiveCharacter.CurrentHealth);
+                staminaTb.Text = "" + (CharacterController.Instance.ActiveCharacter.CurrentStamina);
+                magickaTb.Text = "" + (CharacterController.Instance.ActiveCharacter.CurrentMagicka);
+                actionPointsTb.Text = "" + (CharacterController.Instance.ActiveCharacter.CurrentAp);
+                luckPointsTb.Text = "" + (CharacterController.Instance.ActiveCharacter.CurrentLuckPoints);
                 
                 _attributesMutex = false;
             }

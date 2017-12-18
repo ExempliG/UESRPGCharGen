@@ -33,7 +33,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
             this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
-            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
+            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.AttributesView();
             this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
             this.nameTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -375,7 +375,7 @@
         private System.Windows.Forms.RichTextBox characterNotesRtb;
         private UI.CharacterViews.CharacteristicsView charaView_statsPage;
         private UI.MainWindow.CharacterSelector characterSelector;
-        private AttributesView attributesView_statsPage;
+        private UI.CharacterViews.AttributesView attributesView_statsPage;
         private CharacterViews.SkillListView skillListView_statsPage;
         private CharacterViews.SpellListView spellListView_statsPage;
         private CharacterViews.WeaponsView weaponsView_equipPage;

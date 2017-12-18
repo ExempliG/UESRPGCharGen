@@ -22,5 +22,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public const int DAMAGE_BONUS = 8;
         public const int LUCK_POINTS = 9;
         public const int NUMBER_OF_MODIFIERS = 10;
+        public const int MIN = -99;
+        public const int MAX = 99;
     }
 }

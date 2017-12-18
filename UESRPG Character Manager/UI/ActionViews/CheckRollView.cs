@@ -160,7 +160,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 {
                     difference = (characteristic - result);
 
-                    int successes = _activeCharacter.GetBonus(difference);
+                    int successes = difference.GetBonus();
 
                     rollBreakdownTb.Text += String.Format("{0}", difference);
                     rollSuccessesTb.Text = "" + successes;
@@ -179,12 +179,12 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         private void updateCriticalLabel(int rollResult)
         {
             int luck = _activeCharacter.Luck;
-            if (rollResult <= _activeCharacter.GetBonus(luck))
+            if (rollResult <= luck.GetBonus())
             {
                 successOrFailLb.Text = "Critical success!";
                 successOrFailLb.Visible = true;
             }
-            else if (rollResult >= (95 + _activeCharacter.GetBonus(luck)))
+            else if (rollResult >= (95 + luck.GetBonus()))
             {
                 successOrFailLb.Text = "Critical failure!";
                 successOrFailLb.Visible = true;

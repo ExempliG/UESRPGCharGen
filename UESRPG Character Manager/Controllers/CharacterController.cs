@@ -20,6 +20,10 @@ namespace UESRPG_Character_Manager.Controllers
     public class CharacterController
     {
         #region Event definitions
+        public delegate void SelectedCharacterChangingHandler(object sender, EventArgs e);
+        [Description("Fires when the selected character is about to change.")]
+        public event SelectedCharacterChangingHandler SelectedCharacterChanging;
+
         public delegate void SelectedCharacterChangedHandler(object sender, EventArgs e);
         [Description("Fires when the selected character changes.")]
         public event SelectedCharacterChangedHandler SelectedCharacterChanged;
@@ -27,6 +31,21 @@ namespace UESRPG_Character_Manager.Controllers
         public delegate void CharacterListChangedHandler(object sender, EventArgs e);
         [Description("Fires when the list of characters is changed, either by adding characters or loading a new file.")]
         public event CharacterListChangedHandler CharacterListChanged;
+
+        protected void onSelectedCharacterChanging()
+        {
+            SelectedCharacterChanging?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onSelectedCharacterChanged()
+        {
+            SelectedCharacterChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onCharacterListChanged()
+        {
+            CharacterListChanged?.Invoke(this, new System.EventArgs());
+        }
         #endregion
 
         private static CharacterController _instance;
@@ -69,6 +88,7 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void Reset()
         {
+            onSelectedCharacterChanging();
             Skill.NextAvailableId = 0;
             Spell.NextAvailableId = 0;
             Weapon.NextAvailableId = 0;
@@ -76,6 +96,9 @@ namespace UESRPG_Character_Manager.Controllers
             _activeCharacter = new Character();
             _activeCharacter.Update();
             _characterList.Add(_activeCharacter);
+
+            onCharacterListChanged();
+            onSelectedCharacterChanged();
         }
 
         public bool SelectCharacter(uint index)
@@ -84,6 +107,7 @@ namespace UESRPG_Character_Manager.Controllers
 
             if (index < _characterList.Count)
             {
+                onSelectedCharacterChanging();
                 _activeCharacter = _characterList[(int)index];
                 result = true;
                 onSelectedCharacterChanged();
@@ -191,6 +215,7 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void ForceUpdate()
         {
+            onSelectedCharacterChanging();
             onSelectedCharacterChanged();
         }
 
@@ -254,6 +279,7 @@ namespace UESRPG_Character_Manager.Controllers
                 uint skillIdPlaceholder = Skill.NextAvailableId;
                 uint spellIdPlaceholder = Spell.NextAvailableId;
                 uint weaponIdPlaceholder = Weapon.NextAvailableId;
+                onSelectedCharacterChanging();
                 try
                 {
                     // Reset the ID indices, since the previous character list is discarded.
@@ -308,15 +334,7 @@ namespace UESRPG_Character_Manager.Controllers
         }
 
         #region Event callers
-        protected void onSelectedCharacterChanged()
-        {
-            SelectedCharacterChanged?.Invoke(this, new System.EventArgs());
-        }
 
-        protected void onCharacterListChanged()
-        {
-            CharacterListChanged?.Invoke(this, new System.EventArgs());
-        }
         #endregion
     }
 }

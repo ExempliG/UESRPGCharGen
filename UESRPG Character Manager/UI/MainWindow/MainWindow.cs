@@ -20,7 +20,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
     public partial class MainWindow : Form
     {
         private string _currentFile = "";
-        private Character _activeCharacter;
         private bool _changingCharacter = false;
 
         private const string FILE_TYPE_STRING = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
@@ -31,6 +30,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             // Subscribe Character views to the character change event
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.SelectedCharacterChanging += onSelectedCharacterChanging;
+            updateNotesRtb();
             CharacterController.Instance.ForceUpdate();
 
             spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
@@ -42,22 +43,27 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             saveMi.Enabled = false;
         }
 
+        private void onSelectedCharacterChanging(object sender, EventArgs e)
+        {
+            CharacterController.Instance.ActiveCharacter.Notes = characterNotesRtb.Text;
+        }
+
         private void onSelectedCharacterChanged(object sender, EventArgs e)
         {
             _changingCharacter = true;
-            if (_activeCharacter != null)
-            {
-                _activeCharacter.Notes = characterNotesRtb.Text;
-            }
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
-            nameTb.Text = _activeCharacter.Name;
-            characterNotesRtb.Text = _activeCharacter.Notes;
+            nameTb.Text = CharacterController.Instance.ActiveCharacter.Name;
+            updateNotesRtb();
             _changingCharacter = false;
         }
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
         {
-            _activeCharacter.Notes = characterNotesRtb.Text;
+            CharacterController.Instance.ActiveCharacter.Notes = characterNotesRtb.Text;
+        }
+
+        private void updateNotesRtb()
+        {
+            characterNotesRtb.Text = CharacterController.Instance.ActiveCharacter.Notes;
         }
 
         private void nameTb_TextChanged (object sender, EventArgs e)
@@ -79,7 +85,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveMi_Click (object sender, EventArgs e)
         {
-            _activeCharacter.Notes = characterNotesRtb.Text;
+            CharacterController.Instance.ActiveCharacter.Notes = characterNotesRtb.Text;
 
             if (!string.IsNullOrEmpty(_currentFile))
             {
@@ -95,7 +101,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveAsMi_Click (object sender, EventArgs e)
         {
-            _activeCharacter.Notes = characterNotesRtb.Text;
+            CharacterController.Instance.ActiveCharacter.Notes = characterNotesRtb.Text;
 
             SaveFileDialog sfd = new SaveFileDialog()
             {
@@ -140,8 +146,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 {
                     _currentFile = ofd.FileName;
                     saveMi.Enabled = true;
-                    nameTb.Text = _activeCharacter.Name;
-                    characterNotesRtb.Text = _activeCharacter.Notes;
+                    nameTb.Text = CharacterController.Instance.ActiveCharacter.Name;
+                    updateNotesRtb();
                 }
                 else
                 {

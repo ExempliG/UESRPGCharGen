@@ -1,4 +1,4 @@
-﻿namespace UESRPG_Character_Manager.UI
+﻿namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     partial class AttributesView
     {
@@ -138,6 +138,16 @@
             // nbModLuck
             // 
             this.nbModLuck.Location = new System.Drawing.Point(281, 280);
+            this.nbModLuck.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModLuck.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModLuck.Name = "nbModLuck";
             this.nbModLuck.Size = new System.Drawing.Size(46, 20);
             this.nbModLuck.TabIndex = 41;
@@ -146,6 +156,16 @@
             // nbModDamageBonus
             // 
             this.nbModDamageBonus.Location = new System.Drawing.Point(281, 254);
+            this.nbModDamageBonus.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModDamageBonus.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModDamageBonus.Name = "nbModDamageBonus";
             this.nbModDamageBonus.Size = new System.Drawing.Size(46, 20);
             this.nbModDamageBonus.TabIndex = 40;
@@ -154,6 +174,16 @@
             // nbModInitiativeRating
             // 
             this.nbModInitiativeRating.Location = new System.Drawing.Point(281, 228);
+            this.nbModInitiativeRating.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModInitiativeRating.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModInitiativeRating.Name = "nbModInitiativeRating";
             this.nbModInitiativeRating.Size = new System.Drawing.Size(46, 20);
             this.nbModInitiativeRating.TabIndex = 39;
@@ -162,6 +192,16 @@
             // nbModCarryRating
             // 
             this.nbModCarryRating.Location = new System.Drawing.Point(281, 202);
+            this.nbModCarryRating.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModCarryRating.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModCarryRating.Name = "nbModCarryRating";
             this.nbModCarryRating.Size = new System.Drawing.Size(46, 20);
             this.nbModCarryRating.TabIndex = 38;
@@ -170,6 +210,16 @@
             // nbModMovementRating
             // 
             this.nbModMovementRating.Location = new System.Drawing.Point(281, 176);
+            this.nbModMovementRating.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModMovementRating.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModMovementRating.Name = "nbModMovementRating";
             this.nbModMovementRating.Size = new System.Drawing.Size(46, 20);
             this.nbModMovementRating.TabIndex = 37;
@@ -178,6 +228,16 @@
             // nbModActionPoints
             // 
             this.nbModActionPoints.Location = new System.Drawing.Point(281, 150);
+            this.nbModActionPoints.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModActionPoints.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModActionPoints.Name = "nbModActionPoints";
             this.nbModActionPoints.Size = new System.Drawing.Size(46, 20);
             this.nbModActionPoints.TabIndex = 36;
@@ -186,6 +246,16 @@
             // nbModMagicka
             // 
             this.nbModMagicka.Location = new System.Drawing.Point(281, 124);
+            this.nbModMagicka.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModMagicka.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModMagicka.Name = "nbModMagicka";
             this.nbModMagicka.Size = new System.Drawing.Size(46, 20);
             this.nbModMagicka.TabIndex = 35;
@@ -194,6 +264,16 @@
             // nbModStamina
             // 
             this.nbModStamina.Location = new System.Drawing.Point(281, 98);
+            this.nbModStamina.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModStamina.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModStamina.Name = "nbModStamina";
             this.nbModStamina.Size = new System.Drawing.Size(46, 20);
             this.nbModStamina.TabIndex = 34;
@@ -202,6 +282,16 @@
             // nbModWoundThreshold
             // 
             this.nbModWoundThreshold.Location = new System.Drawing.Point(281, 71);
+            this.nbModWoundThreshold.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModWoundThreshold.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModWoundThreshold.Name = "nbModWoundThreshold";
             this.nbModWoundThreshold.Size = new System.Drawing.Size(46, 20);
             this.nbModWoundThreshold.TabIndex = 33;
@@ -219,6 +309,16 @@
             // nbModHealth
             // 
             this.nbModHealth.Location = new System.Drawing.Point(281, 44);
+            this.nbModHealth.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.nbModHealth.Minimum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            -2147483648});
             this.nbModHealth.Name = "nbModHealth";
             this.nbModHealth.Size = new System.Drawing.Size(46, 20);
             this.nbModHealth.TabIndex = 7;

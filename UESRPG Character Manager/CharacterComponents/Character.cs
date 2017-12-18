@@ -12,6 +12,14 @@ using UESRPG_Character_Manager.Items;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
+    public static class CharacterUtils
+    {
+        public static int GetBonus(this int value)
+        {
+            return value / 10;
+        }
+    }
+
     //[XmlRoot("Character", IsNullable = false)]
     public class Character : ICloneable
     {
@@ -37,11 +45,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
             _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
-        }
-
-        public int GetBonus (int characteristic)
-        {
-            return characteristic / 10;
         }
 
         [XmlAttribute()]
@@ -430,9 +433,32 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             if(modifierIndex >= 0 && modifierIndex < Modifiers.NUMBER_OF_MODIFIERS)
             {
-                _modifiers[modifierIndex] = value;
-                // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
-                onAttributeChanged();
+                if (value >= Modifiers.MIN && value <= Modifiers.MAX)
+                {
+                    _modifiers[modifierIndex] = value;
+                    // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
+                    onAttributeChanged();
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("value", CharacterExceptionMessages.ModifierValueOutOfRangeMessage);
+                }
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("modifierIndex", CharacterExceptionMessages.SetUnsupportedModifierMessage);
+            }
+        }
+
+        public int GetModifier(int modifierIndex)
+        {
+            if (modifierIndex >= 0 && modifierIndex < Modifiers.NUMBER_OF_MODIFIERS)
+            {
+                return _modifiers[modifierIndex];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("modifierIndex", CharacterExceptionMessages.GetUnsupportedModifierMessage);
             }
         }
 
@@ -500,7 +526,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return (GetBonus (Endurance) + GetBonus (Strength)) + WoundThresholdMod;
+                return (Endurance.GetBonus() + Strength.GetBonus()) + WoundThresholdMod;
             }
         }
 
@@ -519,9 +545,8 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                float halfWillpowerBonus = (float)GetBonus (Willpower) / 2;
-                halfWillpowerBonus += 0.5f; // round up
-                return (GetBonus (Endurance) + (int)halfWillpowerBonus) + StaminaMod;
+                int staminaValue = Math.Max(Endurance.GetBonus() - 1, 2);
+                return staminaValue + StaminaMod;
             }
         }
 
@@ -548,7 +573,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return GetBonus (Agility) + MovementRatingMod;
+                return Agility.GetBonus() + MovementRatingMod;
             }
         }
 
@@ -556,7 +581,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return ((2 * GetBonus (Strength)) + GetBonus (Endurance)) + CarryRatingMod;
+                return ((2 * Strength.GetBonus()) + Endurance.GetBonus()) + CarryRatingMod;
             }
         }
 
@@ -564,7 +589,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return (GetBonus (Agility) + GetBonus (Perception)) + InitiativeRatingMod;
+                return (Agility.GetBonus() + Perception.GetBonus()) + InitiativeRatingMod;
             }
         }
 
@@ -583,31 +608,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                int value = GetBonus (Agility) + GetBonus (Intelligence) + GetBonus (Perception);
-                int ap = 0;
-                if (value <= 6)
+                int apScore = Agility.GetBonus() + Intelligence.GetBonus() + Perception.GetBonus();
+                int calculatedAp = 1;
+                if (apScore >= 7 && apScore <= 14)
                 {
-                    ap = 1;
+                    calculatedAp = 2;
                 }
-                else if (value >= 7 && value <= 10)
+                else if (apScore >= 15)
                 {
-                    ap = 2;
-                }
-                else if (value >= 11 && value <= 14)
-                {
-                    ap = 3;
-                }
-                else if (value >= 15 && value <= 18)
-                {
-
-                    ap = 4;
-                }
-                else // 19+
-                {
-                    ap = 5;
+                    calculatedAp = 3;
                 }
 
-                return ap + ActionPointsMod;
+                return calculatedAp + ActionPointsMod;
             }
         }
 
@@ -615,7 +627,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return GetBonus (Strength) + DamageBonusMod;
+                return Strength.GetBonus() + DamageBonusMod;
             }
         }
 
@@ -634,7 +646,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return GetBonus (Luck) + LuckPointsMod;
+                return Luck.GetBonus() + LuckPointsMod;
             }
         }
 

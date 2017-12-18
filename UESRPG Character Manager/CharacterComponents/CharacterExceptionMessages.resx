@@ -123,7 +123,16 @@
   <data name="GetUnsupportedCharacteristicMessage" xml:space="preserve">
     <value>Attempted to retrieve an unsupported Characteristic.</value>
   </data>
+  <data name="GetUnsupportedModifierMessage" xml:space="preserve">
+    <value>Attempted to retrieve an unsupported Modifier.</value>
+  </data>
+  <data name="ModifierValueOutOfRangeMessage" xml:space="preserve">
+    <value>Attempted to set a Modifier to an out of range value.</value>
+  </data>
   <data name="SetUnsupportedCharacteristicMessage" xml:space="preserve">
     <value>Attempted to modify an unsupported Characteristic.</value>
+  </data>
+  <data name="SetUnsupportedModifierMessage" xml:space="preserve">
+    <value>Attempted to modify an unsupported Modifier.</value>
   </data>
 </root>

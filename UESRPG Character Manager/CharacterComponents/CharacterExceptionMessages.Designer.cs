@@ -79,11 +79,38 @@ namespace UESRPG_Character_Manager.CharacterComponents {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attempted to retrieve an unsupported Modifier..
+        /// </summary>
+        public static string GetUnsupportedModifierMessage {
+            get {
+                return ResourceManager.GetString("GetUnsupportedModifierMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempted to set a Modifier to an out of range value..
+        /// </summary>
+        public static string ModifierValueOutOfRangeMessage {
+            get {
+                return ResourceManager.GetString("ModifierValueOutOfRangeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attempted to modify an unsupported Characteristic..
         /// </summary>
         public static string SetUnsupportedCharacteristicMessage {
             get {
                 return ResourceManager.GetString("SetUnsupportedCharacteristicMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempted to modify an unsupported Modifier..
+        /// </summary>
+        public static string SetUnsupportedModifierMessage {
+            get {
+                return ResourceManager.GetString("SetUnsupportedModifierMessage", resourceCulture);
             }
         }
     }
