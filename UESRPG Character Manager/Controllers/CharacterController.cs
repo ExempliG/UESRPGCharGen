@@ -241,12 +241,14 @@ namespace UESRPG_Character_Manager.Controllers
                 uint skillIdPlaceholder = Skill.NextAvailableId;
                 uint spellIdPlaceholder = Spell.NextAvailableId;
                 uint weaponIdPlaceholder = Weapon.NextAvailableId;
+                uint characterIdPlaceholder = Character.NextAvailableId;
                 try
                 {
                     // Reset the ID indices, since the previous character list is discarded.
                     Skill.NextAvailableId = 0;
                     Spell.NextAvailableId = 0;
                     Weapon.NextAvailableId = 0;
+                    Character.NextAvailableId = 0;
                     List<Character> loadedList = (List<Character>)xml.Deserialize(fs);
 
                     _currentFile = fileName;

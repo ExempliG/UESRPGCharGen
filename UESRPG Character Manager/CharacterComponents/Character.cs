@@ -29,6 +29,10 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         private string _name = "Player";
 
+        public static uint NextAvailableId { get; set; }
+        [XmlIgnore(), Browsable(false)]
+        public uint CharacterId { get; private set; }
+
         public Character ()
         {
             _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
@@ -37,6 +41,15 @@ namespace UESRPG_Character_Manager.CharacterComponents
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
             _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
+
+            // Assign each character a unique ID. This is used to refer to Characters directly.
+            CharacterId = NextAvailableId;
+            NextAvailableId++;
+        }
+
+        private Character (uint characterId) : base()
+        {
+            CharacterId = characterId;
         }
 
         public int GetBonus (int characteristic)
@@ -78,9 +91,9 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _majorVersion = value; }
         }
 
-        object ICloneable.Clone ()
+        public object Clone ()
         {
-            Character c = new Character ();
+            Character c = new Character (this.CharacterId);
 
             c.Name = Name;
             c.Notes = Notes;
@@ -115,6 +128,14 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 c._spells.Add(newSpell);
             }
 
+            return c;
+        }
+
+        public Character CopyChar()
+        {
+            Character c = (Character)Clone();
+            c.CharacterId = NextAvailableId;
+            NextAvailableId++;
             return c;
         }
 
