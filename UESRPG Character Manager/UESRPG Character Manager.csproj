@@ -46,19 +46,153 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Character.cs" />
-    <Compile Include="Characteristics.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="CharacterComponents\CharacterExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CharacterExceptionMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterComponents\Skill.cs" />
+    <Compile Include="CharacterComponents\Spell.cs" />
+    <Compile Include="Controllers\CharacterController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Items\ArmorConstants.cs" />
+    <Compile Include="CharacterComponents\Character.cs" />
+    <Compile Include="CharacterComponents\Characteristics.cs" />
+    <Compile Include="Items\Armor.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="UI\ActionViews\CheckRollView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\CheckRollView.Designer.cs">
+      <DependentUpon>CheckRollView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ActionViews\ReceivedDamageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\ReceivedDamageView.Designer.cs">
+      <DependentUpon>ReceivedDamageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ActionViews\SpellDamageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\SpellDamageView.Designer.cs">
+      <DependentUpon>SpellDamageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ActionViews\WeaponDamageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActionViews\WeaponDamageView.Designer.cs">
+      <DependentUpon>WeaponDamageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\ArmorView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\ArmorView.Designer.cs">
+      <DependentUpon>ArmorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\AttributesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\AttributesView.Designer.cs">
+      <DependentUpon>AttributesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\CharacteristicsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\CharacteristicsView.Designer.cs">
+      <DependentUpon>CharacteristicsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\SkillListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\SkillListView.Designer.cs">
+      <DependentUpon>SkillListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\SpellListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\SpellListView.Designer.cs">
+      <DependentUpon>SpellListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterViews\WeaponsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\WeaponsView.Designer.cs">
+      <DependentUpon>WeaponsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EditSkill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\EditSkill.Designer.cs">
+      <DependentUpon>EditSkill.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modifiers.cs" />
+    <Compile Include="UI\EditSpell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\EditSpell.Designer.cs">
+      <DependentUpon>EditSpell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterComponents\Modifiers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Items\Weapon.cs" />
+    <Compile Include="UI\EditWeapon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\EditWeapon.Designer.cs">
+      <DependentUpon>EditWeapon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainWindow\CharacterSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MainWindow\CharacterSelector.Designer.cs">
+      <DependentUpon>CharacterSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainWindow\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainWindow\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CharacterComponents\CharacterExceptionMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CharacterExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
+      <DependentUpon>CheckRollView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\ReceivedDamageView.resx">
+      <DependentUpon>ReceivedDamageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\SpellDamageView.resx">
+      <DependentUpon>SpellDamageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ActionViews\WeaponDamageView.resx">
+      <DependentUpon>WeaponDamageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\ArmorView.resx">
+      <DependentUpon>ArmorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\AttributesView.resx">
+      <DependentUpon>AttributesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\CharacteristicsView.resx">
+      <DependentUpon>CharacteristicsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\SkillListView.resx">
+      <DependentUpon>SkillListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\SpellListView.resx">
+      <DependentUpon>SpellListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\WeaponsView.resx">
+      <DependentUpon>WeaponsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EditSkill.resx">
+      <DependentUpon>EditSkill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EditSpell.resx">
+      <DependentUpon>EditSpell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -69,6 +203,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\EditWeapon.resx">
+      <DependentUpon>EditWeapon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainWindow\CharacterSelector.resx">
+      <DependentUpon>CharacterSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainWindow\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\Character.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -82,6 +226,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

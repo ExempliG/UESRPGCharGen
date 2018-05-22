@@ -8,6 +8,11 @@ namespace UESRPG_Character_Manager
 {
     static class Program
     {
+        /// <todo>Find a better place for this</todo>
+        public const int CURRENT_ENG_VERSION = 1;
+        public const int CURRENT_MINOR_VERSION = 0;
+        public const int CURRENT_MAJOR_VERSION = 0;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +21,7 @@ namespace UESRPG_Character_Manager
         {
             Application.EnableVisualStyles ();
             Application.SetCompatibleTextRenderingDefault (false);
-            Application.Run (new Form1 ());
+            Application.Run (new UI.MainWindow.MainWindow ());
         }
     }
 }

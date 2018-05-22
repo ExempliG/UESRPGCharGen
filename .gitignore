@@ -1,3 +1,7 @@
 UESRPG Character Manager/bin/
 UESRPG Character Manager/obj/
+*/bin/
+*/obj/
+packages/
 **.suo
+.vs/
