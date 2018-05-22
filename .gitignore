@@ -3,3 +3,4 @@
 packages/
 **.suo
 .axoCover/
+.vs/*
