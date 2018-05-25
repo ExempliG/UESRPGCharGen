@@ -4,14 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UESRPG_Character_Manager
+namespace UESRPG_Character_Manager.CharacterComponents
 {
     public class Race
     {
-        public enum RaceName
+        public enum RaceId
         {
+            ALTMER,
+            ARGONIAN,
+            BOSMER,
+            BRETON,
+            DUNMER,
             IMPERIAL,
-            ORC,
+            KHAJIIT,
+            NORD,
+            ORSIMER,
+            REDGUARD,
             MAX
         }
 
@@ -34,41 +42,52 @@ namespace UESRPG_Character_Manager
         {
             if (!_racesInitialized)
             {
-                _raceList = new Race[(int)RaceName.MAX];
+                _raceList = new Race[(int)RaceId.MAX];
+
             }
         }
 
+        private int[] _characteristics;
+
+        public Race()
+        {
+            _characteristics = new int[Characteristics.MAX];
+        }
+
+        /******************
+         * CHARACTERISTICS
+         *****************/
         public int Strength
         {
-            get; set;
+            get { return _characteristics[Characteristics.STRENGTH]; }
         }
         public int Endurance
         {
-            get; set;
+            get { return _characteristics[Characteristics.ENDURANCE]; }
         }
         public int Agility
         {
-            get; set;
+            get { return _characteristics[Characteristics.AGILITY]; }
         }
         public int Intelligence
         {
-            get; set;
+            get { return _characteristics[Characteristics.INTELLIGENCE]; }
         }
         public int Willpower
         {
-            get; set;
+            get { return _characteristics[Characteristics.WILLPOWER]; }
         }
         public int Perception
         {
-            get; set;
+            get { return _characteristics[Characteristics.PERCEPTION]; }
         }
         public int Personality
         {
-            get; set;
+            get { return _characteristics[Characteristics.PERSONALITY]; }
         }
         public int Luck
         {
-            get; set;
+            get { return _characteristics[Characteristics.LUCK]; }
         }
     }
 }
