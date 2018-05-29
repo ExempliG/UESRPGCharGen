@@ -120,6 +120,9 @@
   <data name="CharacteristicValueOutOfRangeMessage" xml:space="preserve">
     <value>Attempted to set a Characteristic to an out of range value.</value>
   </data>
+  <data name="GetRacialTalentOutOfRangeMessage" xml:space="preserve">
+    <value>Attempted to retrieve a non-existent Racial Talent.</value>
+  </data>
   <data name="SetUnsupportedCharacteristicMessage" xml:space="preserve">
     <value>Attempted to modify an unsupported Characteristic.</value>
   </data>

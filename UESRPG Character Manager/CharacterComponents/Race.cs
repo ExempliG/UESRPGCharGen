@@ -10,6 +10,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
     {
         public enum RaceId
         {
+            NA,
             ALTMER,
             ARGONIAN,
             BOSMER,
@@ -20,38 +21,15 @@ namespace UESRPG_Character_Manager.CharacterComponents
             NORD,
             ORSIMER,
             REDGUARD,
-            MAX
-        }
-
-        private static Race[] _raceList;
-        private static bool _racesInitialized = false;
-
-        public static Race[] RaceList
-        {
-            get
-            {
-                if (!_racesInitialized)
-                {
-                    InitRaces ();
-                }
-                return _raceList;
-            }
-        }
-
-        public static void InitRaces ()
-        {
-            if (!_racesInitialized)
-            {
-                _raceList = new Race[(int)RaceId.MAX];
-
-            }
+            NUMBER_OF_RACES
         }
 
         private int[] _characteristics;
+        private string[] _talents;
 
         public Race()
         {
-            _characteristics = new int[Characteristics.MAX];
+            _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
         }
 
         /******************
@@ -88,6 +66,23 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int Luck
         {
             get { return _characteristics[Characteristics.LUCK]; }
+        }
+
+        public string GetTalent(int index)
+        {
+            if ( index < 0 || index > _talents.Length )
+            {
+                throw new IndexOutOfRangeException( CharacterExceptionMessages.GetRacialTalentOutOfRangeMessage );
+            }
+            else
+            {
+                return _talents[index];
+            }
+        }
+
+        public int GetTalentsLength()
+        {
+            return _talents.Length;
         }
     }
 }

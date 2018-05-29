@@ -70,6 +70,15 @@ namespace UESRPG_Character_Manager.CharacterComponents {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attempted to retrieve a non-existent Racial Talent..
+        /// </summary>
+        public static string GetRacialTalentOutOfRangeMessage {
+            get {
+                return ResourceManager.GetString("GetRacialTalentOutOfRangeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attempted to modify an unsupported Characteristic..
         /// </summary>
         public static string SetUnsupportedCharacteristicMessage {
