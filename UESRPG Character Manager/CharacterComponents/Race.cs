@@ -26,10 +26,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         private int[] _characteristics;
         private string[] _talents;
+        private List<Spell> _spells;
 
-        public Race()
+        public Race(int[] characteristics, string[] talents, List<Spell> spells )
         {
-            _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
+            if( characteristics.Length != Characteristics.NUMBER_OF_CHARACTERISTICS )
+            {
+                throw new ArgumentOutOfRangeException("you stink");
+            }
+            _characteristics = characteristics;
+
+            _talents = talents;
+            _spells = spells;
         }
 
         /******************
@@ -39,30 +47,37 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get { return _characteristics[Characteristics.STRENGTH]; }
         }
+
         public int Endurance
         {
             get { return _characteristics[Characteristics.ENDURANCE]; }
         }
+
         public int Agility
         {
             get { return _characteristics[Characteristics.AGILITY]; }
         }
+
         public int Intelligence
         {
             get { return _characteristics[Characteristics.INTELLIGENCE]; }
         }
+
         public int Willpower
         {
             get { return _characteristics[Characteristics.WILLPOWER]; }
         }
+
         public int Perception
         {
             get { return _characteristics[Characteristics.PERCEPTION]; }
         }
+
         public int Personality
         {
             get { return _characteristics[Characteristics.PERSONALITY]; }
         }
+
         public int Luck
         {
             get { return _characteristics[Characteristics.LUCK]; }
