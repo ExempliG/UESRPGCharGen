@@ -21,6 +21,12 @@ namespace UESRPG_Character_Manager.CharacterComponents
         private List<Weapon> _weapons;
         private List<Spell> _spells;
         private List<Skill> _skills;
+        private List<Talent> _talents;
+        private List<Trait> _traits;
+        private List<Trait> _aggregateTraits;
+        private List<Power> _powers;
+        private List<Power> _aggregatePowers;
+        private RaceId _race;
         private string _notes;
 
         private int _engVersion = 0;
@@ -32,11 +38,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public Character ()
         {
             _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
+            _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
             _armorPieces = new List<Armor>();
             _weapons = new List<Weapon> ();
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
-            _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
+            _talents = new List<Talent> ();
+            _traits = new List<Trait> ();
+            _aggregateTraits = new List<Trait> ();
+            _powers = new List<Power>();
+            _aggregatePowers = new List<Power>();
         }
 
         public int GetBonus (int characteristic)
@@ -55,6 +66,17 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get { return _notes; }
             set { _notes = value; }
+        }
+
+        public RaceId RaceId
+        {
+            get { return _race; }
+            set { _race = value; }
+        }
+
+        public Race Race
+        {
+            get { return Races.GetRace(RaceId); }
         }
 
         [XmlAttribute ()]
@@ -115,12 +137,19 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 c._spells.Add(newSpell);
             }
 
+            c._talents = new List<Talent>();
+            foreach (Talent t in _talents)
+            {
+                Talent newTalent = (Talent)t.Clone();
+                c._talents.Add(newTalent);
+            }
+
             return c;
         }
 
-        /******************
-         * EVENTS
-         * ***************/
+/******************
+ * EVENTS
+ *****************/
 
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]
@@ -137,6 +166,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public delegate void SpellListChangedHandler(object sender, EventArgs e);
         [Description("Fires when the spell list changes via adding or renaming a spell.")]
         public static event SpellListChangedHandler SpellListChanged;
+
+        public delegate void TalentListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the talent list changes via adding, renaming, or deleting a talent.")]
+        public static event TalentListChangedHandler TalentListChanged;
+
+        public delegate void TraitListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the trait list changes via adding, renaming, or deleting a trait.")]
+        public static event TraitListChangedHandler TraitListChanged;
+
+        public delegate void PowerListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the power list changes via adding, renaming, or deleting a power.")]
+        public static event PowerListChangedHandler PowerListChanged;
 
         public delegate void WeaponsChangedHandler(object sender, EventArgs e);
         [Description("Fires when a Weapon is changed or added by the user.")]
@@ -160,6 +201,21 @@ namespace UESRPG_Character_Manager.CharacterComponents
         protected void onSpellListChanged()
         {
             SpellListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onTalentListChanged()
+        {
+            TalentListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onTraitListChanged()
+        {
+            TraitListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onPowerListChanged()
+        {
+            PowerListChanged?.Invoke(this, new System.EventArgs());
         }
 
         protected void onWeaponsChanged()
@@ -368,6 +424,138 @@ namespace UESRPG_Character_Manager.CharacterComponents
             Spells.Remove(spellToDelete);
 
             onSpellListChanged();
+        }
+
+/**********
+ * TALENTS 
+ *********/
+
+        public List<Talent> Talents
+        {
+            get { return _talents; }
+        }
+
+        public void AddTalent(Talent newTalent)
+        {
+            _talents.Add(newTalent);
+        }
+
+        public void EditTalent(Talent newTalent)
+        {
+            IEnumerable<Talent> talentSearch = from Talent t in _talents
+                                               where t.TalentId == newTalent.TalentId
+                                               select t;
+            if (talentSearch.Count() == 1)
+            {
+                Talent currentTalent = talentSearch.ElementAt(0);
+                int talentIndex = Talents.IndexOf(currentTalent);
+                Talents[talentIndex] = newTalent;
+
+                onTalentListChanged();
+            }
+        }
+
+        public void DeleteTalent(Talent talentToDelete)
+        {
+            _talents.Remove(talentToDelete);
+
+            onTalentListChanged();
+        }
+
+/*********
+ * TRAITS
+ ********/
+
+        public List<Trait> Traits
+        {
+            get { return _traits; }
+        }
+
+        [XmlIgnore()]
+        public List<Trait> AggregateTraits
+        {
+            get
+            {
+                _aggregateTraits = new List<Trait>();
+                _aggregateTraits.AddRange(Race.Traits);
+                _aggregateTraits.AddRange(_traits);
+                return _aggregateTraits;
+            }
+        }
+
+        public void AddTrait(Trait newTrait)
+        {
+            _traits.Add(newTrait);
+        }
+
+        public void EditTrait(Trait newTrait)
+        {
+            IEnumerable<Trait> traitSearch = from Trait t in _traits
+                                             where t.TraitId == newTrait.TraitId
+                                             select t;
+            if (traitSearch.Count() == 1)
+            {
+                Trait currentTrait = traitSearch.ElementAt(0);
+                int traitIndex = Traits.IndexOf(currentTrait);
+                Traits[traitIndex] = newTrait;
+
+                onTraitListChanged();
+            }
+        }
+
+        public void DeleteTrait(Trait traitToDelete)
+        {
+            _traits.Remove(traitToDelete);
+
+            onTraitListChanged();
+        }
+
+/*********
+ * TRAITS
+ ********/
+
+        public List<Power> Powers
+        {
+            get { return _powers; }
+        }
+
+        [XmlIgnore()]
+        public List<Power> AggregatePowers
+        {
+            get
+            {
+                _aggregatePowers = new List<Power>();
+                _aggregatePowers.AddRange(Race.Powers);
+                _aggregatePowers.AddRange(_powers);
+                return _aggregatePowers;
+            }
+        }
+
+        public void AddPower(Power newPower)
+        {
+            _powers.Add(newPower);
+        }
+
+        public void EditPower(Power newPower)
+        {
+            IEnumerable<Power> powerSearch = from Power p in _powers
+                                             where p.PowerId == newPower.PowerId
+                                             select p;
+            if (powerSearch.Count() == 1)
+            {
+                Power currentPower = powerSearch.ElementAt(0);
+                int powerIndex = Powers.IndexOf(currentPower);
+                Powers[powerIndex] = newPower;
+
+                onPowerListChanged();
+            }
+        }
+
+        public void DeletePower(Power powerToDelete)
+        {
+            _powers.Remove(powerToDelete);
+
+            onPowerListChanged();
         }
 
 /*********

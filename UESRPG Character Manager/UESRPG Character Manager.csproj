@@ -51,10 +51,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CharacterExceptionMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="CharacterComponents\Power.cs" />
     <Compile Include="CharacterComponents\Race.cs" />
     <Compile Include="CharacterComponents\Races.cs" />
+    <Compile Include="CharacterComponents\PowerDescriptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PowerDescriptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="CharacterComponents\Skill.cs" />
     <Compile Include="CharacterComponents\Spell.cs" />
+    <Compile Include="CharacterComponents\Talent.cs" />
+    <Compile Include="CharacterComponents\Trait.cs" />
+    <Compile Include="CharacterComponents\TraitDescriptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TraitDescriptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Items\ArmorConstants.cs" />
@@ -159,6 +172,14 @@
     <EmbeddedResource Include="CharacterComponents\CharacterExceptionMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CharacterExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CharacterComponents\PowerDescriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PowerDescriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CharacterComponents\TraitDescriptions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TraitDescriptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
       <DependentUpon>CheckRollView.cs</DependentUpon>

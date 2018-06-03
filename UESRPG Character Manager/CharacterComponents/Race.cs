@@ -6,38 +6,38 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
+    public enum RaceId
+    {
+        NA,
+        ALTMER,
+        ARGONIAN,
+        BOSMER,
+        BRETON,
+        DUNMER,
+        IMPERIAL,
+        KHAJIIT,
+        NORD,
+        ORSIMER,
+        REDGUARD,
+        NUMBER_OF_RACES
+    }
+
     public class Race
     {
-        public enum RaceId
-        {
-            NA,
-            ALTMER,
-            ARGONIAN,
-            BOSMER,
-            BRETON,
-            DUNMER,
-            IMPERIAL,
-            KHAJIIT,
-            NORD,
-            ORSIMER,
-            REDGUARD,
-            NUMBER_OF_RACES
-        }
-
         private int[] _characteristics;
-        private string[] _talents;
-        private List<Spell> _spells;
+        private List<Trait> _traits;
+        private List<Power> _powers;
 
-        public Race(int[] characteristics, string[] talents, List<Spell> spells )
+        public Race(int[] characteristics, List<Trait> traits, List<Power> powers)
         {
             if( characteristics.Length != Characteristics.NUMBER_OF_CHARACTERISTICS )
             {
-                throw new ArgumentOutOfRangeException("you stink");
+                throw new ArgumentOutOfRangeException("characteristics.Length", characteristics.Length, "you stink");
             }
             _characteristics = characteristics;
 
-            _talents = talents;
-            _spells = spells;
+            _traits = traits;
+            _powers = powers;
         }
 
         /******************
@@ -83,21 +83,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
             get { return _characteristics[Characteristics.LUCK]; }
         }
 
-        public string GetTalent(int index)
+        public List<Trait> Traits
         {
-            if ( index < 0 || index > _talents.Length )
-            {
-                throw new IndexOutOfRangeException( CharacterExceptionMessages.GetRacialTalentOutOfRangeMessage );
-            }
-            else
-            {
-                return _talents[index];
-            }
+            get         { return _traits; }
+            private set { _traits = value; }
         }
 
-        public int GetTalentsLength()
+        public List<Power> Powers
         {
-            return _talents.Length;
+            get         { return _powers; }
+            private set { _powers = value; }
         }
     }
 }
