@@ -4,71 +4,95 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UESRPG_Character_Manager
+namespace UESRPG_Character_Manager.CharacterComponents
 {
+    public enum RaceId
+    {
+        NA,
+        ALTMER,
+        ARGONIAN,
+        BOSMER,
+        BRETON,
+        DUNMER,
+        IMPERIAL,
+        KHAJIIT,
+        NORD,
+        ORSIMER,
+        REDGUARD,
+        NUMBER_OF_RACES
+    }
+
     public class Race
     {
-        public enum RaceName
-        {
-            IMPERIAL,
-            ORC,
-            MAX
-        }
+        private int[] _characteristics;
+        private List<Trait> _traits;
+        private List<Power> _powers;
 
-        private static Race[] _raceList;
-        private static bool _racesInitialized = false;
-
-        public static Race[] RaceList
+        public Race(int[] characteristics, List<Trait> traits, List<Power> powers)
         {
-            get
+            if( characteristics.Length != Characteristics.NUMBER_OF_CHARACTERISTICS )
             {
-                if (!_racesInitialized)
-                {
-                    InitRaces ();
-                }
-                return _raceList;
+                throw new ArgumentOutOfRangeException("characteristics.Length", characteristics.Length, RaceExceptionMessages.IncorrectCharacteristicsCount);
             }
+            _characteristics = characteristics;
+
+            _traits = traits;
+            _powers = powers;
         }
 
-        public static void InitRaces ()
-        {
-            if (!_racesInitialized)
-            {
-                _raceList = new Race[(int)RaceName.MAX];
-            }
-        }
-
+        /******************
+         * CHARACTERISTICS
+         *****************/
         public int Strength
         {
-            get; set;
+            get { return _characteristics[Characteristics.STRENGTH]; }
         }
+
         public int Endurance
         {
-            get; set;
+            get { return _characteristics[Characteristics.ENDURANCE]; }
         }
+
         public int Agility
         {
-            get; set;
+            get { return _characteristics[Characteristics.AGILITY]; }
         }
+
         public int Intelligence
         {
-            get; set;
+            get { return _characteristics[Characteristics.INTELLIGENCE]; }
         }
+
         public int Willpower
         {
-            get; set;
+            get { return _characteristics[Characteristics.WILLPOWER]; }
         }
+
         public int Perception
         {
-            get; set;
+            get { return _characteristics[Characteristics.PERCEPTION]; }
         }
+
         public int Personality
         {
-            get; set;
+            get { return _characteristics[Characteristics.PERSONALITY]; }
         }
+
         public int Luck
         {
-            get; set;
+            get { return _characteristics[Characteristics.LUCK]; }
+        }
+
+        public List<Trait> Traits
+        {
+            get         { return _traits; }
+            private set { _traits = value; }
+        }
+
+        public List<Power> Powers
+        {
+            get         { return _powers; }
+            private set { _powers = value; }
         }
     }
 }
