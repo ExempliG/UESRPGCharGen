@@ -21,6 +21,8 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public string Name { get; set; }
         [XmlAttribute()]
         public int Level { get; set; }
+        [XmlAttribute()]
+        public bool IsRacialAbility { get; set; }
         public int Cost { get; set; }
         public int Difficulty { get; set; }
         public string AssociatedSkill { get; set; }
@@ -37,6 +39,8 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             SpellId = NextAvailableId;
             NextAvailableId++;
+
+            IsRacialAbility = false;
         }
 
         private Spell(uint spellId)
@@ -55,6 +59,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
             s.Name = this.Name;
             s.Level = this.Level;
+            s.IsRacialAbility = this.IsRacialAbility;
             s.Cost = this.Cost;
             s.Difficulty = this.Difficulty;
             s.AssociatedSkill = this.AssociatedSkill;
