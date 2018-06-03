@@ -22,7 +22,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int XpCost { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint TraitId;
+        public uint TraitId { get; private set; }
 
         public Trait()
         {
@@ -38,9 +38,15 @@ namespace UESRPG_Character_Manager.CharacterComponents
             this.Description = Description;
         }
 
+        // Private constructor for use with Clone
+        private Trait(string Name, bool IsRacialTrait, int Cost, string Description, uint Id) : this(Name, IsRacialTrait, Cost, Description)
+        {
+            TraitId = Id;
+        }
+
         public object Clone()
         {
-            Trait newTrait = new Trait(Name, IsRacialTrait, XpCost, Description);
+            Trait newTrait = new Trait(Name, IsRacialTrait, XpCost, Description, TraitId);
             return newTrait;
         }
     }

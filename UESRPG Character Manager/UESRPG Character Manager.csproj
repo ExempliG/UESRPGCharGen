@@ -59,6 +59,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PowerDescriptions.resx</DependentUpon>
     </Compile>
+    <Compile Include="CharacterComponents\RaceExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RaceExceptionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="CharacterComponents\Skill.cs" />
     <Compile Include="CharacterComponents\Spell.cs" />
     <Compile Include="CharacterComponents\Talent.cs" />
@@ -176,6 +181,10 @@
     <EmbeddedResource Include="CharacterComponents\PowerDescriptions.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PowerDescriptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CharacterComponents\RaceExceptionMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RaceExceptionMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="CharacterComponents\TraitDescriptions.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

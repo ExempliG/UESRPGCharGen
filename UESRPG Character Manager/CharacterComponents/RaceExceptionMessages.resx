@@ -117,24 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdrenalineRush" xml:space="preserve">
-    <value>This power may be activated once per encounter as a free action. The character gains a level of fatigue, but doubles their Stamina
-for 30 seconds (6 rounds). The character can choose to extend the duration, but each round they do so incurs another level of fatigue.</value>
+  <data name="IncorrectCharacteristicsCount" xml:space="preserve">
+    <value>Attempted to initialize a Race object with an incorrect number of Characteristics.</value>
   </data>
-  <data name="AncestorGuardian" xml:space="preserve">
-    <value>Each Dunmer is capable of invoking a guardian spirit of one of their ancestors and can, through the use of the Cast Magic action, bring that spirit into the Mundus to aid them. The spirit counts as a ghost (see the Inhabitants of Tamriel supplement) which, if killed, is sent back to whence it came. Otherwise, the spirit persists for half an hour until it must leave.
-
-If the Dunmer attempts to invoke the spirit again within a week of the last time, they must make an opposed Willpower test against the spirit. Each attempt beyond this imposes a cumulative stacking -20 penalty on the Willpower test.
-
-The GM should remember for roleplaying purposes that spirits are capable of communicating with mortals, and that Dunmer are likely to know the name of their own ancestral spirit. The GM should also feel free to customize the profile of the spirit beyond that of a generic ghost.</value>
-  </data>
-  <data name="BeastTongue" xml:space="preserve">
-    <value>Bosmer can speak to, and understand the speech of, animals. How exactly this functions is left to the GM’s discretion, though it is recommended the GM call for a Perception test when the Bosmer encounters the speech of an unfamiliar animal.</value>
-  </data>
-  <data name="VoiceOfTheEmperor" xml:space="preserve">
-    <value>Imperials speak with a small bit of the power and majesty of the Emperors. They may choose to use their Willpower as the base for any Charm, Command, or Deceive skill tests.</value>
-  </data>
-  <data name="WarCry" xml:space="preserve">
-    <value>Characters with this power gain a +10 bonus to Intimidate tests made when using the Intimidating Shout action, and a +10 bonus to their first attack test against any targets who failed the opposed Willpower test imposed by Intimidating Shout within the next two rounds after the use of the action.</value>
+  <data name="InvalidRaceIndex" xml:space="preserve">
+    <value>Attempted to GetRace a Race that does not exist.</value>
   </data>
 </root>

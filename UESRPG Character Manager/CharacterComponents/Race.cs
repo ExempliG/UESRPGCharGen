@@ -32,7 +32,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             if( characteristics.Length != Characteristics.NUMBER_OF_CHARACTERISTICS )
             {
-                throw new ArgumentOutOfRangeException("characteristics.Length", characteristics.Length, "you stink");
+                throw new ArgumentOutOfRangeException("characteristics.Length", characteristics.Length, RaceExceptionMessages.IncorrectCharacteristicsCount);
             }
             _characteristics = characteristics;
 

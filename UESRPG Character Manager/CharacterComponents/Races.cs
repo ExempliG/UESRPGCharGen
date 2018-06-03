@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
-    static class Races
+    public static class Races
     {
         private static Race[] _raceList;
         private static bool _racesInitialized = false;
@@ -25,12 +25,19 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public static Race GetRace(int index)
         {
-            return RaceList[index];
+            if (index >= 0 && index < (int)RaceId.NUMBER_OF_RACES)
+            {
+                return RaceList[index];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("index", index, RaceExceptionMessages.InvalidRaceIndex);
+            }
         }
 
         public static Race GetRace(RaceId id)
         {
-            return RaceList[(int)id];
+            return GetRace((int)id);
         }
 
         public static void InitRaces()
@@ -112,6 +119,26 @@ namespace UESRPG_Character_Manager.CharacterComponents
                         new Trait("Resistance (Shock, 25%)", true, 0, TraitDescriptions.Resistance) 
                     },
                     new List<Power> { warCry });
+
+                _raceList[(int)RaceId.ORSIMER] = new Race(
+                    new int[] { 28, 30, 22, 23, 26, 24, 22, 0 },
+                    new List<Trait> {
+                        new Trait("Tough (10%)", true, 0, TraitDescriptions.Tough),
+                        new Trait("Heavy Hitter (1)", true, 0, TraitDescriptions.HeavyHitter),
+                        new Trait("Resistance (Magic, 25%)", true, 0, TraitDescriptions.Resistance)
+                    },
+                    new List<Power> { });
+
+                Power adrenalineRush = new Power("Adrenaline Rush", PowerDescriptions.AdrenalineRush);
+                _raceList[(int)RaceId.REDGUARD] = new Race(
+                    new int[] { 27, 28, 26, 22, 23, 25, 24, 0 },
+                    new List<Trait> { 
+                        new Trait("Disease Resistance (75%)", true, 0, TraitDescriptions.DiseaseResistance),
+                        new Trait("Resistance (Posion, 75%", true, 0, TraitDescriptions.Resistance)
+                    },
+                    new List<Power> { adrenalineRush });
+
+                _racesInitialized = true;
             }
         }
     }

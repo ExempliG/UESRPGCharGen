@@ -74,6 +74,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _race = value; }
         }
 
+        [XmlIgnore()]
         public Race Race
         {
             get { return Races.GetRace(RaceId); }
@@ -511,7 +512,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         }
 
 /*********
- * TRAITS
+ * POWERS
  ********/
 
         public List<Power> Powers

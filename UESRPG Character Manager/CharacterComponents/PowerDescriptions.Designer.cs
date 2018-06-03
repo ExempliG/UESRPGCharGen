@@ -61,6 +61,16 @@ namespace UESRPG_Character_Manager.CharacterComponents {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This power may be activated once per encounter as a free action. The character gains a level of fatigue, but doubles their Stamina
+        ///for 30 seconds (6 rounds). The character can choose to extend the duration, but each round they do so incurs another level of fatigue..
+        /// </summary>
+        public static string AdrenalineRush {
+            get {
+                return ResourceManager.GetString("AdrenalineRush", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Each Dunmer is capable of invoking a guardian spirit of one of their ancestors and can, through the use of the Cast Magic action, bring that spirit into the Mundus to aid them. The spirit counts as a ghost (see the Inhabitants of Tamriel supplement) which, if killed, is sent back to whence it came. Otherwise, the spirit persists for half an hour until it must leave.
         ///
         ///If the Dunmer attempts to invoke the spirit again within a week of the last time, they must make an opposed Willpower test against the spiri [rest of string was truncated]&quot;;.
