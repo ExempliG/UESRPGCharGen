@@ -162,7 +162,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
             return c;
         }
 
-<<<<<<< HEAD
         public Character CopyChar()
         {
             Character c = (Character)Clone();
@@ -171,14 +170,9 @@ namespace UESRPG_Character_Manager.CharacterComponents
             return c;
         }
 
-        /******************
-         * EVENTS
-         * ***************/
-=======
 /******************
  * EVENTS
  *****************/
->>>>>>> latest
 
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]

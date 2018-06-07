@@ -140,6 +140,18 @@
     <Compile Include="UI\CharacterViews\WeaponsView.Designer.cs">
       <DependentUpon>WeaponsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CombatViews\CombatantsListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CombatViews\CombatantsListView.Designer.cs">
+      <DependentUpon>CombatantsListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CombatViews\CombatWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CombatViews\CombatWindow.Designer.cs">
+      <DependentUpon>CombatWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\EditSkill.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +231,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterViews\WeaponsView.resx">
       <DependentUpon>WeaponsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CombatViews\CombatantsListView.resx">
+      <DependentUpon>CombatantsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CombatViews\CombatWindow.resx">
+      <DependentUpon>CombatWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\EditSkill.resx">
       <DependentUpon>EditSkill.cs</DependentUpon>
