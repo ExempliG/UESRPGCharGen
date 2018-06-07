@@ -8,6 +8,8 @@ namespace UESRPG_Character_Manager.GameComponents
 {
     public interface ICombatant
     {
+        string GetName();
+        string GetAp();
         void PassTurn();
         void TakeAction();
         void ResetRound();

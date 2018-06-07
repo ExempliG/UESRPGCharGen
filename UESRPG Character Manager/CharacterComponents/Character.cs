@@ -116,6 +116,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _majorVersion = value; }
         }
 
+        public string GetName()
+        {
+            return Name;
+        }
+
+        public string GetAp()
+        {
+            return CurrentAp.ToString();
+        }
+
         public void PassTurn()
         {
 
@@ -191,9 +201,14 @@ namespace UESRPG_Character_Manager.CharacterComponents
             return c;
         }
 
-/******************
- * EVENTS
- *****************/
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        /******************
+         * EVENTS
+         *****************/
 
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]

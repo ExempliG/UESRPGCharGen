@@ -75,7 +75,17 @@
     </Compile>
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\GameControllerExceptionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameControllerExceptionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="GameComponents\Combat.cs" />
+    <Compile Include="GameComponents\GameComponentExceptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GameComponentExceptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="GameComponents\ICombatant.cs" />
     <Compile Include="Items\ArmorConstants.cs" />
     <Compile Include="CharacterComponents\Character.cs" />
@@ -154,6 +164,12 @@
     <Compile Include="UI\CombatViews\CombatWindow.Designer.cs">
       <DependentUpon>CombatWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CombatViews\NewCombatantWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CombatViews\NewCombatantWindow.Designer.cs">
+      <DependentUpon>NewCombatantWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\EditSkill.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +220,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TraitDescriptions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\GameControllerExceptionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GameControllerExceptionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameComponents\GameComponentExceptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GameComponentExceptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ActionViews\CheckRollView.resx">
       <DependentUpon>CheckRollView.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CombatViews\CombatWindow.resx">
       <DependentUpon>CombatWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CombatViews\NewCombatantWindow.resx">
+      <DependentUpon>NewCombatantWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\EditSkill.resx">
       <DependentUpon>EditSkill.cs</DependentUpon>

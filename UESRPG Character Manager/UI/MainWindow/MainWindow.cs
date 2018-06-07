@@ -149,5 +149,17 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            uint combatId = GameController.Instance.CreateNewCombat();
+            GameController.Instance.AddCombatant(combatId, _activeCharacter);
+            CombatViews.CombatWindow cw = new CombatViews.CombatWindow(combatId);
+            Point cwLoc = this.Location;
+            cwLoc.X += ( this.Width + 5 );
+            cw.Show();
+            cw.Location = cwLoc;
+            GameController.Instance.AddCombatant(combatId, new UESRPG_Character_Manager.GameComponents.RemoteCombatant());
+        }
     }
 }

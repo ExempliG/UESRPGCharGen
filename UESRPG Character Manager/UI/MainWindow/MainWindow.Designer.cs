@@ -58,6 +58,7 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -183,6 +184,7 @@
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.receivedDamageView_rollsPage);
             this.tabPage2.Controls.Add(this.spellDamageView_rollsPage);
             this.tabPage2.Controls.Add(this.weaponDamageView_rollsPage);
@@ -323,6 +325,16 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 311);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,6 +396,7 @@
         private ActionViews.WeaponDamageView weaponDamageView_rollsPage;
         private ActionViews.SpellDamageView spellDamageView_rollsPage;
         private ActionViews.ReceivedDamageView receivedDamageView_rollsPage;
+        private System.Windows.Forms.Button button1;
     }
 }
 
