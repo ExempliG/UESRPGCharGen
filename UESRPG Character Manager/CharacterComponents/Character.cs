@@ -9,11 +9,12 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 
 using UESRPG_Character_Manager.Items;
+using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
     //[XmlRoot("Character", IsNullable = false)]
-    public class Character : ICloneable
+    public class Character : ICloneable, ICombatant
     {
         private int[] _characteristics;
         private int[] _modifiers;
@@ -59,7 +60,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             NextAvailableId++;
         }
 
-        private Character (uint characterId) : base()
+        private Character (uint characterId) : this()
         {
             CharacterId = characterId;
         }
@@ -113,6 +114,26 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get { return _majorVersion; }
             set { _majorVersion = value; }
+        }
+
+        public void PassTurn()
+        {
+
+        }
+
+        public void TakeAction()
+        {
+            CurrentAp--;
+        }
+
+        public void ResetRound()
+        {
+            CurrentAp = MaximumAp;
+        }
+
+        public bool CanAct()
+        {
+            return CurrentAp > 0;
         }
 
         public object Clone ()

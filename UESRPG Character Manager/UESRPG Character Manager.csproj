@@ -75,6 +75,8 @@
     </Compile>
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="GameComponents\Combat.cs" />
+    <Compile Include="GameComponents\ICombatant.cs" />
     <Compile Include="Items\ArmorConstants.cs" />
     <Compile Include="CharacterComponents\Character.cs" />
     <Compile Include="CharacterComponents\Characteristics.cs" />
