@@ -12,7 +12,7 @@ namespace UESRPG_Character_Manager.GameComponents
         string GetAp();
         void PassTurn();
         void TakeAction();
-        void ResetRound();
+        void NewRound();
         bool CanAct();
     }
 }

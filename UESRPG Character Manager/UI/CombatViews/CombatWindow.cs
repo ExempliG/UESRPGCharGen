@@ -34,5 +34,10 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         {
             GameController.Instance.EndCombat(_combatId);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GameController.Instance.StepCombat(_combatId, true);
+        }
     }
 }

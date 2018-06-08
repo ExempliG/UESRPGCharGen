@@ -41,6 +41,7 @@
             this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
             this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.receivedDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
             this.spellDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
             this.weaponDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
@@ -58,7 +59,6 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -197,6 +197,16 @@
             this.tabPage2.Text = "Combat & Rolls";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 311);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // receivedDamageView_rollsPage
             // 
             this.receivedDamageView_rollsPage.Location = new System.Drawing.Point(516, 6);
@@ -324,16 +334,6 @@
             this.characterSelector.Name = "characterSelector";
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 311);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainWindow
             // 

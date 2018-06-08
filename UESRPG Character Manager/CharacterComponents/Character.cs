@@ -136,7 +136,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             CurrentAp--;
         }
 
-        public void ResetRound()
+        public void NewRound()
         {
             CurrentAp = MaximumAp;
         }

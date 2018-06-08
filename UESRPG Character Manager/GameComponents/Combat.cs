@@ -44,7 +44,7 @@ namespace UESRPG_Character_Manager.GameComponents
             // do nothing
         }
 
-        public void ResetRound()
+        public void NewRound()
         {
             // do nothing
         }
@@ -82,27 +82,38 @@ namespace UESRPG_Character_Manager.GameComponents
             private set { _combatants = value; }
         }
 
+        public int PreviousCombatantIndex
+        {
+            get; private set;
+        }
+
         public int CurrentCombatantIndex
         {
             get; private set;
         }
 
         public delegate void CombatUpdatedHandler(object sender, EventArgs e);
-        [Description("Fires when actions are taken or the Combat otherwise updates (e.g. new Combatants).")]
+        [Description("Fires when actions are taken or the Combat otherwise updates.")]
         public static event CombatUpdatedHandler CombatUpdated;
+        public delegate void CombatantListUpdatedHandler(object sender, EventArgs e);
+        [Description("Fires when the list of Combatants is altered.")]
+        public static event CombatantListUpdatedHandler CombatantListUpdated;
 
         protected void onCombatUpdated()
         {
             CombatUpdated?.Invoke(this, new EventArgs());
         }
 
+        protected void onCombatantListUpdated()
+        {
+            CombatantListUpdated?.Invoke(this, new EventArgs());
+        }
+
         public void StepCombat()
         {
             _combatants[CurrentCombatantIndex].PassTurn();
 
-            CurrentCombatantIndex++;
-            CurrentCombatantIndex %= _combatants.Count;
-
+            updateCombatantIndices();
             onCombatUpdated();
         }
 
@@ -117,9 +128,29 @@ namespace UESRPG_Character_Manager.GameComponents
                 _combatants[CurrentCombatantIndex].PassTurn();
             }
 
-            CurrentCombatantIndex++;
-            CurrentCombatantIndex %= _combatants.Count;
+            updateCombatantIndices();
+            onCombatUpdated();
+        }
 
+        private void updateCombatantIndices()
+        {
+            PreviousCombatantIndex = CurrentCombatantIndex;
+            do
+            {
+                CurrentCombatantIndex++;
+                CurrentCombatantIndex %= _combatants.Count;
+            }
+            while (!_combatants[CurrentCombatantIndex].CanAct());
+        }
+
+        public void NewRound()
+        {
+            foreach(ICombatant c in _combatants)
+            {
+                c.NewRound();
+            }
+
+            CurrentCombatantIndex = 0;
             onCombatUpdated();
         }
 
@@ -127,14 +158,14 @@ namespace UESRPG_Character_Manager.GameComponents
         {
             _combatants.Add(newCombatant);
 
-            onCombatUpdated();
+            onCombatantListUpdated();
         }
 
         public void RemoveCombatant(ICombatant toRemove)
         {
             _combatants.Remove(toRemove);
 
-            onCombatUpdated();
+            onCombatantListUpdated();
         }
 
         public void RemoveCombatant(int indexToRemove)
@@ -143,7 +174,7 @@ namespace UESRPG_Character_Manager.GameComponents
             {
                 _combatants.RemoveAt(indexToRemove);
 
-                onCombatUpdated();
+                onCombatantListUpdated();
             }
             else
             {
@@ -159,7 +190,7 @@ namespace UESRPG_Character_Manager.GameComponents
                 _combatants.Remove(ic);
                 _combatants.Insert(index - 1, ic);
 
-                onCombatUpdated();
+                onCombatantListUpdated();
             }
         }
 
@@ -171,7 +202,7 @@ namespace UESRPG_Character_Manager.GameComponents
                 _combatants.Remove(ic);
                 _combatants.Insert(index + 1, ic);
 
-                onCombatUpdated();
+                onCombatantListUpdated();
             }
         }
     }
