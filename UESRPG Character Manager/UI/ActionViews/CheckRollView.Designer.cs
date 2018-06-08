@@ -50,6 +50,9 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.hitLocationLb);
             this.groupBox3.Controls.Add(this.extraDifficultyNud);
             this.groupBox3.Controls.Add(this.label42);
@@ -66,6 +69,7 @@
             this.groupBox3.Controls.Add(this.skillRb);
             this.groupBox3.Controls.Add(this.characteristicRb);
             this.groupBox3.Location = new System.Drawing.Point(1, 1);
+            this.groupBox3.MinimumSize = new System.Drawing.Size(0, 136);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(502, 136);
             this.groupBox3.TabIndex = 27;
@@ -111,6 +115,7 @@
             // 
             // successOrFailLb
             // 
+            this.successOrFailLb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.successOrFailLb.AutoSize = true;
             this.successOrFailLb.Location = new System.Drawing.Point(413, 89);
             this.successOrFailLb.Name = "successOrFailLb";
@@ -139,6 +144,8 @@
             // 
             // rollSuccessesTb
             // 
+            this.rollSuccessesTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rollSuccessesTb.Location = new System.Drawing.Point(319, 41);
             this.rollSuccessesTb.Name = "rollSuccessesTb";
             this.rollSuccessesTb.Size = new System.Drawing.Size(177, 20);
@@ -155,6 +162,8 @@
             // 
             // rollBreakdownTb
             // 
+            this.rollBreakdownTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rollBreakdownTb.Location = new System.Drawing.Point(319, 66);
             this.rollBreakdownTb.Name = "rollBreakdownTb";
             this.rollBreakdownTb.Size = new System.Drawing.Size(177, 20);
@@ -171,6 +180,8 @@
             // 
             // rollResultTb
             // 
+            this.rollResultTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rollResultTb.Location = new System.Drawing.Point(319, 16);
             this.rollResultTb.Name = "rollResultTb";
             this.rollResultTb.Size = new System.Drawing.Size(177, 20);

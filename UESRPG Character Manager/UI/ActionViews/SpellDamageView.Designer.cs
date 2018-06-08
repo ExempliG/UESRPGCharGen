@@ -41,6 +41,9 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox10.Controls.Add(this.spellRollBt);
             this.groupBox10.Controls.Add(this.spellResultBreakdownTb);
             this.groupBox10.Controls.Add(this.spellResultTb);
@@ -49,18 +52,21 @@
             this.groupBox10.Controls.Add(this.label40);
             this.groupBox10.Controls.Add(this.spellsCb);
             this.groupBox10.Location = new System.Drawing.Point(1, 1);
+            this.groupBox10.MinimumSize = new System.Drawing.Size(0, 126);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(248, 155);
+            this.groupBox10.Size = new System.Drawing.Size(248, 126);
             this.groupBox10.TabIndex = 28;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Spell Damage";
             // 
             // spellRollBt
             // 
+            this.spellRollBt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spellRollBt.Enabled = false;
             this.spellRollBt.Location = new System.Drawing.Point(167, 98);
             this.spellRollBt.Name = "spellRollBt";
-            this.spellRollBt.Size = new System.Drawing.Size(75, 23);
+            this.spellRollBt.Size = new System.Drawing.Size(75, 21);
             this.spellRollBt.TabIndex = 6;
             this.spellRollBt.Text = "Roll";
             this.spellRollBt.UseVisualStyleBackColor = true;
@@ -68,6 +74,8 @@
             // 
             // spellResultBreakdownTb
             // 
+            this.spellResultBreakdownTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spellResultBreakdownTb.Location = new System.Drawing.Point(76, 72);
             this.spellResultBreakdownTb.Name = "spellResultBreakdownTb";
             this.spellResultBreakdownTb.Size = new System.Drawing.Size(166, 20);
@@ -75,6 +83,8 @@
             // 
             // spellResultTb
             // 
+            this.spellResultTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spellResultTb.Location = new System.Drawing.Point(76, 46);
             this.spellResultTb.Name = "spellResultTb";
             this.spellResultTb.Size = new System.Drawing.Size(166, 20);
@@ -109,6 +119,8 @@
             // 
             // spellsCb
             // 
+            this.spellsCb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spellsCb.FormattingEnabled = true;
             this.spellsCb.Location = new System.Drawing.Point(76, 19);
             this.spellsCb.Name = "spellsCb";
@@ -121,8 +133,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox10);
+            this.MinimumSize = new System.Drawing.Size(0, 127);
             this.Name = "SpellDamageView";
-            this.Size = new System.Drawing.Size(249, 156);
+            this.Size = new System.Drawing.Size(249, 127);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.ResumeLayout(false);

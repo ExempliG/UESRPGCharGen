@@ -128,6 +128,12 @@
     <Compile Include="UI\CharacterViews\AttributesView.Designer.cs">
       <DependentUpon>AttributesView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CharacterViews\CharacterHealthView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\CharacterViews\CharacterHealthView.Designer.cs">
+      <DependentUpon>CharacterHealthView.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CharacterViews\CharacteristicsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -245,6 +251,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterViews\AttributesView.resx">
       <DependentUpon>AttributesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CharacterViews\CharacterHealthView.resx">
+      <DependentUpon>CharacterHealthView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CharacterViews\CharacteristicsView.resx">
       <DependentUpon>CharacteristicsView.cs</DependentUpon>

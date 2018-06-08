@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.GameComponents;
+using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.CombatViews
 {
@@ -24,8 +26,15 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         public CombatWindow( uint combatId ) : this()
         {
             _combatId = combatId;
-
             combatantsListView._combatId = _combatId;
+
+            Combat cmb = GameController.Instance.GetCombatById(_combatId);
+            ICombatant ic = cmb.Combatants[cmb.CurrentCombatantIndex];
+            if (ic.GetType() == typeof(Character))
+            {
+                Character c = (Character)ic;
+                characterHealthView.CharacterId = c.CharacterId;
+            }
 
             this.FormClosed += onClosed;
         }
@@ -35,9 +44,19 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             GameController.Instance.EndCombat(_combatId);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void actBt_Click(object sender, EventArgs e)
         {
             GameController.Instance.StepCombat(_combatId, true);
+        }
+
+        private void passBt_Click(object sender, EventArgs e)
+        {
+            GameController.Instance.StepCombat(_combatId, false);
+        }
+
+        private void newRoundBt_Click(object sender, EventArgs e)
+        {
+            GameController.Instance.NewRound(_combatId);
         }
     }
 }

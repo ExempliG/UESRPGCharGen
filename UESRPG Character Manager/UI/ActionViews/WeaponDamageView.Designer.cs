@@ -41,6 +41,9 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Controls.Add(this.weaponResultBreakdownTb);
             this.groupBox8.Controls.Add(this.label38);
@@ -49,8 +52,9 @@
             this.groupBox8.Controls.Add(this.label26);
             this.groupBox8.Controls.Add(this.weaponCb);
             this.groupBox8.Location = new System.Drawing.Point(1, 1);
+            this.groupBox8.MinimumSize = new System.Drawing.Size(0, 126);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(248, 155);
+            this.groupBox8.Size = new System.Drawing.Size(248, 126);
             this.groupBox8.TabIndex = 25;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Weapon Damage";
@@ -66,6 +70,8 @@
             // 
             // weaponResultBreakdownTb
             // 
+            this.weaponResultBreakdownTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.weaponResultBreakdownTb.Location = new System.Drawing.Point(76, 72);
             this.weaponResultBreakdownTb.Name = "weaponResultBreakdownTb";
             this.weaponResultBreakdownTb.Size = new System.Drawing.Size(166, 20);
@@ -82,6 +88,8 @@
             // 
             // weaponResultTb
             // 
+            this.weaponResultTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.weaponResultTb.Location = new System.Drawing.Point(76, 46);
             this.weaponResultTb.Name = "weaponResultTb";
             this.weaponResultTb.Size = new System.Drawing.Size(166, 20);
@@ -89,6 +97,8 @@
             // 
             // weaponRollBt
             // 
+            this.weaponRollBt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.weaponRollBt.Enabled = false;
             this.weaponRollBt.Location = new System.Drawing.Point(167, 98);
             this.weaponRollBt.Name = "weaponRollBt";
@@ -109,6 +119,8 @@
             // 
             // weaponCb
             // 
+            this.weaponCb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.weaponCb.DisplayMember = "Name";
             this.weaponCb.FormattingEnabled = true;
             this.weaponCb.Location = new System.Drawing.Point(76, 19);
@@ -122,8 +134,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox8);
+            this.MinimumSize = new System.Drawing.Size(0, 127);
             this.Name = "WeaponDamageView";
-            this.Size = new System.Drawing.Size(250, 156);
+            this.Size = new System.Drawing.Size(250, 127);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.ResumeLayout(false);

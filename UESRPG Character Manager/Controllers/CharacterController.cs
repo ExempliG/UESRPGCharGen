@@ -81,6 +81,22 @@ namespace UESRPG_Character_Manager.Controllers
             return result;
         }
 
+        public Character GetCharacterById(uint id)
+        {
+            IEnumerable<Character> search = from Character c in _characterList
+                                            where c.CharacterId == id
+                                            select c;
+            if(search.Count() == 1)
+            {
+                Character c = search.ElementAt(0);
+                return c;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("id", id, "You stink");
+            }
+        }
+
         public Character AddCharacter()
         {
             Character newChar = new Character();

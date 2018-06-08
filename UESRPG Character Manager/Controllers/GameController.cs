@@ -67,9 +67,10 @@ namespace UESRPG_Character_Manager.Controllers
             }
         }
 
-        public void ResetCombat()
+        public void NewRound( uint id )
         {
-
+            Combat c = GetCombatById(id);
+            c.NewRound();
         }
 
         public void StepCombat( uint id, bool takeAction )

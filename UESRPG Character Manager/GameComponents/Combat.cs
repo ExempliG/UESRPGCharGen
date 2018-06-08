@@ -151,6 +151,7 @@ namespace UESRPG_Character_Manager.GameComponents
             }
 
             CurrentCombatantIndex = 0;
+            onCombatantListUpdated();
             onCombatUpdated();
         }
 
@@ -187,8 +188,8 @@ namespace UESRPG_Character_Manager.GameComponents
             if (index > 0 && index < _combatants.Count)
             {
                 ICombatant ic = _combatants[index];
-                _combatants.Remove(ic);
-                _combatants.Insert(index - 1, ic);
+                _combatants[index] = _combatants[index - 1];
+                _combatants[index - 1] = ic;
 
                 onCombatantListUpdated();
             }
@@ -199,8 +200,8 @@ namespace UESRPG_Character_Manager.GameComponents
             if (index >= 0 && index < _combatants.Count - 1)
             {
                 ICombatant ic = _combatants[index];
-                _combatants.Remove(ic);
-                _combatants.Insert(index + 1, ic);
+                _combatants[index] = _combatants[index + 1];
+                _combatants[index + 1] = ic;
 
                 onCombatantListUpdated();
             }
