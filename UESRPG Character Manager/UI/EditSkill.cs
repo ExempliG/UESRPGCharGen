@@ -16,6 +16,7 @@ namespace UESRPG_Character_Manager
     public partial class EditSkill : Form
     {
         private Skill _skill;
+        private uint _activeCharacter;
 
         public EditSkill ( )
         {
@@ -33,7 +34,7 @@ namespace UESRPG_Character_Manager
             }
         }
 
-        public EditSkill (Skill skill)
+        public EditSkill (uint activeCharacter, Skill skill)
         {
             InitializeComponent();
 
@@ -54,6 +55,8 @@ namespace UESRPG_Character_Manager
             skillRankNud.Value = _skill.Rank;
 
             skillDescriptionRtb.Text = _skill.Description;
+
+            _activeCharacter = activeCharacter;
         }
 
         public bool GetSkill(out Skill theSkill)
@@ -84,7 +87,7 @@ namespace UESRPG_Character_Manager
             _skill.Description = skillDescriptionRtb.Text;
             _skill.Rank = (int)skillRankNud.Value;
 
-            CharacterController.Instance.EditSkill(_skill);
+            CharacterController.Instance.EditSkill(_activeCharacter, _skill);
 
             DialogResult = DialogResult.OK;
 
@@ -105,7 +108,7 @@ namespace UESRPG_Character_Manager
 
             if(result == DialogResult.Yes)
             {
-                CharacterController.Instance.DeleteSkill(_skill);
+                CharacterController.Instance.DeleteSkill(_activeCharacter, _skill);
                 MessageBox.Show("Skill deleted!");
 
                 Close();

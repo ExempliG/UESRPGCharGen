@@ -16,8 +16,9 @@ namespace UESRPG_Character_Manager.UI
     public partial class EditWeapon : Form
     {
         private Weapon _weapon;
+        private uint _activeCharacter;
 
-        public EditWeapon(Weapon weaponToEdit)
+        public EditWeapon(uint activeCharacter, Weapon weaponToEdit)
         {
             InitializeComponent();
 
@@ -81,6 +82,8 @@ namespace UESRPG_Character_Manager.UI
             encumbranceNud.Value = (decimal)_weapon.Encumbrance;
             priceNud.Value = _weapon.Price;
             direCb.Checked = _weapon.IsDire;
+
+            _activeCharacter = activeCharacter;
         }
 
         private void okBt_Click(object sender, EventArgs e)
@@ -102,7 +105,7 @@ namespace UESRPG_Character_Manager.UI
             _weapon.Handedness = (WeaponHandedness)weaponHandednessCb.SelectedItem;
             _weapon.Reach = (WeaponReach)weaponReachCb.SelectedItem;
 
-            CharacterController.Instance.EditWeapon(_weapon);
+            CharacterController.Instance.EditWeapon(_activeCharacter, _weapon);
 
             DialogResult = DialogResult.OK;
             Close();

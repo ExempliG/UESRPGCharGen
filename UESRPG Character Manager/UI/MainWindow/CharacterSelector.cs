@@ -16,18 +16,25 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
     public partial class CharacterSelector : UserControl
     {
+        public uint SelectorId { get; private set; }
+        public uint CharacterId { get; private set; }
+        private bool _hasActiveCharacter;
+
         public CharacterSelector()
         {
             InitializeComponent();
 
             CharacterController.Instance.CharacterListChanged += onCharacterListChanged;
+            SelectorId = CharacterController.Instance.StartSelector();
+
+            _hasActiveCharacter = false;
 
             updateCharacterComboBox();
         }
 
         public bool HasActiveCharacter()
         {
-            return (CharacterController.Instance.ActiveCharacter != null);
+            return _hasActiveCharacter;
         }
 
         private void updateCharacterComboBox()
@@ -35,7 +42,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             int selectedIndex = charactersCb.SelectedIndex;
 
             charactersCb.Items.Clear();
-            foreach (Character c in CharacterController.Instance.CharacterList)
+            foreach (Character c in CharacterController.Instance.CharacterDict.Values)
             {
                 charactersCb.Items.Add(c.Name);
             }
@@ -46,7 +53,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             }
             else
             {
-                charactersCb.SelectedIndex = 0;
+                charactersCb.SelectedIndex = -1;
             }
         }
 
@@ -54,7 +61,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             if (charactersCb.SelectedIndex >= 0)
             {
-                CharacterController.Instance.SelectCharacter((uint)charactersCb.SelectedIndex);
+                CharacterController.Instance.SelectCharacter((uint)charactersCb.SelectedIndex, SelectorId);
             }
         }
 

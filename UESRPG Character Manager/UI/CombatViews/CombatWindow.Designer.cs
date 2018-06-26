@@ -34,6 +34,7 @@
             this.spellDamageView = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
             this.checkRollView = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.receivedDamageView = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
             this.characterHealthView = new UESRPG_Character_Manager.UI.CharacterViews.CharacterHealthView();
             this.combatantsListView = new UESRPG_Character_Manager.UI.CombatViews.CombatantsListView();
             this.actBt = new System.Windows.Forms.Button();
@@ -41,6 +42,7 @@
             this.newRoundBt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -74,6 +76,7 @@
             this.weaponDamageView.Location = new System.Drawing.Point(244, 145);
             this.weaponDamageView.MinimumSize = new System.Drawing.Size(0, 127);
             this.weaponDamageView.Name = "weaponDamageView";
+            this.weaponDamageView.SelectorId = ((uint)(0u));
             this.weaponDamageView.Size = new System.Drawing.Size(236, 127);
             this.weaponDamageView.TabIndex = 2;
             // 
@@ -84,6 +87,7 @@
             this.spellDamageView.Location = new System.Drawing.Point(6, 145);
             this.spellDamageView.MinimumSize = new System.Drawing.Size(0, 127);
             this.spellDamageView.Name = "spellDamageView";
+            this.spellDamageView.SelectorId = ((uint)(0u));
             this.spellDamageView.Size = new System.Drawing.Size(232, 127);
             this.spellDamageView.TabIndex = 1;
             // 
@@ -93,11 +97,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkRollView.Location = new System.Drawing.Point(2, 2);
             this.checkRollView.Name = "checkRollView";
+            this.checkRollView.SelectorId = ((uint)(0u));
             this.checkRollView.Size = new System.Drawing.Size(478, 137);
             this.checkRollView.TabIndex = 0;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.receivedDamageView);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -106,11 +112,19 @@
             this.tabPage2.Text = "Reaction";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // receivedDamageView
+            // 
+            this.receivedDamageView.Location = new System.Drawing.Point(305, 116);
+            this.receivedDamageView.Name = "receivedDamageView";
+            this.receivedDamageView.SelectorId = ((uint)(0u));
+            this.receivedDamageView.Size = new System.Drawing.Size(175, 154);
+            this.receivedDamageView.TabIndex = 0;
+            // 
             // characterHealthView
             // 
-            this.characterHealthView.CharacterId = ((uint)(0u));
             this.characterHealthView.Location = new System.Drawing.Point(268, 12);
             this.characterHealthView.Name = "characterHealthView";
+            this.characterHealthView.SelectorId = ((uint)(0u));
             this.characterHealthView.Size = new System.Drawing.Size(324, 77);
             this.characterHealthView.TabIndex = 1;
             // 
@@ -120,6 +134,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.combatantsListView.Location = new System.Drawing.Point(12, 12);
             this.combatantsListView.Name = "combatantsListView";
+            this.combatantsListView.SelectorId = ((uint)(2u));
             this.combatantsListView.Size = new System.Drawing.Size(250, 414);
             this.combatantsListView.TabIndex = 0;
             // 
@@ -168,6 +183,7 @@
             this.Text = "Combat";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -185,5 +201,6 @@
         private System.Windows.Forms.Button actBt;
         private System.Windows.Forms.Button passBt;
         private System.Windows.Forms.Button newRoundBt;
+        private ActionViews.ReceivedDamageView receivedDamageView;
     }
 }

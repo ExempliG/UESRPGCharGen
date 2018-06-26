@@ -16,7 +16,9 @@ namespace UESRPG_Character_Manager.UI
 {
     public partial class AttributesView : UserControl
     {
-        private Character _activeCharacter;
+        private uint _activeCharacter;
+        private bool _hasCharacter;
+        public uint SelectorId { get; set; }
         private bool _attributesMutex;
         private bool _modifierMutex;
 
@@ -31,132 +33,163 @@ namespace UESRPG_Character_Manager.UI
             Character.AttributeChanged += onAttributeChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
-            UpdateView();
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
+
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         protected void onCharacteristicChanged(object sender, EventArgs e)
         {
-            UpdateView();
+            updateView();
         }
 
-        public void UpdateView()
+        private void updateView()
         {
-            if (!_attributesMutex)
+            if (_hasCharacter)
             {
-                _attributesMutex = true;
+                if (!_attributesMutex)
+                {
+                    _attributesMutex = true;
 
-                maxHealthTb.Text = "" + (_activeCharacter.MaxHealth);
-                woundThresholdTb.Text = "" + (_activeCharacter.WoundThreshold);
-                maxStaminaTb.Text = "" + (_activeCharacter.Stamina);
-                maxMagickaTb.Text = "" + (_activeCharacter.MagickaPool);
-                maxActionPointsTb.Text = "" + (_activeCharacter.MaximumAp);
-                movementRatingTb.Text = "" + (_activeCharacter.MovementRating);
-                carryRatingTb.Text = "" + (_activeCharacter.CarryRating);
-                initiativeRatingTb.Text = "" + (_activeCharacter.InitiativeRating);
-                damageBonusTb.Text = "" + (_activeCharacter.DamageBonus);
-                maxLuckPointsTb.Text = "" + (_activeCharacter.MaximumLuckPoints);
+                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    maxHealthTb.Text = "" + (c.MaxHealth);
+                    woundThresholdTb.Text = "" + (c.WoundThreshold);
+                    maxStaminaTb.Text = "" + (c.Stamina);
+                    maxMagickaTb.Text = "" + (c.MagickaPool);
+                    maxActionPointsTb.Text = "" + (c.MaximumAp);
+                    movementRatingTb.Text = "" + (c.MovementRating);
+                    carryRatingTb.Text = "" + (c.CarryRating);
+                    initiativeRatingTb.Text = "" + (c.InitiativeRating);
+                    damageBonusTb.Text = "" + (c.DamageBonus);
+                    maxLuckPointsTb.Text = "" + (c.MaximumLuckPoints);
 
-                nbModHealth.Value = _activeCharacter.HealthMod;
-                nbModWoundThreshold.Value = _activeCharacter.WoundThresholdMod;
-                nbModStamina.Value = _activeCharacter.StaminaMod;
-                nbModMagicka.Value = _activeCharacter.MagickaMod;
-                nbModActionPoints.Value = _activeCharacter.ActionPointsMod;
-                nbModMovementRating.Value = _activeCharacter.MovementRatingMod;
-                nbModCarryRating.Value = _activeCharacter.CarryRatingMod;
-                nbModInitiativeRating.Value = _activeCharacter.InitiativeRatingMod;
-                nbModDamageBonus.Value = _activeCharacter.DamageBonusMod;
-                nbModLuck.Value = _activeCharacter.LuckPointsMod;
+                    nbModHealth.Value = c.HealthMod;
+                    nbModWoundThreshold.Value = c.WoundThresholdMod;
+                    nbModStamina.Value = c.StaminaMod;
+                    nbModMagicka.Value = c.MagickaMod;
+                    nbModActionPoints.Value = c.ActionPointsMod;
+                    nbModMovementRating.Value = c.MovementRatingMod;
+                    nbModCarryRating.Value = c.CarryRatingMod;
+                    nbModInitiativeRating.Value = c.InitiativeRatingMod;
+                    nbModDamageBonus.Value = c.DamageBonusMod;
+                    nbModLuck.Value = c.LuckPointsMod;
 
 
-                healthTb.Text = "" + (_activeCharacter.CurrentHealth);
-                staminaTb.Text = "" + (_activeCharacter.CurrentStamina);
-                magickaTb.Text = "" + (_activeCharacter.CurrentMagicka);
-                actionPointsTb.Text = "" + (_activeCharacter.CurrentAp);
-                luckPointsTb.Text = "" + (_activeCharacter.CurrentLuckPoints);
-                
-                _attributesMutex = false;
+                    healthTb.Text = "" + (c.CurrentHealth);
+                    staminaTb.Text = "" + (c.CurrentStamina);
+                    magickaTb.Text = "" + (c.CurrentMagicka);
+                    actionPointsTb.Text = "" + (c.CurrentAp);
+                    luckPointsTb.Text = "" + (c.CurrentLuckPoints);
+
+                    _attributesMutex = false;
+                }
             }
+            else
+            {
+                ///<todo>do it</todo>
+            }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            ///<todo>Do it</todo>
         }
 
         #region Attribute Event Handlers
         private void healthTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(tryParseAttribute(healthTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(_activeCharacter, tryParseAttribute(healthTb.Text)); });
         }
 
         private void staminaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(tryParseAttribute(staminaTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(_activeCharacter, tryParseAttribute(staminaTb.Text)); });
         }
 
         private void magickaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(tryParseAttribute(magickaTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(_activeCharacter, tryParseAttribute(magickaTb.Text)); });
         }
 
         private void actionPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(tryParseAttribute(actionPointsTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(_activeCharacter, tryParseAttribute(actionPointsTb.Text)); });
         }
 
         private void luckPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute( delegate() { CharacterController.Instance.ChangeLuck(tryParseAttribute(luckPointsTb.Text)); });
+            changeAttribute( delegate() { CharacterController.Instance.ChangeLuck(_activeCharacter, tryParseAttribute(luckPointsTb.Text)); });
         }
         #endregion
 
         #region Modifier Event Handlers
         private void nbModHealth_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.HEALTH, (int)nbModHealth.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.HEALTH, (int)nbModHealth.Value); });
         }
 
         private void nbModWoundThreshold_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.WOUND_THRESHOLD, (int)nbModWoundThreshold.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.WOUND_THRESHOLD, (int)nbModWoundThreshold.Value); });
         }
 
         private void nbModStamina_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.STAMINA, (int)nbModStamina.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.STAMINA, (int)nbModStamina.Value); });
         }
 
         private void nbModMagicka_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.MAGICKA, (int)nbModMagicka.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.MAGICKA, (int)nbModMagicka.Value); });
         }
 
         private void nbModActionPoints_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.ACTION_POINTS, (int)nbModActionPoints.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.ACTION_POINTS, (int)nbModActionPoints.Value); });
         }
 
         private void nbModMovementRating_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.MOVEMENT_RATING, (int)nbModMovementRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.MOVEMENT_RATING, (int)nbModMovementRating.Value); });
         }
 
         private void nbModCarryRating_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.CARRY_RATING, (int)nbModCarryRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.CARRY_RATING, (int)nbModCarryRating.Value); });
         }
 
         private void nbModInitiativeRating_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.INITIATIVE_RATING, (int)nbModInitiativeRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.INITIATIVE_RATING, (int)nbModInitiativeRating.Value); });
         }
 
         private void nbModDamageBonus_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.DAMAGE_BONUS, (int)nbModDamageBonus.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.DAMAGE_BONUS, (int)nbModDamageBonus.Value); });
         }
 
         private void nbModLuck_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(Modifiers.LUCK_POINTS, (int)nbModLuck.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.LUCK_POINTS, (int)nbModLuck.Value); });
         }
         #endregion
 
@@ -194,7 +227,7 @@ namespace UESRPG_Character_Manager.UI
 
         private void onAttributeChanged(object sender, EventArgs e)
         {
-            UpdateView();
+            updateView();
         }
     }
 }

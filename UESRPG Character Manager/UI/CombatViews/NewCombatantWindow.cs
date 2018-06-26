@@ -22,7 +22,13 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         {
             InitializeComponent();
 
-            characterCb.DataSource = CharacterController.Instance.CharacterList;
+            List<Character> charList = new List<Character>();
+            foreach(Character c in CharacterController.Instance.CharacterDict.Values)
+            {
+                charList.Add(c);
+            }
+
+            characterCb.DataSource = charList;
         }
 
         public NewCombatantWindow(uint combatId) : this()

@@ -20,7 +20,9 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         [Description("Fires when the selected spell changes.")]
         public event SelectedSpellChangedHandler SelectedSpellChanged;
 
-        Character _activeCharacter;
+        uint _activeCharacter;
+        bool _hasCharacter;
+        public uint SelectorId { get; set; }
         Spell _activeSpell;
         bool _updatingView = false;
 
@@ -32,11 +34,34 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             Character.SpellListChanged += onSpellListChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            spellRollBt.Enabled = enabled;
+            spellsCb.Enabled = enabled;
         }
 
         protected void onSpellListChanged(object sender, EventArgs e)
@@ -50,10 +75,18 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             {
                 _updatingView = true;
 
-                spellsCb.DataSource = null;
-                if (_activeCharacter.Spells.Count > 0)
+                if (_hasCharacter)
                 {
-                    spellsCb.DataSource = _activeCharacter.Spells;
+                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    spellsCb.DataSource = null;
+                    if (c.Spells.Count > 0)
+                    {
+                        spellsCb.DataSource = c.Spells;
+                    }
+                }
+                else
+                {
+                    spellsCb.DataSource = null;
                 }
 
                 _updatingView = false;

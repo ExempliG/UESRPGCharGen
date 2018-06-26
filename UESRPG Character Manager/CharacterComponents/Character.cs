@@ -148,14 +148,15 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public object Clone ()
         {
-            Character c = new Character (this.CharacterId);
+            Character c = new Character(CharacterId)
+            {
+                Name = Name,
+                Notes = Notes,
+                _characteristics = (int[])_characteristics.Clone(),
+                _modifiers = (int[])_modifiers.Clone(),
 
-            c.Name = Name;
-            c.Notes = Notes;
-            c._characteristics = (int[])_characteristics.Clone ();
-            c._modifiers = (int[])_modifiers.Clone ();
-
-            c._armorPieces = new List<Armor> ();
+                _armorPieces = new List<Armor>()
+            };
             foreach (Armor piece in _armorPieces)
             {
                 Armor newPiece = (Armor)piece.Clone();

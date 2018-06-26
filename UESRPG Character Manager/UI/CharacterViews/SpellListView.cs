@@ -16,7 +16,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class SpellListView : UserControl
     {
-        private Character _activeCharacter;
+        private uint _activeCharacter;
+        private bool _hasCharacter;
+        public uint SelectorId { get; set; }
 
         public SpellListView()
         {
@@ -28,10 +30,28 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Character.SpellListChanged += onSpellListChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
-            updateView();
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
+
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         protected void onSpellListChanged(object sender, EventArgs e)
@@ -41,25 +61,40 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void updateView()
         {
-            spellsDgv.DataSource = null;
-            if (_activeCharacter.Spells.Count > 0)
+            if (_hasCharacter)
             {
-                spellsDgv.DataSource = _activeCharacter.Spells;
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                spellsDgv.DataSource = null;
+                if (c.Spells.Count > 0)
+                {
+                    spellsDgv.DataSource = c.Spells;
+                }
             }
+            else
+            {
+                spellsDgv.DataSource = null;
+            }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            ///<todo>Do it</todo>
         }
 
         private void addSpellBt_Click(object sender, EventArgs e)
         {
-            EditSpell es = new EditSpell(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            EditSpell es = new EditSpell(c);
             es.ShowDialog();
             updateView();
         }
 
         private void spellEditBt_Click(object sender, EventArgs e)
         {
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             int spellIndex = spellsDgv.SelectedRows[0].Index;
-            Spell selectedSpell = _activeCharacter.Spells[spellIndex];
-            EditSpell es = new EditSpell(_activeCharacter, selectedSpell);
+            Spell selectedSpell = c.Spells[spellIndex];
+            EditSpell es = new EditSpell(c, selectedSpell);
             es.ShowDialog();
             updateView();
         }

@@ -17,7 +17,9 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 {
     public partial class WeaponDamageView : UserControl
     {
-        Character _activeCharacter;
+        public uint SelectorId { get; set; }
+        uint _activeCharacter;
+        bool _hasCharacter;
 
         public WeaponDamageView()
         {
@@ -27,11 +29,28 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             Character.WeaponsChanged += onWeaponsChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         protected void onWeaponsChanged(object sender, EventArgs e)
@@ -41,11 +60,25 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void updateView()
         {
-            weaponCb.DataSource = null;
-            if (_activeCharacter.Weapons.Count > 0)
+            if (_hasCharacter)
             {
-                weaponCb.DataSource = _activeCharacter.Weapons;
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                weaponCb.DataSource = null;
+                if (c.Weapons.Count > 0)
+                {
+                    weaponCb.DataSource = c.Weapons;
+                }
             }
+            else
+            {
+                weaponCb.DataSource = null;
+            }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            weaponRollBt.Enabled = enabled;
+            weaponCb.Enabled = enabled;
         }
 
         private void weaponRollBt_Click(object sender, EventArgs e)
@@ -63,9 +96,10 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 resultTotal += roll;
             }
 
-            breakdownString += string.Format("{0} + bonus {1}", selectedWeapon.DamageMod, _activeCharacter.DamageBonus);
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            breakdownString += string.Format("{0} + bonus {1}", selectedWeapon.DamageMod, c.DamageBonus);
             resultTotal += selectedWeapon.DamageMod;
-            resultTotal += _activeCharacter.DamageBonus;
+            resultTotal += c.DamageBonus;
 
             weaponResultTb.Text = string.Format("{0} pen {1}", resultTotal, selectedWeapon.Penetration);
             weaponResultBreakdownTb.Text = breakdownString;

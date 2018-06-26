@@ -16,12 +16,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 {
     public partial class CheckRollView : UserControl
     {
-        private Character _activeCharacter;
+        public uint SelectorId { get; set; }
+        private uint _activeCharacter;
+        private bool _hasCharacter;
 
         public CheckRollView()
         {
             InitializeComponent();
 
+            _hasCharacter = false;
             rollResultTb.TextChanged += softRoll;
 
             foreach (string characteristic in Characteristics.s_characteristicNames)
@@ -35,11 +38,28 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             Character.SkillListChanged += onSkillListChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         protected void onSkillListChanged(object sender, EventArgs e)
@@ -49,42 +69,76 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         public void OnSelectedSpellChanged(object sender, EventArgs e)
         {
-            Spell activeSpell = ((SpellDamageView)sender).GetActiveSpell();
-
-            skillRb.Checked = true;
-            IEnumerable<Skill> skillSearch = from skill in _activeCharacter.Skills
-                                             where skill.Name == activeSpell.AssociatedSkill
-                                             select skill;
-            if (skillSearch.Count() == 1)
+            if (_hasCharacter)
             {
-                int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
-                skillsCb.SelectedIndex = skillIndex;
-                extraDifficultyNud.Value = activeSpell.Difficulty;
+                Spell activeSpell = ((SpellDamageView)sender).GetActiveSpell();
+
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                skillRb.Checked = true;
+                IEnumerable<Skill> skillSearch = from skill in c.Skills
+                                                 where skill.Name == activeSpell.AssociatedSkill
+                                                 select skill;
+                if (skillSearch.Count() == 1)
+                {
+                    int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
+                    skillsCb.SelectedIndex = skillIndex;
+                    extraDifficultyNud.Value = activeSpell.Difficulty;
+                }
             }
         }
 
         private void updateView()
         {
-            int selectedIndex = skillsCb.SelectedIndex;
-            skillsCb.Items.Clear();
+            if (_hasCharacter)
+            {
+                int selectedIndex = skillsCb.SelectedIndex;
+                skillsCb.Items.Clear();
 
-            for (int i = 0; i < _activeCharacter.Skills.Count; i++)
-            {
-                Skill skill = _activeCharacter.Skills[i];
-                skillsCb.Items.Add(skill);
-            }
-            if (selectedIndex < skillsCb.Items.Count && selectedIndex != -1)
-            {
-                skillsCb.SelectedIndex = selectedIndex;
-            }
-            else if (skillsCb.Items.Count >= 1)
-            {
-                skillsCb.SelectedIndex = 0;
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                for (int i = 0; i < c.Skills.Count; i++)
+                {
+                    Skill skill = c.Skills[i];
+                    skillsCb.Items.Add(skill);
+                }
+                if (selectedIndex < skillsCb.Items.Count && selectedIndex != -1)
+                {
+                    skillsCb.SelectedIndex = selectedIndex;
+                }
+                else if (skillsCb.Items.Count >= 1)
+                {
+                    skillsCb.SelectedIndex = 0;
+                }
+                else
+                {
+                    // do nothing
+                }
+
+                bool hasSkills = c.Skills.Count > 0;
+                skillsCb.Enabled = hasSkills;
+                skillRb.Enabled = hasSkills;
             }
             else
             {
-                // do nothing
+                ///<todo>Do it</todo>
             }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            if (!enabled)
+            {
+                successOrFailLb.Text = "";
+                hitLocationLb.Text = "";
+                rollBreakdownTb.Clear();
+                rollResultTb.Clear();
+                extraDifficultyNud.Value = 0;
+            }
+            //skillRb.Enabled = enabled;
+            //skillsCb.Enabled = enabled;
+            extraDifficultyNud.Enabled = enabled;
+            rollBreakdownTb.Enabled = enabled;
+            rollResultTb.Enabled = enabled;
+            extraDifficultyNud.Enabled = enabled;
         }
 
         /// <summary>
@@ -123,6 +177,8 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 int characteristicIndex = 0;
                 int characteristic = 0;
 
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+
                 if (isSkillRoll)
                 {
                     if (skillsCb.Items.Count >= 1)
@@ -130,7 +186,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                         Skill skill = (Skill)skillsCb.SelectedItem;
 
                         characteristicIndex = skill.Characteristics[characteristicCb.SelectedIndex];
-                        characteristic = _activeCharacter.GetCharacteristic(characteristicIndex);
+                        characteristic = c.GetCharacteristic(characteristicIndex);
 
                         int skillLevel = skill.Rank;
                         rollBreakdownTb.Text = string.Format("({0} + skill {1} + diff {2}) - {3} =",
@@ -148,7 +204,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 else   // Otherwise it's a Characteristic roll
                 {
                     characteristicIndex = characteristicCb.SelectedIndex;
-                    characteristic = _activeCharacter.GetCharacteristic(characteristicIndex);
+                    characteristic = c.GetCharacteristic(characteristicIndex);
                     rollBreakdownTb.Text = string.Format("({0} + diff {1}) - {2} =",
                                                          characteristic,
                                                          extraDifficulty,
@@ -160,7 +216,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 {
                     difference = (characteristic - result);
 
-                    int successes = _activeCharacter.GetBonus(difference);
+                    int successes = c.GetBonus(difference);
 
                     rollBreakdownTb.Text += String.Format("{0}", difference);
                     rollSuccessesTb.Text = "" + successes;
@@ -178,13 +234,14 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         /// <param name="rollResult">The roll result used to update.</param>
         private void updateCriticalLabel(int rollResult)
         {
-            int luck = _activeCharacter.Luck;
-            if (rollResult <= _activeCharacter.GetBonus(luck))
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            int luck = c.Luck;
+            if (rollResult <= c.GetBonus(luck))
             {
                 successOrFailLb.Text = "Critical success!";
                 successOrFailLb.Visible = true;
             }
-            else if (rollResult >= (95 + _activeCharacter.GetBonus(luck)))
+            else if (rollResult >= (95 + c.GetBonus(luck)))
             {
                 successOrFailLb.Text = "Critical failure!";
                 successOrFailLb.Visible = true;
@@ -265,7 +322,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             Random r = new Random();
 
             int result = r.Next(1, 100);
-            rollResultTb.Text = "" + result;
+            rollResultTb.Text = result.ToString();
 
             softRoll(sender, e);
         }
@@ -275,23 +332,26 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         /// </summary>
         private void updateCharacteristicCb()
         {
-            object selectedItem = skillsCb.SelectedItem;
-            if (selectedItem != null && skillRb.Checked)
+            if (_hasCharacter)
             {
-                Skill skill = (Skill)selectedItem;
-                characteristicCb.Items.Clear();
-                foreach (int characteristic in skill.Characteristics)
+                object selectedItem = skillsCb.SelectedItem;
+                if (selectedItem != null && skillRb.Checked)
                 {
-                    characteristicCb.Items.Add(Characteristics.s_characteristicNames[characteristic]);
+                    Skill skill = (Skill)selectedItem;
+                    characteristicCb.Items.Clear();
+                    foreach (int characteristic in skill.Characteristics)
+                    {
+                        characteristicCb.Items.Add(Characteristics.s_characteristicNames[characteristic]);
+                    }
+                    if (characteristicCb.Items.Count > 0)
+                    {
+                        characteristicCb.SelectedIndex = 0;
+                    }
                 }
-                if (characteristicCb.Items.Count > 0)
+                else
                 {
-                    characteristicCb.SelectedIndex = 0;
+                    reloadCharacteristicCb();
                 }
-            }
-            else
-            {
-                reloadCharacteristicCb();
             }
         }
 

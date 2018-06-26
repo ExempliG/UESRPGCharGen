@@ -73,7 +73,9 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             "•  The character gains the blood loss (1d5) condition."
         };
 
-        Character _activeCharacter;
+        public uint SelectorId { get; set; }
+        uint _activeCharacter;
+        bool _hasCharacter;
 
         public ReceivedDamageView()
         {
@@ -82,24 +84,37 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             hitLocationCb.DataSource = ArmorLocationsData.s_names;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.AttributeChanged += onAttributeChanged;
+            _hasCharacter = false;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+            }
         }
 
-        public void OnCurrentHealthChanged(object sender, EventArgs e)
+        private void toggleAllControls(bool enabled)
         {
-            updateView();
-        }
-
-        private void updateView()
-        {
-            healthLb.Text = string.Format( "Health: {0}", _activeCharacter.CurrentHealth );
+            receivedDamageTb.Enabled = enabled;
+            receivedPenTb.Enabled = enabled;
+            hitLocationCb.Enabled = enabled;
+            applyDamageBt.Enabled = enabled;
         }
 
         private void receivedDamageTb_TextChanged(object sender, EventArgs e)
@@ -126,9 +141,10 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             if (int.TryParse(receivedDamageTb.Text, out int damage) &&
                 int.TryParse(receivedPenTb.Text, out int pen) &&
-                _activeCharacter != null)
+                _hasCharacter)
             {
-                Armor selectedPiece = _activeCharacter.GetArmorPiece(location);
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Armor selectedPiece = c.GetArmorPiece(location);
                 double armorMitigation = (selectedPiece != null) ? selectedPiece.AR : 0;
                 armorMitigation = Math.Max(armorMitigation - pen, 0);                 // Pen reduces armorMitigation to a lower limit of zero.
                 damage = Math.Max(damage - (int)armorMitigation, 0);                  // armorMitigation then reduces received damage to a lower limit of zero.
@@ -141,21 +157,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         {
             if (int.TryParse(finalDamageReceivedTb.Text, out int damage))
             {
-                CharacterController.Instance.ChangeHealth(_activeCharacter.CurrentHealth - damage);
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                CharacterController.Instance.ChangeHealth(_activeCharacter, c.CurrentHealth - damage);
 
-                int woundLevel = damage / CharacterController.Instance.ActiveCharacter.WoundThreshold;
+                int woundLevel = damage / c.WoundThreshold;
                 if (woundLevel > 0)
                 {
                     MessageBox.Show(_woundsText[woundLevel]);
                 }
-
-                updateView();
             }
-        }
-
-        private void onAttributeChanged(object sender, EventArgs e)
-        {
-            updateView();
         }
     }
 }

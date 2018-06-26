@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.healthLb = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.applyDamageBt = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
@@ -42,17 +41,11 @@
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // healthLb
-            // 
-            this.healthLb.AutoSize = true;
-            this.healthLb.Location = new System.Drawing.Point(1, 165);
-            this.healthLb.Name = "healthLb";
-            this.healthLb.Size = new System.Drawing.Size(41, 13);
-            this.healthLb.TabIndex = 30;
-            this.healthLb.Text = "Health:";
-            // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.applyDamageBt);
             this.groupBox5.Controls.Add(this.label36);
             this.groupBox5.Controls.Add(this.finalDamageReceivedTb);
@@ -153,20 +146,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.healthLb);
             this.Controls.Add(this.groupBox5);
             this.Name = "ReceivedDamageView";
-            this.Size = new System.Drawing.Size(175, 185);
+            this.Size = new System.Drawing.Size(175, 158);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label healthLb;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button applyDamageBt;
         private System.Windows.Forms.Label label36;

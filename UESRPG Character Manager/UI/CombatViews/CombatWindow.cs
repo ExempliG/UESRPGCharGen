@@ -16,11 +16,15 @@ namespace UESRPG_Character_Manager.UI.CombatViews
 {
     public partial class CombatWindow : Form
     {
+        private uint _activeCharacter;
+        private bool _hasCharacter;
         private uint _combatId;
+        public uint SelectorId { get; set; }
 
         public CombatWindow()
         {
             InitializeComponent();
+            _hasCharacter = false;
         }
 
         public CombatWindow( uint combatId ) : this()
@@ -28,13 +32,12 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             _combatId = combatId;
             combatantsListView._combatId = _combatId;
 
-            Combat cmb = GameController.Instance.GetCombatById(_combatId);
-            ICombatant ic = cmb.Combatants[cmb.CurrentCombatantIndex];
-            if (ic.GetType() == typeof(Character))
-            {
-                Character c = (Character)ic;
-                characterHealthView.CharacterId = c.CharacterId;
-            }
+            SelectorId = combatantsListView.SelectorId;
+            weaponDamageView.SelectorId = SelectorId;
+            checkRollView.SelectorId = SelectorId;
+            spellDamageView.SelectorId = SelectorId;
+            characterHealthView.SelectorId = SelectorId;
+            receivedDamageView.SelectorId = SelectorId;
 
             this.FormClosed += onClosed;
         }
@@ -42,6 +45,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         protected void onClosed(object sender, EventArgs e)
         {
             GameController.Instance.EndCombat(_combatId);
+            CharacterController.Instance.EndSelector(SelectorId);
         }
 
         private void actBt_Click(object sender, EventArgs e)

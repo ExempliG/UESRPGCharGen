@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RaceExceptionMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="CharacterComponents\SelectedCharacterChangedEventArgs.cs" />
     <Compile Include="CharacterComponents\Skill.cs" />
     <Compile Include="CharacterComponents\Spell.cs" />
     <Compile Include="CharacterComponents\Talent.cs" />

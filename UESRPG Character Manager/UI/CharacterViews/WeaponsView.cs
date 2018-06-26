@@ -17,7 +17,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class WeaponsView : UserControl
     {
-        private Character _activeCharacter;
+        private uint _activeCharacter;
+        private bool _hasCharacter;
+        public uint SelectorId { get; set; }
 
         public WeaponsView()
         {
@@ -51,11 +53,28 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Character.WeaponsChanged += onWeaponsChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         protected void onWeaponsChanged(object sender, EventArgs e)
@@ -65,11 +84,24 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void updateView()
         {
-            weaponsDgv.DataSource = null;
-            if (_activeCharacter.Weapons.Count > 0)
+            if (_hasCharacter)
             {
-                weaponsDgv.DataSource = _activeCharacter.Weapons;
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                weaponsDgv.DataSource = null;
+                if (c.Weapons.Count > 0)
+                {
+                    weaponsDgv.DataSource = c.Weapons;
+                }
             }
+            else
+            {
+                weaponsDgv.DataSource = null;
+            }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            ///<todo>Do it</todo>
         }
 
         private void weaponsDgv_SelectionChanged(object sender, EventArgs e)
@@ -97,21 +129,23 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Weapon result = Weapon.ApplyMaterial(template, modifier);
             result.Name = weaponNameTb.Text;
 
-            CharacterController.Instance.AddWeapon(result);
+            CharacterController.Instance.AddWeapon(_activeCharacter, result);
             updateView();
         }
 
         private void editWeaponBt_Click(object sender, EventArgs e)
         {
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            EditWeapon ew = new EditWeapon(CharacterController.Instance.ActiveCharacter.Weapons[weaponIndex]);
+            EditWeapon ew = new EditWeapon(c.CharacterId, c.Weapons[weaponIndex]);
             ew.ShowDialog();
         }
 
         private void deleteWeaponBt_Click(object sender, EventArgs e)
         {
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            CharacterController.Instance.DeleteWeapon(CharacterController.Instance.ActiveCharacter.Weapons[weaponIndex]);
+            CharacterController.Instance.DeleteWeapon(_activeCharacter, c.Weapons[weaponIndex]);
         }
     }
 }

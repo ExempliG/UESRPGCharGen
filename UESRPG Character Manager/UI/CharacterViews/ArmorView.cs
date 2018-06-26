@@ -21,7 +21,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         [Description("Fires when an Armor is changed by the user.")]
         public event ArmorChangedHandler ArmorChanged;
 
-        private Character _activeCharacter;
+        private uint _activeCharacter;
+        private bool _hasCharacter;
+        public uint SelectorId { get; set; }
 
         public ArmorView()
         {
@@ -37,28 +39,60 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         private void updateView()
         {
-            armorDgv.DataSource = null;
-            if (_activeCharacter.ArmorPieces.Count > 0)
+            if (_hasCharacter)
             {
-                armorDgv.DataSource = _activeCharacter.ArmorPieces;
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                armorDgv.DataSource = null;
+                if (c.ArmorPieces.Count > 0)
+                {
+                    armorDgv.DataSource = c.ArmorPieces;
+                }
             }
+            else
+            {
+                ///<todo>Do it</todo>
+            }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+
         }
 
         private void addNewArmorBt_Click(object sender, EventArgs e)
         {
+            /// <todo>Update this when Inventory is implemented; violation of MVC</todo>
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             double ar = Armor.CalculateAR((ArmorTypes)armorMaterialCb.SelectedIndex,
                                (ArmorMaterials)armorQualityCb.SelectedIndex,
                                (ArmorQualities)armorTypeCb.SelectedIndex);
-            _activeCharacter.AddArmorPiece(new Armor(armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
+            c.AddArmorPiece(new Armor(armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
             updateView();
 
             onArmorChanged(this, new System.EventArgs());

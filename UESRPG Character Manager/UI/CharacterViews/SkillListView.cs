@@ -16,7 +16,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 {
     public partial class SkillListView : UserControl
     {
-        private Character _activeCharacter;
+        private uint _activeCharacter;
+        private bool _hasCharacter;
+        public uint SelectorId { get; set; }
 
         public SkillListView()
         {
@@ -28,11 +30,28 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Character.SkillListChanged += onSkillListChanged;
         }
 
-        protected void onSelectedCharacterChanged(object sender, EventArgs e)
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
+            if (e.SelectorId == SelectorId)
+            {
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
 
-            updateView();
+                }
+
+                toggleAllControls(_hasCharacter);
+
+                updateView();
+            }
         }
 
         protected void onSkillListChanged(object sender, EventArgs e)
@@ -42,11 +61,20 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void updateView()
         {
-            skillsDgv.DataSource = null;
-            if (_activeCharacter.Skills.Count > 0)
+            if (_hasCharacter)
             {
-                skillsDgv.DataSource = _activeCharacter.Skills;
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                skillsDgv.DataSource = null;
+                if (c.Skills.Count > 0)
+                {
+                    skillsDgv.DataSource = c.Skills;
+                }
             }
+        }
+
+        private void toggleAllControls(bool enabled)
+        {
+            ///<todo>Do it</todo>
         }
 
         private void addSkillBt_Click(object sender, EventArgs e)
@@ -56,7 +84,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             if (es.GetSkill(out Skill newSkill))
             {
-                CharacterController.Instance.AddSkill(newSkill);
+                CharacterController.Instance.AddSkill(_activeCharacter, newSkill);
             }
         }
 
@@ -66,8 +94,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
             if (theRows.Count == 1)
             {
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
                 int selectedIndex = theRows[0].Index;
-                EditSkill es = new EditSkill(_activeCharacter.Skills[selectedIndex]);
+                EditSkill es = new EditSkill(c.CharacterId, c.Skills[selectedIndex]);
                 es.ShowDialog();
             }
 
@@ -79,8 +108,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
             if (theRows.Count == 1)
             {
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
                 int selectedIndex = theRows[0].Index;
-                bool canEdit = !(_activeCharacter.Skills[selectedIndex].isDefaultSkill);
+                bool canEdit = !(c.Skills[selectedIndex].isDefaultSkill);
 
                 editSkillBt.Enabled = canEdit;
             }

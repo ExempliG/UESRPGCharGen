@@ -14,13 +14,16 @@ using System.Xml.Serialization;
 
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.UI.CharacterViews;
 
 namespace UESRPG_Character_Manager.UI.MainWindow
 {
     public partial class MainWindow : Form
     {
         private string _currentFile = "";
-        private Character _activeCharacter;
+        private uint _activeCharacter;
+        private bool _hasCharacter;
+        public uint SelectorId { get; set; }
         private bool _changingCharacter = false;
 
         private const string FILE_TYPE_STRING = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
@@ -35,6 +38,18 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
 
+            SelectorId = characterSelector.SelectorId;
+            charaView_statsPage.SelectorId = SelectorId;
+            attributesView_statsPage.SelectorId = SelectorId;
+            skillListView_statsPage.SelectorId = SelectorId;
+            attributesView_statsPage.SelectorId = SelectorId;
+            weaponsView_equipPage.SelectorId = SelectorId;
+            armorView_equipPage.SelectorId = SelectorId;
+            checkRollView_rollsPage.SelectorId = SelectorId;
+            receivedDamageView_rollsPage.SelectorId = SelectorId;
+            weaponDamageView_rollsPage.SelectorId = SelectorId;
+            spellDamageView_rollsPage.SelectorId = SelectorId;
+
             /*CUSTOM EVENT BINDINGS*/
             this.LostFocus += characterNotesRtb_LostFocus;
             /*END CUSTOM EVENT BINDINGS*/
@@ -42,29 +57,57 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             saveMi.Enabled = false;
         }
 
-        private void onSelectedCharacterChanged(object sender, EventArgs e)
+        private void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
-            _changingCharacter = true;
-            if (_activeCharacter != null)
+            if (e.SelectorId == SelectorId)
             {
-                _activeCharacter.Notes = characterNotesRtb.Text;
+                if (_hasCharacter)
+                {
+                    Character oldCharacter = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    ///<todo>Update this to go through the Controller</todo>
+                    oldCharacter.Notes = characterNotesRtb.Text;
+                }
+
+                switch (e.EventType)
+                {
+                    case CharacterSelectionEvent.NEW_CHARACTER:
+                        _activeCharacter = e.CharacterId;
+                        _hasCharacter = true;
+                        break;
+                    case CharacterSelectionEvent.NO_CHARACTER:
+                        _hasCharacter = false;
+                        break;
+                    case CharacterSelectionEvent.SAME_CHARACTER:
+                        break;
+
+                }
+
+                _changingCharacter = true;
+                if (_hasCharacter)
+                {
+                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    ///<todo>Update this to go through the Controller</todo>
+                    nameTb.Text = c.Name;
+                    characterNotesRtb.Text = c.Notes;
+                }
+                _changingCharacter = false;
             }
-            _activeCharacter = CharacterController.Instance.ActiveCharacter;
-            nameTb.Text = _activeCharacter.Name;
-            characterNotesRtb.Text = _activeCharacter.Notes;
-            _changingCharacter = false;
         }
 
         private void characterNotesRtb_LostFocus(object sender, EventArgs e)
         {
-            _activeCharacter.Notes = characterNotesRtb.Text;
+            if (_hasCharacter)
+            {
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                c.Notes = characterNotesRtb.Text;
+            }
         }
 
         private void nameTb_TextChanged (object sender, EventArgs e)
         {
-            if (!_changingCharacter)
+            if (!_changingCharacter && _hasCharacter)
             {
-                CharacterController.Instance.ChangeCharacterName(nameTb.Text);
+                CharacterController.Instance.ChangeCharacterName(_activeCharacter, nameTb.Text);
             }
         }
 
@@ -79,7 +122,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveMi_Click (object sender, EventArgs e)
         {
-            _activeCharacter.Notes = characterNotesRtb.Text;
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            c.Notes = characterNotesRtb.Text;
 
             if (!string.IsNullOrEmpty(_currentFile))
             {
@@ -95,7 +139,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveAsMi_Click (object sender, EventArgs e)
         {
-            _activeCharacter.Notes = characterNotesRtb.Text;
+            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            c.Notes = characterNotesRtb.Text;
 
             SaveFileDialog sfd = new SaveFileDialog()
             {
@@ -140,8 +185,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 {
                     _currentFile = ofd.FileName;
                     saveMi.Enabled = true;
-                    nameTb.Text = _activeCharacter.Name;
-                    characterNotesRtb.Text = _activeCharacter.Notes;
                 }
                 else
                 {
@@ -153,13 +196,14 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         private void button1_Click(object sender, EventArgs e)
         {
             uint combatId = GameController.Instance.CreateNewCombat();
-            GameController.Instance.AddCombatant(combatId, _activeCharacter);
+            //Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            //GameController.Instance.AddCombatant(combatId, c);
             CombatViews.CombatWindow cw = new CombatViews.CombatWindow(combatId);
             Point cwLoc = this.Location;
             cwLoc.X += ( this.Width + 5 );
             cw.Show();
             cw.Location = cwLoc;
-            GameController.Instance.AddCombatant(combatId, new UESRPG_Character_Manager.GameComponents.RemoteCombatant());
+            //GameController.Instance.AddCombatant(combatId, new UESRPG_Character_Manager.GameComponents.RemoteCombatant());
         }
     }
 }

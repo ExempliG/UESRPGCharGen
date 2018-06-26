@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.GameComponents;
 using UESRPG_Character_Manager.Controllers;
 
@@ -19,6 +20,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         private const string NAME_CELL_ID = "name";
         private const string AP_CELL_ID = "ap";
         public uint _combatId;
+        public uint SelectorId { get; set; }
 
         public CombatantsListView()
         {
@@ -30,6 +32,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
 
             Combat.CombatUpdated += onCombatUpdated;
             Combat.CombatantListUpdated += onCombatantListUpdated;
+            SelectorId = CharacterController.Instance.StartSelector();
         }
 
         protected void onCombatUpdated(object sender, EventArgs e)
@@ -130,6 +133,14 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                 removeCombatantBt.Enabled = true;
                 combatantUpBt.Enabled = enable && selectedIndex > 0;
                 combatantDownBt.Enabled = enable && selectedIndex < (combatantsDgv.RowCount - 1);
+
+                Combat c = GameController.Instance.GetCombatById(_combatId);
+                ICombatant ic = c.Combatants[selectedIndex];
+                if(ic.GetType() == typeof(Character))
+                {
+                    Character chara = (Character)ic;
+                    CharacterController.Instance.SelectCharacter(chara.CharacterId, SelectorId);
+                }
             }
             else
             {
