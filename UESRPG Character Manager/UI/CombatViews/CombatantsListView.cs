@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using UESRPG_Character_Manager.CharacterComponents;
-using UESRPG_Character_Manager.GameComponents;
 using UESRPG_Character_Manager.Controllers;
+using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.UI.CombatViews
 {
@@ -19,6 +11,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         private const string ACTIVE_COMBATANT_MARKER = "*";
         private const string NAME_CELL_ID = "name";
         private const string AP_CELL_ID = "ap";
+        private const string INIT_CELL_ID = "initiative";
         public uint _combatId;
         public uint SelectorId { get; set; }
 
@@ -26,13 +19,18 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         {
             InitializeComponent();
             combatantsDgv.Columns.Add(NAME_CELL_ID, "Name");
+            combatantsDgv.Columns[NAME_CELL_ID].ReadOnly = true;
             combatantsDgv.Columns.Add(AP_CELL_ID, "AP");
+            combatantsDgv.Columns[AP_CELL_ID].ReadOnly = true;
+            combatantsDgv.Columns.Add(INIT_CELL_ID, "Initiative");
+            combatantsDgv.Columns[INIT_CELL_ID].ReadOnly = false;
 
             //_combatId = 0;// combatId;
 
             Combat.CombatUpdated += onCombatUpdated;
             Combat.CombatantListUpdated += onCombatantListUpdated;
             SelectorId = CharacterController.Instance.StartSelector();
+            combatantsDgv.CellEndEdit += onCellEndEdit;
         }
 
         protected void onCombatUpdated(object sender, EventArgs e)
@@ -41,11 +39,11 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             if (c.CombatId == _combatId)
             {
                 ICombatant previous = c.Combatants[c.PreviousCombatantIndex];
-                combatantsDgv.Rows[c.PreviousCombatantIndex].Cells[NAME_CELL_ID].Value = previous.GetName();
-                combatantsDgv.Rows[c.PreviousCombatantIndex].Cells[AP_CELL_ID].Value = previous.GetAp();
+                combatantsDgv.Rows[c.PreviousCombatantIndex].Cells[NAME_CELL_ID].Value = previous.Name;
+                combatantsDgv.Rows[c.PreviousCombatantIndex].Cells[AP_CELL_ID].Value = previous.ApString;
 
                 ICombatant current = c.Combatants[c.CurrentCombatantIndex];
-                combatantsDgv.Rows[c.CurrentCombatantIndex].Cells[NAME_CELL_ID].Value = ACTIVE_COMBATANT_MARKER + current.GetName();
+                combatantsDgv.Rows[c.CurrentCombatantIndex].Cells[NAME_CELL_ID].Value = ACTIVE_COMBATANT_MARKER + current.Name;
             }
         }
 
@@ -55,6 +53,20 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             if (c.CombatId == _combatId)
             {
                 updateView(c);
+            }
+        }
+
+        protected void onCellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int charIndex = e.RowIndex;
+            string cellString = (string)combatantsDgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            if(uint.TryParse(cellString, out uint cellInt))
+            {
+                GameController.Instance.EditCombatantInitiative(_combatId, charIndex, cellInt);
+            }
+            else
+            {
+                // todo: Error? Edit rejection?
             }
         }
 
@@ -72,12 +84,12 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         private DataGridViewRow getRow(ICombatant c, bool isActiveCombatant=false)
         {
             DataGridViewRow r = new DataGridViewRow();
-            string name = c.GetName();
+            string name = c.Name;
             if(isActiveCombatant)
             {
                 name = ACTIVE_COMBATANT_MARKER + name;
             }
-            r.CreateCells(combatantsDgv, name, c.GetAp());
+            r.CreateCells(combatantsDgv, name, c.ApString, c.Initiative);
             return r;
         }
 
@@ -140,6 +152,10 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                 {
                     Character chara = (Character)ic;
                     CharacterController.Instance.SelectCharacter(chara.CharacterId, SelectorId);
+                }
+                else
+                {
+                    CharacterController.Instance.DeselectCharacter(SelectorId);
                 }
             }
             else

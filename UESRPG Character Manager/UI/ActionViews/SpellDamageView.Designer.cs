@@ -61,8 +61,7 @@
             // 
             // spellRollBt
             // 
-            this.spellRollBt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.spellRollBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.spellRollBt.Enabled = false;
             this.spellRollBt.Location = new System.Drawing.Point(167, 98);
             this.spellRollBt.Name = "spellRollBt";

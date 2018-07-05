@@ -38,12 +38,20 @@ namespace UESRPG_Character_Manager.UI.CombatViews
 
         private void npcRb_CheckedChanged(object sender, EventArgs e)
         {
-            characterCb.Enabled = characterRb.Checked;
+            charOrNpcUpdate();
         }
 
         private void characterRb_CheckedChanged(object sender, EventArgs e)
         {
+            charOrNpcUpdate();
+        }
+
+        private void charOrNpcUpdate()
+        {
             characterCb.Enabled = characterRb.Checked;
+            npcNameTb.Enabled = npcRb.Checked;
+
+            okBt.Enabled = (characterCb.SelectedIndex >= 0);
         }
 
         private void okBt_Click(object sender, EventArgs e)
@@ -51,11 +59,14 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             if (npcRb.Checked)
             {
                 RemoteCombatant rc = new RemoteCombatant();
+                rc.Name = npcNameTb.Text;
                 GameController.Instance.AddCombatant(_combatId, rc);
             }
             else
             {
                 Character c = (Character)characterCb.SelectedItem;
+                Random r = new Random();
+                c.Initiative = (uint)(r.Next(1, 10) + c.InitiativeRating);
                 GameController.Instance.AddCombatant(_combatId, c);
             }
 
@@ -67,6 +78,18 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+        }
+
+        private void characterCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (((ComboBox)sender).SelectedIndex >= 0)
+            {
+                okBt.Enabled = true;
+            }
+            else
+            {
+                okBt.Enabled = false;
+            }
         }
     }
 }

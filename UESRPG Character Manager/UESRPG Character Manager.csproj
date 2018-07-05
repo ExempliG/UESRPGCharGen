@@ -46,6 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterComponents\Character\Character.Attributes.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Skills.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Powers.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Traits.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Characteristics.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Equipment.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Events.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Spells.cs" />
+    <Compile Include="CharacterComponents\Character\Character.Talents.cs" />
     <Compile Include="CharacterComponents\CharacterExceptionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -89,7 +98,7 @@
     </Compile>
     <Compile Include="GameComponents\ICombatant.cs" />
     <Compile Include="Items\ArmorConstants.cs" />
-    <Compile Include="CharacterComponents\Character.cs" />
+    <Compile Include="CharacterComponents\Character\Character.cs" />
     <Compile Include="CharacterComponents\Characteristics.cs" />
     <Compile Include="Items\Armor.cs" />
     <Compile Include="Items\Item.cs" />

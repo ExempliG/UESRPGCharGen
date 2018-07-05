@@ -15,23 +15,15 @@ namespace UESRPG_Character_Manager.GameComponents
     /// </summary>
     public class RemoteCombatant : ICombatant
     {
-        public string Name { get; private set; }
-        public string Ap   { get; private set; }
+        public string Name { get; set; }
+        public string ApString   { get; private set; }
+        public uint Initiative { get; set; }
 
         public RemoteCombatant()
         {
             Name = "Other Combatant(s)";
-            Ap = "N/A";
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public string GetAp()
-        {
-            return Ap;
+            ApString = "N/A";
+            Initiative = 0;
         }
 
         public void PassTurn()
@@ -134,7 +126,10 @@ namespace UESRPG_Character_Manager.GameComponents
 
         private void updateCombatantIndices()
         {
+            // Store the previous combatant for the sake of removing the "active combatant indicator" in UI
             PreviousCombatantIndex = CurrentCombatantIndex;
+
+            // Search for the next Combatant who can go
             do
             {
                 CurrentCombatantIndex++;
@@ -159,6 +154,12 @@ namespace UESRPG_Character_Manager.GameComponents
         {
             _combatants.Add(newCombatant);
 
+            onCombatantListUpdated();
+        }
+
+        public void EditCombatantInitiative(int index, uint newValue)
+        {
+            _combatants[index].Initiative = newValue;
             onCombatantListUpdated();
         }
 

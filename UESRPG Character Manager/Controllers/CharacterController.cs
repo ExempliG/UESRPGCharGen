@@ -70,6 +70,11 @@ namespace UESRPG_Character_Manager.Controllers
             onSelectedCharacterChanged(characterId, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
         }
 
+        public void DeselectCharacter(uint selectorId)
+        {
+            onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+        }
+
         public Character GetCharacterById(uint id)
         {
             if(_characterDict.ContainsKey(id))

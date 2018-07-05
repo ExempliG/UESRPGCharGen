@@ -85,6 +85,12 @@ namespace UESRPG_Character_Manager.Controllers
             c.AddCombatant(combatant);
         }
 
+        public void EditCombatantInitiative( uint id, int combatantIndex, uint newValue)
+        {
+            Combat c = GetCombatById(id);
+            c.EditCombatantInitiative(combatantIndex, newValue);
+        }
+
         public void RemoveCombatant( uint id, int indexToRemove )
         {
             Combat c = GetCombatById(id);

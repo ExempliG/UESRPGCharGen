@@ -33,13 +33,20 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             combatantsListView._combatId = _combatId;
 
             SelectorId = combatantsListView.SelectorId;
-            weaponDamageView.SelectorId = SelectorId;
-            checkRollView.SelectorId = SelectorId;
-            spellDamageView.SelectorId = SelectorId;
+            weaponDamageView_action.SelectorId = SelectorId;
+            weaponDamageView_reaction.SelectorId = SelectorId;
+            checkRollView_action.SelectorId = SelectorId;
+            checkRollView_reaction.SelectorId = SelectorId;
+            spellDamageView_action.SelectorId = SelectorId;
             characterHealthView.SelectorId = SelectorId;
-            receivedDamageView.SelectorId = SelectorId;
+            receivedDamageView_reaction.SelectorId = SelectorId;
 
             this.FormClosed += onClosed;
+            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+        }
+
+        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
+        {
         }
 
         protected void onClosed(object sender, EventArgs e)

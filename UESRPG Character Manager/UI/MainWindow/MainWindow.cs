@@ -194,7 +194,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {            
             uint combatId = GameController.Instance.CreateNewCombat();
             //Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             //GameController.Instance.AddCombatant(combatId, c);

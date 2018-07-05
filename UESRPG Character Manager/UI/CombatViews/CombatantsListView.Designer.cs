@@ -47,7 +47,6 @@
             this.combatantsDgv.Location = new System.Drawing.Point(4, 4);
             this.combatantsDgv.MultiSelect = false;
             this.combatantsDgv.Name = "combatantsDgv";
-            this.combatantsDgv.ReadOnly = true;
             this.combatantsDgv.Size = new System.Drawing.Size(250, 375);
             this.combatantsDgv.TabIndex = 0;
             this.combatantsDgv.SelectionChanged += new System.EventHandler(this.combatantsDgv_SelectionChanged);

@@ -97,8 +97,7 @@
             // 
             // weaponRollBt
             // 
-            this.weaponRollBt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.weaponRollBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.weaponRollBt.Enabled = false;
             this.weaponRollBt.Location = new System.Drawing.Point(167, 98);
             this.weaponRollBt.Name = "weaponRollBt";

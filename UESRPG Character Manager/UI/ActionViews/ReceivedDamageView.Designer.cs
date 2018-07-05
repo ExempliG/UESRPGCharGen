@@ -64,6 +64,7 @@
             // 
             // applyDamageBt
             // 
+            this.applyDamageBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.applyDamageBt.Location = new System.Drawing.Point(61, 125);
             this.applyDamageBt.Name = "applyDamageBt";
             this.applyDamageBt.Size = new System.Drawing.Size(102, 23);
@@ -83,6 +84,8 @@
             // 
             // finalDamageReceivedTb
             // 
+            this.finalDamageReceivedTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.finalDamageReceivedTb.Location = new System.Drawing.Point(63, 99);
             this.finalDamageReceivedTb.Name = "finalDamageReceivedTb";
             this.finalDamageReceivedTb.Size = new System.Drawing.Size(100, 20);
@@ -90,6 +93,8 @@
             // 
             // hitLocationCb
             // 
+            this.hitLocationCb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.hitLocationCb.FormattingEnabled = true;
             this.hitLocationCb.Location = new System.Drawing.Point(63, 72);
             this.hitLocationCb.Name = "hitLocationCb";
@@ -99,6 +104,8 @@
             // 
             // receivedPenTb
             // 
+            this.receivedPenTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.receivedPenTb.Location = new System.Drawing.Point(63, 46);
             this.receivedPenTb.Name = "receivedPenTb";
             this.receivedPenTb.Size = new System.Drawing.Size(100, 20);
@@ -135,6 +142,8 @@
             // 
             // receivedDamageTb
             // 
+            this.receivedDamageTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.receivedDamageTb.Location = new System.Drawing.Point(63, 20);
             this.receivedDamageTb.Name = "receivedDamageTb";
             this.receivedDamageTb.Size = new System.Drawing.Size(100, 20);
