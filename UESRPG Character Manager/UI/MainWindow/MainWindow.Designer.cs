@@ -107,6 +107,7 @@
             // 
             this.spellListView_statsPage.Location = new System.Drawing.Point(484, 198);
             this.spellListView_statsPage.Name = "spellListView_statsPage";
+            this.spellListView_statsPage.SelectorId = ((uint)(0u));
             this.spellListView_statsPage.Size = new System.Drawing.Size(504, 170);
             this.spellListView_statsPage.TabIndex = 8;
             // 
@@ -114,6 +115,7 @@
             // 
             this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
             this.skillListView_statsPage.Name = "skillListView_statsPage";
+            this.skillListView_statsPage.SelectorId = ((uint)(0u));
             this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
             this.skillListView_statsPage.TabIndex = 4;
             // 
@@ -121,6 +123,7 @@
             // 
             this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
             this.attributesView_statsPage.Name = "attributesView_statsPage";
+            this.attributesView_statsPage.SelectorId = ((uint)(0u));
             this.attributesView_statsPage.Size = new System.Drawing.Size(344, 329);
             this.attributesView_statsPage.TabIndex = 3;
             // 
@@ -128,6 +131,7 @@
             // 
             this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
             this.charaView_statsPage.Name = "charaView_statsPage";
+            this.charaView_statsPage.SelectorId = ((uint)(0u));
             this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
             this.charaView_statsPage.TabIndex = 2;
             // 
@@ -169,6 +173,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
             this.armorView_equipPage.Name = "armorView_equipPage";
+            this.armorView_equipPage.SelectorId = ((uint)(0u));
             this.armorView_equipPage.Size = new System.Drawing.Size(504, 376);
             this.armorView_equipPage.TabIndex = 27;
             // 
@@ -178,6 +183,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.weaponsView_equipPage.Location = new System.Drawing.Point(4, 6);
             this.weaponsView_equipPage.Name = "weaponsView_equipPage";
+            this.weaponsView_equipPage.SelectorId = ((uint)(0u));
             this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
             this.weaponsView_equipPage.TabIndex = 26;
             // 
@@ -211,6 +217,7 @@
             // 
             this.receivedDamageView_rollsPage.Location = new System.Drawing.Point(516, 6);
             this.receivedDamageView_rollsPage.Name = "receivedDamageView_rollsPage";
+            this.receivedDamageView_rollsPage.SelectorId = ((uint)(0u));
             this.receivedDamageView_rollsPage.Size = new System.Drawing.Size(175, 185);
             this.receivedDamageView_rollsPage.TabIndex = 32;
             // 
@@ -219,7 +226,8 @@
             this.spellDamageView_rollsPage.Location = new System.Drawing.Point(262, 149);
             this.spellDamageView_rollsPage.MinimumSize = new System.Drawing.Size(0, 127);
             this.spellDamageView_rollsPage.Name = "spellDamageView_rollsPage";
-            this.spellDamageView_rollsPage.Size = new System.Drawing.Size(249, 127);
+            this.spellDamageView_rollsPage.SelectorId = ((uint)(0u));
+            this.spellDamageView_rollsPage.Size = new System.Drawing.Size(249, 156);
             this.spellDamageView_rollsPage.TabIndex = 31;
             // 
             // weaponDamageView_rollsPage
@@ -227,13 +235,15 @@
             this.weaponDamageView_rollsPage.Location = new System.Drawing.Point(6, 149);
             this.weaponDamageView_rollsPage.MinimumSize = new System.Drawing.Size(0, 127);
             this.weaponDamageView_rollsPage.Name = "weaponDamageView_rollsPage";
-            this.weaponDamageView_rollsPage.Size = new System.Drawing.Size(250, 127);
+            this.weaponDamageView_rollsPage.SelectorId = ((uint)(0u));
+            this.weaponDamageView_rollsPage.Size = new System.Drawing.Size(250, 156);
             this.weaponDamageView_rollsPage.TabIndex = 30;
             // 
             // checkRollView_rollsPage
             // 
             this.checkRollView_rollsPage.Location = new System.Drawing.Point(6, 6);
             this.checkRollView_rollsPage.Name = "checkRollView_rollsPage";
+            this.checkRollView_rollsPage.SelectorId = ((uint)(0u));
             this.checkRollView_rollsPage.Size = new System.Drawing.Size(504, 137);
             this.checkRollView_rollsPage.TabIndex = 29;
             // 

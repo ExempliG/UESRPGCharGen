@@ -40,14 +40,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             {
                 weaponTypeCb.Items.Add(type);
             }
-
             weaponTypeCb.SelectedIndex = 0;
 
-            for (int i = 0; i < (int)WeaponMaterial.MAX; i++)
-            {
-                weaponMaterialCb.Items.Add((WeaponMaterial)i);
-            }
-            weaponMaterialCb.SelectedIndex = 0;
+            updateMaterialsList();
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.WeaponsChanged += onWeaponsChanged;
@@ -80,6 +75,35 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         protected void onWeaponsChanged(object sender, EventArgs e)
         {
             updateView();
+        }
+
+        private void updateMaterialsList()
+        {
+            WeaponType wt = (WeaponType)weaponTypeCb.SelectedItem;
+            Weapon w = WeaponTemplates.DefaultWeapons[(int)wt];
+            updateMaterialsList(w.Reach == WeaponReach.RANGED);
+        }
+
+        private void updateMaterialsList(bool isRanged)
+        {
+            weaponMaterialCb.Items.Clear();
+
+            if(isRanged)
+            {
+                for (int i = 0; i < (int)RangedWeaponMaterial.MAX; i++)
+                {
+                    weaponMaterialCb.Items.Add((RangedWeaponMaterial)i);
+                }
+                weaponMaterialCb.SelectedIndex = 0;
+            }
+            else
+            {
+                for (int i = 0; i < (int)WeaponMaterial.MAX; i++)
+                {
+                    weaponMaterialCb.Items.Add((WeaponMaterial)i);
+                }
+                weaponMaterialCb.SelectedIndex = 0;
+            }
         }
 
         private void updateView()
@@ -120,13 +144,31 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void addNewWeaponBt_Click(object sender, EventArgs e)
         {
+            addNewWeapon();
+        }
+
+        private void addNewWeapon()
+        {
+            Weapon result;
             WeaponType type = (WeaponType)weaponTypeCb.SelectedItem;
-            WeaponMaterial material = (WeaponMaterial)weaponMaterialCb.SelectedItem;
-
             Weapon template = WeaponTemplates.DefaultWeapons[(int)type];
-            WeaponMaterialModifier modifier = WeaponTemplates.Materials[(int)material];
+            bool isRanged = template.Reach == WeaponReach.RANGED;
 
-            Weapon result = Weapon.ApplyMaterial(template, modifier);
+            if (isRanged)
+            {
+                RangedWeaponMaterial material = (RangedWeaponMaterial)weaponMaterialCb.SelectedItem;
+                RangedWeaponMaterialModifier modifier = WeaponTemplates.RangedMaterials[(int)material];
+
+                result = Weapon.ApplyMaterial(template, modifier);
+            }
+            else
+            {
+                WeaponMaterial material = (WeaponMaterial)weaponMaterialCb.SelectedItem;
+                WeaponMaterialModifier modifier = WeaponTemplates.Materials[(int)material];
+
+                result = Weapon.ApplyMaterial(template, modifier);
+            }
+
             result.Name = weaponNameTb.Text;
 
             CharacterController.Instance.AddWeapon(_activeCharacter, result);
@@ -146,6 +188,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
             CharacterController.Instance.DeleteWeapon(_activeCharacter, c.Weapons[weaponIndex]);
+        }
+
+        private void weaponTypeCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateMaterialsList();
         }
     }
 }
