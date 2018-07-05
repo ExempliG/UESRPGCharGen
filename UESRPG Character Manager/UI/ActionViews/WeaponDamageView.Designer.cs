@@ -36,11 +36,15 @@
             this.weaponRollBt = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
             this.weaponCb = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ammoCb = new System.Windows.Forms.ComboBox();
             this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.ammoCb);
+            this.groupBox8.Controls.Add(this.label1);
             this.groupBox8.Controls.Add(this.label39);
             this.groupBox8.Controls.Add(this.weaponResultBreakdownTb);
             this.groupBox8.Controls.Add(this.label38);
@@ -69,7 +73,7 @@
             this.weaponResultBreakdownTb.Location = new System.Drawing.Point(76, 72);
             this.weaponResultBreakdownTb.Name = "weaponResultBreakdownTb";
             this.weaponResultBreakdownTb.Size = new System.Drawing.Size(166, 20);
-            this.weaponResultBreakdownTb.TabIndex = 5;
+            this.weaponResultBreakdownTb.TabIndex = 2;
             // 
             // label38
             // 
@@ -85,15 +89,15 @@
             this.weaponResultTb.Location = new System.Drawing.Point(76, 46);
             this.weaponResultTb.Name = "weaponResultTb";
             this.weaponResultTb.Size = new System.Drawing.Size(166, 20);
-            this.weaponResultTb.TabIndex = 3;
+            this.weaponResultTb.TabIndex = 1;
             // 
             // weaponRollBt
             // 
             this.weaponRollBt.Enabled = false;
-            this.weaponRollBt.Location = new System.Drawing.Point(167, 98);
+            this.weaponRollBt.Location = new System.Drawing.Point(167, 126);
             this.weaponRollBt.Name = "weaponRollBt";
             this.weaponRollBt.Size = new System.Drawing.Size(75, 23);
-            this.weaponRollBt.TabIndex = 2;
+            this.weaponRollBt.TabIndex = 4;
             this.weaponRollBt.Text = "Roll";
             this.weaponRollBt.UseVisualStyleBackColor = true;
             this.weaponRollBt.Click += new System.EventHandler(this.weaponRollBt_Click);
@@ -116,6 +120,23 @@
             this.weaponCb.Size = new System.Drawing.Size(166, 21);
             this.weaponCb.TabIndex = 0;
             this.weaponCb.SelectedIndexChanged += new System.EventHandler(this.weaponCb_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 101);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Ammo:";
+            // 
+            // ammoCb
+            // 
+            this.ammoCb.FormattingEnabled = true;
+            this.ammoCb.Location = new System.Drawing.Point(76, 98);
+            this.ammoCb.Name = "ammoCb";
+            this.ammoCb.Size = new System.Drawing.Size(166, 21);
+            this.ammoCb.TabIndex = 3;
             // 
             // WeaponDamageView
             // 
@@ -140,5 +161,7 @@
         private System.Windows.Forms.Button weaponRollBt;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ComboBox weaponCb;
+        private System.Windows.Forms.ComboBox ammoCb;
+        private System.Windows.Forms.Label label1;
     }
 }

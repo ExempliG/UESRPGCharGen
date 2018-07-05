@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.deleteWeaponBt = new System.Windows.Forms.Button();
             this.editWeaponBt = new System.Windows.Forms.Button();
             this.addNewWeaponBt = new System.Windows.Forms.Button();
             this.weaponMaterialCb = new System.Windows.Forms.ComboBox();
@@ -36,7 +37,6 @@
             this.weaponNameTb = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.weaponsDgv = new System.Windows.Forms.DataGridView();
-            this.deleteWeaponBt = new System.Windows.Forms.Button();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsDgv)).BeginInit();
             this.SuspendLayout();
@@ -59,6 +59,17 @@
             this.groupBox7.TabIndex = 25;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Weapons";
+            // 
+            // deleteWeaponBt
+            // 
+            this.deleteWeaponBt.Enabled = false;
+            this.deleteWeaponBt.Location = new System.Drawing.Point(387, 45);
+            this.deleteWeaponBt.Name = "deleteWeaponBt";
+            this.deleteWeaponBt.Size = new System.Drawing.Size(75, 23);
+            this.deleteWeaponBt.TabIndex = 8;
+            this.deleteWeaponBt.Text = "Delete";
+            this.deleteWeaponBt.UseVisualStyleBackColor = true;
+            this.deleteWeaponBt.Click += new System.EventHandler(this.deleteWeaponBt_Click);
             // 
             // editWeaponBt
             // 
@@ -96,6 +107,7 @@
             this.weaponTypeCb.Name = "weaponTypeCb";
             this.weaponTypeCb.Size = new System.Drawing.Size(121, 21);
             this.weaponTypeCb.TabIndex = 3;
+            this.weaponTypeCb.SelectedIndexChanged += new System.EventHandler(this.weaponTypeCb_SelectedIndexChanged);
             // 
             // weaponNameTb
             // 
@@ -129,17 +141,6 @@
             this.weaponsDgv.Size = new System.Drawing.Size(460, 298);
             this.weaponsDgv.TabIndex = 7;
             this.weaponsDgv.SelectionChanged += new System.EventHandler(this.weaponsDgv_SelectionChanged);
-            // 
-            // deleteWeaponBt
-            // 
-            this.deleteWeaponBt.Enabled = false;
-            this.deleteWeaponBt.Location = new System.Drawing.Point(387, 45);
-            this.deleteWeaponBt.Name = "deleteWeaponBt";
-            this.deleteWeaponBt.Size = new System.Drawing.Size(75, 23);
-            this.deleteWeaponBt.TabIndex = 8;
-            this.deleteWeaponBt.Text = "Delete";
-            this.deleteWeaponBt.UseVisualStyleBackColor = true;
-            this.deleteWeaponBt.Click += new System.EventHandler(this.deleteWeaponBt_Click);
             // 
             // WeaponsView
             // 
