@@ -227,7 +227,7 @@
             this.spellDamageView_rollsPage.MinimumSize = new System.Drawing.Size(0, 127);
             this.spellDamageView_rollsPage.Name = "spellDamageView_rollsPage";
             this.spellDamageView_rollsPage.SelectorId = ((uint)(0u));
-            this.spellDamageView_rollsPage.Size = new System.Drawing.Size(249, 127);
+            this.spellDamageView_rollsPage.Size = new System.Drawing.Size(249, 156);
             this.spellDamageView_rollsPage.TabIndex = 31;
             // 
             // weaponDamageView_rollsPage
@@ -236,7 +236,7 @@
             this.weaponDamageView_rollsPage.MinimumSize = new System.Drawing.Size(0, 127);
             this.weaponDamageView_rollsPage.Name = "weaponDamageView_rollsPage";
             this.weaponDamageView_rollsPage.SelectorId = ((uint)(0u));
-            this.weaponDamageView_rollsPage.Size = new System.Drawing.Size(250, 127);
+            this.weaponDamageView_rollsPage.Size = new System.Drawing.Size(250, 156);
             this.weaponDamageView_rollsPage.TabIndex = 30;
             // 
             // checkRollView_rollsPage

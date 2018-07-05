@@ -25,6 +25,12 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         {
             InitializeComponent();
 
+            for(int i = 0; i < (int)WeaponMaterial.MAX; i++)
+            {
+                ammoCb.Items.Add((WeaponMaterial)i);
+            }
+            ammoCb.SelectedIndex = 0;
+
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.WeaponsChanged += onWeaponsChanged;
         }
@@ -86,6 +92,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             Random r = new Random();
 
             Weapon selectedWeapon = (Weapon)weaponCb.SelectedItem;
+            int additionalMod = 0;
+            int additionalPen = 0;
+            if(selectedWeapon.Reach == WeaponReach.RANGED)
+            {
+                WeaponMaterial wm = (WeaponMaterial)ammoCb.SelectedItem;
+                WeaponMaterialModifier wmm = WeaponTemplates.Materials[(int)wm];
+                additionalMod = wmm.DamageMod;
+                additionalPen = wmm.PenetrationMod;
+            }
             int resultTotal = 0;
             string breakdownString = "";
 
@@ -97,11 +112,11 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             }
 
             Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
-            breakdownString += string.Format("{0} + bonus {1}", selectedWeapon.DamageMod, c.DamageBonus);
+            breakdownString += string.Format("{0} + bonus {1}", selectedWeapon.DamageMod + additionalMod, c.DamageBonus);
             resultTotal += selectedWeapon.DamageMod;
             resultTotal += c.DamageBonus;
 
-            weaponResultTb.Text = string.Format("{0} pen {1}", resultTotal, selectedWeapon.Penetration);
+            weaponResultTb.Text = string.Format("{0} pen {1}", resultTotal, selectedWeapon.Penetration + additionalPen);
             weaponResultBreakdownTb.Text = breakdownString;
         }
 
@@ -110,6 +125,9 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             if (weaponCb.SelectedIndex > -1 && weaponCb.SelectedItem.GetType() == typeof(Weapon))
             {
                 weaponRollBt.Enabled = true;
+
+                Weapon w = (Weapon)weaponCb.SelectedItem;
+                ammoCb.Enabled = w.Reach == WeaponReach.RANGED;
             }
             else
             {

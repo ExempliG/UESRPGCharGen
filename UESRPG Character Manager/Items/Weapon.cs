@@ -25,6 +25,11 @@ namespace UESRPG_Character_Manager.Items
         public WeaponSize Size { get; set; }
         public WeaponQuality Quality { get; set; }
         public WeaponMaterial Material { get; set; }
+        public RangedWeaponMaterial RangedMaterial { get; set; }
+        public int ReloadTurns { get; set; }
+        public int CloseRange { get; set; }
+        public int EffectiveRange { get; set; }
+        public int LongRange { get; set; }
         public bool IsDire { get; set; }
 
         [XmlIgnore(), Browsable(false)]
@@ -75,7 +80,11 @@ namespace UESRPG_Character_Manager.Items
                        WeaponType type,
                        WeaponReach reach,
                        WeaponHandedness handedness,
-                       WeaponSize size) :
+                       WeaponSize size,
+                       int reloadTurns = 0,
+                       int closeRange = 0,
+                       int effectiveRange = 0,
+                       int longRange = 0) :
             base("", "", encumbrance, price)
         {
             NumberOfDice = numberOfDice;
@@ -90,6 +99,11 @@ namespace UESRPG_Character_Manager.Items
             IsDire = false;
             Quality = WeaponQuality.MAX;
             Material = WeaponMaterial.MAX;
+
+            ReloadTurns = reloadTurns;
+            CloseRange = closeRange;
+            EffectiveRange = effectiveRange;
+            LongRange = longRange;
 
             _isEquippable = true;
 
@@ -129,6 +143,35 @@ namespace UESRPG_Character_Manager.Items
                 _price = (int)((price * b.PriceMod) + 0.5),
                 IsDire = b.IsDire,
                 Material = b.Material
+            };
+            return result;
+        }
+
+        public static Weapon ApplyMaterial (Weapon a, RangedWeaponMaterialModifier b)
+        {
+            float enchLev = a.EnchantmentLevel;
+            float price = a.Price;
+
+            Weapon result = new Weapon()
+            {
+                NumberOfDice = a.NumberOfDice,
+                DiceSides = a.DiceSides,
+                Type = a.Type,
+                Reach = a.Reach,
+                Handedness = a.Handedness,
+                Size = a.Size,
+                DamageMod = a.DamageMod,
+                Penetration = a.Penetration,
+                _encumbrance = a.Encumbrance * b.EncumbranceMod,
+                EnchantmentLevel = (int)((enchLev * b.EnchantMod) + 0.5),
+                _price = (int)((price * b.PriceMod) + 0.5),
+                IsDire = false,
+                Material = a.Material,
+                RangedMaterial = b.Material,
+                ReloadTurns = a.ReloadTurns,
+                CloseRange = a.CloseRange + b.RangeMod,
+                EffectiveRange = a.EffectiveRange + b.RangeMod,
+                LongRange = a.LongRange + b.RangeMod
             };
             return result;
         }
@@ -191,6 +234,24 @@ namespace UESRPG_Character_Manager.Items
         }
     }
 
+    public struct RangedWeaponMaterialModifier
+    {
+        public RangedWeaponMaterial Material;
+        public int RangeMod;
+        public float EncumbranceMod;
+        public int EnchantMod;
+        public float PriceMod;
+
+        public RangedWeaponMaterialModifier (RangedWeaponMaterial Material, int RangeMod, float EncumbranceMod, int EnchantMod, float PriceMod)
+        {
+            this.Material = Material;
+            this.RangeMod = RangeMod;
+            this.EncumbranceMod = EncumbranceMod;
+            this.EnchantMod = EnchantMod;
+            this.PriceMod = PriceMod;
+        }
+    }
+
     /// <summary>
     /// Weapon Template helper class
     /// </summary>
@@ -240,7 +301,11 @@ namespace UESRPG_Character_Manager.Items
             new Weapon(1, 10,  1,  5, 0,  75,  90, WeaponType.THROWING_DAGGER,  WeaponReach.SHORT,      WeaponHandedness.ONE,               WeaponSize.SMALL),
             new Weapon(2, 10,  1, 10, 2, 150, 160, WeaponType.TRIDENT,          WeaponReach.LONG,       WeaponHandedness.ONE,               WeaponSize.MEDIUM),
             new Weapon(1, 10,  5,  2, 1, 125, 130, WeaponType.WAKIZASHI,        WeaponReach.SHORT,      WeaponHandedness.ONE,               WeaponSize.MEDIUM),
-            new Weapon(2, 10,  3, 10, 2, 150, 175, WeaponType.WAR_AXE,          WeaponReach.MEDIUM,     WeaponHandedness.ONE,               WeaponSize.MEDIUM)
+            new Weapon(2, 10,  3, 10, 2, 150, 175, WeaponType.WAR_AXE,          WeaponReach.MEDIUM,     WeaponHandedness.ONE,               WeaponSize.MEDIUM),
+            new Weapon(3, 10,  4, 25, 2, 175, 350, WeaponType.HEAVY_CROSSBOW,   WeaponReach.RANGED,     WeaponHandedness.TWO,               WeaponSize.SMALL, 4, 20, 150, 300),
+            new Weapon(2, 10,  4, 20, 1, 125, 150, WeaponType.LIGHT_CROSSBOW,   WeaponReach.RANGED,     WeaponHandedness.TWO,               WeaponSize.SMALL, 3, 20, 100, 200),
+            new Weapon(2, 10,  5, 15, 1, 150, 200, WeaponType.LONG_BOW,         WeaponReach.RANGED,     WeaponHandedness.TWO,               WeaponSize.SMALL, 2, 15, 125, 250),
+            new Weapon(1, 10,  5,  5, 1, 100,  90, WeaponType.SHORT_BOW,        WeaponReach.RANGED,     WeaponHandedness.TWO,               WeaponSize.SMALL, 1, 15, 100, 200)
         };
 
         public static Weapon[] DefaultWeapons
@@ -253,7 +318,7 @@ namespace UESRPG_Character_Manager.Items
 
         private static WeaponMaterialModifier[] _Materials =
         {
-            new WeaponMaterialModifier(WeaponMaterial.ADAMANTIUM, 1, 5, 0.9f, 7.0f, 5.0f, true),
+            new WeaponMaterialModifier(WeaponMaterial.ADAMANTIUM, 2, 5, 0.9f, 7.0f, 5.0f, true),
             new WeaponMaterialModifier(WeaponMaterial.CHITIN, -1, -5, 0.6f, 1, 0.7f, false),
             new WeaponMaterialModifier(WeaponMaterial.DAEDRIC, 5, 10, 1.6f, 10, 50, true),
             new WeaponMaterialModifier(WeaponMaterial.DRAGONBONE, 5, 7, 1.6f, 9, 100, false),
@@ -274,6 +339,29 @@ namespace UESRPG_Character_Manager.Items
             get
             {
                 return _Materials;
+            }
+        }
+
+        private static RangedWeaponMaterialModifier[] _RangedMaterials =
+        {
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.CHITIN,        5, 1.0f,  1,  1.5f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.BONEMOLD,     10, 1.0f,  2,  2.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.DAEDRIC,      30, 3.0f, 10, 20.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.DRAGONBONE,   30, 3.0f,  9, 50.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.DWEMER,       10, 2.0f,  4,  5.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.EBONY,        25, 2.0f,  9, 10.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.MALACHITE,    20, 1.0f,  6,  8.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.MOONSTONE,    15, 1.5f,  5,  6.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.ORICHALCUM,    5, 2.0f,  4,  4.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.STEEL,         0, 2.0f,  3,  2.0f),
+            new RangedWeaponMaterialModifier(RangedWeaponMaterial.WOOD,          0, 1.0f,  1,  1.0f)
+        };
+
+        public static RangedWeaponMaterialModifier[] RangedMaterials
+        {
+            get
+            {
+                return _RangedMaterials;
             }
         }
     }
@@ -320,6 +408,10 @@ namespace UESRPG_Character_Manager.Items
         TRIDENT,
         WAKIZASHI,
         WAR_AXE,
+        HEAVY_CROSSBOW,
+        LIGHT_CROSSBOW,
+        LONG_BOW,
+        SHORT_BOW,
         MAX
     }
 
@@ -348,6 +440,7 @@ namespace UESRPG_Character_Manager.Items
         MEDIUM,
         LONG,
         VERY_LONG,
+        RANGED,
         MAX
     }
 
@@ -376,6 +469,22 @@ namespace UESRPG_Character_Manager.Items
         ORICHALCUM,
         SILVER,
         STAHLRIM,
+        STEEL,
+        WOOD,
+        MAX
+    }
+
+    public enum RangedWeaponMaterial
+    {
+        CHITIN,
+        BONEMOLD,
+        DAEDRIC,
+        DRAGONBONE,
+        DWEMER,
+        EBONY,
+        MALACHITE,
+        MOONSTONE,
+        ORICHALCUM,
         STEEL,
         WOOD,
         MAX
