@@ -179,7 +179,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            EditWeapon ew = new EditWeapon(c.CharacterId, c.Weapons[weaponIndex]);
+            EditWeapon ew = new EditWeapon(c.Id, c.Weapons[weaponIndex]);
             ew.ShowDialog();
         }
 

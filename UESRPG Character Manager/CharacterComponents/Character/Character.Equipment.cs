@@ -71,7 +71,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditWeapon(Weapon newWeapon)
         {
             IEnumerable<Weapon> weaponSearch = from Weapon w in Weapons
-                                               where w.WeaponId == newWeapon.WeaponId
+                                               where w.Id == newWeapon.Id
                                                select w;
             if (weaponSearch.Count() == 1)
             {

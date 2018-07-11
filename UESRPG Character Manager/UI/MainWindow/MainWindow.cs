@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.UI.CharacterViews;
+using UESRPG_Character_Manager.UI.ManagementElements;
 
 namespace UESRPG_Character_Manager.UI.MainWindow
 {
@@ -61,7 +62,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             if (e.SelectorId == SelectorId)
             {
-                if (_hasCharacter)
+                // If the character is being changed, store the old character's Notes
+                if (_hasCharacter && e.EventType != CharacterSelectionEvent.SAME_CHARACTER)
                 {
                     Character oldCharacter = CharacterController.Instance.GetCharacterById(_activeCharacter);
                     ///<todo>Update this to go through the Controller</todo>
@@ -200,10 +202,16 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             //GameController.Instance.AddCombatant(combatId, c);
             CombatViews.CombatWindow cw = new CombatViews.CombatWindow(combatId);
             Point cwLoc = this.Location;
-            cwLoc.X += ( this.Width + 5 );
+            cwLoc.X += ( this.Width + 1 );
             cw.Show();
             cw.Location = cwLoc;
             //GameController.Instance.AddCombatant(combatId, new UESRPG_Character_Manager.GameComponents.RemoteCombatant());
+        }
+
+        private void manageCharactersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ManageCharactersWindow mcw = new ManageCharactersWindow();
+            mcw.Show();
         }
     }
 }

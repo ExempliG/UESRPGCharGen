@@ -90,11 +90,11 @@ namespace UESRPG_Character_Manager
 
             if (_isNewSpell)
             {
-                CharacterController.Instance.AddSpell(_selectedChar.CharacterId, _spell);
+                CharacterController.Instance.AddSpell(_selectedChar.Id, _spell);
             }
             else
             {
-                CharacterController.Instance.EditSpell(_selectedChar.CharacterId, _spell);
+                CharacterController.Instance.EditSpell(_selectedChar.Id, _spell);
             }
             Close ();
         }

@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel;
 
+using UESRPG_Character_Manager.Common;
+
 namespace UESRPG_Character_Manager.CharacterComponents
 {
-    public class Trait : ICloneable
+    public class Trait : ICloneable, IIdentifiable
     {
         public static uint NextAvailableId { get; set; }
 
@@ -22,11 +24,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int XpCost { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint TraitId { get; private set; }
+        public uint Id { get; private set; }
+        public void ResetId()
+        {
+            Id = NextAvailableId;
+            NextAvailableId++;
+        }
 
         public Trait()
         {
-            TraitId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 
@@ -41,12 +48,12 @@ namespace UESRPG_Character_Manager.CharacterComponents
         // Private constructor for use with Clone
         private Trait(string Name, bool IsRacialTrait, int Cost, string Description, uint Id) : this(Name, IsRacialTrait, Cost, Description)
         {
-            TraitId = Id;
+            this.Id = Id;
         }
 
         public object Clone()
         {
-            Trait newTrait = new Trait(Name, IsRacialTrait, XpCost, Description, TraitId);
+            Trait newTrait = new Trait(Name, IsRacialTrait, XpCost, Description, Id);
             return newTrait;
         }
     }

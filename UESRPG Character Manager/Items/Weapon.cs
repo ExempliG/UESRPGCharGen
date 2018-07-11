@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel;
 
+using UESRPG_Character_Manager.Common;
+
 namespace UESRPG_Character_Manager.Items
 {
-    public class Weapon : Item, IComparable, ICloneable
+    public class Weapon : Item, IComparable, ICloneable, IIdentifiable
     {
         public static uint NextAvailableId { get; set; }
 
@@ -33,7 +35,12 @@ namespace UESRPG_Character_Manager.Items
         public bool IsDire { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint WeaponId { get; private set; }
+        public uint Id { get; private set; }
+        public void ResetId()
+        {
+            Id = NextAvailableId;
+            NextAvailableId++;
+        }
 
         public WeaponHandedness Handedness
         {
@@ -66,7 +73,7 @@ namespace UESRPG_Character_Manager.Items
         {
             _isEquippable = true;
 
-            WeaponId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 
@@ -107,14 +114,14 @@ namespace UESRPG_Character_Manager.Items
 
             _isEquippable = true;
 
-            WeaponId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 
         // Private Weapon constructor used in cloning to preserve Weapon ID.
         private Weapon(uint weaponId) : base("", "", 0, 0)
         {
-            WeaponId = weaponId;
+            Id = weaponId;
         }
 
         /// <summary>
@@ -189,7 +196,7 @@ namespace UESRPG_Character_Manager.Items
 
         public object Clone()
         {
-            Weapon w = new Weapon(this.WeaponId);
+            Weapon w = new Weapon(this.Id);
 
             w.DamageMod = this.DamageMod;
             w.NumberOfDice = this.NumberOfDice;

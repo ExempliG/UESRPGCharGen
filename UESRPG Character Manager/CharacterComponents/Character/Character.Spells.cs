@@ -19,7 +19,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditSpell(Spell newSpell)
         {
             IEnumerable<Spell> spellSearch = from Spell s in Spells
-                                             where s.SpellId == newSpell.SpellId
+                                             where s.Id == newSpell.Id
                                              select s;
             if (spellSearch.Count() == 1)
             {

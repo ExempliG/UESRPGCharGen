@@ -18,7 +18,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditTalent(Talent newTalent)
         {
             IEnumerable<Talent> talentSearch = from Talent t in _talents
-                                               where t.TalentId == newTalent.TalentId
+                                               where t.Id == newTalent.Id
                                                select t;
             if (talentSearch.Count() == 1)
             {

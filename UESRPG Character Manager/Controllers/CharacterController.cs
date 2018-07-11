@@ -67,6 +67,7 @@ namespace UESRPG_Character_Manager.Controllers
         public void SelectCharacter(uint characterId, uint selectorId)
         {
             Character c = GetCharacterById(characterId);
+            _activeSelectors[selectorId] = characterId;
             onSelectedCharacterChanged(characterId, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
         }
 
@@ -104,9 +105,23 @@ namespace UESRPG_Character_Manager.Controllers
         {
             Character newChar = new Character();
             newChar.Update();
-            _characterDict.Add(newChar.CharacterId, newChar);
+            _characterDict.Add(newChar.Id, newChar);
 
             return newChar;
+        }
+
+        public void RemoveCharacter(uint charId)
+        {
+            foreach(uint selectorId in _activeSelectors.Keys)
+            {
+                if(_activeSelectors[selectorId] == charId)
+                {
+                    onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+                }
+            }
+
+            _characterDict.Remove(charId);
+            onCharacterListChanged();
         }
 
         public void AddSkill(uint characterId, Skill skillToAdd)
@@ -273,50 +288,103 @@ namespace UESRPG_Character_Manager.Controllers
         {
             bool result = false;
 
+            List<Character> loadedList = readCharListFromFile(fileName, out bool success, out message);//(List<Character>)xml.Deserialize(fs);
+
+            if (success)
+            {
+                _currentFile = fileName;
+
+                resetCharacterComponentIds();
+                Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
+                foreach (Character c in loadedList)
+                {
+                    // Perform any necessary updates.
+                    c.Update();
+                    c.ResetId();
+                    resetIdentifiablesInCharacter(c);
+                    charDict.Add(c.Id, c);
+                }
+
+                _characterDict = charDict;
+
+                foreach(uint selectorId in _activeSelectors.Keys)
+                {
+                    uint selectedChar = _activeSelectors[selectorId];
+                    if (loadedList.Count > selectedChar)
+                    {
+                        onSelectedCharacterChanged(selectedChar, selectorId, CharacterSelectionEvent.SAME_CHARACTER);
+                    }
+                    else
+                    {
+                        onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+                    }
+                }
+                onCharacterListChanged();
+                message = "Success.";
+                result = true;
+            }
+
+            return result;
+        }
+
+        private void resetCharacterComponentIds()
+        {
+            Character.NextAvailableId = 0;
+            Power.NextAvailableId = 0;
+            Skill.NextAvailableId = 0;
+            Spell.NextAvailableId = 0;
+            Talent.NextAvailableId = 0;
+            Trait.NextAvailableId = 0;
+            Weapon.NextAvailableId = 0;
+        }
+
+        private void resetIdentifiablesInCharacter(Character c)
+        {
+            foreach(Power p in c.Powers)
+            {
+                p.ResetId();
+            }
+            foreach(Skill s in c.Skills)
+            {
+                s.ResetId();
+            }
+            foreach(Spell s in c.Spells)
+            {
+                s.ResetId();
+            }
+            foreach(Talent t in c.Talents)
+            {
+                t.ResetId();
+            }
+            foreach(Trait t in c.Traits)
+            {
+                t.ResetId();
+            }
+            foreach(Weapon w in c.Weapons)
+            {
+                w.ResetId();
+            }
+        }
+
+        private List<Character> readCharListFromFile(string fileName, out bool success, out string message)
+        {
+            success = false;
+            List<Character> characters = new List<Character>();
+
             if (!string.IsNullOrEmpty(fileName))
             {
                 XmlSerializer xml = new XmlSerializer(typeof(List<Character>));
                 FileStream fs = new FileStream(fileName, FileMode.Open);
 
-                // Grab the current "next" IDs, in case the load fails.
-                uint skillIdPlaceholder = Skill.NextAvailableId;
-                uint spellIdPlaceholder = Spell.NextAvailableId;
-                uint weaponIdPlaceholder = Weapon.NextAvailableId;
-                uint characterIdPlaceholder = Character.NextAvailableId;
                 try
                 {
-                    // Reset the ID indices, since the previous character list is discarded.
-                    Skill.NextAvailableId = 0;
-                    Spell.NextAvailableId = 0;
-                    Weapon.NextAvailableId = 0;
-                    Character.NextAvailableId = 0;
-                    List<Character> loadedList = (List<Character>)xml.Deserialize(fs);
-
-                    _currentFile = fileName;
-
-                    Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
-                    foreach (Character c in loadedList)
-                    {
-                        // Perform any necessary updates.
-                        c.Update();
-                        charDict.Add(c.CharacterId, c);
-                    }
-
-                    _characterDict = charDict;
-
-                    onSelectedCharacterChanged(0, DEFAULT_SELECTOR_ID, CharacterSelectionEvent.NO_CHARACTER);
-                    onCharacterListChanged();
+                    characters = (List<Character>)xml.Deserialize(fs);
+                    success = true;
                     message = "Success.";
-                    result = true;
                 }
-                catch (IOException e)
+                catch(IOException e)
                 {
                     message = string.Format("Failed to load character(s) for reason: {0}", e.Message);
-                    // Load failed, restore the old highest IDs so there are no collisions if the user wants to
-                    // continue with the current character list.
-                    Skill.NextAvailableId = skillIdPlaceholder;
-                    Spell.NextAvailableId = spellIdPlaceholder;
-                    Weapon.NextAvailableId = weaponIdPlaceholder;
                 }
                 finally
                 {
@@ -325,10 +393,10 @@ namespace UESRPG_Character_Manager.Controllers
             }
             else
             {
-                message = "Invalid fileName.";
+                message = "Invalid filename.";
             }
 
-            return result;
+            return characters;
         }
 
         #region Event callers

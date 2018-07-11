@@ -59,6 +59,7 @@
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
+            this.manageCharactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -303,7 +304,8 @@
             this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveMi,
             this.saveAsMi,
-            this.loadMi});
+            this.loadMi,
+            this.manageCharactersToolStripMenuItem});
             this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
             this.fIleToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fIleToolStripMenuItem.Text = "File";
@@ -346,6 +348,13 @@
             this.characterSelector.Name = "characterSelector";
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
+            // 
+            // manageCharactersToolStripMenuItem
+            // 
+            this.manageCharactersToolStripMenuItem.Name = "manageCharactersToolStripMenuItem";
+            this.manageCharactersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.manageCharactersToolStripMenuItem.Text = "Manage Characters";
+            this.manageCharactersToolStripMenuItem.Click += new System.EventHandler(this.manageCharactersToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -409,6 +418,7 @@
         private ActionViews.SpellDamageView spellDamageView_rollsPage;
         private ActionViews.ReceivedDamageView receivedDamageView_rollsPage;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem manageCharactersToolStripMenuItem;
     }
 }
 

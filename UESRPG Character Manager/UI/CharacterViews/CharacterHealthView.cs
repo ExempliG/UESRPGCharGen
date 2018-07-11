@@ -35,7 +35,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             if (_hasCharacter)
             {
                 Character c = (Character)sender;
-                if (c.CharacterId == _activeCharacter && this.Enabled)
+                if (c.Id == _activeCharacter && this.Enabled)
                 {
                     getCurrentValues(c);
                 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+using UESRPG_Character_Manager.Common;
 using UESRPG_Character_Manager.GameComponents;
 using UESRPG_Character_Manager.Items;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
     //[XmlRoot("Character", IsNullable = false)]
-    public partial class Character : ICloneable, ICombatant
+    public partial class Character : ICloneable, ICombatant, IIdentifiable
     {
         private int[] _characteristics;
         private int[] _modifiers;
@@ -33,7 +34,12 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public static uint NextAvailableId { get; set; }
         [XmlIgnore(), Browsable(false)]
-        public uint CharacterId { get; private set; }
+        public uint Id { get; private set; }
+        public void ResetId()
+        {
+            Id = NextAvailableId;
+            NextAvailableId++;
+        }
 
         public Character ()
         {
@@ -51,13 +57,13 @@ namespace UESRPG_Character_Manager.CharacterComponents
             _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
 
             // Assign each character a unique ID. This is used to refer to Characters directly.
-            CharacterId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 
         private Character (uint characterId) : this()
         {
-            CharacterId = characterId;
+            Id = characterId;
         }
 
         public int GetBonus (int characteristic)
@@ -141,7 +147,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public object Clone ()
         {
-            Character c = new Character(CharacterId)
+            Character c = new Character(Id)
             {
                 Name = Name,
                 Notes = Notes,
@@ -190,7 +196,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public Character CopyChar()
         {
             Character c = (Character)Clone();
-            c.CharacterId = NextAvailableId;
+            c.Id = NextAvailableId;
             NextAvailableId++;
             return c;
         }

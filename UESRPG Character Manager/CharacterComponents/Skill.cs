@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel;
 
+using UESRPG_Character_Manager.Common;
+
 namespace UESRPG_Character_Manager.CharacterComponents
 {
     /// <summary>
     /// Embodies a generic Skill.
     /// </summary>
     /// <todo>Skills should be able to calculate their own difficulty.</todo>
-    public class Skill : ICloneable
+    public class Skill : ICloneable, IIdentifiable
     {
         public static uint NextAvailableId { get; set; }
 
@@ -25,19 +27,24 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int[] Characteristics { get; set; }
         public bool isDefaultSkill = false;
         [XmlIgnore(), Browsable(false)]
-        public uint SkillId { get; private set; }
+        public uint Id { get; private set; }
+        public void ResetId()
+        {
+            Id = NextAvailableId;
+            NextAvailableId++;
+        }
 
         public Skill()
         {
             // Assign each skill a unique ID. This is used for skill editing purposes.
-            SkillId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 
         // A constructor used for duplicating Skill objects in the Clone method
         private Skill(uint skillId)
         {
-            SkillId = skillId;
+            Id = skillId;
         }
 
         public override string ToString()
@@ -47,7 +54,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public object Clone()
         {
-            Skill s = new Skill(this.SkillId);
+            Skill s = new Skill(this.Id);
 
             s.Name = this.Name;
             s.Rank = this.Rank;

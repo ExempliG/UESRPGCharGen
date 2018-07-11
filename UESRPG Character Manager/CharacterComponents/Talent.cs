@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel;
 
+using UESRPG_Character_Manager.Common;
+
 namespace UESRPG_Character_Manager.CharacterComponents
 {
     public enum TalentLevel
@@ -20,7 +22,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         NUMBER_OF_TALENT_LEVELS
     }
 
-    public class Talent : ICloneable
+    public class Talent : ICloneable, IIdentifiable
     {
         public static uint NextAvailableId { get; set; }
 
@@ -32,11 +34,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public TalentLevel Level { get; set; }
         public string Description { get; set; }
         [XmlIgnore(), Browsable(false)]
-        public uint TalentId;
+        public uint Id { get; private set; }
+        public void ResetId()
+        {
+            Id = NextAvailableId;
+            NextAvailableId++;
+        }
 
         public Talent()
         {
-            TalentId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 

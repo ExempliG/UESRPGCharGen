@@ -32,7 +32,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditTrait(Trait newTrait)
         {
             IEnumerable<Trait> traitSearch = from Trait t in _traits
-                                             where t.TraitId == newTrait.TraitId
+                                             where t.Id == newTrait.Id
                                              select t;
             if (traitSearch.Count() == 1)
             {

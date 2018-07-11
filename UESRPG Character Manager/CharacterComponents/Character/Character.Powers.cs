@@ -32,7 +32,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditPower(Power newPower)
         {
             IEnumerable<Power> powerSearch = from Power p in _powers
-                                             where p.PowerId == newPower.PowerId
+                                             where p.Id == newPower.Id
                                              select p;
             if (powerSearch.Count() == 1)
             {

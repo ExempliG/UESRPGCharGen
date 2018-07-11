@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.ComponentModel;
 
+using UESRPG_Character_Manager.Common;
+
 namespace UESRPG_Character_Manager.CharacterComponents
 {
-    public class Power
+    public class Power: IIdentifiable
     {
         public static uint NextAvailableId { get; set; }
 
@@ -18,11 +20,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public string Description { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint PowerId { get; set; }
+        public uint Id { get; set; }
+        public void ResetId()
+        {
+            Id = NextAvailableId;
+            NextAvailableId++;
+        }
 
         public Power()
         {
-            PowerId = NextAvailableId;
+            Id = NextAvailableId;
             NextAvailableId++;
         }
 

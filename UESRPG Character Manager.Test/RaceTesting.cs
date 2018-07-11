@@ -114,7 +114,7 @@ namespace UESRPG_Character_Manager.Test
                 Race race = Races.GetRace((RaceId)i);
                 for (int j = 0; j < race.Traits.Count; j++)
                 {
-                    Assert.AreEqual(c.AggregateTraits[j].TraitId, race.Traits[j].TraitId);
+                    Assert.AreEqual(c.AggregateTraits[j].Id, race.Traits[j].Id);
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace UESRPG_Character_Manager.Test
                 Race race = Races.GetRace((RaceId)i);
                 for(int j = 0; j < race.Powers.Count; j++)
                 {
-                    Assert.AreEqual(c.AggregatePowers[j].PowerId, race.Powers[j].PowerId);
+                    Assert.AreEqual(c.AggregatePowers[j].Id, race.Powers[j].Id);
                 }
             }
         }

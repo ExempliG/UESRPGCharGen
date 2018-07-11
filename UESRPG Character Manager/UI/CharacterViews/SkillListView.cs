@@ -96,7 +96,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             {
                 Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
                 int selectedIndex = theRows[0].Index;
-                EditSkill es = new EditSkill(c.CharacterId, c.Skills[selectedIndex]);
+                EditSkill es = new EditSkill(c.Id, c.Skills[selectedIndex]);
                 es.ShowDialog();
             }
 

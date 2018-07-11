@@ -19,7 +19,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditSkill(Skill newSkill)
         {
             IEnumerable<Skill> skillSearch = from Skill s in Skills
-                                             where s.SkillId == newSkill.SkillId
+                                             where s.Id == newSkill.Id
                                              select s;
             if (skillSearch.Count() == 1)
             {

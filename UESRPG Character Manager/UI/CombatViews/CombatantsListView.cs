@@ -151,7 +151,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                 if(ic.GetType() == typeof(Character))
                 {
                     Character chara = (Character)ic;
-                    CharacterController.Instance.SelectCharacter(chara.CharacterId, SelectorId);
+                    CharacterController.Instance.SelectCharacter(chara.Id, SelectorId);
                 }
                 else
                 {
