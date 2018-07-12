@@ -28,27 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.charactersDgv = new System.Windows.Forms.DataGridView();
             this.importBt = new System.Windows.Forms.Button();
             this.exportBt = new System.Windows.Forms.Button();
             this.deleteBt = new System.Windows.Forms.Button();
             this.okBt = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.charactersDgv)).BeginInit();
+            this.charactersDgv = new UESRPG_Character_Manager.UI.ManagementElements.CharactersDgv();
             this.SuspendLayout();
-            // 
-            // charactersDgv
-            // 
-            this.charactersDgv.AllowUserToAddRows = false;
-            this.charactersDgv.AllowUserToDeleteRows = false;
-            this.charactersDgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.charactersDgv.Location = new System.Drawing.Point(13, 13);
-            this.charactersDgv.Name = "charactersDgv";
-            this.charactersDgv.ReadOnly = true;
-            this.charactersDgv.Size = new System.Drawing.Size(345, 188);
-            this.charactersDgv.TabIndex = 0;
             // 
             // importBt
             // 
+            this.importBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.importBt.Location = new System.Drawing.Point(202, 207);
             this.importBt.Name = "importBt";
             this.importBt.Size = new System.Drawing.Size(75, 23);
@@ -59,6 +48,7 @@
             // 
             // exportBt
             // 
+            this.exportBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.exportBt.Location = new System.Drawing.Point(283, 207);
             this.exportBt.Name = "exportBt";
             this.exportBt.Size = new System.Drawing.Size(75, 23);
@@ -69,6 +59,7 @@
             // 
             // deleteBt
             // 
+            this.deleteBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteBt.Location = new System.Drawing.Point(202, 236);
             this.deleteBt.Name = "deleteBt";
             this.deleteBt.Size = new System.Drawing.Size(75, 23);
@@ -79,6 +70,7 @@
             // 
             // okBt
             // 
+            this.okBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okBt.Location = new System.Drawing.Point(283, 236);
             this.okBt.Name = "okBt";
             this.okBt.Size = new System.Drawing.Size(75, 23);
@@ -87,29 +79,37 @@
             this.okBt.UseVisualStyleBackColor = true;
             this.okBt.Click += new System.EventHandler(this.okBt_Click);
             // 
+            // charactersDgv
+            // 
+            this.charactersDgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.charactersDgv.Location = new System.Drawing.Point(13, 13);
+            this.charactersDgv.Name = "charactersDgv";
+            this.charactersDgv.Size = new System.Drawing.Size(345, 188);
+            this.charactersDgv.TabIndex = 5;
+            // 
             // ManageCharactersWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 271);
+            this.Controls.Add(this.charactersDgv);
             this.Controls.Add(this.okBt);
             this.Controls.Add(this.deleteBt);
             this.Controls.Add(this.exportBt);
             this.Controls.Add(this.importBt);
-            this.Controls.Add(this.charactersDgv);
             this.Name = "ManageCharactersWindow";
             this.Text = "ManageCharactersWindow";
-            ((System.ComponentModel.ISupportInitialize)(this.charactersDgv)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView charactersDgv;
         private System.Windows.Forms.Button importBt;
         private System.Windows.Forms.Button exportBt;
         private System.Windows.Forms.Button deleteBt;
         private System.Windows.Forms.Button okBt;
+        private CharactersDgv charactersDgv;
     }
 }

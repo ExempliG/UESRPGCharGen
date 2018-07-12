@@ -15,34 +15,17 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
 {
     public partial class ManageCharactersWindow : Form
     {
-        private const string NAME_CELL_ID = "name";
-        private const string ID_CELL_ID = "id";
-
         public ManageCharactersWindow()
         {
             InitializeComponent();
 
             exportBt.Enabled = false;
-
-            charactersDgv.Columns.Add(ID_CELL_ID, "ID");
-            charactersDgv.Columns.Add(NAME_CELL_ID, "Name");
             updateCharacterList();
         }
 
         private void updateCharacterList()
         {
-            charactersDgv.Rows.Clear();
-            foreach (Character c in CharacterController.Instance.CharacterDict.Values)
-            {
-                charactersDgv.Rows.Add(getRow(c));
-            }
-        }
-
-        private DataGridViewRow getRow(Character c)
-        {
-            DataGridViewRow r = new DataGridViewRow();
-            r.CreateCells(charactersDgv, c.Id, c.Name);
-            return r;
+            charactersDgv.UpdateCharacterList(CharacterController.Instance.CharacterDict.Values);
         }
 
         private void importBt_Click(object sender, EventArgs e)
@@ -57,9 +40,8 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
 
         private void deleteBt_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow r in charactersDgv.SelectedRows)
+            foreach(uint id in charactersDgv.GetSelectedCharacters())
             {
-                uint id = (uint)r.Cells[ID_CELL_ID].Value;
                 CharacterController.Instance.RemoveCharacter(id);
             }
 

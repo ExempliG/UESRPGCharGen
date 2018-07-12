@@ -221,6 +221,12 @@
     <Compile Include="UI\MainWindow\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ManagementElements\CharactersDgv.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ManagementElements\CharactersDgv.Designer.cs">
+      <DependentUpon>CharactersDgv.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ManagementElements\ImportCharactersWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainWindow\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ManagementElements\CharactersDgv.resx">
+      <DependentUpon>CharactersDgv.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ManagementElements\ImportCharactersWindow.resx">
       <DependentUpon>ImportCharactersWindow.cs</DependentUpon>
