@@ -39,11 +39,17 @@ namespace UESRPG_Character_Manager.Controllers
         private string _currentFile;
         private Dictionary<uint, Character> _characterDict;
 
+        // I'm so sorry
+        private Dictionary<uint, Dictionary<uint, Character>> _otherDicts;
+        public static uint CharacterListId { get; private set; }
+
         public CharacterController()
         {
             _characterDict = new Dictionary<uint, Character>();
             SelectorId = 0;
             _activeSelectors = new Dictionary<uint, uint>();
+            _otherDicts = new Dictionary<uint, Dictionary<uint, Character>>();
+            CharacterListId = 0;
         }
 
         public static CharacterController Instance
@@ -101,6 +107,34 @@ namespace UESRPG_Character_Manager.Controllers
             _activeSelectors.Remove(selectorId);
         }
 
+        public uint StartCharacterList()
+        {
+            uint newListId = CharacterListId;
+            CharacterListId++;
+            _otherDicts.Add(newListId, new Dictionary<uint, Character>());
+            return newListId;
+        }
+
+        public uint StartCharacterList(List<Character> charList)
+        {
+            uint newListId = CharacterListId;
+            CharacterListId++;
+
+            Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
+            foreach(Character c in charList)
+            {
+                charDict.Add(c.Id, c);
+            }
+            _otherDicts.Add(newListId, charDict);
+
+            return newListId;
+        }
+
+        public void EndCharacterList(uint charListId)
+        {
+            _otherDicts.Remove(charListId);
+        }
+
         public Character AddCharacter()
         {
             Character newChar = new Character();
@@ -108,6 +142,21 @@ namespace UESRPG_Character_Manager.Controllers
             _characterDict.Add(newChar.Id, newChar);
 
             return newChar;
+        }
+
+        public Character AddCharacter(uint fromList, uint fromId)
+        {
+            if(_otherDicts.ContainsKey(fromList))
+            {
+                Character c = _otherDicts[fromList][fromId];
+                _characterDict.Add(c.Id, c);
+
+                return c;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("fromList", "You stink.");
+            }
         }
 
         public void RemoveCharacter(uint charId)
