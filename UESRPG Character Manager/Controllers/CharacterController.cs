@@ -90,7 +90,7 @@ namespace UESRPG_Character_Manager.Controllers
             }
             else
             {
-                throw new ArgumentOutOfRangeException("id", id, "You stink");
+                throw new ArgumentOutOfRangeException("id", id, CharacterControllerExceptionMessages.InvalidCharacterId);
             }
         }
 
@@ -138,7 +138,7 @@ namespace UESRPG_Character_Manager.Controllers
         public Character AddCharacter()
         {
             Character newChar = new Character();
-            newChar.Update();
+            newChar.UntrainedCheck();
             _characterDict.Add(newChar.Id, newChar);
 
             return newChar;
@@ -155,7 +155,7 @@ namespace UESRPG_Character_Manager.Controllers
             }
             else
             {
-                throw new ArgumentOutOfRangeException("fromList", "You stink.");
+                throw new ArgumentOutOfRangeException("fromList", fromList, CharacterControllerExceptionMessages.InvalidCharacterListId);
             }
         }
 
@@ -350,7 +350,7 @@ namespace UESRPG_Character_Manager.Controllers
                     // Perform any necessary updates.
                     c.Update();
                     c.ResetId();
-                    resetIdentifiablesInCharacter(c);
+                    c.ResetIdentifiableIds();
                     charDict.Add(c.Id, c);
                 }
 
@@ -385,34 +385,6 @@ namespace UESRPG_Character_Manager.Controllers
             Talent.NextAvailableId = 0;
             Trait.NextAvailableId = 0;
             Weapon.NextAvailableId = 0;
-        }
-
-        private void resetIdentifiablesInCharacter(Character c)
-        {
-            foreach(Power p in c.Powers)
-            {
-                p.ResetId();
-            }
-            foreach(Skill s in c.Skills)
-            {
-                s.ResetId();
-            }
-            foreach(Spell s in c.Spells)
-            {
-                s.ResetId();
-            }
-            foreach(Talent t in c.Talents)
-            {
-                t.ResetId();
-            }
-            foreach(Trait t in c.Traits)
-            {
-                t.ResetId();
-            }
-            foreach(Weapon w in c.Weapons)
-            {
-                w.ResetId();
-            }
         }
 
         private List<Character> readCharListFromFile(string fileName, out bool success, out string message)

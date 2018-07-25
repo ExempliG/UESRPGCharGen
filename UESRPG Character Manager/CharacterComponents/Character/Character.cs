@@ -33,12 +33,40 @@ namespace UESRPG_Character_Manager.CharacterComponents
         private string _name = "Player";
 
         public static uint NextAvailableId { get; set; }
-        [XmlIgnore(), Browsable(false)]
-        public uint Id { get; private set; }
+        [Browsable(false)]
+        public uint Id { get; set; }
         public void ResetId()
         {
             Id = NextAvailableId;
             NextAvailableId++;
+        }
+
+        public void ResetIdentifiableIds()
+        {
+            foreach (Power p in Powers)
+            {
+                p.ResetId();
+            }
+            foreach (Skill s in Skills)
+            {
+                s.ResetId();
+            }
+            foreach (Spell s in Spells)
+            {
+                s.ResetId();
+            }
+            foreach (Talent t in Talents)
+            {
+                t.ResetId();
+            }
+            foreach (Trait t in Traits)
+            {
+                t.ResetId();
+            }
+            foreach (Weapon w in Weapons)
+            {
+                w.ResetId();
+            }
         }
 
         public Character ()
@@ -206,21 +234,8 @@ namespace UESRPG_Character_Manager.CharacterComponents
             return Name;
         }
 
-        /// <summary>
-        /// Perform necessary updates on a Character object based on its stored version.
-        /// </summary>
-        public void Update ()
+        public void UntrainedCheck()
         {
-            if (MajorVersion <= 0 && MinorVersion <= 0 && EngVersion < 1)
-            {
-                // Skills were 1 point too high in version 0.0.0 because I forgot that "Trained" is rank 0.
-                // We adjust for that here.
-                foreach (Skill s in _skills)
-                {
-                    s.Rank -= 1;
-                }
-            }
-
             // We always want to ensure the presence of an "Untrained" skill for each character on Load.
             IEnumerable<Skill> untrainedSearch = from skill in _skills
                                                  where skill.Name == "Untrained"
@@ -243,6 +258,24 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 }
                 _skills.Insert(0, untrainedSkill);
             }
+        }
+
+        /// <summary>
+        /// Perform necessary updates on a Character object based on its stored version.
+        /// </summary>
+        public void Update ()
+        {
+            if (MajorVersion <= 0 && MinorVersion <= 0 && EngVersion < 1)
+            {
+                // Skills were 1 point too high in version 0.0.0 because I forgot that "Trained" is rank 0.
+                // We adjust for that here.
+                foreach (Skill s in _skills)
+                {
+                    s.Rank -= 1;
+                }
+            }
+
+            UntrainedCheck();
         }
     }
 }
