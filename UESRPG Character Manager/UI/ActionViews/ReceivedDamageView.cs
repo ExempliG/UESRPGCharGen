@@ -85,6 +85,8 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             _hasCharacter = false;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -111,10 +113,17 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void toggleAllControls(bool enabled)
         {
+            if(!enabled)
+            {
+                receivedDamageTb.Clear();
+                receivedPenTb.Clear();
+                finalDamageReceivedTb.Clear();
+            }
             receivedDamageTb.Enabled = enabled;
             receivedPenTb.Enabled = enabled;
             hitLocationCb.Enabled = enabled;
             applyDamageBt.Enabled = enabled;
+            finalDamageReceivedTb.Enabled = enabled;
         }
 
         private void receivedDamageTb_TextChanged(object sender, EventArgs e)

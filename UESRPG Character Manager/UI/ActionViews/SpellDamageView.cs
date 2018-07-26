@@ -32,6 +32,8 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.SpellListChanged += onSpellListChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -60,8 +62,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void toggleAllControls(bool enabled)
         {
+            if(!enabled)
+            {
+                spellResultBreakdownTb.Clear();
+                spellResultTb.Clear();
+            }
             spellRollBt.Enabled = enabled;
             spellsCb.Enabled = enabled;
+            spellResultBreakdownTb.Enabled = enabled;
+            spellResultTb.Enabled = enabled;
         }
 
         protected void onSpellListChanged(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
     {
         public uint SelectorId { get; set; }
         uint _activeCharacter;
-        bool _hasCharacter;
+        bool _hasCharacter = false;
 
         public WeaponDamageView()
         {
@@ -33,6 +33,8 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.WeaponsChanged += onWeaponsChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -83,8 +85,16 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void toggleAllControls(bool enabled)
         {
+            if(!enabled)
+            {
+                weaponResultTb.Clear();
+                weaponResultBreakdownTb.Clear();
+            }
             weaponRollBt.Enabled = enabled;
             weaponCb.Enabled = enabled;
+            weaponResultBreakdownTb.Enabled = enabled;
+            weaponResultTb.Enabled = enabled;
+            updateAmmoCb();
         }
 
         private void weaponRollBt_Click(object sender, EventArgs e)
@@ -120,9 +130,13 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             weaponResultBreakdownTb.Text = breakdownString;
         }
 
-        private void weaponCb_SelectedIndexChanged(object sender, EventArgs e)
+        private void updateAmmoCb()
         {
-            if (weaponCb.SelectedIndex > -1 && weaponCb.SelectedItem.GetType() == typeof(Weapon))
+            if(!_hasCharacter)
+            {
+                weaponRollBt.Enabled = false;
+            }
+            else if (weaponCb.SelectedIndex > -1 && weaponCb.SelectedItem.GetType() == typeof(Weapon))
             {
                 weaponRollBt.Enabled = true;
 
@@ -133,6 +147,11 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             {
                 weaponRollBt.Enabled = false;
             }
+        }
+
+        private void weaponCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateAmmoCb();
         }
     }
 }

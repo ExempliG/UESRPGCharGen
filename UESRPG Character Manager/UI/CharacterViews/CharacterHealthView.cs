@@ -28,6 +28,8 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             Character.AttributeChanged += onAttributeChanged;
             CharacterController.Instance.SelectedCharacterChanged += onCombatantChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onAttributeChanged(object sender, EventArgs e)

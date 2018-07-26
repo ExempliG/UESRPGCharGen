@@ -28,6 +28,8 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.CharacteristicChanged += onCharacteristicChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -66,27 +68,51 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
                 if (!_characteristicMutex)
                 {
                     _characteristicMutex = true;
-                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
-                    nbStrength.Value = c.Strength;
-                    nbEndurance.Value = c.Endurance;
-                    nbAgility.Value = c.Agility;
+                    Character c          = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    nbStrength.Value     = c.Strength;
+                    nbEndurance.Value    = c.Endurance;
+                    nbAgility.Value      = c.Agility;
                     nbIntelligence.Value = c.Intelligence;
-                    nbWillpower.Value = c.Willpower;
-                    nbPerception.Value = c.Perception;
-                    nbPersonality.Value = c.Personality;
-                    nbLuck.Value = c.Luck;
+                    nbWillpower.Value    = c.Willpower;
+                    nbPerception.Value   = c.Perception;
+                    nbPersonality.Value  = c.Personality;
+                    nbLuck.Value         = c.Luck;
                     _characteristicMutex = false;
                 }
             }
             else
             {
-                ///<todo>DO it</todo>
+                clearAllControls();
+            }
+        }
+
+        private void clearAllControls()
+        {
+            if (!_characteristicMutex)
+            {
+                _characteristicMutex = true;
+                nbStrength.Value     = 0;
+                nbEndurance.Value    = 0;
+                nbAgility.Value      = 0;
+                nbIntelligence.Value = 0;
+                nbWillpower.Value    = 0;
+                nbPerception.Value   = 0;
+                nbPersonality.Value  = 0;
+                nbLuck.Value         = 0;
+                _characteristicMutex = false;
             }
         }
 
         private void toggleAllControls(bool enabled)
         {
-            ///<todo>Do it</todo>
+            nbStrength.Enabled     = enabled;
+            nbEndurance.Enabled    = enabled;
+            nbAgility.Enabled      = enabled;
+            nbIntelligence.Enabled = enabled;
+            nbWillpower.Enabled    = enabled;
+            nbPerception.Enabled   = enabled;
+            nbPersonality.Enabled  = enabled;
+            nbLuck.Enabled         = enabled;
         }
 
         private void nbStrength_ValueChanged(object sender, EventArgs e)

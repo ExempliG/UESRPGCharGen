@@ -31,6 +31,8 @@ namespace UESRPG_Character_Manager.UI
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.CharacteristicChanged += onCharacteristicChanged;
             Character.AttributeChanged += onAttributeChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -105,13 +107,82 @@ namespace UESRPG_Character_Manager.UI
             }
             else
             {
-                ///<todo>do it</todo>
+                clearAllControls();
+            }
+        }
+
+        private void clearAllControls()
+        {
+            if (!_attributesMutex)
+            {
+                _attributesMutex = true;
+
+                maxHealthTb.Clear();
+                woundThresholdTb.Clear();
+                maxStaminaTb.Clear();
+                maxMagickaTb.Clear();
+                maxActionPointsTb.Clear();
+                movementRatingTb.Clear();
+                carryRatingTb.Clear();
+                initiativeRatingTb.Clear();
+                damageBonusTb.Clear();
+                maxLuckPointsTb.Clear();
+
+                nbModHealth.Value = 0;
+                nbModWoundThreshold.Value = 0;
+                nbModStamina.Value = 0;
+                nbModMagicka.Value = 0;
+                nbModActionPoints.Value = 0;
+                nbModMovementRating.Value = 0;
+                nbModCarryRating.Value = 0;
+                nbModInitiativeRating.Value = 0;
+                nbModDamageBonus.Value = 0;
+                nbModLuck.Value = 0;
+
+
+                healthTb.Clear();
+                staminaTb.Clear();
+                magickaTb.Clear();
+                actionPointsTb.Clear();
+                luckPointsTb.Clear();
+
+                _attributesMutex = false;
             }
         }
 
         private void toggleAllControls(bool enabled)
         {
-            ///<todo>Do it</todo>
+            if(!enabled)
+            {
+                clearAllControls();
+            }
+            maxHealthTb.Enabled = enabled;
+            woundThresholdTb.Enabled = enabled;
+            maxStaminaTb.Enabled = enabled;
+            maxMagickaTb.Enabled = enabled;
+            maxActionPointsTb.Enabled = enabled;
+            movementRatingTb.Enabled = enabled;
+            carryRatingTb.Enabled = enabled;
+            initiativeRatingTb.Enabled = enabled;
+            damageBonusTb.Enabled = enabled;
+            maxLuckPointsTb.Enabled = enabled;
+
+            nbModHealth.Enabled = enabled;
+            nbModWoundThreshold.Enabled = enabled;
+            nbModStamina.Enabled = enabled;
+            nbModMagicka.Enabled = enabled;
+            nbModActionPoints.Enabled = enabled;
+            nbModMovementRating.Enabled = enabled;
+            nbModCarryRating.Enabled = enabled;
+            nbModInitiativeRating.Enabled = enabled;
+            nbModDamageBonus.Enabled = enabled;
+            nbModLuck.Enabled = enabled;
+
+            healthTb.Enabled = enabled;
+            staminaTb.Enabled = enabled;
+            magickaTb.Enabled = enabled;
+            actionPointsTb.Enabled = enabled;
+            luckPointsTb.Enabled = enabled;
         }
 
         #region Attribute Event Handlers

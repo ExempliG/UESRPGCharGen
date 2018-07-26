@@ -36,6 +36,8 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             Character.SkillListChanged += onSkillListChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -127,18 +129,22 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         {
             if (!enabled)
             {
-                successOrFailLb.Text = "";
-                hitLocationLb.Text = "";
+                successOrFailLb.Text = string.Empty;
+                hitLocationLb.Text = string.Empty;
                 rollBreakdownTb.Clear();
                 rollResultTb.Clear();
+                rollSuccessesTb.Clear();
                 extraDifficultyNud.Value = 0;
             }
-            //skillRb.Enabled = enabled;
-            //skillsCb.Enabled = enabled;
+            skillRb.Enabled = enabled;
+            skillsCb.Enabled = enabled;
+            rollBt.Enabled = enabled;
             extraDifficultyNud.Enabled = enabled;
             rollBreakdownTb.Enabled = enabled;
             rollResultTb.Enabled = enabled;
+            rollSuccessesTb.Enabled = enabled;
             extraDifficultyNud.Enabled = enabled;
+            characteristicCb.Enabled = enabled;
         }
 
         /// <summary>

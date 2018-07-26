@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 
 using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.Common;
 
 namespace UESRPG_Character_Manager.Controllers
 {
@@ -287,12 +288,13 @@ namespace UESRPG_Character_Manager.Controllers
         /// <summary>
         /// Performs the saving of a Character list.
         /// </summary>
-        /// <param name="fileName">The filename to save the list as.</param>
-        public bool SaveChar(string fileName, out string message)
+        /// <param name="filename">The filename to save the list as.</param>
+        public bool SaveChar(string filename, out string message)
         {
-            bool result = false;
+            SaveFile save = new SaveFile(CharacterDict, GameController.Instance.CombatDict);
+            bool result = save.SaveToFilename(filename, out message);
 
-            if (!string.IsNullOrEmpty(fileName))
+            /*if (!string.IsNullOrEmpty(fileName))
             {
                 XmlSerializer xml = new XmlSerializer(typeof(List<Character>));
                 FileStream fs = new FileStream(fileName, FileMode.Create);
@@ -325,7 +327,7 @@ namespace UESRPG_Character_Manager.Controllers
             else
             {
                 message = "Invalid fileName.";
-            }
+            }*/
 
             return result;
         }
@@ -333,11 +335,30 @@ namespace UESRPG_Character_Manager.Controllers
         /// <summary>
         /// Handle the loading of a Character list.
         /// </summary>
-        public bool LoadChar(string fileName, out string message)
+        public bool LoadChar(string filename, out string message)
         {
-            bool result = false;
+            SaveFile save = SaveFile.LoadFilename(filename, out bool result, out message);
 
-            List<Character> loadedList = readCharListFromFile(fileName, out bool success, out message);//(List<Character>)xml.Deserialize(fs);
+            if(result)
+            {
+                _characterDict = save.GetUpdatedCharacterDict();
+                onCharacterListChanged();
+                foreach (uint selectorId in _activeSelectors.Keys)
+                {
+                    uint selectedChar = _activeSelectors[selectorId];
+
+                    if (_characterDict.Count == 0)
+                    {
+                        onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+                    }
+                    else
+                    {
+                        onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+                    }
+                }
+            }
+
+            /*List<Character> loadedList = readCharListFromFile(fileName, out bool success, out message);//(List<Character>)xml.Deserialize(fs);
 
             if (success)
             {
@@ -371,7 +392,7 @@ namespace UESRPG_Character_Manager.Controllers
                 onCharacterListChanged();
                 message = "Success.";
                 result = true;
-            }
+            }*/
 
             return result;
         }

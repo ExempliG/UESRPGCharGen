@@ -37,6 +37,8 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             armorQualityCb.DataSource = ArmorMaterialData.s_names;
 
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+
+            toggleAllControls(false);
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
@@ -76,13 +78,23 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
             else
             {
-                ///<todo>Do it</todo>
+                armorDgv.DataSource = null;
             }
         }
 
         private void toggleAllControls(bool enabled)
         {
-
+            if(!enabled)
+            {
+                armorDgv.DataSource = null;
+                armorNameTb.Clear();
+            }
+            addNewArmorBt.Enabled = enabled;
+            armorLocationCb.Enabled = enabled;
+            armorMaterialCb.Enabled = enabled;
+            armorQualityCb.Enabled = enabled;
+            armorTypeCb.Enabled = enabled;
+            armorNameTb.Enabled = enabled;
         }
 
         private void addNewArmorBt_Click(object sender, EventArgs e)

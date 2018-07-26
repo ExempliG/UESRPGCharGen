@@ -74,7 +74,12 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void toggleAllControls(bool enabled)
         {
-            ///<todo>Do it</todo>
+            if(!enabled)
+            {
+                skillsDgv.DataSource = null;
+            }
+            addSkillBt.Enabled = enabled;
+            editSkillBt.Enabled = enabled;
         }
 
         private void addSkillBt_Click(object sender, EventArgs e)

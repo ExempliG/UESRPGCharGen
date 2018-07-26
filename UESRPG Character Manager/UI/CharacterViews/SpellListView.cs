@@ -78,7 +78,12 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void toggleAllControls(bool enabled)
         {
-            ///<todo>Do it</todo>
+            if(!enabled)
+            {
+                spellsDgv.DataSource = null;
+            }
+            addSpellBt.Enabled = enabled;
+            spellEditBt.Enabled = enabled;
         }
 
         private void addSpellBt_Click(object sender, EventArgs e)

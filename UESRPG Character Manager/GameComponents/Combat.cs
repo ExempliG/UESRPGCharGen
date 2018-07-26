@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager.GameComponents
 {
@@ -24,6 +25,13 @@ namespace UESRPG_Character_Manager.GameComponents
             Name = "Other Combatant(s)";
             ApString = "N/A";
             Initiative = 0;
+        }
+
+        public RemoteCombatant(CombatSave.SaveCombatant sc)
+        {
+            Name = sc.Name;
+            ApString = sc.ApString;
+            Initiative = sc.Initiative;
         }
 
         public void PassTurn()
@@ -47,6 +55,79 @@ namespace UESRPG_Character_Manager.GameComponents
         }
     }
 
+    public class CombatSave : Combat
+    {
+        public struct SaveCombatant : ICombatant
+        {
+            public string Name { get; set; }
+            public string ApString { get; set; }
+            public uint Initiative { get; set; }
+            public int Id { get; set; }
+
+            public SaveCombatant(Character c)
+            {
+                Name = c.Name;
+                ApString = c.ApString;
+                Initiative = c.Initiative;
+                Id = (int)c.Id;
+            }
+
+            public SaveCombatant(ICombatant c)
+            {
+                Name = c.Name;
+                ApString = c.ApString;
+                Initiative = c.Initiative;
+                Id = -1;
+            }
+
+            public void PassTurn()
+            {
+                // do nothing
+            }
+
+            public void TakeAction()
+            {
+                // do nothing
+            }
+
+            public void NewRound()
+            {
+                // do nothing
+            }
+
+            public bool CanAct()
+            {
+                return true;
+            }
+        }
+
+        public List<SaveCombatant> SaveCombatants;
+        new public uint CombatId { get; set; }
+        new public int PreviousCombatantIndex { get; set; }
+        new public int CurrentCombatantIndex { get; set; }
+
+        public CombatSave()
+        {
+            SaveCombatants = new List<SaveCombatant>();
+        }
+
+        public static CombatSave MakeSave(Combat c)
+        {
+            CombatSave theSave = (CombatSave)c;
+            theSave.CombatId = c.CombatId;
+            theSave.PreviousCombatantIndex = c.PreviousCombatantIndex;
+            theSave.CurrentCombatantIndex = c.CurrentCombatantIndex;
+
+            theSave.SaveCombatants = new List<SaveCombatant>();
+            foreach(ICombatant ic in c.Combatants)
+            {
+                theSave.SaveCombatants.Add(new SaveCombatant(ic));
+            }
+
+            return theSave;
+        }
+    }
+
     public class Combat
     {
         public static uint NextAvailableId { get; set; }
@@ -63,22 +144,58 @@ namespace UESRPG_Character_Manager.GameComponents
             _combatants = new List<ICombatant>();
         }
 
+        private Combat(CombatSave save)
+        {
+            CombatId = save.CombatId;
+            PreviousCombatantIndex = save.PreviousCombatantIndex;
+            CurrentCombatantIndex = save.CurrentCombatantIndex;
+        }
+
+        public static Combat Restore(CombatSave save)
+        {
+            Combat theCombat = save;
+
+            theCombat.CombatId = save.CombatId;
+            theCombat.PreviousCombatantIndex = save.PreviousCombatantIndex;
+            theCombat.CurrentCombatantIndex = save.CurrentCombatantIndex;
+
+            theCombat.Combatants = new List<ICombatant>();
+            foreach(CombatSave.SaveCombatant sc in save.Combatants)
+            {
+                if (sc.Id >= 0)
+                {
+                    Character c = CharacterController.Instance.GetCharacterById((uint)sc.Id);
+                    theCombat.Combatants.Add(c);
+                }
+                else
+                {
+                    RemoteCombatant rc = new RemoteCombatant(sc);
+                    theCombat.Combatants.Add(rc);
+                }
+            }
+
+            return theCombat;
+        }
+
         public Combat(List<ICombatant> combatants) : this()
         {
             _combatants = combatants;
         }
 
+        [XmlIgnore()]
         public List<ICombatant> Combatants
         {
             get         { return _combatants; }
             private set { _combatants = value; }
         }
 
+        [XmlIgnore()]
         public int PreviousCombatantIndex
         {
             get; private set;
         }
 
+        [XmlIgnore()]
         public int CurrentCombatantIndex
         {
             get; private set;

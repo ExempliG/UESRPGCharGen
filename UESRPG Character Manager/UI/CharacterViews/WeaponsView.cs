@@ -125,7 +125,18 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void toggleAllControls(bool enabled)
         {
-            ///<todo>Do it</todo>
+            if(!enabled)
+            {
+                weaponsDgv.DataSource = null;
+                weaponNameTb.Clear();
+            }
+
+            addNewWeaponBt.Enabled = false;
+            deleteWeaponBt.Enabled = false;
+            editWeaponBt.Enabled = false;
+            weaponMaterialCb.Enabled = false;
+            weaponTypeCb.Enabled = false;
+            weaponNameTb.Enabled = false;
         }
 
         private void weaponsDgv_SelectionChanged(object sender, EventArgs e)

@@ -18,11 +18,11 @@ namespace UESRPG_Character_Manager.Controllers
         private static GameController _instance;
         private static bool _isInitialized = false;
 
-        private List<Combat> _activeCombats;
+        private Dictionary<uint, Combat> _activeCombats;
 
         private GameController()
         {
-            _activeCombats = new List<Combat>();
+            _activeCombats = new Dictionary<uint, Combat>();
         }
 
         public static GameController Instance
@@ -38,28 +38,34 @@ namespace UESRPG_Character_Manager.Controllers
             }
         }
 
+        public Dictionary<uint, Combat> CombatDict
+        {
+            get { return _activeCombats; }
+            private set { _activeCombats = value; }
+        }
+
         public uint CreateNewCombat()
         {
             Combat newCombat = new Combat();
-            _activeCombats.Add(newCombat);
+            _activeCombats.Add(newCombat.CombatId, newCombat);
             return newCombat.CombatId;
+        }
+
+        public void AddCombat(Combat c)
+        {
+            _activeCombats.Add(c.CombatId, c);
         }
 
         public void EndCombat(uint id)
         {
-            Combat c = GetCombatById(id);
-            _activeCombats.Remove(c);
+            _activeCombats.Remove(id);
         }
 
         public Combat GetCombatById(uint id)
         {
-            IEnumerable<Combat> combatSearch = from Combat c in _activeCombats
-                                               where c.CombatId == id
-                                               select c;
-            if (combatSearch.Count() == 1)
+            if (_activeCombats.ContainsKey(id))
             {
-                Combat combatResult = combatSearch.ElementAt(0);
-                return combatResult;
+                return _activeCombats[id];
             }
             else
             {
