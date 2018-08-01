@@ -35,7 +35,7 @@ namespace UESRPG_Character_Manager.Common
             Combats = new List<CombatSave>();
             foreach(Combat c in combats.Values)
             {
-                Combats.Add(CombatSave.MakeSave(c));
+                Combats.Add(new CombatSave(c));
             }
         }
 
@@ -45,7 +45,7 @@ namespace UESRPG_Character_Manager.Common
             Combats = new List<CombatSave>();
             foreach(Combat c in combats)
             {
-                Combats.Add(CombatSave.MakeSave(c));
+                Combats.Add(new CombatSave(c));
             }
         }
 

@@ -72,7 +72,7 @@ namespace UESRPG_Character_Manager.GameComponents
                 Id = (int)c.Id;
             }
 
-            public SaveCombatant(ICombatant c)
+            public SaveCombatant(RemoteCombatant c)
             {
                 Name = c.Name;
                 ApString = c.ApString;
@@ -111,20 +111,24 @@ namespace UESRPG_Character_Manager.GameComponents
             SaveCombatants = new List<SaveCombatant>();
         }
 
-        public static CombatSave MakeSave(Combat c)
+        public CombatSave(Combat c)
         {
-            CombatSave theSave = (CombatSave)c;
-            theSave.CombatId = c.CombatId;
-            theSave.PreviousCombatantIndex = c.PreviousCombatantIndex;
-            theSave.CurrentCombatantIndex = c.CurrentCombatantIndex;
+            CombatId = c.CombatId;
+            PreviousCombatantIndex = c.PreviousCombatantIndex;
+            CurrentCombatantIndex = c.CurrentCombatantIndex;
 
-            theSave.SaveCombatants = new List<SaveCombatant>();
-            foreach(ICombatant ic in c.Combatants)
+            SaveCombatants = new List<SaveCombatant>();
+            foreach (ICombatant ic in c.Combatants)
             {
-                theSave.SaveCombatants.Add(new SaveCombatant(ic));
+                if (ic.GetType() == typeof(Character))
+                {
+                    SaveCombatants.Add(new SaveCombatant((Character)ic));
+                }
+                else
+                {
+                    SaveCombatants.Add(new SaveCombatant((RemoteCombatant)ic));
+                }
             }
-
-            return theSave;
         }
     }
 

@@ -294,41 +294,6 @@ namespace UESRPG_Character_Manager.Controllers
             SaveFile save = new SaveFile(CharacterDict, GameController.Instance.CombatDict);
             bool result = save.SaveToFilename(filename, out message);
 
-            /*if (!string.IsNullOrEmpty(fileName))
-            {
-                XmlSerializer xml = new XmlSerializer(typeof(List<Character>));
-                FileStream fs = new FileStream(fileName, FileMode.Create);
-                try
-                {
-                    List<Character> charList = new List<Character>();
-                    foreach (Character c in _characterDict.Values)
-                    {
-                        c.EngVersion = Program.CURRENT_ENG_VERSION;
-                        c.MinorVersion = Program.CURRENT_MINOR_VERSION;
-                        c.MajorVersion = Program.CURRENT_MINOR_VERSION;
-                        charList.Add(c);
-                    }
-
-                    xml.Serialize(fs, charList);
-                    _currentFile = fileName;
-
-                    message = "Success.";
-                    result = true;
-                }
-                catch (IOException e)
-                {
-                    message = string.Format("File was not saved successfully for reason:\n{0}", e.Message);
-                }
-                finally
-                {
-                    fs.Close();
-                }
-            }
-            else
-            {
-                message = "Invalid fileName.";
-            }*/
-
             return result;
         }
 
@@ -357,42 +322,6 @@ namespace UESRPG_Character_Manager.Controllers
                     }
                 }
             }
-
-            /*List<Character> loadedList = readCharListFromFile(fileName, out bool success, out message);//(List<Character>)xml.Deserialize(fs);
-
-            if (success)
-            {
-                _currentFile = fileName;
-
-                resetCharacterComponentIds();
-                Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
-                foreach (Character c in loadedList)
-                {
-                    // Perform any necessary updates.
-                    c.Update();
-                    c.ResetId();
-                    c.ResetIdentifiableIds();
-                    charDict.Add(c.Id, c);
-                }
-
-                _characterDict = charDict;
-
-                foreach(uint selectorId in _activeSelectors.Keys)
-                {
-                    uint selectedChar = _activeSelectors[selectorId];
-                    if (loadedList.Count > selectedChar)
-                    {
-                        onSelectedCharacterChanged(selectedChar, selectorId, CharacterSelectionEvent.SAME_CHARACTER);
-                    }
-                    else
-                    {
-                        onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
-                    }
-                }
-                onCharacterListChanged();
-                message = "Success.";
-                result = true;
-            }*/
 
             return result;
         }
