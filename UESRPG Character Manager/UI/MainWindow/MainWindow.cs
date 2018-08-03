@@ -130,7 +130,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             if (!string.IsNullOrEmpty(_currentFile))
             {
                 string message;
-                bool result = CharacterController.Instance.SaveChar(_currentFile, out message);
+                bool result = IOController.Instance.SaveChar(_currentFile, out message);
 
                 if(!result)
                 {
@@ -155,7 +155,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             if (sfdResult == DialogResult.OK)
             {
                 string message;
-                bool result = CharacterController.Instance.SaveChar(sfd.FileName, out message);
+                bool result = IOController.Instance.SaveChar(sfd.FileName, out message);
 
                 if (result)
                 {
@@ -181,7 +181,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             if (ofdResult == DialogResult.OK)
             {
                 string message;
-                bool result = CharacterController.Instance.LoadChar(ofd.FileName, out message);
+                bool result = IOController.Instance.LoadChar(ofd.FileName, out message);
 
                 if (result)
                 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.GameComponents;
+using UESRPG_Character_Manager.Common;
 
 namespace UESRPG_Character_Manager.Controllers
 {
@@ -13,29 +14,13 @@ namespace UESRPG_Character_Manager.Controllers
     /// The GameController class handles game mechanics not explicitly related to Character handling, such as the creation of Combat
     /// objects, management of combat rounds, and so on.
     /// </summary>
-    public class GameController
+    public class GameController : Singleton<GameController>
     {
-        private static GameController _instance;
-        private static bool _isInitialized = false;
-
         private Dictionary<uint, Combat> _activeCombats;
 
-        private GameController()
+        public GameController()
         {
             _activeCombats = new Dictionary<uint, Combat>();
-        }
-
-        public static GameController Instance
-        {
-            get
-            {
-                if (!_isInitialized)
-                {
-                    _instance = new GameController();
-                    _isInitialized = true;
-                }
-                return _instance;
-            }
         }
 
         public Dictionary<uint, Combat> CombatDict

@@ -18,7 +18,7 @@ namespace UESRPG_Character_Manager.Controllers
     /// The CharacterController class handles all things dealing explicitly with Character objects, such as managing inventory, accessing stats,
     /// and saving/loading the Character list.
     /// </summary>
-    public class CharacterController
+    public class CharacterController : Singleton<CharacterController>
     {
         #region Event definitions
         public delegate void SelectedCharacterChangedHandler(object sender, SelectedCharacterChangedEventArgs e);
@@ -34,10 +34,6 @@ namespace UESRPG_Character_Manager.Controllers
         public const uint DEFAULT_SELECTOR_ID = 0;
         private Dictionary<uint, uint> _activeSelectors;
 
-        private static CharacterController _instance;
-        private static bool _isInitialized;
-
-        private string _currentFile;
         private Dictionary<uint, Character> _characterDict;
 
         // I'm so sorry
@@ -53,16 +49,23 @@ namespace UESRPG_Character_Manager.Controllers
             CharacterListId = 0;
         }
 
-        public static CharacterController Instance
+        public void SetCharDict(Dictionary<uint, Character> dict)
         {
-            get
+            _characterDict = dict;
+            onCharacterListChanged();
+
+            foreach (uint selectorId in _activeSelectors.Keys)
             {
-                if (!_isInitialized)
+                uint selectedChar = _activeSelectors[selectorId];
+
+                if (_characterDict.Count == 0)
                 {
-                    _instance = new CharacterController();
-                    _isInitialized = true;
+                    onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
                 }
-                return _instance;
+                else
+                {
+                    onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+                }
             }
         }
 
@@ -283,47 +286,6 @@ namespace UESRPG_Character_Manager.Controllers
             {
                 onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.SAME_CHARACTER);
             }
-        }
-
-        /// <summary>
-        /// Performs the saving of a Character list.
-        /// </summary>
-        /// <param name="filename">The filename to save the list as.</param>
-        public bool SaveChar(string filename, out string message)
-        {
-            SaveFile save = new SaveFile(CharacterDict, GameController.Instance.CombatDict);
-            bool result = save.SaveToFilename(filename, out message);
-
-            return result;
-        }
-
-        /// <summary>
-        /// Handle the loading of a Character list.
-        /// </summary>
-        public bool LoadChar(string filename, out string message)
-        {
-            SaveFile save = SaveFile.LoadFilename(filename, out bool result, out message);
-
-            if(result)
-            {
-                _characterDict = save.GetUpdatedCharacterDict();
-                onCharacterListChanged();
-                foreach (uint selectorId in _activeSelectors.Keys)
-                {
-                    uint selectedChar = _activeSelectors[selectorId];
-
-                    if (_characterDict.Count == 0)
-                    {
-                        onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
-                    }
-                    else
-                    {
-                        onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
-                    }
-                }
-            }
-
-            return result;
         }
 
         private void resetCharacterComponentIds()
