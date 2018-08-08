@@ -233,21 +233,43 @@ namespace UESRPG_Character_Manager.Common
             return charDict;
         }
 
-        public Dictionary<uint, Character> GetUpdatedCharacterDict()
+        public void UpdateCharactersAndCombats()
         {
-            Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
-
             resetCharacterComponentIdCounters();
             foreach (Character c in Characters)
             {
                 // Perform any necessary updates.
                 c.Update();
-                c.ResetId();
-                c.ResetIdentifiableIds();
-                charDict.Add(c.Id, c);
-            }
 
-            return charDict;
+                // Character ID integrity _is_ important at Load time, but IDs are kept ephemeral so that they don't
+                // grow unchecked. As such, IDs are reset to be equal to a Character's key/position in the Character
+                // Dictionary. Before tossing the old ID, it must be updated in any Combats that were taking place at
+                // Save time.
+                uint oldId = c.Id;
+                c.ResetId();
+                int newId = (int)c.Id;
+
+                if (oldId != newId)
+                {
+                    foreach (CombatSave cs in Combats)
+                    {
+                        // Select a tuple containing the index and SaveCombatant
+                        // (index needed as SaveCombatant is a value type)
+                        var oSearch = cs.SaveCombatants
+                                        .Select((sc, index) => new { SaveCombatant = sc, Index = index })
+                                        .Where((item) => { return item.SaveCombatant.Id == oldId; });
+                        for (int i = 0; i < oSearch.Count(); i++)
+                        {
+                            var obj = oSearch.ElementAt(i);
+                            CombatSave.SaveCombatant sc = obj.SaveCombatant;
+                            int index = obj.Index;
+                            sc.Id = newId;
+                            cs.SaveCombatants[index] = sc;
+                        }
+                    }
+                }
+                c.ResetIdentifiableIds();
+            }
         }
 
         public Dictionary<uint, Combat> GetCombatDict()

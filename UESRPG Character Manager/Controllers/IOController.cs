@@ -36,7 +36,9 @@ namespace UESRPG_Character_Manager.Controllers
 
             if (result)
             {
-                Dictionary<uint, Character> characterDict = save.GetUpdatedCharacterDict();
+                save.UpdateCharactersAndCombats();
+
+                Dictionary<uint, Character> characterDict = save.GetCharacterDict();
                 CharacterController.Instance.SetCharDict(characterDict);
 
                 Dictionary<uint, Combat> combatDict = save.GetCombatDict();
