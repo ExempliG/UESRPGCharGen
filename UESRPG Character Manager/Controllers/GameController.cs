@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.GameComponents;
@@ -33,17 +34,25 @@ namespace UESRPG_Character_Manager.Controllers
         {
             Combat newCombat = new Combat();
             _activeCombats.Add(newCombat.CombatId, newCombat);
+            onActiveCombatsChanged(newCombat.CombatId, ActiveCombatsChangedEvent.NEW_COMBAT);
             return newCombat.CombatId;
         }
 
-        public void AddCombat(Combat c)
+        public void SetCombatDict(Dictionary<uint, Combat> dict)
         {
-            _activeCombats.Add(c.CombatId, c);
+            _activeCombats = dict;
+            onActiveCombatsChanged(0, ActiveCombatsChangedEvent.NEW_DICT);
         }
 
         public void EndCombat(uint id)
         {
             _activeCombats.Remove(id);
+            onActiveCombatsChanged(id, ActiveCombatsChangedEvent.ENDED_COMBAT);
+        }
+
+        public bool CombatIsActive(uint id)
+        {
+            return _activeCombats.ContainsKey(id);
         }
 
         public Combat GetCombatById(uint id)
@@ -99,5 +108,16 @@ namespace UESRPG_Character_Manager.Controllers
             Combat c = GetCombatById(id);
             c.LowerCombatant(index);
         }
+
+        #region Events
+        public delegate void ActiveCombatsChangedHandler(object sender, ActiveCombatsChangedEventArgs e);
+        [Description("Fires when the Active Combats dictionary is altered.")]
+        public event ActiveCombatsChangedHandler ActiveCombatsChanged;
+
+        protected void onActiveCombatsChanged(uint combatId, ActiveCombatsChangedEvent eventType)
+        {
+            ActiveCombatsChanged?.Invoke(this, new ActiveCombatsChangedEventArgs(combatId, eventType));
+        }
+        #endregion
     }
 }

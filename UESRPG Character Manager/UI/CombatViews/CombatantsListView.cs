@@ -38,6 +38,23 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             Combat c = (Combat)sender;
             if (c.CombatId == _combatId)
             {
+                UpdateList(c);
+            }
+        }
+
+        public void UpdateList()
+        {
+            if (GameController.Instance.CombatIsActive(_combatId))
+            {
+                Combat c = GameController.Instance.GetCombatById(_combatId);
+                UpdateList(c);
+            }
+        }
+
+        public void UpdateList(Combat c)
+        {
+            if (c.CombatId == _combatId && c.Combatants.Count > 0 && combatantsDgv.Rows.Count > 0)
+            {
                 ICombatant previous = c.Combatants[c.PreviousCombatantIndex];
                 combatantsDgv.Rows[c.PreviousCombatantIndex].Cells[NAME_CELL_ID].Value = previous.Name;
                 combatantsDgv.Rows[c.PreviousCombatantIndex].Cells[AP_CELL_ID].Value = previous.ApString;
@@ -67,6 +84,15 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             else
             {
                 // todo: Error? Edit rejection?
+            }
+        }
+
+        public void UpdateView()
+        {
+            if (GameController.Instance.CombatIsActive(_combatId))
+            {
+                Combat c = GameController.Instance.GetCombatById(_combatId);
+                updateView(c);
             }
         }
 

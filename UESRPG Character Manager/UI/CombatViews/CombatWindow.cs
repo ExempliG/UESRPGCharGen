@@ -42,17 +42,49 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             receivedDamageView_reaction.SelectorId = SelectorId;
 
             this.FormClosed += onClosed;
+            this.Shown += onShown;
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            GameController.Instance.ActiveCombatsChanged += onActiveCombatsChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
         {
         }
 
+        protected void onActiveCombatsChanged(object sender, ActiveCombatsChangedEventArgs e)
+        {
+            switch(e.EventType)
+            {
+                case ActiveCombatsChangedEvent.ENDED_COMBAT:
+                    if(e.CombatId == _combatId)
+                    {
+                        Close();
+                    }
+                    break;
+                case ActiveCombatsChangedEvent.NEW_COMBAT:
+                    // do nothing
+                    break;
+                case ActiveCombatsChangedEvent.NEW_DICT:
+                    Close();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("e.EventType", "todo: You stink");
+            }
+        }
+
         protected void onClosed(object sender, EventArgs e)
         {
-            GameController.Instance.EndCombat(_combatId);
+            // The combat may have already ended!
+            if (GameController.Instance.CombatIsActive(_combatId))
+            {
+                GameController.Instance.EndCombat(_combatId);
+            }
             CharacterController.Instance.EndSelector(SelectorId);
+        }
+
+        protected void onShown(object sender, EventArgs e)
+        {
+            combatantsListView.UpdateView();
         }
 
         private void actBt_Click(object sender, EventArgs e)

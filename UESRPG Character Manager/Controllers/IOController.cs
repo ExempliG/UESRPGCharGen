@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using UESRPG_Character_Manager.Common;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.Controllers
 {
@@ -35,9 +36,11 @@ namespace UESRPG_Character_Manager.Controllers
 
             if (result)
             {
-                Dictionary<uint, Character> characterDict = new Dictionary<uint, Character>();
-                characterDict = save.GetUpdatedCharacterDict();
+                Dictionary<uint, Character> characterDict = save.GetUpdatedCharacterDict();
                 CharacterController.Instance.SetCharDict(characterDict);
+
+                Dictionary<uint, Combat> combatDict = save.GetCombatDict();
+                GameController.Instance.SetCombatDict(combatDict);
             }
 
             return result;

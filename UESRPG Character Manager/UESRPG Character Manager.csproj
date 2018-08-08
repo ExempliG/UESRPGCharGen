@@ -99,6 +99,7 @@
       <DependentUpon>CharacterControllerExceptionMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\IOController.cs" />
+    <Compile Include="GameComponents\ActiveCombatsChangedEventArgs.cs" />
     <Compile Include="GameComponents\Combat.cs" />
     <Compile Include="GameComponents\GameComponentExceptions.Designer.cs">
       <AutoGen>True</AutoGen>

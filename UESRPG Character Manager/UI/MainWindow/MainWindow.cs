@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.GameComponents;
 using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.UI.ManagementElements;
 
@@ -36,6 +37,8 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             // Subscribe Character views to the character change event
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             CharacterController.Instance.ForceUpdate();
+
+            GameController.Instance.ActiveCombatsChanged += onActiveCombatsChanged;
 
             spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
 
@@ -93,6 +96,41 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     characterNotesRtb.Text = c.Notes;
                 }
                 _changingCharacter = false;
+            }
+        }
+
+        private void onActiveCombatsChanged(object sender, ActiveCombatsChangedEventArgs e)
+        {
+            switch(e.EventType)
+            {
+                case ActiveCombatsChangedEvent.ENDED_COMBAT:
+                    // do nothing
+                    break;
+                case ActiveCombatsChangedEvent.NEW_COMBAT:
+                    // do nothing
+                    break;
+                case ActiveCombatsChangedEvent.NEW_DICT:
+                    createCombatWindows();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("e.EventType", "todo: You stink");
+            }
+        }
+
+        private void createCombatWindows()
+        {
+            Dictionary<uint, Combat> combatDict = GameController.Instance.CombatDict;
+
+            int counter = 1;
+            foreach (Combat c in combatDict.Values)
+            {
+                CombatViews.CombatWindow cw = new CombatViews.CombatWindow(c.CombatId);
+                Point cwLoc = this.Location;
+                cwLoc.X += (35 * counter);
+                cwLoc.Y += (35 * counter);
+                counter++;
+                cw.Show();
+                cw.Location = cwLoc;
             }
         }
 

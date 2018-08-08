@@ -250,6 +250,19 @@ namespace UESRPG_Character_Manager.Common
             return charDict;
         }
 
+        public Dictionary<uint, Combat> GetCombatDict()
+        {
+            Dictionary<uint, Combat> combatDict = new Dictionary<uint, Combat>();
+
+            foreach(CombatSave cs in Combats)
+            {
+                Combat c = Combat.Restore(cs);
+                combatDict.Add(c.CombatId, c);
+            }
+
+            return combatDict;
+        }
+
         private void resetCharacterComponentIdCounters()
         {
             Character.NextAvailableId = 0;

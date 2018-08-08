@@ -164,7 +164,7 @@ namespace UESRPG_Character_Manager.GameComponents
             theCombat.CurrentCombatantIndex = save.CurrentCombatantIndex;
 
             theCombat.Combatants = new List<ICombatant>();
-            foreach(CombatSave.SaveCombatant sc in save.Combatants)
+            foreach(CombatSave.SaveCombatant sc in save.SaveCombatants)
             {
                 if (sc.Id >= 0)
                 {
