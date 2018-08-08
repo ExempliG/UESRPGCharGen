@@ -197,6 +197,13 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 c._weapons.Add(newWeapon);
             }
 
+            c._powers = new List<Power>();
+            foreach (Power power in _powers)
+            {
+                Power newPower = (Power)power.Clone();
+                c._powers.Add(newPower);
+            }
+
             c._skills = new List<Skill>();
             foreach (Skill s in _skills)
             {
@@ -217,6 +224,14 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 Talent newTalent = (Talent)t.Clone();
                 c._talents.Add(newTalent);
             }
+            c._traits = new List<Trait>();
+            foreach(Trait t in _traits)
+            {
+                Trait newTrait = (Trait)t.Clone();
+                c._traits.Add(newTrait);
+            }
+
+            c.RaceId = RaceId;
 
             return c;
         }

@@ -106,6 +106,9 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 case ActiveCombatsChangedEvent.ENDED_COMBAT:
                     // do nothing
                     break;
+                case ActiveCombatsChangedEvent.END_ALL_COMBATS:
+                    // do nothing
+                    break;
                 case ActiveCombatsChangedEvent.NEW_COMBAT:
                     // do nothing
                     break;

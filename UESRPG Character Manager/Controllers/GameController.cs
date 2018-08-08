@@ -40,6 +40,9 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void SetCombatDict(Dictionary<uint, Combat> dict)
         {
+            // End all combats before trying to load the new ones
+            onActiveCombatsChanged(0, ActiveCombatsChangedEvent.END_ALL_COMBATS);
+
             _activeCombats = dict;
             onActiveCombatsChanged(0, ActiveCombatsChangedEvent.NEW_DICT);
         }

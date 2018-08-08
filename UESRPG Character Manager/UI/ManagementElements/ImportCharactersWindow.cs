@@ -20,11 +20,22 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
         public ImportCharactersWindow()
         {
             InitializeComponent();
+            Shown += onShown;
         }
 
         public ImportCharactersWindow(uint CharacterListId) : this()
         {
             this.CharacterListId = CharacterListId;
+        }
+
+        protected void onShown(object sender, EventArgs e)
+        {
+            updateView();
+        }
+
+        private void updateView()
+        {
+            charactersDgv.UpdateCharacterList(CharacterController.Instance.GetCharacterDict(CharacterListId).Values);
         }
 
         private void importBt_Click(object sender, EventArgs e)
@@ -33,7 +44,10 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
 
             if(selectedCharIds.Length > 0)
             {
-
+                foreach(uint id in selectedCharIds)
+                {
+                    CharacterController.Instance.AddCharacter(CharacterListId, id);
+                }
             }
         }
 

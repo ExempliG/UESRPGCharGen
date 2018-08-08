@@ -98,6 +98,31 @@ namespace UESRPG_Character_Manager.Controllers
             }
         }
 
+        public Character GetCharacterByIdFromList(uint charId, uint listId)
+        {
+            Dictionary<uint, Character> otherDict = GetCharacterDict(listId);
+            if(otherDict.ContainsKey(charId))
+            {
+                return otherDict[charId];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("charId", "todo: You stink");
+            }
+        }
+
+        public Dictionary<uint, Character> GetCharacterDict(uint listId)
+        {
+            if(_otherDicts.ContainsKey(listId))
+            {
+                return _otherDicts[listId];
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("listId", "todo: You stink");
+            }
+        }
+
         public uint StartSelector()
         {
             uint newSelectorId = SelectorId;
@@ -152,9 +177,15 @@ namespace UESRPG_Character_Manager.Controllers
         {
             if(_otherDicts.ContainsKey(fromList))
             {
-                Character c = _otherDicts[fromList][fromId];
+                Character c = _otherDicts[fromList][fromId].CopyChar();
+
+                if(_characterDict.ContainsKey(c.Id))
+                {
+                    throw new ArgumentException("c.Id", "todo: What a weird exception");
+                }
                 _characterDict.Add(c.Id, c);
 
+                onCharacterListChanged();
                 return c;
             }
             else

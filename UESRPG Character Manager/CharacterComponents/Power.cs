@@ -11,7 +11,7 @@ using UESRPG_Character_Manager.Common;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
-    public class Power: IIdentifiable
+    public class Power: IIdentifiable, ICloneable
     {
         public static uint NextAvailableId { get; set; }
 
@@ -37,6 +37,11 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             this.Name = Name;
             this.Description = Description;
+        }
+
+        public object Clone()
+        {
+            return new Power(Name, Description);
         }
     }
 }

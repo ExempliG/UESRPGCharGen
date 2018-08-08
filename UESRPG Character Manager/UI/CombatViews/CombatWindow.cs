@@ -61,11 +61,14 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                         Close();
                     }
                     break;
+                case ActiveCombatsChangedEvent.END_ALL_COMBATS:
+                    Close();
+                    break;
                 case ActiveCombatsChangedEvent.NEW_COMBAT:
                     // do nothing
                     break;
                 case ActiveCombatsChangedEvent.NEW_DICT:
-                    Close();
+                    // do nothing
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("e.EventType", "todo: You stink");

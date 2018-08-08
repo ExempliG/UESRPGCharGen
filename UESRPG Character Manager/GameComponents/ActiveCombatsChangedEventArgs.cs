@@ -9,6 +9,7 @@ namespace UESRPG_Character_Manager.GameComponents
     public enum ActiveCombatsChangedEvent
     {
         ENDED_COMBAT,
+        END_ALL_COMBATS,
         NEW_COMBAT,
         NEW_DICT
     }
