@@ -13,27 +13,7 @@ targets .NET 4.5.2, though I am sure it would work on lesser versions. Developme
 2017, so both IDEs should be suitable.
 ## Contributors
 Feel free to drop me a line at andrew@igglean.com if you would like to discuss the project. Please feel free to fork or 
-pull request as you like. Pull requests that do not follow these style guidelines will be rejected:
-1) Tab width MUST be set to 4.
-2) All opening and closing braces MUST be on their own line unless the enclosed code block is one line.
-3) All else and else if statements MUST be on their own line.
-4) All brace contents MUST be indented if the contents are on a separate line from the braces.
-5) All code blocks MUST be enclosed with braces (no single-line blocks).
-5) Case labels MUST be indented, and their contents indented an additional level.
-6) All control flow keywords MUST be followed by a space before any parentheses.
-7) All function calls and definitions MUST NOT be followed by a space before any parentheses.
-8) All interface names MUST begin with I and use Pascal Case.
-9) All user-defined types MUST use Pascal Case.
-10) All enum members MUST be upper case, with underscores to separate words.
-11) All events MUST use Pascal Case.
-12) All private static fields MUST be prefixed with \_s\_ and use Camel Case.
-13) All private fields MUST be prefixed with _ and use Camel Case.
-14) All non-static private functions MUST use Camel Case.
-15) All public functions and fields MUST use Pascal Case.
-16) All static functions MUST use Pascal Case.
-17) All properties MUST use Pascal Case.
-18) All static fields MUST be prefixed with s\_.
-19) All local variables MUST use Camel Case.
+pull request as you like. Pull requests should make an effort to follow established style patterns, but this is only a soft guideline.
 
 These style guidelines can be configured in Visual Studio Community 2017.
 ## License
