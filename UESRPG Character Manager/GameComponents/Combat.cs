@@ -34,6 +34,13 @@ namespace UESRPG_Character_Manager.GameComponents
             Initiative = sc.Initiative;
         }
 
+        public RemoteCombatant(Character c)
+        {
+            Name = c.Name;
+            ApString = c.ApString;
+            Initiative = c.Initiative;
+        }
+
         public void PassTurn()
         {
             // do nothing
@@ -146,6 +153,8 @@ namespace UESRPG_Character_Manager.GameComponents
             NextAvailableId++;
 
             _combatants = new List<ICombatant>();
+
+            CharacterController.Instance.CharacterListChanged += onCharacterListChanged;
         }
 
         private Combat(CombatSave save)
@@ -166,12 +175,24 @@ namespace UESRPG_Character_Manager.GameComponents
             theCombat.Combatants = new List<ICombatant>();
             foreach(CombatSave.SaveCombatant sc in save.SaveCombatants)
             {
+                bool processed = false;
+
+                // Handle cases where a Combat is restored from a Save, but a Combatant was deleted.
                 if (sc.Id >= 0)
                 {
-                    Character c = CharacterController.Instance.GetCharacterById((uint)sc.Id);
-                    theCombat.Combatants.Add(c);
+                    try
+                    {
+                        Character c = CharacterController.Instance.GetCharacterById((uint)sc.Id);
+                        theCombat.Combatants.Add(c);
+                        processed = true;
+                    }
+                    catch(KeyNotFoundException e)
+                    {
+                        processed = false;
+                    }
                 }
-                else
+                
+                if(!processed)
                 {
                     RemoteCombatant rc = new RemoteCombatant(sc);
                     theCombat.Combatants.Add(rc);
@@ -222,6 +243,28 @@ namespace UESRPG_Character_Manager.GameComponents
             CombatantListUpdated?.Invoke(this, new EventArgs());
         }
 
+        protected void onCharacterListChanged(object sender, CharacterListChangedEventArgs e)
+        {
+            // Handle Character deletion by converting the Character to a RemoteCombatant
+            if(e.EventType == CharacterListChangedEvent.BEFORE_DELETE_CHARACTER)
+            {
+                // Select a tuple containing the List element and its index in the list
+                var search = Combatants
+                                .Select((ic, index) => new { Combatant = ic, Index = index })
+                                .Where((item) => { return item.Combatant.GetType() == typeof(Character); })
+                                .Where((item) => { return ((Character)item.Combatant).Id == e.CharacterId; });
+                if(search.Count() == 1)
+                {
+                    var item = search.ElementAt(0);
+                    Character c = (Character)item.Combatant;
+                    RemoteCombatant rc = new RemoteCombatant(c);
+                    Combatants[item.Index] = rc;
+
+                    onCombatantListUpdated();
+                }
+            }
+        }
+
         public void StepCombat()
         {
             _combatants[CurrentCombatantIndex].PassTurn();
@@ -250,13 +293,13 @@ namespace UESRPG_Character_Manager.GameComponents
             // Store the previous combatant for the sake of removing the "active combatant indicator" in UI
             PreviousCombatantIndex = CurrentCombatantIndex;
 
-            // Search for the next Combatant who can go
+            // Search for the next Combatant who can go (stopping once the search arrives back at the Previous combatant)
             do
             {
                 CurrentCombatantIndex++;
                 CurrentCombatantIndex %= _combatants.Count;
             }
-            while (!_combatants[CurrentCombatantIndex].CanAct());
+            while (!_combatants[CurrentCombatantIndex].CanAct() && CurrentCombatantIndex != PreviousCombatantIndex);
         }
 
         public void NewRound()

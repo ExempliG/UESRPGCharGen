@@ -38,17 +38,18 @@
             // importBt
             // 
             this.importBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.importBt.Location = new System.Drawing.Point(202, 207);
+            this.importBt.Location = new System.Drawing.Point(193, 207);
             this.importBt.Name = "importBt";
-            this.importBt.Size = new System.Drawing.Size(75, 23);
+            this.importBt.Size = new System.Drawing.Size(84, 23);
             this.importBt.TabIndex = 1;
-            this.importBt.Text = "Import";
+            this.importBt.Text = "Import/Export";
             this.importBt.UseVisualStyleBackColor = true;
             this.importBt.Click += new System.EventHandler(this.importBt_Click);
             // 
             // exportBt
             // 
             this.exportBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.exportBt.Enabled = false;
             this.exportBt.Location = new System.Drawing.Point(283, 207);
             this.exportBt.Name = "exportBt";
             this.exportBt.Size = new System.Drawing.Size(75, 23);
@@ -60,9 +61,9 @@
             // deleteBt
             // 
             this.deleteBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteBt.Location = new System.Drawing.Point(202, 236);
+            this.deleteBt.Location = new System.Drawing.Point(193, 236);
             this.deleteBt.Name = "deleteBt";
-            this.deleteBt.Size = new System.Drawing.Size(75, 23);
+            this.deleteBt.Size = new System.Drawing.Size(84, 23);
             this.deleteBt.TabIndex = 3;
             this.deleteBt.Text = "Delete";
             this.deleteBt.UseVisualStyleBackColor = true;

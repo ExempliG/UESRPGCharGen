@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.Controllers;
@@ -12,6 +13,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         private const string NAME_CELL_ID = "name";
         private const string AP_CELL_ID = "ap";
         private const string INIT_CELL_ID = "initiative";
+        private const uint COLUMN_COUNT = 3;
         public uint _combatId;
         public uint SelectorId { get; set; }
 
@@ -31,6 +33,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             Combat.CombatantListUpdated += onCombatantListUpdated;
             SelectorId = CharacterController.Instance.StartSelector();
             combatantsDgv.CellEndEdit += onCellEndEdit;
+            //CharacterController.Instance.CharacterListChanged += onCharacterListChanged;
         }
 
         protected void onCombatUpdated(object sender, EventArgs e)
@@ -39,6 +42,18 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             if (c.CombatId == _combatId)
             {
                 UpdateList(c);
+            }
+        }
+
+        protected void onCharacterListChanged(object sender, CharacterListChangedEventArgs e)
+        {
+            if(e.IsMainList)
+            {
+                Combat c = GameController.Instance.GetCombatById(_combatId);
+                var combatantIds = from cmbs in c.Combatants
+                                   where cmbs.GetType() == typeof(Character)
+                                   select ((Character)cmbs).Id;
+                //if()
             }
         }
 
@@ -98,12 +113,16 @@ namespace UESRPG_Character_Manager.UI.CombatViews
 
         private void updateView( Combat c )
         {
-            combatantsDgv.Rows.Clear();
-            for( int i = 0; i < c.Combatants.Count; i++ )
+            // Only try to populate the DataGridView if the columns have been initialized
+            if (combatantsDgv.Columns.Count == COLUMN_COUNT)
             {
-                ICombatant ic = c.Combatants[i];
-                DataGridViewRow r = getRow(ic, i == c.CurrentCombatantIndex);
-                combatantsDgv.Rows.Add(r);
+                combatantsDgv.Rows.Clear();
+                for (int i = 0; i < c.Combatants.Count; i++)
+                {
+                    ICombatant ic = c.Combatants[i];
+                    DataGridViewRow r = getRow(ic, i == c.CurrentCombatantIndex);
+                    combatantsDgv.Rows.Add(r);
+                }
             }
         }
 
@@ -177,7 +196,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                 if(ic.GetType() == typeof(Character))
                 {
                     Character chara = (Character)ic;
-                    CharacterController.Instance.SelectCharacter(chara.Id, SelectorId);
+                    CharacterController.Instance.SelectCharacterById(chara.Id, SelectorId);
                 }
                 else
                 {

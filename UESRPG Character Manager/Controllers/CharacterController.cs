@@ -25,7 +25,7 @@ namespace UESRPG_Character_Manager.Controllers
         [Description("Fires when the selected character changes.")]
         public event SelectedCharacterChangedHandler SelectedCharacterChanged;
 
-        public delegate void CharacterListChangedHandler(object sender, EventArgs e);
+        public delegate void CharacterListChangedHandler(object sender, CharacterListChangedEventArgs e);
         [Description("Fires when the list of characters is changed, either by adding characters or loading a new file.")]
         public event CharacterListChangedHandler CharacterListChanged;
         #endregion
@@ -74,7 +74,14 @@ namespace UESRPG_Character_Manager.Controllers
             get { return _characterDict; }
         }
 
-        public void SelectCharacter(uint characterId, uint selectorId)
+        public void SelectCharacter(int index, uint selectorId)
+        {
+            Character c = GetCharacterByIndex(index);
+            _activeSelectors[selectorId] = c.Id;
+            onSelectedCharacterChanged(c.Id, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+        }
+
+        public void SelectCharacterById(uint characterId, uint selectorId)
         {
             Character c = GetCharacterById(characterId);
             _activeSelectors[selectorId] = characterId;
@@ -109,6 +116,11 @@ namespace UESRPG_Character_Manager.Controllers
             {
                 throw new ArgumentOutOfRangeException("charId", "todo: You stink");
             }
+        }
+
+        public Character GetCharacterByIndex(int index)
+        {
+            return CharacterDict.Values.ElementAt(index);
         }
 
         public Dictionary<uint, Character> GetCharacterDict(uint listId)
@@ -169,10 +181,17 @@ namespace UESRPG_Character_Manager.Controllers
             Character newChar = new Character();
             newChar.UntrainedCheck();
             _characterDict.Add(newChar.Id, newChar);
+            onCharacterListChanged(newChar.Id, CharacterListChangedEvent.NEW_CHARACTER);
 
             return newChar;
         }
 
+        /// <summary>
+        /// Adds a character from an ancillary list to the main list.
+        /// </summary>
+        /// <param name="fromList"></param>
+        /// <param name="fromId"></param>
+        /// <returns></returns>
         public Character AddCharacter(uint fromList, uint fromId)
         {
             if(_otherDicts.ContainsKey(fromList))
@@ -185,12 +204,39 @@ namespace UESRPG_Character_Manager.Controllers
                 }
                 _characterDict.Add(c.Id, c);
 
-                onCharacterListChanged();
+                onCharacterListChanged(c.Id, CharacterListChangedEvent.NEW_CHARACTER);
                 return c;
             }
             else
             {
                 throw new ArgumentOutOfRangeException("fromList", fromList, CharacterControllerExceptionMessages.InvalidCharacterListId);
+            }
+        }
+
+        /// <summary>
+        /// Adds a character from the main list to an ancillary list.
+        /// </summary>
+        /// <param name="fromId">The Character ID to export</param>
+        /// <param name="toList">The list ID to export to</param>
+        /// <returns></returns>
+        public Character ExportCharacter(uint fromId, uint toList)
+        {
+            if(_otherDicts.ContainsKey(toList))
+            {
+                Character c = CharacterDict[fromId].CopyChar();
+
+                if(_otherDicts[toList].ContainsKey(c.Id))
+                {
+                    throw new ArgumentException("c.Id", "todo: What a weird exception");
+                }
+                _otherDicts[toList].Add(c.Id, c);
+
+                onCharacterListChanged(fromId, toList, CharacterListChangedEvent.NEW_CHARACTER);
+                return c;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("toList", toList, "todo: This needs a unique exception message");
             }
         }
 
@@ -204,8 +250,10 @@ namespace UESRPG_Character_Manager.Controllers
                 }
             }
 
+            // Special handling, aimed at constructs which do more than simply display the selected character's info.
+            onCharacterListChanged(charId, CharacterListChangedEvent.BEFORE_DELETE_CHARACTER);
             _characterDict.Remove(charId);
-            onCharacterListChanged();
+            onCharacterListChanged(0, CharacterListChangedEvent.AFTER_DELETE_CHARACTER);
         }
 
         public void AddSkill(uint characterId, Skill skillToAdd)
@@ -371,7 +419,17 @@ namespace UESRPG_Character_Manager.Controllers
 
         protected void onCharacterListChanged()
         {
-            CharacterListChanged?.Invoke(this, new System.EventArgs());
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(0, CharacterListChangedEvent.NEW_CHARACTER));
+        }
+
+        protected void onCharacterListChanged(uint characterId, CharacterListChangedEvent eventType)
+        {
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterId, eventType));
+        }
+
+        protected void onCharacterListChanged(uint characterId, uint listId, CharacterListChangedEvent eventType)
+        {
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterId, listId, eventType));
         }
         #endregion
     }

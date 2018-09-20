@@ -75,6 +75,11 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             }
         }
 
+        protected void onCombatantsChanged(object sender, EventArgs e)
+        {
+            updateButtonStatus();
+        }
+
         protected void onClosed(object sender, EventArgs e)
         {
             // The combat may have already ended!
@@ -88,6 +93,15 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         protected void onShown(object sender, EventArgs e)
         {
             combatantsListView.UpdateView();
+            updateButtonStatus();
+        }
+
+        private void updateButtonStatus()
+        {
+            bool hasCombatants = GameController.Instance.GetCombatById(_combatId).Combatants.Count != 0;
+            actBt.Enabled = hasCombatants;
+            passBt.Enabled = hasCombatants;
+            newRoundBt.Enabled = hasCombatants;
         }
 
         private void actBt_Click(object sender, EventArgs e)

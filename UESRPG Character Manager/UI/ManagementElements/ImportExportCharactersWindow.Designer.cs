@@ -1,6 +1,6 @@
 ﻿namespace UESRPG_Character_Manager.UI.ManagementElements
 {
-    partial class ImportCharactersWindow
+    partial class ImportExportCharactersWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -65,7 +65,7 @@
             this.charactersDgv.Size = new System.Drawing.Size(345, 216);
             this.charactersDgv.TabIndex = 10;
             // 
-            // ImportCharactersWindow
+            // ImportExportCharactersWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -73,8 +73,8 @@
             this.Controls.Add(this.charactersDgv);
             this.Controls.Add(this.okBt);
             this.Controls.Add(this.importBt);
-            this.Name = "ImportCharactersWindow";
-            this.Text = "ImportCharactersWindow";
+            this.Name = "ImportExportCharactersWindow";
+            this.Text = "Import or Export Characters";
             this.ResumeLayout(false);
 
         }

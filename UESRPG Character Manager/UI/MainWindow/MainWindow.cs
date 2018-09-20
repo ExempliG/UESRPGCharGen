@@ -36,11 +36,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
             // Subscribe Character views to the character change event
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
+            CharacterController.Instance.CharacterListChanged += onCharacterListChanged;
             CharacterController.Instance.ForceUpdate();
 
             GameController.Instance.ActiveCombatsChanged += onActiveCombatsChanged;
-
-            spellDamageView_rollsPage.SelectedSpellChanged += checkRollView_rollsPage.OnSelectedSpellChanged;
 
             SelectorId = characterSelector.SelectorId;
             charaView_statsPage.SelectorId = SelectorId;
@@ -49,10 +48,6 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             attributesView_statsPage.SelectorId = SelectorId;
             weaponsView_equipPage.SelectorId = SelectorId;
             armorView_equipPage.SelectorId = SelectorId;
-            checkRollView_rollsPage.SelectorId = SelectorId;
-            receivedDamageView_rollsPage.SelectorId = SelectorId;
-            weaponDamageView_rollsPage.SelectorId = SelectorId;
-            spellDamageView_rollsPage.SelectorId = SelectorId;
 
             /*CUSTOM EVENT BINDINGS*/
             this.LostFocus += characterNotesRtb_LostFocus;
@@ -99,6 +94,16 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             }
         }
 
+        protected void onCharacterListChanged(object sender, CharacterListChangedEventArgs e)
+        {
+            if(e.IsMainList)
+            {
+                int count = CharacterController.Instance.CharacterDict.Values.Count;
+                bool hasCharacters = count != 0;
+                updateButtonStatus(hasCharacters);
+            }
+        }
+
         private void onActiveCombatsChanged(object sender, ActiveCombatsChangedEventArgs e)
         {
             switch(e.EventType)
@@ -118,6 +123,12 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 default:
                     throw new ArgumentOutOfRangeException("e.EventType", "todo: You stink");
             }
+        }
+
+        private void updateButtonStatus(bool enabled)
+        {
+            newCombatMenuItem.Enabled = enabled;
+            manageCharactersToolStripMenuItem.Enabled = enabled;
         }
 
         private void createCombatWindows()
@@ -236,23 +247,20 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {            
-            uint combatId = GameController.Instance.CreateNewCombat();
-            //Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
-            //GameController.Instance.AddCombatant(combatId, c);
-            CombatViews.CombatWindow cw = new CombatViews.CombatWindow(combatId);
-            Point cwLoc = this.Location;
-            cwLoc.X += ( this.Width + 1 );
-            cw.Show();
-            cw.Location = cwLoc;
-            //GameController.Instance.AddCombatant(combatId, new UESRPG_Character_Manager.GameComponents.RemoteCombatant());
-        }
-
         private void manageCharactersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ManageCharactersWindow mcw = new ManageCharactersWindow();
             mcw.Show();
+        }
+
+        private void newCombatMenuItem_Click(object sender, EventArgs e)
+        {
+            uint combatId = GameController.Instance.CreateNewCombat();
+            CombatViews.CombatWindow cw = new CombatViews.CombatWindow(combatId);
+            Point cwLoc = this.Location;
+            cwLoc.X += (this.Width + 1);
+            cw.Show();
+            cw.Location = cwLoc;
         }
     }
 }

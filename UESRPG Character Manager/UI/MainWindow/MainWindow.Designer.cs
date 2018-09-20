@@ -31,25 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
-            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
-            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
-            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
             this.nameTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
-            this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.receivedDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
-            this.spellDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
-            this.weaponDamageView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
-            this.checkRollView_rollsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
             this.spellsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -57,20 +44,28 @@
             this.saveMi = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsMi = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageCharactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.manageCharactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
+            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
+            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
+            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
+            this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
+            this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
+            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.specialFunctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newCombatMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -80,7 +75,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(13, 27);
             this.tabControl1.Name = "tabControl1";
@@ -103,38 +97,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // spellListView_statsPage
-            // 
-            this.spellListView_statsPage.Location = new System.Drawing.Point(484, 198);
-            this.spellListView_statsPage.Name = "spellListView_statsPage";
-            this.spellListView_statsPage.SelectorId = ((uint)(0u));
-            this.spellListView_statsPage.Size = new System.Drawing.Size(504, 170);
-            this.spellListView_statsPage.TabIndex = 8;
-            // 
-            // skillListView_statsPage
-            // 
-            this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
-            this.skillListView_statsPage.Name = "skillListView_statsPage";
-            this.skillListView_statsPage.SelectorId = ((uint)(0u));
-            this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
-            this.skillListView_statsPage.TabIndex = 4;
-            // 
-            // attributesView_statsPage
-            // 
-            this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
-            this.attributesView_statsPage.Name = "attributesView_statsPage";
-            this.attributesView_statsPage.SelectorId = ((uint)(0u));
-            this.attributesView_statsPage.Size = new System.Drawing.Size(344, 329);
-            this.attributesView_statsPage.TabIndex = 3;
-            // 
-            // charaView_statsPage
-            // 
-            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
-            this.charaView_statsPage.Name = "charaView_statsPage";
-            this.charaView_statsPage.SelectorId = ((uint)(0u));
-            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
-            this.charaView_statsPage.TabIndex = 2;
             // 
             // nameTb
             // 
@@ -167,87 +129,6 @@
             this.tabPage3.Text = "Equipment";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // armorView_equipPage
-            // 
-            this.armorView_equipPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
-            this.armorView_equipPage.Name = "armorView_equipPage";
-            this.armorView_equipPage.SelectorId = ((uint)(0u));
-            this.armorView_equipPage.Size = new System.Drawing.Size(504, 376);
-            this.armorView_equipPage.TabIndex = 27;
-            // 
-            // weaponsView_equipPage
-            // 
-            this.weaponsView_equipPage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.weaponsView_equipPage.Location = new System.Drawing.Point(4, 6);
-            this.weaponsView_equipPage.Name = "weaponsView_equipPage";
-            this.weaponsView_equipPage.SelectorId = ((uint)(0u));
-            this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
-            this.weaponsView_equipPage.TabIndex = 26;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.AutoScroll = true;
-            this.tabPage2.Controls.Add(this.button1);
-            this.tabPage2.Controls.Add(this.receivedDamageView_rollsPage);
-            this.tabPage2.Controls.Add(this.spellDamageView_rollsPage);
-            this.tabPage2.Controls.Add(this.weaponDamageView_rollsPage);
-            this.tabPage2.Controls.Add(this.checkRollView_rollsPage);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(992, 388);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Combat & Rolls";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 311);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // receivedDamageView_rollsPage
-            // 
-            this.receivedDamageView_rollsPage.Location = new System.Drawing.Point(516, 6);
-            this.receivedDamageView_rollsPage.Name = "receivedDamageView_rollsPage";
-            this.receivedDamageView_rollsPage.SelectorId = ((uint)(0u));
-            this.receivedDamageView_rollsPage.Size = new System.Drawing.Size(175, 185);
-            this.receivedDamageView_rollsPage.TabIndex = 32;
-            // 
-            // spellDamageView_rollsPage
-            // 
-            this.spellDamageView_rollsPage.Location = new System.Drawing.Point(262, 149);
-            this.spellDamageView_rollsPage.MinimumSize = new System.Drawing.Size(0, 127);
-            this.spellDamageView_rollsPage.Name = "spellDamageView_rollsPage";
-            this.spellDamageView_rollsPage.SelectorId = ((uint)(0u));
-            this.spellDamageView_rollsPage.Size = new System.Drawing.Size(249, 156);
-            this.spellDamageView_rollsPage.TabIndex = 31;
-            // 
-            // weaponDamageView_rollsPage
-            // 
-            this.weaponDamageView_rollsPage.Location = new System.Drawing.Point(6, 149);
-            this.weaponDamageView_rollsPage.MinimumSize = new System.Drawing.Size(0, 127);
-            this.weaponDamageView_rollsPage.Name = "weaponDamageView_rollsPage";
-            this.weaponDamageView_rollsPage.SelectorId = ((uint)(0u));
-            this.weaponDamageView_rollsPage.Size = new System.Drawing.Size(250, 156);
-            this.weaponDamageView_rollsPage.TabIndex = 30;
-            // 
-            // checkRollView_rollsPage
-            // 
-            this.checkRollView_rollsPage.Location = new System.Drawing.Point(6, 6);
-            this.checkRollView_rollsPage.Name = "checkRollView_rollsPage";
-            this.checkRollView_rollsPage.SelectorId = ((uint)(0u));
-            this.checkRollView_rollsPage.Size = new System.Drawing.Size(504, 137);
-            this.checkRollView_rollsPage.TabIndex = 29;
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.characterNotesRtb);
@@ -275,10 +156,6 @@
             this.spellsBindingSource.DataMember = "Spells";
             this.spellsBindingSource.DataSource = this.characterBindingSource;
             // 
-            // characterBindingSource
-            // 
-            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.CharacterComponents.Character);
-            // 
             // weaponsBindingSource
             // 
             this.weaponsBindingSource.DataMember = "Weapons";
@@ -292,7 +169,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fIleToolStripMenuItem});
+            this.fIleToolStripMenuItem,
+            this.specialFunctionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1024, 24);
@@ -336,6 +214,14 @@
             this.loadMi.Text = "Load...";
             this.loadMi.Click += new System.EventHandler(this.loadMi_Click);
             // 
+            // manageCharactersToolStripMenuItem
+            // 
+            this.manageCharactersToolStripMenuItem.Enabled = false;
+            this.manageCharactersToolStripMenuItem.Name = "manageCharactersToolStripMenuItem";
+            this.manageCharactersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.manageCharactersToolStripMenuItem.Text = "Manage Characters";
+            this.manageCharactersToolStripMenuItem.Click += new System.EventHandler(this.manageCharactersToolStripMenuItem_Click);
+            // 
             // skillsBindingSource1
             // 
             this.skillsBindingSource1.DataMember = "Skills";
@@ -349,12 +235,78 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
-            // manageCharactersToolStripMenuItem
+            // spellListView_statsPage
             // 
-            this.manageCharactersToolStripMenuItem.Name = "manageCharactersToolStripMenuItem";
-            this.manageCharactersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.manageCharactersToolStripMenuItem.Text = "Manage Characters";
-            this.manageCharactersToolStripMenuItem.Click += new System.EventHandler(this.manageCharactersToolStripMenuItem_Click);
+            this.spellListView_statsPage.Location = new System.Drawing.Point(484, 198);
+            this.spellListView_statsPage.Name = "spellListView_statsPage";
+            this.spellListView_statsPage.SelectorId = ((uint)(0u));
+            this.spellListView_statsPage.Size = new System.Drawing.Size(504, 170);
+            this.spellListView_statsPage.TabIndex = 8;
+            // 
+            // skillListView_statsPage
+            // 
+            this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
+            this.skillListView_statsPage.Name = "skillListView_statsPage";
+            this.skillListView_statsPage.SelectorId = ((uint)(0u));
+            this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
+            this.skillListView_statsPage.TabIndex = 4;
+            // 
+            // attributesView_statsPage
+            // 
+            this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
+            this.attributesView_statsPage.Name = "attributesView_statsPage";
+            this.attributesView_statsPage.SelectorId = ((uint)(0u));
+            this.attributesView_statsPage.Size = new System.Drawing.Size(344, 329);
+            this.attributesView_statsPage.TabIndex = 3;
+            // 
+            // charaView_statsPage
+            // 
+            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
+            this.charaView_statsPage.Name = "charaView_statsPage";
+            this.charaView_statsPage.SelectorId = ((uint)(0u));
+            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
+            this.charaView_statsPage.TabIndex = 2;
+            // 
+            // armorView_equipPage
+            // 
+            this.armorView_equipPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
+            this.armorView_equipPage.Name = "armorView_equipPage";
+            this.armorView_equipPage.SelectorId = ((uint)(0u));
+            this.armorView_equipPage.Size = new System.Drawing.Size(504, 376);
+            this.armorView_equipPage.TabIndex = 27;
+            // 
+            // weaponsView_equipPage
+            // 
+            this.weaponsView_equipPage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.weaponsView_equipPage.Location = new System.Drawing.Point(4, 6);
+            this.weaponsView_equipPage.Name = "weaponsView_equipPage";
+            this.weaponsView_equipPage.SelectorId = ((uint)(0u));
+            this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
+            this.weaponsView_equipPage.TabIndex = 26;
+            // 
+            // characterBindingSource
+            // 
+            this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.CharacterComponents.Character);
+            // 
+            // specialFunctionsToolStripMenuItem
+            // 
+            this.specialFunctionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newCombatMenuItem});
+            this.specialFunctionsToolStripMenuItem.Name = "specialFunctionsToolStripMenuItem";
+            this.specialFunctionsToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.specialFunctionsToolStripMenuItem.Text = "Special Functions";
+            // 
+            // newCombatMenuItem
+            // 
+            this.newCombatMenuItem.Enabled = false;
+            this.newCombatMenuItem.Name = "newCombatMenuItem";
+            this.newCombatMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newCombatMenuItem.Text = "New Combat";
+            this.newCombatMenuItem.Click += new System.EventHandler(this.newCombatMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -372,15 +324,14 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -390,7 +341,6 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox nameTb;
         private System.Windows.Forms.Label label31;
@@ -413,12 +363,9 @@
         private CharacterViews.SpellListView spellListView_statsPage;
         private CharacterViews.WeaponsView weaponsView_equipPage;
         private CharacterViews.ArmorView armorView_equipPage;
-        private ActionViews.CheckRollView checkRollView_rollsPage;
-        private ActionViews.WeaponDamageView weaponDamageView_rollsPage;
-        private ActionViews.SpellDamageView spellDamageView_rollsPage;
-        private ActionViews.ReceivedDamageView receivedDamageView_rollsPage;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem manageCharactersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem specialFunctionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newCombatMenuItem;
     }
 }
 

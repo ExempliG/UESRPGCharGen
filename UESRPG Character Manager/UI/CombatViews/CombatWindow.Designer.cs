@@ -30,18 +30,18 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.actBt = new System.Windows.Forms.Button();
-            this.passBt = new System.Windows.Forms.Button();
-            this.newRoundBt = new System.Windows.Forms.Button();
             this.weaponDamageView_action = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
             this.spellDamageView_action = new UESRPG_Character_Manager.UI.ActionViews.SpellDamageView();
             this.checkRollView_action = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.weaponDamageView_reaction = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
+            this.checkRollView_reaction = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
             this.receivedDamageView_reaction = new UESRPG_Character_Manager.UI.ActionViews.ReceivedDamageView();
+            this.actBt = new System.Windows.Forms.Button();
+            this.passBt = new System.Windows.Forms.Button();
+            this.newRoundBt = new System.Windows.Forms.Button();
             this.characterHealthView = new UESRPG_Character_Manager.UI.CharacterViews.CharacterHealthView();
             this.combatantsListView = new UESRPG_Character_Manager.UI.CombatViews.CombatantsListView();
-            this.checkRollView_reaction = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
-            this.weaponDamageView_reaction = new UESRPG_Character_Manager.UI.ActionViews.WeaponDamageView();
             this.label1 = new System.Windows.Forms.Label();
             this.initiativeNud = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
@@ -76,52 +76,6 @@
             this.tabPage1.Text = "Action";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.weaponDamageView_reaction);
-            this.tabPage2.Controls.Add(this.checkRollView_reaction);
-            this.tabPage2.Controls.Add(this.receivedDamageView_reaction);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(486, 306);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Reaction";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // actBt
-            // 
-            this.actBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.actBt.Location = new System.Drawing.Point(524, 430);
-            this.actBt.Name = "actBt";
-            this.actBt.Size = new System.Drawing.Size(75, 23);
-            this.actBt.TabIndex = 3;
-            this.actBt.Text = "Act";
-            this.actBt.UseVisualStyleBackColor = true;
-            this.actBt.Click += new System.EventHandler(this.actBt_Click);
-            // 
-            // passBt
-            // 
-            this.passBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.passBt.Location = new System.Drawing.Point(605, 430);
-            this.passBt.Name = "passBt";
-            this.passBt.Size = new System.Drawing.Size(75, 23);
-            this.passBt.TabIndex = 4;
-            this.passBt.Text = "Pass";
-            this.passBt.UseVisualStyleBackColor = true;
-            this.passBt.Click += new System.EventHandler(this.passBt_Click);
-            // 
-            // newRoundBt
-            // 
-            this.newRoundBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.newRoundBt.Location = new System.Drawing.Point(686, 430);
-            this.newRoundBt.Name = "newRoundBt";
-            this.newRoundBt.Size = new System.Drawing.Size(75, 23);
-            this.newRoundBt.TabIndex = 5;
-            this.newRoundBt.Text = "New Round";
-            this.newRoundBt.UseVisualStyleBackColor = true;
-            this.newRoundBt.Click += new System.EventHandler(this.newRoundBt_Click);
-            // 
             // weaponDamageView_action
             // 
             this.weaponDamageView_action.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -155,6 +109,41 @@
             this.checkRollView_action.Size = new System.Drawing.Size(478, 137);
             this.checkRollView_action.TabIndex = 0;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.weaponDamageView_reaction);
+            this.tabPage2.Controls.Add(this.checkRollView_reaction);
+            this.tabPage2.Controls.Add(this.receivedDamageView_reaction);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(486, 306);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Reaction";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // weaponDamageView_reaction
+            // 
+            this.weaponDamageView_reaction.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.weaponDamageView_reaction.Location = new System.Drawing.Point(244, 145);
+            this.weaponDamageView_reaction.MinimumSize = new System.Drawing.Size(0, 127);
+            this.weaponDamageView_reaction.Name = "weaponDamageView_reaction";
+            this.weaponDamageView_reaction.SelectorId = ((uint)(0u));
+            this.weaponDamageView_reaction.Size = new System.Drawing.Size(236, 158);
+            this.weaponDamageView_reaction.TabIndex = 3;
+            // 
+            // checkRollView_reaction
+            // 
+            this.checkRollView_reaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkRollView_reaction.Location = new System.Drawing.Point(2, 2);
+            this.checkRollView_reaction.Name = "checkRollView_reaction";
+            this.checkRollView_reaction.SelectorId = ((uint)(0u));
+            this.checkRollView_reaction.Size = new System.Drawing.Size(478, 137);
+            this.checkRollView_reaction.TabIndex = 1;
+            // 
             // receivedDamageView_reaction
             // 
             this.receivedDamageView_reaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -165,8 +154,45 @@
             this.receivedDamageView_reaction.Size = new System.Drawing.Size(232, 161);
             this.receivedDamageView_reaction.TabIndex = 0;
             // 
+            // actBt
+            // 
+            this.actBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.actBt.Enabled = false;
+            this.actBt.Location = new System.Drawing.Point(524, 430);
+            this.actBt.Name = "actBt";
+            this.actBt.Size = new System.Drawing.Size(75, 23);
+            this.actBt.TabIndex = 3;
+            this.actBt.Text = "Act";
+            this.actBt.UseVisualStyleBackColor = true;
+            this.actBt.Click += new System.EventHandler(this.actBt_Click);
+            // 
+            // passBt
+            // 
+            this.passBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.passBt.Enabled = false;
+            this.passBt.Location = new System.Drawing.Point(605, 430);
+            this.passBt.Name = "passBt";
+            this.passBt.Size = new System.Drawing.Size(75, 23);
+            this.passBt.TabIndex = 4;
+            this.passBt.Text = "Pass";
+            this.passBt.UseVisualStyleBackColor = true;
+            this.passBt.Click += new System.EventHandler(this.passBt_Click);
+            // 
+            // newRoundBt
+            // 
+            this.newRoundBt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.newRoundBt.Enabled = false;
+            this.newRoundBt.Location = new System.Drawing.Point(686, 430);
+            this.newRoundBt.Name = "newRoundBt";
+            this.newRoundBt.Size = new System.Drawing.Size(75, 23);
+            this.newRoundBt.TabIndex = 5;
+            this.newRoundBt.Text = "New Round";
+            this.newRoundBt.UseVisualStyleBackColor = true;
+            this.newRoundBt.Click += new System.EventHandler(this.newRoundBt_Click);
+            // 
             // characterHealthView
             // 
+            this.characterHealthView.Enabled = false;
             this.characterHealthView.Location = new System.Drawing.Point(268, 12);
             this.characterHealthView.Name = "characterHealthView";
             this.characterHealthView.SelectorId = ((uint)(0u));
@@ -182,28 +208,6 @@
             this.combatantsListView.SelectorId = ((uint)(2u));
             this.combatantsListView.Size = new System.Drawing.Size(250, 441);
             this.combatantsListView.TabIndex = 0;
-            // 
-            // checkRollView_reaction
-            // 
-            this.checkRollView_reaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkRollView_reaction.Location = new System.Drawing.Point(2, 2);
-            this.checkRollView_reaction.Name = "checkRollView_reaction";
-            this.checkRollView_reaction.SelectorId = ((uint)(0u));
-            this.checkRollView_reaction.Size = new System.Drawing.Size(478, 137);
-            this.checkRollView_reaction.TabIndex = 1;
-            // 
-            // weaponDamageView_reaction
-            // 
-            this.weaponDamageView_reaction.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.weaponDamageView_reaction.Location = new System.Drawing.Point(244, 145);
-            this.weaponDamageView_reaction.MinimumSize = new System.Drawing.Size(0, 127);
-            this.weaponDamageView_reaction.Name = "weaponDamageView_reaction";
-            this.weaponDamageView_reaction.SelectorId = ((uint)(0u));
-            this.weaponDamageView_reaction.Size = new System.Drawing.Size(236, 158);
-            this.weaponDamageView_reaction.TabIndex = 3;
             // 
             // label1
             // 

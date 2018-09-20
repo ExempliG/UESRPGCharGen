@@ -47,13 +47,18 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 charactersCb.Items.Add(c.Name);
             }
 
-            if (charactersCb.Items.Count >= selectedIndex && selectedIndex >= 0)
+            if (charactersCb.Items.Count != 0 && charactersCb.Items.Count >= selectedIndex && selectedIndex >= 0)
             {
                 charactersCb.SelectedIndex = selectedIndex;
+            }
+            else if(charactersCb.Items.Count > 0)
+            {
+                charactersCb.SelectedIndex = 0;
             }
             else
             {
                 charactersCb.SelectedIndex = -1;
+                charactersCb.Text = string.Empty;
             }
         }
 
@@ -61,7 +66,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             if (charactersCb.SelectedIndex >= 0)
             {
-                CharacterController.Instance.SelectCharacter((uint)charactersCb.SelectedIndex, SelectorId);
+                CharacterController.Instance.SelectCharacter(charactersCb.SelectedIndex, SelectorId);
             }
         }
 
@@ -71,9 +76,12 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             charactersCb.Items.Add(newChar.Name);
         }
 
-        private void onCharacterListChanged(object sender, EventArgs e)
+        private void onCharacterListChanged(object sender, CharacterListChangedEventArgs e)
         {
-            updateCharacterComboBox();
+            if (e.EventType != CharacterListChangedEvent.BEFORE_DELETE_CHARACTER)
+            {
+                updateCharacterComboBox();
+            }
         }
     }
 }

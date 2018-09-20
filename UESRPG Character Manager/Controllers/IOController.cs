@@ -28,6 +28,20 @@ namespace UESRPG_Character_Manager.Controllers
         }
 
         /// <summary>
+        /// Performs the saving of a Character list.
+        /// </summary>
+        /// <param name="filename">The filename to save the list as.</param>
+        /// <param name="listId">The ID of the list to save.</param>
+        /// <param name="message">A status message related to the outcome of the operation.</param>
+        public bool SaveChar(string filename, uint listId, out string message)
+        {
+            SaveFile save = new SaveFile(CharacterController.Instance.GetCharacterDict(listId), new Dictionary<uint, Combat>());
+            bool result = save.SaveToFilename(filename, out message);
+
+            return result;
+        }
+
+        /// <summary>
         /// Handle the loading of a Character list.
         /// </summary>
         public bool LoadChar(string filename, out string message)

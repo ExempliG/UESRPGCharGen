@@ -131,12 +131,12 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
                 weaponNameTb.Clear();
             }
 
-            addNewWeaponBt.Enabled = false;
-            deleteWeaponBt.Enabled = false;
-            editWeaponBt.Enabled = false;
-            weaponMaterialCb.Enabled = false;
-            weaponTypeCb.Enabled = false;
-            weaponNameTb.Enabled = false;
+            addNewWeaponBt.Enabled = enabled;
+            deleteWeaponBt.Enabled = enabled;
+            editWeaponBt.Enabled = enabled;
+            weaponMaterialCb.Enabled = enabled;
+            weaponTypeCb.Enabled = enabled;
+            weaponNameTb.Enabled = enabled;
         }
 
         private void weaponsDgv_SelectionChanged(object sender, EventArgs e)

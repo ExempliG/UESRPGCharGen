@@ -39,6 +39,17 @@ namespace UESRPG_Character_Manager.Common
             }
         }
 
+        public SaveFile(Dictionary<uint, Character> characters)
+        {
+            Characters = new List<Character>();
+            foreach(Character c in characters.Values)
+            {
+                Characters.Add(c);
+            }
+
+            Combats = new List<CombatSave>();
+        }
+
         public SaveFile(List<Character> characters, List<Combat> combats)
         {
             Characters = characters;
@@ -47,6 +58,12 @@ namespace UESRPG_Character_Manager.Common
             {
                 Combats.Add(new CombatSave(c));
             }
+        }
+
+        public SaveFile(List<Character> characters)
+        {
+            Characters = characters;
+            Combats = new List<CombatSave>();
         }
 
         public SaveFile()

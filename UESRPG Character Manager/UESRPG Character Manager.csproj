@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterComponents\CharacterListChangedEventArgs.cs" />
     <Compile Include="CharacterComponents\Character\Character.Attributes.cs" />
     <Compile Include="CharacterComponents\Character\Character.Skills.cs" />
     <Compile Include="CharacterComponents\Character\Character.Powers.cs" />
@@ -236,11 +237,11 @@
     <Compile Include="UI\ManagementElements\CharactersDgv.Designer.cs">
       <DependentUpon>CharactersDgv.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ManagementElements\ImportCharactersWindow.cs">
+    <Compile Include="UI\ManagementElements\ImportExportCharactersWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ManagementElements\ImportCharactersWindow.Designer.cs">
-      <DependentUpon>ImportCharactersWindow.cs</DependentUpon>
+    <Compile Include="UI\ManagementElements\ImportExportCharactersWindow.Designer.cs">
+      <DependentUpon>ImportExportCharactersWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ManagementElements\ManageCharactersWindow.cs">
       <SubType>Form</SubType>
@@ -345,8 +346,8 @@
     <EmbeddedResource Include="UI\ManagementElements\CharactersDgv.resx">
       <DependentUpon>CharactersDgv.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\ManagementElements\ImportCharactersWindow.resx">
-      <DependentUpon>ImportCharactersWindow.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ManagementElements\ImportExportCharactersWindow.resx">
+      <DependentUpon>ImportExportCharactersWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ManagementElements\ManageCharactersWindow.resx">
       <DependentUpon>ManageCharactersWindow.cs</DependentUpon>
