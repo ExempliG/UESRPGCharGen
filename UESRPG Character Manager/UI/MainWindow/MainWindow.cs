@@ -48,6 +48,10 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             attributesView_statsPage.SelectorId = SelectorId;
             weaponsView_equipPage.SelectorId = SelectorId;
             armorView_equipPage.SelectorId = SelectorId;
+            checkRollView_statsPage.SelectorId = SelectorId;
+
+            skillListView_statsPage.OnSelectedSkill += checkRollView_statsPage.OnSelectedSkillChanged;
+            spellListView_statsPage.OnSelectedSpell += checkRollView_statsPage.OnSelectedSpellChanged;
 
             /*CUSTOM EVENT BINDINGS*/
             this.LostFocus += characterNotesRtb_LostFocus;
@@ -89,6 +93,11 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                     ///<todo>Update this to go through the Controller</todo>
                     nameTb.Text = c.Name;
                     characterNotesRtb.Text = c.Notes;
+                }
+                else
+                {
+                    nameTb.Text = string.Empty;
+                    characterNotesRtb.Text = string.Empty;
                 }
                 _changingCharacter = false;
             }
@@ -193,8 +202,11 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveAsMi_Click (object sender, EventArgs e)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
-            c.Notes = characterNotesRtb.Text;
+            if (_hasCharacter)
+            {
+                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                c.Notes = characterNotesRtb.Text;
+            }
 
             SaveFileDialog sfd = new SaveFileDialog()
             {

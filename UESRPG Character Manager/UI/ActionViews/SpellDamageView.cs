@@ -16,7 +16,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 {
     public partial class SpellDamageView : UserControl
     {
-        public delegate void SelectedSpellChangedHandler(object sender, EventArgs e);
+        public delegate void SelectedSpellChangedHandler(object sender, int spellIndex);
         [Description("Fires when the selected spell changes.")]
         public event SelectedSpellChangedHandler SelectedSpellChanged;
 
@@ -146,7 +146,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                     // MIGHT BE UNNECESSARY WITH NEW STRUCTURE
                     if (!_updatingView)
                     {
-                        onSelectedSpellChanged();
+                        onSelectedSpellChanged(spellsCb.SelectedIndex);
                     }
 
                     allowRoll = _activeSpell.DoesDamage;
@@ -156,9 +156,9 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             spellRollBt.Enabled = allowRoll;
         }
 
-        private void onSelectedSpellChanged()
+        private void onSelectedSpellChanged(int spellIndex)
         {
-            SelectedSpellChanged?.Invoke(this, new System.EventArgs());
+            SelectedSpellChanged?.Invoke(this, spellIndex);
         }
 
         public Spell GetActiveSpell()

@@ -59,6 +59,15 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             updateView();
         }
 
+        public delegate void SelectedSpell(object sender, int spellIndex);
+        [Description("Fires when the selected spell changes")]
+        public event SelectedSpell OnSelectedSpell;
+
+        protected void onSelectedSpell(int spellIndex)
+        {
+            OnSelectedSpell?.Invoke(this, spellIndex);
+        }
+
         private void updateView()
         {
             if (_hasCharacter)
@@ -106,9 +115,12 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void spellsDgv_SelectionChanged(object sender, EventArgs e)
         {
-            if(spellsDgv.SelectedRows.Count == 1)
+            DataGridViewSelectedRowCollection theRows = spellsDgv.SelectedRows;
+            if (spellsDgv.SelectedRows.Count == 1)
             {
                 spellEditBt.Enabled = true;
+                int selectedIndex = theRows[0].Index;
+                onSelectedSpell(selectedIndex);
             }
             else
             {

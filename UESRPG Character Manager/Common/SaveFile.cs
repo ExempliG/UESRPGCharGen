@@ -97,14 +97,11 @@ namespace UESRPG_Character_Manager.Common
             {
                 try
                 {
-                    XmlSerializer xml = new XmlSerializer(typeof(SaveFile));
-                    foreach (Character c in Characters)
-                    {
-                        c.EngVersion = Program.CURRENT_ENG_VERSION;
-                        c.MinorVersion = Program.CURRENT_MINOR_VERSION;
-                        c.MajorVersion = Program.CURRENT_MINOR_VERSION;
-                    }
+                    MajorRevision = Program.CURRENT_MAJOR_VERSION;
+                    MinorRevision = Program.CURRENT_MINOR_VERSION;
+                    EngRevision = Program.CURRENT_ENG_VERSION;
 
+                    XmlSerializer xml = new XmlSerializer(typeof(SaveFile));
                     xml.Serialize(fs, this);
 
                     message = "Success.";
@@ -256,7 +253,7 @@ namespace UESRPG_Character_Manager.Common
             foreach (Character c in Characters)
             {
                 // Perform any necessary updates.
-                c.Update();
+                c.Update(MajorRevision, MinorRevision, EngRevision);
 
                 // Character ID integrity _is_ important at Load time, but IDs are kept ephemeral so that they don't
                 // grow unchecked. As such, IDs are reset to be equal to a Character's key/position in the Character

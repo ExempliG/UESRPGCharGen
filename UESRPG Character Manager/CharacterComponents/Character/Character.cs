@@ -278,7 +278,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         /// <summary>
         /// Perform necessary updates on a Character object based on its stored version.
         /// </summary>
-        public void Update ()
+        private void update ()
         {
             if (MajorVersion <= 0 && MinorVersion <= 0 && EngVersion < 1)
             {
@@ -291,6 +291,19 @@ namespace UESRPG_Character_Manager.CharacterComponents
             }
 
             UntrainedCheck();
+        }
+
+        /// <summary>
+        /// Perform necessary updates on a Character object based on the version of the SaveFile.
+        /// </summary>
+        public void Update (int majorVersion, int minorVersion, int engVersion)
+        {
+            MajorVersion = majorVersion;
+            MinorVersion = minorVersion;
+            EngVersion = engVersion;
+            update();
+
+            // do nothing
         }
     }
 }

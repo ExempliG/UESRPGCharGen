@@ -121,5 +121,11 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
         {
             Close();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            CharacterController.Instance.CharacterListChanged -= onCharacterListChanged;
+            base.OnClosed(e);
+        }
     }
 }

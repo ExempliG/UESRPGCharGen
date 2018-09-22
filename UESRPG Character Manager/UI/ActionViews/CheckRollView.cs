@@ -69,13 +69,12 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             updateView();
         }
 
-        public void OnSelectedSpellChanged(object sender, EventArgs e)
+        public void OnSelectedSpellChanged(object sender, int spellIndex)
         {
             if (_hasCharacter)
             {
-                Spell activeSpell = ((SpellDamageView)sender).GetActiveSpell();
-
                 Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Spell activeSpell = c.Spells[spellIndex];
                 skillRb.Checked = true;
                 IEnumerable<Skill> skillSearch = from skill in c.Skills
                                                  where skill.Name == activeSpell.AssociatedSkill
@@ -85,6 +84,22 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                     int skillIndex = skillsCb.Items.IndexOf(skillSearch.ElementAt(0));
                     skillsCb.SelectedIndex = skillIndex;
                     extraDifficultyNud.Value = activeSpell.Difficulty;
+                }
+            }
+        }
+
+        public void OnSelectedSkillChanged(object sender, int skillIndex)
+        {
+            if (_hasCharacter)
+            {
+                if (skillsCb.Items.Count > skillIndex)
+                {
+                    skillRb.Checked = true;
+                    skillsCb.SelectedIndex = skillIndex;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("skillIndex", "todo: You stink");
                 }
             }
         }

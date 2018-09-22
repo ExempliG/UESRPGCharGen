@@ -76,9 +76,16 @@ namespace UESRPG_Character_Manager.Controllers
 
         public void SelectCharacter(int index, uint selectorId)
         {
-            Character c = GetCharacterByIndex(index);
-            _activeSelectors[selectorId] = c.Id;
-            onSelectedCharacterChanged(c.Id, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+            if (index >= 0)
+            {
+                Character c = GetCharacterByIndex(index);
+                _activeSelectors[selectorId] = c.Id;
+                onSelectedCharacterChanged(c.Id, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+            }
+            else
+            {
+                onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+            }
         }
 
         public void SelectCharacterById(uint characterId, uint selectorId)

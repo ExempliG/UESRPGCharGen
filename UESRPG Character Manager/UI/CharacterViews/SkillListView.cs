@@ -59,6 +59,15 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             updateView();
         }
 
+        public delegate void SelectedSkill(object sender, int skillIndex);
+        [Description("Fires when a skill has been selected via use of this SkillListView.")]
+        public event SelectedSkill OnSelectedSkill;
+        
+        protected void onSelectedSkill(int skillIndex)
+        {
+            OnSelectedSkill?.Invoke(this, skillIndex);
+        }
+
         private void updateView()
         {
             if (_hasCharacter)
@@ -115,9 +124,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             {
                 Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
                 int selectedIndex = theRows[0].Index;
-                bool canEdit = !(c.Skills[selectedIndex].isDefaultSkill);
+                Skill selectedSkill = c.Skills[selectedIndex];
+                bool canEdit = !(selectedSkill.isDefaultSkill);
 
                 editSkillBt.Enabled = canEdit;
+                onSelectedSkill(selectedIndex);
             }
             else
             {

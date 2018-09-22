@@ -31,12 +31,23 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.skillSpellTc = new System.Windows.Forms.TabControl();
+            this.skillsTp = new System.Windows.Forms.TabPage();
+            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
+            this.spellsTp = new System.Windows.Forms.TabPage();
+            this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
+            this.checkRollView_statsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
+            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
+            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
             this.nameTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
+            this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.characterNotesRtb = new System.Windows.Forms.RichTextBox();
             this.spellsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.weaponsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.skillsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -45,27 +56,23 @@
             this.saveAsMi = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMi = new System.Windows.Forms.ToolStripMenuItem();
             this.manageCharactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
-            this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
-            this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
-            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
-            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
-            this.armorView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.ArmorView();
-            this.weaponsView_equipPage = new UESRPG_Character_Manager.UI.CharacterViews.WeaponsView();
-            this.characterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.specialFunctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newCombatMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.skillSpellTc.SuspendLayout();
+            this.skillsTp.SuspendLayout();
+            this.spellsTp.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -77,15 +84,16 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(13, 27);
+            this.tabControl1.MinimumSize = new System.Drawing.Size(935, 414);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1000, 414);
+            this.tabControl1.Size = new System.Drawing.Size(935, 414);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.spellListView_statsPage);
-            this.tabPage1.Controls.Add(this.skillListView_statsPage);
+            this.tabPage1.Controls.Add(this.skillSpellTc);
+            this.tabPage1.Controls.Add(this.checkRollView_statsPage);
             this.tabPage1.Controls.Add(this.attributesView_statsPage);
             this.tabPage1.Controls.Add(this.charaView_statsPage);
             this.tabPage1.Controls.Add(this.nameTb);
@@ -93,10 +101,97 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(992, 388);
+            this.tabPage1.Size = new System.Drawing.Size(927, 388);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // skillSpellTc
+            // 
+            this.skillSpellTc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.skillSpellTc.Controls.Add(this.skillsTp);
+            this.skillSpellTc.Controls.Add(this.spellsTp);
+            this.skillSpellTc.Location = new System.Drawing.Point(416, 152);
+            this.skillSpellTc.MinimumSize = new System.Drawing.Size(505, 214);
+            this.skillSpellTc.Name = "skillSpellTc";
+            this.skillSpellTc.SelectedIndex = 0;
+            this.skillSpellTc.Size = new System.Drawing.Size(505, 214);
+            this.skillSpellTc.TabIndex = 10;
+            // 
+            // skillsTp
+            // 
+            this.skillsTp.Controls.Add(this.skillListView_statsPage);
+            this.skillsTp.Location = new System.Drawing.Point(4, 22);
+            this.skillsTp.Name = "skillsTp";
+            this.skillsTp.Padding = new System.Windows.Forms.Padding(3);
+            this.skillsTp.Size = new System.Drawing.Size(497, 188);
+            this.skillsTp.TabIndex = 0;
+            this.skillsTp.Text = "Skill List";
+            this.skillsTp.UseVisualStyleBackColor = true;
+            // 
+            // skillListView_statsPage
+            // 
+            this.skillListView_statsPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.skillListView_statsPage.Location = new System.Drawing.Point(6, 6);
+            this.skillListView_statsPage.Name = "skillListView_statsPage";
+            this.skillListView_statsPage.SelectorId = ((uint)(0u));
+            this.skillListView_statsPage.Size = new System.Drawing.Size(485, 179);
+            this.skillListView_statsPage.TabIndex = 4;
+            // 
+            // spellsTp
+            // 
+            this.spellsTp.Controls.Add(this.spellListView_statsPage);
+            this.spellsTp.Location = new System.Drawing.Point(4, 22);
+            this.spellsTp.Name = "spellsTp";
+            this.spellsTp.Padding = new System.Windows.Forms.Padding(3);
+            this.spellsTp.Size = new System.Drawing.Size(497, 188);
+            this.spellsTp.TabIndex = 1;
+            this.spellsTp.Text = "Spell List";
+            this.spellsTp.UseVisualStyleBackColor = true;
+            // 
+            // spellListView_statsPage
+            // 
+            this.spellListView_statsPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.spellListView_statsPage.Location = new System.Drawing.Point(6, 6);
+            this.spellListView_statsPage.Name = "spellListView_statsPage";
+            this.spellListView_statsPage.SelectorId = ((uint)(0u));
+            this.spellListView_statsPage.Size = new System.Drawing.Size(485, 179);
+            this.spellListView_statsPage.TabIndex = 8;
+            // 
+            // checkRollView_statsPage
+            // 
+            this.checkRollView_statsPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkRollView_statsPage.Location = new System.Drawing.Point(415, 8);
+            this.checkRollView_statsPage.MinimumSize = new System.Drawing.Size(502, 137);
+            this.checkRollView_statsPage.Name = "checkRollView_statsPage";
+            this.checkRollView_statsPage.SelectorId = ((uint)(0u));
+            this.checkRollView_statsPage.Size = new System.Drawing.Size(502, 137);
+            this.checkRollView_statsPage.TabIndex = 9;
+            // 
+            // attributesView_statsPage
+            // 
+            this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
+            this.attributesView_statsPage.MinimumSize = new System.Drawing.Size(275, 329);
+            this.attributesView_statsPage.Name = "attributesView_statsPage";
+            this.attributesView_statsPage.SelectorId = ((uint)(0u));
+            this.attributesView_statsPage.Size = new System.Drawing.Size(275, 329);
+            this.attributesView_statsPage.TabIndex = 3;
+            // 
+            // charaView_statsPage
+            // 
+            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
+            this.charaView_statsPage.Name = "charaView_statsPage";
+            this.charaView_statsPage.SelectorId = ((uint)(0u));
+            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
+            this.charaView_statsPage.TabIndex = 2;
             // 
             // nameTb
             // 
@@ -124,148 +219,10 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(992, 388);
+            this.tabPage3.Size = new System.Drawing.Size(927, 388);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Equipment";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.characterNotesRtb);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(992, 388);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Notes";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // characterNotesRtb
-            // 
-            this.characterNotesRtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.characterNotesRtb.Location = new System.Drawing.Point(7, 7);
-            this.characterNotesRtb.Name = "characterNotesRtb";
-            this.characterNotesRtb.Size = new System.Drawing.Size(979, 349);
-            this.characterNotesRtb.TabIndex = 0;
-            this.characterNotesRtb.Text = "";
-            // 
-            // spellsBindingSource
-            // 
-            this.spellsBindingSource.DataMember = "Spells";
-            this.spellsBindingSource.DataSource = this.characterBindingSource;
-            // 
-            // weaponsBindingSource
-            // 
-            this.weaponsBindingSource.DataMember = "Weapons";
-            this.weaponsBindingSource.DataSource = this.characterBindingSource;
-            // 
-            // skillsBindingSource
-            // 
-            this.skillsBindingSource.DataMember = "Skills";
-            this.skillsBindingSource.DataSource = this.characterBindingSource;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fIleToolStripMenuItem,
-            this.specialFunctionsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1024, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fIleToolStripMenuItem
-            // 
-            this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveMi,
-            this.saveAsMi,
-            this.loadMi,
-            this.manageCharactersToolStripMenuItem});
-            this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
-            this.fIleToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fIleToolStripMenuItem.Text = "File";
-            // 
-            // saveMi
-            // 
-            this.saveMi.Name = "saveMi";
-            this.saveMi.ShortcutKeyDisplayString = "Ctrl+S";
-            this.saveMi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveMi.Size = new System.Drawing.Size(193, 22);
-            this.saveMi.Text = "Save";
-            this.saveMi.Click += new System.EventHandler(this.saveMi_Click);
-            // 
-            // saveAsMi
-            // 
-            this.saveAsMi.Name = "saveAsMi";
-            this.saveAsMi.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.saveAsMi.Size = new System.Drawing.Size(193, 22);
-            this.saveAsMi.Text = "Save as...";
-            this.saveAsMi.Click += new System.EventHandler(this.saveAsMi_Click);
-            // 
-            // loadMi
-            // 
-            this.loadMi.Name = "loadMi";
-            this.loadMi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.loadMi.Size = new System.Drawing.Size(193, 22);
-            this.loadMi.Text = "Load...";
-            this.loadMi.Click += new System.EventHandler(this.loadMi_Click);
-            // 
-            // manageCharactersToolStripMenuItem
-            // 
-            this.manageCharactersToolStripMenuItem.Enabled = false;
-            this.manageCharactersToolStripMenuItem.Name = "manageCharactersToolStripMenuItem";
-            this.manageCharactersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.manageCharactersToolStripMenuItem.Text = "Manage Characters";
-            this.manageCharactersToolStripMenuItem.Click += new System.EventHandler(this.manageCharactersToolStripMenuItem_Click);
-            // 
-            // skillsBindingSource1
-            // 
-            this.skillsBindingSource1.DataMember = "Skills";
-            this.skillsBindingSource1.DataSource = this.characterBindingSource;
-            // 
-            // characterSelector
-            // 
-            this.characterSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.characterSelector.Location = new System.Drawing.Point(12, 447);
-            this.characterSelector.Name = "characterSelector";
-            this.characterSelector.Size = new System.Drawing.Size(322, 23);
-            this.characterSelector.TabIndex = 5;
-            // 
-            // spellListView_statsPage
-            // 
-            this.spellListView_statsPage.Location = new System.Drawing.Point(484, 198);
-            this.spellListView_statsPage.Name = "spellListView_statsPage";
-            this.spellListView_statsPage.SelectorId = ((uint)(0u));
-            this.spellListView_statsPage.Size = new System.Drawing.Size(504, 170);
-            this.spellListView_statsPage.TabIndex = 8;
-            // 
-            // skillListView_statsPage
-            // 
-            this.skillListView_statsPage.Location = new System.Drawing.Point(484, 37);
-            this.skillListView_statsPage.Name = "skillListView_statsPage";
-            this.skillListView_statsPage.SelectorId = ((uint)(0u));
-            this.skillListView_statsPage.Size = new System.Drawing.Size(504, 155);
-            this.skillListView_statsPage.TabIndex = 4;
-            // 
-            // attributesView_statsPage
-            // 
-            this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
-            this.attributesView_statsPage.Name = "attributesView_statsPage";
-            this.attributesView_statsPage.SelectorId = ((uint)(0u));
-            this.attributesView_statsPage.Size = new System.Drawing.Size(344, 329);
-            this.attributesView_statsPage.TabIndex = 3;
-            // 
-            // charaView_statsPage
-            // 
-            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
-            this.charaView_statsPage.Name = "charaView_statsPage";
-            this.charaView_statsPage.SelectorId = ((uint)(0u));
-            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
-            this.charaView_statsPage.TabIndex = 2;
             // 
             // armorView_equipPage
             // 
@@ -288,9 +245,102 @@
             this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
             this.weaponsView_equipPage.TabIndex = 26;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.characterNotesRtb);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(927, 388);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Notes";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // characterNotesRtb
+            // 
+            this.characterNotesRtb.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.characterNotesRtb.Location = new System.Drawing.Point(7, 7);
+            this.characterNotesRtb.Name = "characterNotesRtb";
+            this.characterNotesRtb.Size = new System.Drawing.Size(979, 349);
+            this.characterNotesRtb.TabIndex = 0;
+            this.characterNotesRtb.Text = "";
+            // 
+            // spellsBindingSource
+            // 
+            this.spellsBindingSource.DataMember = "Spells";
+            this.spellsBindingSource.DataSource = this.characterBindingSource;
+            // 
             // characterBindingSource
             // 
             this.characterBindingSource.DataSource = typeof(UESRPG_Character_Manager.CharacterComponents.Character);
+            // 
+            // weaponsBindingSource
+            // 
+            this.weaponsBindingSource.DataMember = "Weapons";
+            this.weaponsBindingSource.DataSource = this.characterBindingSource;
+            // 
+            // skillsBindingSource
+            // 
+            this.skillsBindingSource.DataMember = "Skills";
+            this.skillsBindingSource.DataSource = this.characterBindingSource;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fIleToolStripMenuItem,
+            this.specialFunctionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(954, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fIleToolStripMenuItem
+            // 
+            this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveMi,
+            this.saveAsMi,
+            this.loadMi,
+            this.manageCharactersToolStripMenuItem});
+            this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
+            this.fIleToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fIleToolStripMenuItem.Text = "&File";
+            // 
+            // saveMi
+            // 
+            this.saveMi.Name = "saveMi";
+            this.saveMi.ShortcutKeyDisplayString = "Ctrl+S";
+            this.saveMi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveMi.Size = new System.Drawing.Size(193, 22);
+            this.saveMi.Text = "&Save";
+            this.saveMi.Click += new System.EventHandler(this.saveMi_Click);
+            // 
+            // saveAsMi
+            // 
+            this.saveAsMi.Name = "saveAsMi";
+            this.saveAsMi.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveAsMi.Size = new System.Drawing.Size(193, 22);
+            this.saveAsMi.Text = "Save &as...";
+            this.saveAsMi.Click += new System.EventHandler(this.saveAsMi_Click);
+            // 
+            // loadMi
+            // 
+            this.loadMi.Name = "loadMi";
+            this.loadMi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.loadMi.Size = new System.Drawing.Size(193, 22);
+            this.loadMi.Text = "&Load...";
+            this.loadMi.Click += new System.EventHandler(this.loadMi_Click);
+            // 
+            // manageCharactersToolStripMenuItem
+            // 
+            this.manageCharactersToolStripMenuItem.Enabled = false;
+            this.manageCharactersToolStripMenuItem.Name = "manageCharactersToolStripMenuItem";
+            this.manageCharactersToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.manageCharactersToolStripMenuItem.Text = "Manage Characters";
+            this.manageCharactersToolStripMenuItem.Click += new System.EventHandler(this.manageCharactersToolStripMenuItem_Click);
             // 
             // specialFunctionsToolStripMenuItem
             // 
@@ -298,40 +348,57 @@
             this.newCombatMenuItem});
             this.specialFunctionsToolStripMenuItem.Name = "specialFunctionsToolStripMenuItem";
             this.specialFunctionsToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.specialFunctionsToolStripMenuItem.Text = "Special Functions";
+            this.specialFunctionsToolStripMenuItem.Text = "Special &Functions";
             // 
             // newCombatMenuItem
             // 
             this.newCombatMenuItem.Enabled = false;
             this.newCombatMenuItem.Name = "newCombatMenuItem";
-            this.newCombatMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.newCombatMenuItem.Text = "New Combat";
+            this.newCombatMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newCombatMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.newCombatMenuItem.Text = "New &Combat";
             this.newCombatMenuItem.Click += new System.EventHandler(this.newCombatMenuItem_Click);
+            // 
+            // skillsBindingSource1
+            // 
+            this.skillsBindingSource1.DataMember = "Skills";
+            this.skillsBindingSource1.DataSource = this.characterBindingSource;
+            // 
+            // characterSelector
+            // 
+            this.characterSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.characterSelector.Location = new System.Drawing.Point(12, 447);
+            this.characterSelector.Name = "characterSelector";
+            this.characterSelector.Size = new System.Drawing.Size(322, 23);
+            this.characterSelector.TabIndex = 5;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 477);
+            this.ClientSize = new System.Drawing.Size(954, 477);
             this.Controls.Add(this.characterSelector);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(1040, 515);
+            this.MinimumSize = new System.Drawing.Size(970, 516);
             this.Name = "MainWindow";
             this.Text = "UESRPG Character Generator";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.skillSpellTc.ResumeLayout(false);
+            this.skillsTp.ResumeLayout(false);
+            this.spellsTp.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spellsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.weaponsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.characterBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,6 +433,10 @@
         private System.Windows.Forms.ToolStripMenuItem manageCharactersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem specialFunctionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newCombatMenuItem;
+        private System.Windows.Forms.TabControl skillSpellTc;
+        private System.Windows.Forms.TabPage skillsTp;
+        private System.Windows.Forms.TabPage spellsTp;
+        private ActionViews.CheckRollView checkRollView_statsPage;
     }
 }
 
