@@ -8,12 +8,12 @@ solution which would guide players through many of the common actions that are n
 in-Progress is the result of that desire, and I hope that some day, new players of UESRPG outside of my friend group
 will find this work helpful.
 ## Installation
-Currently there are no pre-built binaries available. The application must be built with Visual Studio. The project
-targets .NET 4.5.2, though I am sure it would work on lesser versions. Development takes place in VS Community 2015 and
-2017, so both IDEs should be suitable.
+Releases are currently published as simple unsigned .exes, which may not play nice with some antivirus software. If the project were to gain traction outside of my friend group, I would certainly switch to a more buttoned-up method of distribution, but this gets the job done for now.
 ## Contributors
 Feel free to drop me a line at andrew@igglean.com if you would like to discuss the project. Please feel free to fork or 
 pull request as you like. Pull requests should make an effort to follow established style patterns, but this is only a soft guideline.
+
+The project targets .NET framework version 4.5.2.
 
 These style guidelines can be configured in Visual Studio Community 2017.
 ## License
