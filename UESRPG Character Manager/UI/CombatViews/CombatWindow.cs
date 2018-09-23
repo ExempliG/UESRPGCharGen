@@ -45,6 +45,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             this.Shown += onShown;
             CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
             GameController.Instance.ActiveCombatsChanged += onActiveCombatsChanged;
+            spellDamageView_action.SelectedSpellChanged += checkRollView_action.OnSelectedSpellChanged;
         }
 
         protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
