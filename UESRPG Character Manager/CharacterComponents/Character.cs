@@ -12,14 +12,6 @@ using UESRPG_Character_Manager.Items;
 
 namespace UESRPG_Character_Manager.CharacterComponents
 {
-    public static class CharacterUtils
-    {
-        public static int GetBonus(this int value)
-        {
-            return value / 10;
-        }
-    }
-
     //[XmlRoot("Character", IsNullable = false)]
     public class Character : ICloneable
     {
@@ -29,6 +21,12 @@ namespace UESRPG_Character_Manager.CharacterComponents
         private List<Weapon> _weapons;
         private List<Spell> _spells;
         private List<Skill> _skills;
+        private List<Talent> _talents;
+        private List<Trait> _traits;
+        private List<Trait> _aggregateTraits;
+        private List<Power> _powers;
+        private List<Power> _aggregatePowers;
+        private RaceId _race;
         private string _notes;
 
         private int _engVersion = 0;
@@ -40,11 +38,21 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public Character ()
         {
             _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
+            _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
             _armorPieces = new List<Armor>();
             _weapons = new List<Weapon> ();
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
-            _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
+            _talents = new List<Talent> ();
+            _traits = new List<Trait> ();
+            _aggregateTraits = new List<Trait> ();
+            _powers = new List<Power>();
+            _aggregatePowers = new List<Power>();
+        }
+
+        public int GetBonus (int characteristic)
+        {
+            return characteristic / 10;
         }
 
         [XmlAttribute()]
@@ -58,6 +66,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get { return _notes; }
             set { _notes = value; }
+        }
+
+        public RaceId RaceId
+        {
+            get { return _race; }
+            set { _race = value; }
+        }
+
+        [XmlIgnore()]
+        public Race Race
+        {
+            get { return Races.GetRace(RaceId); }
         }
 
         [XmlAttribute ()]
@@ -81,7 +101,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             set { _majorVersion = value; }
         }
 
-        public object Clone()
+        object ICloneable.Clone ()
         {
             Character c = new Character ();
 
@@ -118,12 +138,19 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 c._spells.Add(newSpell);
             }
 
+            c._talents = new List<Talent>();
+            foreach (Talent t in _talents)
+            {
+                Talent newTalent = (Talent)t.Clone();
+                c._talents.Add(newTalent);
+            }
+
             return c;
         }
 
 /******************
  * EVENTS
- * ***************/
+ *****************/
 
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]
@@ -140,6 +167,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public delegate void SpellListChangedHandler(object sender, EventArgs e);
         [Description("Fires when the spell list changes via adding or renaming a spell.")]
         public static event SpellListChangedHandler SpellListChanged;
+
+        public delegate void TalentListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the talent list changes via adding, renaming, or deleting a talent.")]
+        public static event TalentListChangedHandler TalentListChanged;
+
+        public delegate void TraitListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the trait list changes via adding, renaming, or deleting a trait.")]
+        public static event TraitListChangedHandler TraitListChanged;
+
+        public delegate void PowerListChangedHandler(object sender, EventArgs e);
+        [Description("Fires when the power list changes via adding, renaming, or deleting a power.")]
+        public static event PowerListChangedHandler PowerListChanged;
 
         public delegate void WeaponsChangedHandler(object sender, EventArgs e);
         [Description("Fires when a Weapon is changed or added by the user.")]
@@ -163,6 +202,21 @@ namespace UESRPG_Character_Manager.CharacterComponents
         protected void onSpellListChanged()
         {
             SpellListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onTalentListChanged()
+        {
+            TalentListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onTraitListChanged()
+        {
+            TraitListChanged?.Invoke(this, new System.EventArgs());
+        }
+
+        protected void onPowerListChanged()
+        {
+            PowerListChanged?.Invoke(this, new System.EventArgs());
         }
 
         protected void onWeaponsChanged()
@@ -244,7 +298,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
             }
             else
             {
-                throw new ArgumentOutOfRangeException("index", CharacterExceptionMessages.GetUnsupportedCharacteristicMessage);
+                throw new ArgumentOutOfRangeException("index", "Attempted to retrieve an unsupported Characteristic.");
             }
 
             return result;
@@ -373,6 +427,138 @@ namespace UESRPG_Character_Manager.CharacterComponents
             onSpellListChanged();
         }
 
+/**********
+ * TALENTS 
+ *********/
+
+        public List<Talent> Talents
+        {
+            get { return _talents; }
+        }
+
+        public void AddTalent(Talent newTalent)
+        {
+            _talents.Add(newTalent);
+        }
+
+        public void EditTalent(Talent newTalent)
+        {
+            IEnumerable<Talent> talentSearch = from Talent t in _talents
+                                               where t.TalentId == newTalent.TalentId
+                                               select t;
+            if (talentSearch.Count() == 1)
+            {
+                Talent currentTalent = talentSearch.ElementAt(0);
+                int talentIndex = Talents.IndexOf(currentTalent);
+                Talents[talentIndex] = newTalent;
+
+                onTalentListChanged();
+            }
+        }
+
+        public void DeleteTalent(Talent talentToDelete)
+        {
+            _talents.Remove(talentToDelete);
+
+            onTalentListChanged();
+        }
+
+/*********
+ * TRAITS
+ ********/
+
+        public List<Trait> Traits
+        {
+            get { return _traits; }
+        }
+
+        [XmlIgnore()]
+        public List<Trait> AggregateTraits
+        {
+            get
+            {
+                _aggregateTraits = new List<Trait>();
+                _aggregateTraits.AddRange(Race.Traits);
+                _aggregateTraits.AddRange(_traits);
+                return _aggregateTraits;
+            }
+        }
+
+        public void AddTrait(Trait newTrait)
+        {
+            _traits.Add(newTrait);
+        }
+
+        public void EditTrait(Trait newTrait)
+        {
+            IEnumerable<Trait> traitSearch = from Trait t in _traits
+                                             where t.TraitId == newTrait.TraitId
+                                             select t;
+            if (traitSearch.Count() == 1)
+            {
+                Trait currentTrait = traitSearch.ElementAt(0);
+                int traitIndex = Traits.IndexOf(currentTrait);
+                Traits[traitIndex] = newTrait;
+
+                onTraitListChanged();
+            }
+        }
+
+        public void DeleteTrait(Trait traitToDelete)
+        {
+            _traits.Remove(traitToDelete);
+
+            onTraitListChanged();
+        }
+
+/*********
+ * POWERS
+ ********/
+
+        public List<Power> Powers
+        {
+            get { return _powers; }
+        }
+
+        [XmlIgnore()]
+        public List<Power> AggregatePowers
+        {
+            get
+            {
+                _aggregatePowers = new List<Power>();
+                _aggregatePowers.AddRange(Race.Powers);
+                _aggregatePowers.AddRange(_powers);
+                return _aggregatePowers;
+            }
+        }
+
+        public void AddPower(Power newPower)
+        {
+            _powers.Add(newPower);
+        }
+
+        public void EditPower(Power newPower)
+        {
+            IEnumerable<Power> powerSearch = from Power p in _powers
+                                             where p.PowerId == newPower.PowerId
+                                             select p;
+            if (powerSearch.Count() == 1)
+            {
+                Power currentPower = powerSearch.ElementAt(0);
+                int powerIndex = Powers.IndexOf(currentPower);
+                Powers[powerIndex] = newPower;
+
+                onPowerListChanged();
+            }
+        }
+
+        public void DeletePower(Power powerToDelete)
+        {
+            _powers.Remove(powerToDelete);
+
+            onPowerListChanged();
+        }
+
 /*********
  * SKILLS
  ********/
@@ -433,32 +619,9 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             if(modifierIndex >= 0 && modifierIndex < Modifiers.NUMBER_OF_MODIFIERS)
             {
-                if (value >= Modifiers.MIN && value <= Modifiers.MAX)
-                {
-                    _modifiers[modifierIndex] = value;
-                    // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
-                    onAttributeChanged();
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("value", CharacterExceptionMessages.ModifierValueOutOfRangeMessage);
-                }
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("modifierIndex", CharacterExceptionMessages.SetUnsupportedModifierMessage);
-            }
-        }
-
-        public int GetModifier(int modifierIndex)
-        {
-            if (modifierIndex >= 0 && modifierIndex < Modifiers.NUMBER_OF_MODIFIERS)
-            {
-                return _modifiers[modifierIndex];
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("modifierIndex", CharacterExceptionMessages.GetUnsupportedModifierMessage);
+                _modifiers[modifierIndex] = value;
+                // As modifiers modify attributes, changing a modifier subsequently changes an attribute.
+                onAttributeChanged();
             }
         }
 
@@ -526,7 +689,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return (Endurance.GetBonus() + Strength.GetBonus()) + WoundThresholdMod;
+                return (GetBonus (Endurance) + GetBonus (Strength)) + WoundThresholdMod;
             }
         }
 
@@ -545,8 +708,9 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                int staminaValue = Math.Max(Endurance.GetBonus() - 1, 2);
-                return staminaValue + StaminaMod;
+                float halfWillpowerBonus = (float)GetBonus (Willpower) / 2;
+                halfWillpowerBonus += 0.5f; // round up
+                return (GetBonus (Endurance) + (int)halfWillpowerBonus) + StaminaMod;
             }
         }
 
@@ -573,7 +737,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return Agility.GetBonus() + MovementRatingMod;
+                return GetBonus (Agility) + MovementRatingMod;
             }
         }
 
@@ -581,7 +745,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return ((2 * Strength.GetBonus()) + Endurance.GetBonus()) + CarryRatingMod;
+                return ((2 * GetBonus (Strength)) + GetBonus (Endurance)) + CarryRatingMod;
             }
         }
 
@@ -589,7 +753,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return (Agility.GetBonus() + Perception.GetBonus()) + InitiativeRatingMod;
+                return (GetBonus (Agility) + GetBonus (Perception)) + InitiativeRatingMod;
             }
         }
 
@@ -608,18 +772,31 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                int apScore = Agility.GetBonus() + Intelligence.GetBonus() + Perception.GetBonus();
-                int calculatedAp = 1;
-                if (apScore >= 7 && apScore <= 14)
+                int value = GetBonus (Agility) + GetBonus (Intelligence) + GetBonus (Perception);
+                int ap = 0;
+                if (value <= 6)
                 {
-                    calculatedAp = 2;
+                    ap = 1;
                 }
-                else if (apScore >= 15)
+                else if (value >= 7 && value <= 10)
                 {
-                    calculatedAp = 3;
+                    ap = 2;
+                }
+                else if (value >= 11 && value <= 14)
+                {
+                    ap = 3;
+                }
+                else if (value >= 15 && value <= 18)
+                {
+
+                    ap = 4;
+                }
+                else // 19+
+                {
+                    ap = 5;
                 }
 
-                return calculatedAp + ActionPointsMod;
+                return ap + ActionPointsMod;
             }
         }
 
@@ -627,7 +804,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return Strength.GetBonus() + DamageBonusMod;
+                return GetBonus (Strength) + DamageBonusMod;
             }
         }
 
@@ -646,7 +823,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         {
             get
             {
-                return Luck.GetBonus() + LuckPointsMod;
+                return GetBonus (Luck) + LuckPointsMod;
             }
         }
 
@@ -687,57 +864,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
                 }
                 _skills.Insert(0, untrainedSkill);
             }
-        }
-
-        public override bool Equals(object obj)
-        {
-            if(obj.GetType() != typeof(Character))
-            {
-                return false;
-            }
-
-            Character c = (Character)obj;
-
-            bool result = 
-            (
-                c.Name == Name &&
-                c.Notes == Notes &&
-                c._characteristics.SequenceEqual(_characteristics) &&
-                c._modifiers.SequenceEqual(_modifiers)
-            );
-
-            if (result)
-            {
-                result =
-                (
-                    compareLists(c.ArmorPieces, ArmorPieces) &&
-                    compareLists(c.Weapons, Weapons) &&
-                    compareLists(c.Skills, Skills) &&
-                    compareLists(c.Spells, Spells)
-                );
-            }
-
-            return result;
-        }
-
-        private bool compareLists<T>(List<T> a, List<T> b)
-        {
-            if (a.Count == b.Count)
-            {
-                for (int i = 0; i < a.Count; i++)
-                {
-                    if (!a[i].Equals(b[i]))
-                    {
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }
