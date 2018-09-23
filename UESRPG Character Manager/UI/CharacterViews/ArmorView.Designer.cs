@@ -43,8 +43,9 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.label33);
             this.groupBox4.Controls.Add(this.armorNameTb);
             this.groupBox4.Controls.Add(this.armorQualityCb);
@@ -63,7 +64,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(90, 22);
+            this.label33.Location = new System.Drawing.Point(6, 16);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(61, 13);
             this.label33.TabIndex = 27;
@@ -71,7 +72,7 @@
             // 
             // armorNameTb
             // 
-            this.armorNameTb.Location = new System.Drawing.Point(157, 19);
+            this.armorNameTb.Location = new System.Drawing.Point(73, 13);
             this.armorNameTb.Name = "armorNameTb";
             this.armorNameTb.Size = new System.Drawing.Size(97, 20);
             this.armorNameTb.TabIndex = 26;
@@ -79,7 +80,7 @@
             // armorQualityCb
             // 
             this.armorQualityCb.FormattingEnabled = true;
-            this.armorQualityCb.Location = new System.Drawing.Point(368, 45);
+            this.armorQualityCb.Location = new System.Drawing.Point(284, 39);
             this.armorQualityCb.Name = "armorQualityCb";
             this.armorQualityCb.Size = new System.Drawing.Size(107, 21);
             this.armorQualityCb.TabIndex = 25;
@@ -87,7 +88,7 @@
             // armorMaterialCb
             // 
             this.armorMaterialCb.FormattingEnabled = true;
-            this.armorMaterialCb.Location = new System.Drawing.Point(260, 45);
+            this.armorMaterialCb.Location = new System.Drawing.Point(176, 39);
             this.armorMaterialCb.Name = "armorMaterialCb";
             this.armorMaterialCb.Size = new System.Drawing.Size(100, 21);
             this.armorMaterialCb.TabIndex = 24;
@@ -95,7 +96,7 @@
             // armorTypeCb
             // 
             this.armorTypeCb.FormattingEnabled = true;
-            this.armorTypeCb.Location = new System.Drawing.Point(157, 45);
+            this.armorTypeCb.Location = new System.Drawing.Point(73, 39);
             this.armorTypeCb.Name = "armorTypeCb";
             this.armorTypeCb.Size = new System.Drawing.Size(97, 21);
             this.armorTypeCb.TabIndex = 23;
@@ -104,14 +105,14 @@
             // 
             this.armorLocationCb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.armorLocationCb.FormattingEnabled = true;
-            this.armorLocationCb.Location = new System.Drawing.Point(260, 18);
+            this.armorLocationCb.Location = new System.Drawing.Point(176, 12);
             this.armorLocationCb.Name = "armorLocationCb";
             this.armorLocationCb.Size = new System.Drawing.Size(100, 21);
             this.armorLocationCb.TabIndex = 22;
             // 
             // addNewArmorBt
             // 
-            this.addNewArmorBt.Location = new System.Drawing.Point(368, 16);
+            this.addNewArmorBt.Location = new System.Drawing.Point(284, 10);
             this.addNewArmorBt.Name = "addNewArmorBt";
             this.addNewArmorBt.Size = new System.Drawing.Size(107, 23);
             this.addNewArmorBt.TabIndex = 21;

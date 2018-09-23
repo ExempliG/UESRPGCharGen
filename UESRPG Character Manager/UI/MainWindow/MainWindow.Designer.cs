@@ -232,7 +232,7 @@
             this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
             this.armorView_equipPage.Name = "armorView_equipPage";
             this.armorView_equipPage.SelectorId = ((uint)(0u));
-            this.armorView_equipPage.Size = new System.Drawing.Size(504, 376);
+            this.armorView_equipPage.Size = new System.Drawing.Size(439, 376);
             this.armorView_equipPage.TabIndex = 27;
             // 
             // weaponsView_equipPage
@@ -242,7 +242,7 @@
             this.weaponsView_equipPage.Location = new System.Drawing.Point(4, 6);
             this.weaponsView_equipPage.Name = "weaponsView_equipPage";
             this.weaponsView_equipPage.SelectorId = ((uint)(0u));
-            this.weaponsView_equipPage.Size = new System.Drawing.Size(474, 377);
+            this.weaponsView_equipPage.Size = new System.Drawing.Size(472, 377);
             this.weaponsView_equipPage.TabIndex = 26;
             // 
             // tabPage4
