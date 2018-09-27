@@ -253,6 +253,14 @@ namespace UESRPG_Character_Manager.Common
             foreach (Character c in Characters)
             {
                 // Perform any necessary updates.
+
+                // This check is meant to account for pre-SaveFile saves.
+                if( c.MajorVersion >= MajorRevision && c.MinorVersion >= MinorRevision && c.EngVersion >= EngRevision )
+                {
+                    MajorRevision = c.MajorVersion;
+                    MinorRevision = c.MinorVersion;
+                    EngRevision = c.EngVersion;
+                }
                 c.Update(MajorRevision, MinorRevision, EngRevision);
 
                 // Character ID integrity _is_ important at Load time, but IDs are kept ephemeral so that they don't
