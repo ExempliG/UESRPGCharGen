@@ -31,14 +31,16 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
+            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.skillSpellTc = new System.Windows.Forms.TabControl();
             this.skillsTp = new System.Windows.Forms.TabPage();
             this.skillListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SkillListView();
             this.spellsTp = new System.Windows.Forms.TabPage();
             this.spellListView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.SpellListView();
             this.checkRollView_statsPage = new UESRPG_Character_Manager.UI.ActionViews.CheckRollView();
-            this.attributesView_statsPage = new UESRPG_Character_Manager.UI.AttributesView();
-            this.charaView_statsPage = new UESRPG_Character_Manager.UI.CharacterViews.CharacteristicsView();
             this.nameTb = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -58,10 +60,16 @@
             this.manageCharactersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.specialFunctionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newCombatMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.skillsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.characterSelector = new UESRPG_Character_Manager.UI.MainWindow.CharacterSelector();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.skillSpellTc.SuspendLayout();
             this.skillsTp.SuspendLayout();
             this.spellsTp.SuspendLayout();
@@ -73,6 +81,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -87,24 +99,72 @@
             this.tabControl1.MinimumSize = new System.Drawing.Size(935, 414);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(935, 414);
+            this.tabControl1.Size = new System.Drawing.Size(959, 414);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.skillSpellTc);
-            this.tabPage1.Controls.Add(this.checkRollView_statsPage);
-            this.tabPage1.Controls.Add(this.attributesView_statsPage);
-            this.tabPage1.Controls.Add(this.charaView_statsPage);
-            this.tabPage1.Controls.Add(this.nameTb);
-            this.tabPage1.Controls.Add(this.label31);
+            this.tabPage1.Controls.Add(this.splitContainer2);
+            this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(927, 388);
+            this.tabPage1.Size = new System.Drawing.Size(951, 388);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 31);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.charaView_statsPage);
+            this.splitContainer1.Panel1MinSize = 127;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.attributesView_statsPage);
+            this.splitContainer1.Panel2MinSize = 282;
+            this.splitContainer1.Size = new System.Drawing.Size(413, 357);
+            this.splitContainer1.SplitterDistance = 127;
+            this.splitContainer1.TabIndex = 12;
+            // 
+            // charaView_statsPage
+            // 
+            this.charaView_statsPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.charaView_statsPage.Location = new System.Drawing.Point(2, 2);
+            this.charaView_statsPage.Name = "charaView_statsPage";
+            this.charaView_statsPage.SelectorId = ((uint)(0u));
+            this.charaView_statsPage.Size = new System.Drawing.Size(118, 254);
+            this.charaView_statsPage.TabIndex = 2;
+            // 
+            // attributesView_statsPage
+            // 
+            this.attributesView_statsPage.Location = new System.Drawing.Point(3, 0);
+            this.attributesView_statsPage.MinimumSize = new System.Drawing.Size(275, 329);
+            this.attributesView_statsPage.Name = "attributesView_statsPage";
+            this.attributesView_statsPage.SelectorId = ((uint)(0u));
+            this.attributesView_statsPage.Size = new System.Drawing.Size(275, 329);
+            this.attributesView_statsPage.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Location = new System.Drawing.Point(3, 37);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(0, 0);
+            this.panel1.TabIndex = 11;
             // 
             // skillSpellTc
             // 
@@ -113,11 +173,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.skillSpellTc.Controls.Add(this.skillsTp);
             this.skillSpellTc.Controls.Add(this.spellsTp);
-            this.skillSpellTc.Location = new System.Drawing.Point(416, 152);
+            this.skillSpellTc.Location = new System.Drawing.Point(2, 145);
             this.skillSpellTc.MinimumSize = new System.Drawing.Size(505, 214);
             this.skillSpellTc.Name = "skillSpellTc";
             this.skillSpellTc.SelectedIndex = 0;
-            this.skillSpellTc.Size = new System.Drawing.Size(505, 214);
+            this.skillSpellTc.Size = new System.Drawing.Size(530, 243);
             this.skillSpellTc.TabIndex = 10;
             // 
             // skillsTp
@@ -126,7 +186,7 @@
             this.skillsTp.Location = new System.Drawing.Point(4, 22);
             this.skillsTp.Name = "skillsTp";
             this.skillsTp.Padding = new System.Windows.Forms.Padding(3);
-            this.skillsTp.Size = new System.Drawing.Size(497, 188);
+            this.skillsTp.Size = new System.Drawing.Size(522, 217);
             this.skillsTp.TabIndex = 0;
             this.skillsTp.Text = "Skill List";
             this.skillsTp.UseVisualStyleBackColor = true;
@@ -139,7 +199,7 @@
             this.skillListView_statsPage.Location = new System.Drawing.Point(6, 6);
             this.skillListView_statsPage.Name = "skillListView_statsPage";
             this.skillListView_statsPage.SelectorId = ((uint)(0u));
-            this.skillListView_statsPage.Size = new System.Drawing.Size(485, 179);
+            this.skillListView_statsPage.Size = new System.Drawing.Size(510, 208);
             this.skillListView_statsPage.TabIndex = 4;
             // 
             // spellsTp
@@ -148,7 +208,7 @@
             this.spellsTp.Location = new System.Drawing.Point(4, 22);
             this.spellsTp.Name = "spellsTp";
             this.spellsTp.Padding = new System.Windows.Forms.Padding(3);
-            this.spellsTp.Size = new System.Drawing.Size(497, 188);
+            this.spellsTp.Size = new System.Drawing.Size(498, 188);
             this.spellsTp.TabIndex = 1;
             this.spellsTp.Text = "Spell List";
             this.spellsTp.UseVisualStyleBackColor = true;
@@ -161,7 +221,7 @@
             this.spellListView_statsPage.Location = new System.Drawing.Point(6, 6);
             this.spellListView_statsPage.Name = "spellListView_statsPage";
             this.spellListView_statsPage.SelectorId = ((uint)(0u));
-            this.spellListView_statsPage.Size = new System.Drawing.Size(485, 179);
+            this.spellListView_statsPage.Size = new System.Drawing.Size(486, 179);
             this.spellListView_statsPage.TabIndex = 8;
             // 
             // checkRollView_statsPage
@@ -169,36 +229,21 @@
             this.checkRollView_statsPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkRollView_statsPage.Location = new System.Drawing.Point(415, 8);
+            this.checkRollView_statsPage.Location = new System.Drawing.Point(2, 2);
             this.checkRollView_statsPage.MinimumSize = new System.Drawing.Size(502, 137);
             this.checkRollView_statsPage.Name = "checkRollView_statsPage";
             this.checkRollView_statsPage.SelectorId = ((uint)(0u));
-            this.checkRollView_statsPage.Size = new System.Drawing.Size(502, 137);
+            this.checkRollView_statsPage.Size = new System.Drawing.Size(532, 137);
             this.checkRollView_statsPage.TabIndex = 9;
-            // 
-            // attributesView_statsPage
-            // 
-            this.attributesView_statsPage.Location = new System.Drawing.Point(134, 37);
-            this.attributesView_statsPage.MinimumSize = new System.Drawing.Size(275, 329);
-            this.attributesView_statsPage.Name = "attributesView_statsPage";
-            this.attributesView_statsPage.SelectorId = ((uint)(0u));
-            this.attributesView_statsPage.Size = new System.Drawing.Size(275, 329);
-            this.attributesView_statsPage.TabIndex = 3;
-            // 
-            // charaView_statsPage
-            // 
-            this.charaView_statsPage.Location = new System.Drawing.Point(3, 37);
-            this.charaView_statsPage.Name = "charaView_statsPage";
-            this.charaView_statsPage.SelectorId = ((uint)(0u));
-            this.charaView_statsPage.Size = new System.Drawing.Size(129, 232);
-            this.charaView_statsPage.TabIndex = 2;
             // 
             // nameTb
             // 
+            this.nameTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nameTb.Location = new System.Drawing.Point(44, 6);
             this.nameTb.Margin = new System.Windows.Forms.Padding(2);
             this.nameTb.Name = "nameTb";
-            this.nameTb.Size = new System.Drawing.Size(81, 20);
+            this.nameTb.Size = new System.Drawing.Size(188, 20);
             this.nameTb.TabIndex = 1;
             this.nameTb.TextChanged += new System.EventHandler(this.nameTb_TextChanged);
             // 
@@ -219,7 +264,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(927, 388);
+            this.tabPage3.Size = new System.Drawing.Size(951, 388);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Equipment";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -232,7 +277,7 @@
             this.armorView_equipPage.Location = new System.Drawing.Point(482, 6);
             this.armorView_equipPage.Name = "armorView_equipPage";
             this.armorView_equipPage.SelectorId = ((uint)(0u));
-            this.armorView_equipPage.Size = new System.Drawing.Size(504, 376);
+            this.armorView_equipPage.Size = new System.Drawing.Size(528, 376);
             this.armorView_equipPage.TabIndex = 27;
             // 
             // weaponsView_equipPage
@@ -251,7 +296,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(927, 388);
+            this.tabPage4.Size = new System.Drawing.Size(951, 388);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Notes";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -263,7 +308,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.characterNotesRtb.Location = new System.Drawing.Point(7, 7);
             this.characterNotesRtb.Name = "characterNotesRtb";
-            this.characterNotesRtb.Size = new System.Drawing.Size(979, 349);
+            this.characterNotesRtb.Size = new System.Drawing.Size(1003, 349);
             this.characterNotesRtb.TabIndex = 0;
             this.characterNotesRtb.Text = "";
             // 
@@ -293,7 +338,7 @@
             this.specialFunctionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(954, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(978, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -345,7 +390,8 @@
             // specialFunctionsToolStripMenuItem
             // 
             this.specialFunctionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newCombatMenuItem});
+            this.newCombatMenuItem,
+            this.showConsoleToolStripMenuItem});
             this.specialFunctionsToolStripMenuItem.Name = "specialFunctionsToolStripMenuItem";
             this.specialFunctionsToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
             this.specialFunctionsToolStripMenuItem.Text = "Special &Functions";
@@ -358,6 +404,13 @@
             this.newCombatMenuItem.Size = new System.Drawing.Size(187, 22);
             this.newCombatMenuItem.Text = "New &Combat";
             this.newCombatMenuItem.Click += new System.EventHandler(this.newCombatMenuItem_Click);
+            // 
+            // showConsoleToolStripMenuItem
+            // 
+            this.showConsoleToolStripMenuItem.Name = "showConsoleToolStripMenuItem";
+            this.showConsoleToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.showConsoleToolStripMenuItem.Text = "Show Console";
+            this.showConsoleToolStripMenuItem.Click += new System.EventHandler(this.showConsoleToolStripMenuItem_Click);
             // 
             // skillsBindingSource1
             // 
@@ -372,11 +425,31 @@
             this.characterSelector.Size = new System.Drawing.Size(322, 23);
             this.characterSelector.TabIndex = 5;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            this.splitContainer2.Panel1.Controls.Add(this.label31);
+            this.splitContainer2.Panel1.Controls.Add(this.nameTb);
+            this.splitContainer2.Panel1MinSize = 413;
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.checkRollView_statsPage);
+            this.splitContainer2.Panel2.Controls.Add(this.skillSpellTc);
+            this.splitContainer2.Size = new System.Drawing.Size(951, 388);
+            this.splitContainer2.SplitterDistance = 413;
+            this.splitContainer2.TabIndex = 13;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 477);
+            this.ClientSize = new System.Drawing.Size(978, 477);
             this.Controls.Add(this.characterSelector);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
@@ -387,6 +460,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.skillSpellTc.ResumeLayout(false);
             this.skillsTp.ResumeLayout(false);
             this.spellsTp.ResumeLayout(false);
@@ -399,6 +476,11 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.skillsBindingSource1)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,7 +505,6 @@
         private System.Windows.Forms.BindingSource skillsBindingSource1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.RichTextBox characterNotesRtb;
-        private UI.CharacterViews.CharacteristicsView charaView_statsPage;
         private UI.MainWindow.CharacterSelector characterSelector;
         private AttributesView attributesView_statsPage;
         private CharacterViews.SkillListView skillListView_statsPage;
@@ -437,6 +518,11 @@
         private System.Windows.Forms.TabPage skillsTp;
         private System.Windows.Forms.TabPage spellsTp;
         private ActionViews.CheckRollView checkRollView_statsPage;
+        private System.Windows.Forms.ToolStripMenuItem showConsoleToolStripMenuItem;
+        private CharacterViews.CharacteristicsView charaView_statsPage;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 

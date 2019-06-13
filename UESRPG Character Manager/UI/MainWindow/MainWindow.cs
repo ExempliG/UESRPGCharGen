@@ -274,5 +274,16 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             cw.Show();
             cw.Location = cwLoc;
         }
+
+        private void showConsoleToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Form f = new Form();
+            GraphicalConsole c = new GraphicalConsole();
+            f.Controls.Add( c );
+            f.ClientSize = c.Size;
+            c.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            f.Show();
+            f.Text = "Console";
+        }
     }
 }

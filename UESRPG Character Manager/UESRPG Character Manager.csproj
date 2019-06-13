@@ -87,6 +87,12 @@
     <Compile Include="Common\IIdentifiable.cs" />
     <Compile Include="Common\SaveFile.cs" />
     <Compile Include="Common\Singleton.cs" />
+    <Compile Include="ConsoleInterface\Argument.cs" />
+    <Compile Include="ConsoleInterface\CommandAttribute.cs" />
+    <Compile Include="ConsoleInterface\ConsoleUpdatedEventArgs.cs" />
+    <Compile Include="ConsoleInterface\ExportsCommandsAttribute.cs" />
+    <Compile Include="ConsoleInterface\GlobalConsole.cs" />
+    <Compile Include="ConsoleInterface\UtilityCommands.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameControllerExceptionMessages.Designer.cs">
@@ -108,6 +114,10 @@
       <DependentUpon>GameComponentExceptions.resx</DependentUpon>
     </Compile>
     <Compile Include="GameComponents\ICombatant.cs" />
+    <Compile Include="GameComponents\Rolls\CharacteristicCheck.cs" />
+    <Compile Include="GameComponents\Rolls\Roll.cs" />
+    <Compile Include="GameComponents\Rolls\SkillCheck.cs" />
+    <Compile Include="GameComponents\Rolls\WeaponDamageRoll.cs" />
     <Compile Include="Items\ArmorConstants.cs" />
     <Compile Include="CharacterComponents\Character\Character.cs" />
     <Compile Include="CharacterComponents\Characteristics.cs" />
@@ -218,6 +228,12 @@
     </Compile>
     <Compile Include="UI\EditWeapon.Designer.cs">
       <DependentUpon>EditWeapon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\GraphicalConsole.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\GraphicalConsole.Designer.cs">
+      <DependentUpon>GraphicalConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainWindow\CharacterSelector.cs">
       <SubType>UserControl</SubType>
@@ -336,6 +352,9 @@
     </Compile>
     <EmbeddedResource Include="UI\EditWeapon.resx">
       <DependentUpon>EditWeapon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\GraphicalConsole.resx">
+      <DependentUpon>GraphicalConsole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainWindow\CharacterSelector.resx">
       <DependentUpon>CharacterSelector.cs</DependentUpon>
