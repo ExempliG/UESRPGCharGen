@@ -57,7 +57,11 @@ namespace UESRPG_Character_Manager.GameComponents.Rolls
         {
             try
             {
-                string diceToRoll = args[0];
+                string diceToRoll = "";
+                foreach(string s in args)
+                {
+                    diceToRoll += s;
+                }
                 Roll r = RollDice( diceToRoll );
                 GlobalConsole.Instance.WriteLine( r.ToString() );
             }
