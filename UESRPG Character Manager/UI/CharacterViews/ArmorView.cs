@@ -8,22 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.UI.Selectors;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
-    public partial class ArmorView : UserControl
+    public partial class ArmorView : SelectedCharacterControl
     {
         public delegate void ArmorChangedHandler(object sender, EventArgs e);
         [Description("Fires when an Armor is changed by the user.")]
         public event ArmorChangedHandler ArmorChanged;
-
-        private uint _activeCharacter;
-        private bool _hasCharacter;
-        public uint SelectorId { get; set; }
 
         public ArmorView()
         {
@@ -36,40 +33,15 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             armorMaterialCb.DataSource = ArmorTypeData.s_names;
             armorQualityCb.DataSource = ArmorMaterialData.s_names;
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-
             toggleAllControls(false);
+            aspectsToWatch.Add( CharacterAspect.EQUIPMENT_ARMOR );
         }
 
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
+        protected override void updateView()
         {
-            if (e.SelectorId == SelectorId)
+            if ( _selector.HasCharacter )
             {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        private void updateView()
-        {
-            if (_hasCharacter)
-            {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid( _selector.GetCharacterGuid() );
                 armorDgv.DataSource = null;
                 if (c.ArmorPieces.Count > 0)
                 {
@@ -82,7 +54,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -100,7 +72,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         private void addNewArmorBt_Click(object sender, EventArgs e)
         {
             /// <todo>Update this when Inventory is implemented; violation of MVC</todo>
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
             double ar = Armor.CalculateAR((ArmorTypes)armorMaterialCb.SelectedIndex,
                                (ArmorMaterials)armorQualityCb.SelectedIndex,
                                (ArmorQualities)armorTypeCb.SelectedIndex);

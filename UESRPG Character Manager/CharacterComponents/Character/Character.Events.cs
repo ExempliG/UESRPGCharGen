@@ -2,10 +2,14 @@
 
 using System.ComponentModel;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
+        public delegate void CharacterChangedHandler( object sender, CharacterChangedEventArgs e );
+        [Description("Fires when the Character changes.")]
+        public event CharacterChangedHandler CharacterChanged;
+
         public delegate void CharacteristicChangedHandler(object sender, EventArgs e);
         [Description("Fires when one of the Characteristics is changed by the user.")]
         public static event CharacteristicChangedHandler CharacteristicChanged;
@@ -38,44 +42,44 @@ namespace UESRPG_Character_Manager.CharacterComponents
         [Description("Fires when a Weapon is changed or added by the user.")]
         public static event WeaponsChangedHandler WeaponsChanged;
 
-        protected void onCharacteristicChanged()
-        {
-            CharacteristicChanged?.Invoke(this, new System.EventArgs());
-        }
-
         protected void onAttributeChanged()
         {
-            AttributeChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Attribute() );
+        }
+
+        protected void onCharacteristicChanged()
+        {
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Characteristic() );
         }
 
         protected void onSkillListChanged()
         {
-            SkillListChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Skill() );
         }
 
         protected void onSpellListChanged()
         {
-            SpellListChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Spell() );
         }
 
         protected void onTalentListChanged()
         {
-            TalentListChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Talent() );
         }
 
         protected void onTraitListChanged()
         {
-            TraitListChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Trait() );
         }
 
         protected void onPowerListChanged()
         {
-            PowerListChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Power() );
         }
 
         protected void onWeaponsChanged()
         {
-            WeaponsChanged?.Invoke(this, new System.EventArgs());
+            CharacterChanged?.Invoke( this, CharacterChangedEventArgs.Weapon() );
         }
     }
 }

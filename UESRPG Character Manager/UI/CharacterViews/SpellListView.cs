@@ -1,62 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using UESRPG_Character_Manager.UI.MainWindow;
-using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
+using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
-    public partial class SpellListView : UserControl
+    public partial class SpellListView : SelectedCharacterControl
     {
-        private uint _activeCharacter;
-        private bool _hasCharacter;
-        public uint SelectorId { get; set; }
-
         public SpellListView()
         {
             InitializeComponent();
-
-            spellsDgv.CellValueChanged += onSpellListChanged;
-
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.SpellListChanged += onSpellListChanged;
-        }
-
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        protected void onSpellListChanged(object sender, EventArgs e)
-        {
-            updateView();
+            aspectsToWatch.Add( CharacterAspect.SPELL );
         }
 
         public delegate void SelectedSpell(object sender, int spellIndex);
@@ -68,11 +24,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             OnSelectedSpell?.Invoke(this, spellIndex);
         }
 
-        private void updateView()
+        protected override void updateView()
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 spellsDgv.DataSource = null;
                 if (c.Spells.Count > 0)
                 {
@@ -85,7 +41,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -97,19 +53,27 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void addSpellBt_Click(object sender, EventArgs e)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
             EditSpell es = new EditSpell(c);
             es.ShowDialog();
+            if( es.GetSpell( out Spell spell ) )
+            {
+                CharacterController.Instance.AddSpell( _selector.GetCharacterGuid(), spell );
+            }
             updateView();
         }
 
         private void spellEditBt_Click(object sender, EventArgs e)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
             int spellIndex = spellsDgv.SelectedRows[0].Index;
             Spell selectedSpell = c.Spells[spellIndex];
             EditSpell es = new EditSpell(c, selectedSpell);
             es.ShowDialog();
+            if ( es.GetSpell( out Spell spell ) )
+            {
+                CharacterController.Instance.EditSpell( _selector.GetCharacterGuid(), spell );
+            }
             updateView();
         }
 

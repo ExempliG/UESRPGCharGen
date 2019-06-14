@@ -1,4 +1,4 @@
-﻿namespace UESRPG_Character_Manager.UI.CombatViews
+﻿namespace UESRPG_Character_Manager.UI.Selectors
 {
     partial class CombatantsListView
     {

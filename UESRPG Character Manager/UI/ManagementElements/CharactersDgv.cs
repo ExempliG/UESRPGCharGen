@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.ManagementElements
 {
@@ -37,18 +37,18 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
         private DataGridViewRow getRow(Character c)
         {
             DataGridViewRow r = new DataGridViewRow();
-            r.CreateCells(characterDgv, c.Id, c.Name);
+            r.CreateCells(characterDgv, c.Guid, c.Name);
             return r;
         }
 
-        public uint[] GetSelectedCharacters()
+        public Guid[] GetSelectedCharacters()
         {
-            uint[] characters = new uint[characterDgv.SelectedRows.Count];
+            Guid[] characters = new Guid[characterDgv.SelectedRows.Count];
 
             for (int i = 0; i < characters.Length; i++)
             {
                 DataGridViewRow r = characterDgv.SelectedRows[i];
-                characters[i] = (uint)r.Cells[ID_CELL_ID].Value;
+                characters[i] = (Guid)r.Cells[ID_CELL_ID].Value;
             }
 
             return characters;

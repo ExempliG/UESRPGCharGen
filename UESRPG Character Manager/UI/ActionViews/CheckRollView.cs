@@ -8,23 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
-    public partial class CheckRollView : UserControl
+    public partial class CheckRollView : SelectedCharacterControl
     {
-        public uint SelectorId { get; set; }
-        private uint _activeCharacter;
-        private bool _hasCharacter;
-
         public CheckRollView()
         {
             InitializeComponent();
 
-            _hasCharacter = false;
             rollResultTb.TextChanged += softRoll;
 
             foreach (string characteristic in Characteristics.s_characteristicNames)
@@ -34,46 +30,16 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             characteristicCb.SelectedIndex = 0;
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.SkillListChanged += onSkillListChanged;
-
             toggleAllControls(false);
-        }
-
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        protected void onSkillListChanged(object sender, EventArgs e)
-        {
-            updateView();
+            aspectsToWatch.Add( CharacterAspect.SKILL );
+            aspectsToWatch.Add( CharacterAspect.SPELL );
         }
 
         public void OnSelectedSpellChanged(object sender, int spellIndex)
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 Spell activeSpell = c.Spells[spellIndex];
                 skillRb.Checked = true;
                 IEnumerable<Skill> skillSearch = from skill in c.Skills
@@ -90,7 +56,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         public void OnSelectedSkillChanged(object sender, int skillIndex)
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
                 if (skillsCb.Items.Count > skillIndex)
                 {
@@ -104,14 +70,14 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             }
         }
 
-        private void updateView()
+        protected override void updateView()
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
                 int selectedIndex = skillsCb.SelectedIndex;
                 skillsCb.Items.Clear();
 
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 for (int i = 0; i < c.Skills.Count; i++)
                 {
                     Skill skill = c.Skills[i];
@@ -140,7 +106,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if (!enabled)
             {
@@ -198,7 +164,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 int characteristicIndex = 0;
                 int characteristic = 0;
 
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
 
                 if (isSkillRoll)
                 {
@@ -255,7 +221,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         /// <param name="rollResult">The roll result used to update.</param>
         private void updateCriticalLabel(int rollResult)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
             int luck = c.Luck;
             if (rollResult <= c.GetBonus(luck))
             {
@@ -353,7 +319,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         /// </summary>
         private void updateCharacteristicCb()
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
                 object selectedItem = skillsCb.SelectedItem;
                 if (selectedItem != null && skillRb.Checked)

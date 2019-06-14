@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.Controllers;
-using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.UI.CombatViews

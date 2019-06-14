@@ -17,8 +17,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
     /// <todo>Skills should be able to calculate their own difficulty.</todo>
     public class Skill : ICloneable, IIdentifiable
     {
-        public static uint NextAvailableId { get; set; }
-
         [XmlAttribute()]
         public string Name { get; set; }
         [XmlAttribute()]
@@ -27,24 +25,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int[] Characteristics { get; set; }
         public bool isDefaultSkill = false;
         [XmlIgnore(), Browsable(false)]
-        public uint Id { get; private set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
+        public Guid Guid { get; private set; }
 
         public Skill()
         {
-            // Assign each skill a unique ID. This is used for skill editing purposes.
-            Id = NextAvailableId;
-            NextAvailableId++;
+            // Assign each skill a unique GUID. This is used for skill editing purposes.
+            Guid = Guid.NewGuid();
         }
 
         // A constructor used for duplicating Skill objects in the Clone method
-        private Skill(uint skillId)
+        private Skill(Guid guid)
         {
-            Id = skillId;
+            Guid = guid;
         }
 
         public override string ToString()
@@ -54,7 +46,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public object Clone()
         {
-            Skill s = new Skill(this.Id);
+            Skill s = new Skill(this.Guid);
 
             s.Name = this.Name;
             s.Rank = this.Rank;

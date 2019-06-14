@@ -17,8 +17,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
     /// <todo>Add support for... *sigh* shadow magic.</todo>
     public class Spell : ICloneable, IIdentifiable
     {
-        public static uint NextAvailableId { get; set; }
-
         [XmlAttribute()]
         public string Name { get; set; }
         [XmlAttribute()]
@@ -35,24 +33,18 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int Penetration { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint Id { get; private set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
+        public Guid Guid { get; private set; }
 
         public Spell()
         {
-            Id = NextAvailableId;
-            NextAvailableId++;
+            Guid = Guid.NewGuid();
 
             IsRacialAbility = false;
         }
 
-        private Spell(uint spellId)
+        private Spell(Guid guid)
         {
-            Id = spellId;
+            Guid = guid;
         }
 
         public override string ToString()
@@ -62,7 +54,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public object Clone()
         {
-            Spell s = new Spell(this.Id);
+            Spell s = new Spell(this.Guid);
 
             s.Name = this.Name;
             s.Level = this.Level;

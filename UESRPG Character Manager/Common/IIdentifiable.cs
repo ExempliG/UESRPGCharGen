@@ -8,7 +8,6 @@ namespace UESRPG_Character_Manager.Common
 {
     public interface IIdentifiable
     {
-        uint Id { get; }
-        void ResetId();
+        Guid Guid { get; }
     }
 }

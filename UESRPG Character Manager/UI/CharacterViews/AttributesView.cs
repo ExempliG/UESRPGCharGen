@@ -8,17 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI
 {
-    public partial class AttributesView : UserControl
+    public partial class AttributesView : SelectedCharacterControl
     {
-        private uint _activeCharacter;
-        private bool _hasCharacter;
-        public uint SelectorId { get; set; }
         private bool _attributesMutex;
         private bool _modifierMutex;
 
@@ -28,51 +26,19 @@ namespace UESRPG_Character_Manager.UI
             _attributesMutex = false;
             _modifierMutex = false;
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.CharacteristicChanged += onCharacteristicChanged;
-            Character.AttributeChanged += onAttributeChanged;
-
             toggleAllControls(false);
+            aspectsToWatch.Add( CharacterAspect.ATTRIBUTE );
         }
 
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
+        protected override void updateView()
         {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        protected void onCharacteristicChanged(object sender, EventArgs e)
-        {
-            updateView();
-        }
-
-        private void updateView()
-        {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
                 if (!_attributesMutex)
                 {
                     _attributesMutex = true;
 
-                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                     maxHealthTb.Text = "" + (c.MaxHealth);
                     woundThresholdTb.Text = "" + (c.WoundThreshold);
                     maxStaminaTb.Text = "" + (c.Stamina);
@@ -150,7 +116,7 @@ namespace UESRPG_Character_Manager.UI
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -188,79 +154,79 @@ namespace UESRPG_Character_Manager.UI
         #region Attribute Event Handlers
         private void healthTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(_activeCharacter, tryParseAttribute(healthTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(_selector.GetCharacterGuid(), tryParseAttribute(healthTb.Text)); });
         }
 
         private void staminaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(_activeCharacter, tryParseAttribute(staminaTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(_selector.GetCharacterGuid(), tryParseAttribute(staminaTb.Text)); });
         }
 
         private void magickaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(_activeCharacter, tryParseAttribute(magickaTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(_selector.GetCharacterGuid(), tryParseAttribute(magickaTb.Text)); });
         }
 
         private void actionPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(_activeCharacter, tryParseAttribute(actionPointsTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(_selector.GetCharacterGuid(), tryParseAttribute(actionPointsTb.Text)); });
         }
 
         private void luckPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute( delegate() { CharacterController.Instance.ChangeLuck(_activeCharacter, tryParseAttribute(luckPointsTb.Text)); });
+            changeAttribute( delegate() { CharacterController.Instance.ChangeLuck(_selector.GetCharacterGuid(), tryParseAttribute(luckPointsTb.Text)); });
         }
         #endregion
 
         #region Modifier Event Handlers
         private void nbModHealth_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.HEALTH, (int)nbModHealth.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.HEALTH, (int)nbModHealth.Value); });
         }
 
         private void nbModWoundThreshold_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.WOUND_THRESHOLD, (int)nbModWoundThreshold.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.WOUND_THRESHOLD, (int)nbModWoundThreshold.Value); });
         }
 
         private void nbModStamina_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.STAMINA, (int)nbModStamina.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.STAMINA, (int)nbModStamina.Value); });
         }
 
         private void nbModMagicka_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.MAGICKA, (int)nbModMagicka.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.MAGICKA, (int)nbModMagicka.Value); });
         }
 
         private void nbModActionPoints_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.ACTION_POINTS, (int)nbModActionPoints.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.ACTION_POINTS, (int)nbModActionPoints.Value); });
         }
 
         private void nbModMovementRating_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.MOVEMENT_RATING, (int)nbModMovementRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.MOVEMENT_RATING, (int)nbModMovementRating.Value); });
         }
 
         private void nbModCarryRating_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.CARRY_RATING, (int)nbModCarryRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.CARRY_RATING, (int)nbModCarryRating.Value); });
         }
 
         private void nbModInitiativeRating_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.INITIATIVE_RATING, (int)nbModInitiativeRating.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.INITIATIVE_RATING, (int)nbModInitiativeRating.Value); });
         }
 
         private void nbModDamageBonus_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.DAMAGE_BONUS, (int)nbModDamageBonus.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.DAMAGE_BONUS, (int)nbModDamageBonus.Value); });
         }
 
         private void nbModLuck_ValueChanged(object sender, EventArgs e)
         {
-            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_activeCharacter, Modifiers.LUCK_POINTS, (int)nbModLuck.Value); });
+            changeModifier(delegate () { CharacterController.Instance.ChangeModifier(_selector.GetCharacterGuid(), Modifiers.LUCK_POINTS, (int)nbModLuck.Value); });
         }
         #endregion
 

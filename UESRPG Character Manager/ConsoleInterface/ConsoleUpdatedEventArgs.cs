@@ -8,16 +8,16 @@ namespace UESRPG_Character_Manager.ConsoleInterface
 {
     public class ConsoleUpdatedEventArgs : EventArgs
     {
-        public ConsoleUpdatedEventArgs( List<string> newLines )
+        public ConsoleUpdatedEventArgs( List<ConsoleLine> newLines )
         {
             NewLines = newLines;
         }
 
-        public ConsoleUpdatedEventArgs( string newLine )
+        public ConsoleUpdatedEventArgs( ConsoleLine newLine )
         {
-            NewLines = new List<string> { newLine };
+            NewLines = new List<ConsoleLine> { newLine };
         }
 
-        public List<string> NewLines { get; private set; }
+        public List<ConsoleLine> NewLines { get; private set; }
     }
 }

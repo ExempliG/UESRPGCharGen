@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 
 using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Common;
 
 namespace UESRPG_Character_Manager.Controllers
@@ -32,46 +33,58 @@ namespace UESRPG_Character_Manager.Controllers
 
         public static uint SelectorId { get; private set; }
         public const uint DEFAULT_SELECTOR_ID = 0;
-        private Dictionary<uint, uint> _activeSelectors;
+        private Dictionary<uint, Guid> _activeSelectors;
 
-        private Dictionary<uint, Character> _characterDict;
+        private Dictionary<Guid, Character> _characterDict;
 
         // I'm so sorry
-        private Dictionary<uint, Dictionary<uint, Character>> _otherDicts;
+        private Dictionary<uint, Dictionary<Guid, Character>> _otherDicts;
         public static uint CharacterListId { get; private set; }
 
         public CharacterController()
         {
-            _characterDict = new Dictionary<uint, Character>();
+            _characterDict = new Dictionary<Guid, Character>();
             SelectorId = 0;
-            _activeSelectors = new Dictionary<uint, uint>();
-            _otherDicts = new Dictionary<uint, Dictionary<uint, Character>>();
+            _activeSelectors = new Dictionary<uint, Guid>();
+            _otherDicts = new Dictionary<uint, Dictionary<Guid, Character>>();
             CharacterListId = 0;
         }
 
-        public void SetCharDict(Dictionary<uint, Character> dict)
+        public void SetCharDict(Dictionary<Guid, Character> dict)
         {
             _characterDict = dict;
             onCharacterListChanged();
 
             foreach (uint selectorId in _activeSelectors.Keys)
             {
-                uint selectedChar = _activeSelectors[selectorId];
+                Guid selectedChar = _activeSelectors[selectorId];
 
                 if (_characterDict.Count == 0)
                 {
-                    onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+                    onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.NO_CHARACTER);
                 }
                 else
                 {
-                    onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+                    onSelectedCharacterChanged(selectedChar, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
                 }
             }
         }
 
-        public Dictionary<uint, Character> CharacterDict
+        public Dictionary<Guid, Character> CharacterDict
         {
             get { return _characterDict; }
+        }
+
+        public void SubscribeToCharacter( Guid guid, Character.CharacterChangedHandler h )
+        {
+            Character c = GetCharacterByGuid( guid );
+            c.CharacterChanged += h;
+        }
+
+        public void UnsubscribeFromCharacter( Guid guid, Character.CharacterChangedHandler h )
+        {
+            Character c = GetCharacterByGuid( guid );
+            c.CharacterChanged -= h;
         }
 
         public void SelectCharacter(int index, uint selectorId)
@@ -79,45 +92,45 @@ namespace UESRPG_Character_Manager.Controllers
             if (index >= 0)
             {
                 Character c = GetCharacterByIndex(index);
-                _activeSelectors[selectorId] = c.Id;
-                onSelectedCharacterChanged(c.Id, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+                _activeSelectors[selectorId] = c.Guid;
+                onSelectedCharacterChanged(c.Guid, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
             }
             else
             {
-                onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+                onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.NO_CHARACTER);
             }
         }
 
-        public void SelectCharacterById(uint characterId, uint selectorId)
+        public void SelectCharacterById(Guid characterGuid, uint selectorId)
         {
-            Character c = GetCharacterById(characterId);
-            _activeSelectors[selectorId] = characterId;
-            onSelectedCharacterChanged(characterId, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
+            Character c = GetCharacterByGuid(characterGuid);
+            _activeSelectors[selectorId] = characterGuid;
+            onSelectedCharacterChanged(characterGuid, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
         }
 
         public void DeselectCharacter(uint selectorId)
         {
-            onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+            onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.NO_CHARACTER);
         }
 
-        public Character GetCharacterById(uint id)
+        public Character GetCharacterByGuid(Guid guid)
         {
-            if(_characterDict.ContainsKey(id))
+            if(_characterDict.ContainsKey(guid))
             {
-                return _characterDict[id];
+                return _characterDict[guid];
             }
             else
             {
-                throw new ArgumentOutOfRangeException("id", id, CharacterControllerExceptionMessages.InvalidCharacterId);
+                throw new ArgumentOutOfRangeException("id", guid, CharacterControllerExceptionMessages.InvalidCharacterId);
             }
         }
 
-        public Character GetCharacterByIdFromList(uint charId, uint listId)
+        public Character GetCharacterByGuidFromList(Guid charGuid, uint listId)
         {
-            Dictionary<uint, Character> otherDict = GetCharacterDict(listId);
-            if(otherDict.ContainsKey(charId))
+            Dictionary<Guid, Character> otherDict = GetCharacterDict(listId);
+            if(otherDict.ContainsKey(charGuid))
             {
-                return otherDict[charId];
+                return otherDict[charGuid];
             }
             else
             {
@@ -130,7 +143,7 @@ namespace UESRPG_Character_Manager.Controllers
             return CharacterDict.Values.ElementAt(index);
         }
 
-        public Dictionary<uint, Character> GetCharacterDict(uint listId)
+        public Dictionary<Guid, Character> GetCharacterDict(uint listId)
         {
             if(_otherDicts.ContainsKey(listId))
             {
@@ -146,7 +159,7 @@ namespace UESRPG_Character_Manager.Controllers
         {
             uint newSelectorId = SelectorId;
             SelectorId++;
-            _activeSelectors.Add(newSelectorId, 0);
+            _activeSelectors.Add(newSelectorId, Guid.Empty);
             return newSelectorId;
         }
 
@@ -159,7 +172,7 @@ namespace UESRPG_Character_Manager.Controllers
         {
             uint newListId = CharacterListId;
             CharacterListId++;
-            _otherDicts.Add(newListId, new Dictionary<uint, Character>());
+            _otherDicts.Add(newListId, new Dictionary<Guid, Character>());
             return newListId;
         }
 
@@ -168,10 +181,10 @@ namespace UESRPG_Character_Manager.Controllers
             uint newListId = CharacterListId;
             CharacterListId++;
 
-            Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
+            Dictionary<Guid, Character> charDict = new Dictionary<Guid, Character>();
             foreach(Character c in charList)
             {
-                charDict.Add(c.Id, c);
+                charDict.Add(c.Guid, c);
             }
             _otherDicts.Add(newListId, charDict);
 
@@ -187,8 +200,8 @@ namespace UESRPG_Character_Manager.Controllers
         {
             Character newChar = new Character();
             newChar.UntrainedCheck();
-            _characterDict.Add(newChar.Id, newChar);
-            onCharacterListChanged(newChar.Id, CharacterListChangedEvent.NEW_CHARACTER);
+            _characterDict.Add(newChar.Guid, newChar);
+            onCharacterListChanged(newChar.Guid, CharacterListChangedEvent.NEW_CHARACTER);
 
             return newChar;
         }
@@ -197,21 +210,21 @@ namespace UESRPG_Character_Manager.Controllers
         /// Adds a character from an ancillary list to the main list.
         /// </summary>
         /// <param name="fromList"></param>
-        /// <param name="fromId"></param>
+        /// <param name="fromGuid"></param>
         /// <returns></returns>
-        public Character AddCharacter(uint fromList, uint fromId)
+        public Character AddCharacter(uint fromList, Guid fromGuid)
         {
             if(_otherDicts.ContainsKey(fromList))
             {
-                Character c = _otherDicts[fromList][fromId].CopyChar();
+                Character c = _otherDicts[fromList][fromGuid].DuplicateChar();
 
-                if(_characterDict.ContainsKey(c.Id))
+                if(_characterDict.ContainsKey(c.Guid))
                 {
                     throw new ArgumentException("c.Id", "todo: What a weird exception");
                 }
-                _characterDict.Add(c.Id, c);
+                _characterDict.Add(c.Guid, c);
 
-                onCharacterListChanged(c.Id, CharacterListChangedEvent.NEW_CHARACTER);
+                onCharacterListChanged(c.Guid, CharacterListChangedEvent.NEW_CHARACTER);
                 return c;
             }
             else
@@ -223,22 +236,22 @@ namespace UESRPG_Character_Manager.Controllers
         /// <summary>
         /// Adds a character from the main list to an ancillary list.
         /// </summary>
-        /// <param name="fromId">The Character ID to export</param>
+        /// <param name="fromGuid">The Character GUID to export</param>
         /// <param name="toList">The list ID to export to</param>
         /// <returns></returns>
-        public Character ExportCharacter(uint fromId, uint toList)
+        public Character ExportCharacter(Guid fromGuid, uint toList)
         {
             if(_otherDicts.ContainsKey(toList))
             {
-                Character c = CharacterDict[fromId].CopyChar();
+                Character c = CharacterDict[fromGuid].DuplicateChar();
 
-                if(_otherDicts[toList].ContainsKey(c.Id))
+                if(_otherDicts[toList].ContainsKey(c.Guid))
                 {
                     throw new ArgumentException("c.Id", "todo: What a weird exception");
                 }
-                _otherDicts[toList].Add(c.Id, c);
+                _otherDicts[toList].Add(c.Guid, c);
 
-                onCharacterListChanged(fromId, toList, CharacterListChangedEvent.NEW_CHARACTER);
+                onCharacterListChanged(fromGuid, toList, CharacterListChangedEvent.NEW_CHARACTER);
                 return c;
             }
             else
@@ -247,122 +260,122 @@ namespace UESRPG_Character_Manager.Controllers
             }
         }
 
-        public void RemoveCharacter(uint charId)
+        public void RemoveCharacter(Guid charGuid)
         {
             foreach(uint selectorId in _activeSelectors.Keys)
             {
-                if(_activeSelectors[selectorId] == charId)
+                if(_activeSelectors[selectorId] == charGuid)
                 {
-                    onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.NO_CHARACTER);
+                    onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.NO_CHARACTER);
                 }
             }
 
             // Special handling, aimed at constructs which do more than simply display the selected character's info.
-            onCharacterListChanged(charId, CharacterListChangedEvent.BEFORE_DELETE_CHARACTER);
-            _characterDict.Remove(charId);
-            onCharacterListChanged(0, CharacterListChangedEvent.AFTER_DELETE_CHARACTER);
+            onCharacterListChanged(charGuid, CharacterListChangedEvent.BEFORE_DELETE_CHARACTER);
+            _characterDict.Remove(charGuid);
+            onCharacterListChanged(Guid.Empty, CharacterListChangedEvent.AFTER_DELETE_CHARACTER);
         }
 
-        public void AddSkill(uint characterId, Skill skillToAdd)
+        public void AddSkill(Guid characterGuid, Skill skillToAdd)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.AddSkill(skillToAdd);
         }
 
-        public void EditSkill(uint characterId, Skill editedSkill)
+        public void EditSkill(Guid characterGuid, Skill editedSkill)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.EditSkill(editedSkill);
         }
 
-        public void DeleteSkill(uint characterId, Skill skillToDelete)
+        public void DeleteSkill(Guid characterGuid, Skill skillToDelete)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.DeleteSkill(skillToDelete);
         }
 
-        public void AddSpell(uint characterId, Spell spellToAdd)
+        public void AddSpell(Guid characterGuid, Spell spellToAdd)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.AddSpell(spellToAdd);
         }
 
-        public void EditSpell(uint characterId, Spell editedSpell)
+        public void EditSpell(Guid characterGuid, Spell editedSpell)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.EditSpell(editedSpell);
         }
 
-        public void DeleteSpell(uint characterId, Spell spellToDelete)
+        public void DeleteSpell(Guid characterGuid, Spell spellToDelete)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.DeleteSpell(spellToDelete);
         }
 
-        public void AddWeapon(uint characterId, Weapon weaponToAdd)
+        public void AddWeapon(Guid characterGuid, Weapon weaponToAdd)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.AddWeapon(weaponToAdd);
         }
 
-        public void EditWeapon(uint characterId, Weapon weaponToEdit)
+        public void EditWeapon(Guid characterGuid, Weapon weaponToEdit)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.EditWeapon(weaponToEdit);
         }
 
-        public void DeleteWeapon(uint characterId, Weapon weaponToDelete)
+        public void DeleteWeapon(Guid characterGuid, Weapon weaponToDelete)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.DeleteWeapon(weaponToDelete);
         }
 
-        public void ChangeCharacterName(uint characterId, string newName)
+        public void ChangeCharacterName(Guid characterGuid, string newName)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.Name = newName;
             onCharacterListChanged();
         }
 
-        public void ChangeCharacteristic(uint characterId, int characteristicIndex, int value)
+        public void ChangeCharacteristic(Guid characterGuid, int characteristicIndex, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.SetCharacteristic(characteristicIndex, value);
         }
 
-        public void ChangeModifier(uint characterId, int modifierIndex, int value)
+        public void ChangeModifier(Guid characterGuid, int modifierIndex, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.SetModifier(modifierIndex, value);
         }
 
-        public void ChangeHealth(uint characterId, int value)
+        public void ChangeHealth(Guid characterGuid, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.CurrentHealth = value;
         }
 
-        public void ChangeMagicka(uint characterId, int value)
+        public void ChangeMagicka(Guid characterGuid, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.CurrentMagicka = value;
         }
 
-        public void ChangeStamina(uint characterId, int value)
+        public void ChangeStamina(Guid characterGuid, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.CurrentStamina = value;
         }
 
-        public void ChangeAP(uint characterId, int value)
+        public void ChangeAP(Guid characterGuid, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.CurrentAp = value;
         }
 
-        public void ChangeLuck(uint characterId, int value)
+        public void ChangeLuck(Guid characterGuid, int value)
         {
-            Character c = GetCharacterById(characterId);
+            Character c = GetCharacterByGuid(characterGuid);
             c.CurrentLuckPoints = value;
         }
 
@@ -370,19 +383,8 @@ namespace UESRPG_Character_Manager.Controllers
         {
             foreach (uint selectorId in _activeSelectors.Keys)
             {
-                onSelectedCharacterChanged(0, selectorId, CharacterSelectionEvent.SAME_CHARACTER);
+                onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.SAME_CHARACTER);
             }
-        }
-
-        private void resetCharacterComponentIds()
-        {
-            Character.NextAvailableId = 0;
-            Power.NextAvailableId = 0;
-            Skill.NextAvailableId = 0;
-            Spell.NextAvailableId = 0;
-            Talent.NextAvailableId = 0;
-            Trait.NextAvailableId = 0;
-            Weapon.NextAvailableId = 0;
         }
 
         private List<Character> readCharListFromFile(string fileName, out bool success, out string message)
@@ -419,24 +421,24 @@ namespace UESRPG_Character_Manager.Controllers
         }
 
         #region Event callers
-        protected void onSelectedCharacterChanged(uint characterId, uint selectorId, CharacterSelectionEvent eventType)
+        protected void onSelectedCharacterChanged(Guid characterGuid, uint selectorId, CharacterSelectionEvent eventType)
         {
-            SelectedCharacterChanged?.Invoke(this, new SelectedCharacterChangedEventArgs(characterId, selectorId, eventType));
+            SelectedCharacterChanged?.Invoke(this, new SelectedCharacterChangedEventArgs(characterGuid, selectorId, eventType));
         }
 
         protected void onCharacterListChanged()
         {
-            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(0, CharacterListChangedEvent.NEW_CHARACTER));
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(Guid.Empty, CharacterListChangedEvent.NEW_CHARACTER));
         }
 
-        protected void onCharacterListChanged(uint characterId, CharacterListChangedEvent eventType)
+        protected void onCharacterListChanged(Guid characterGuid, CharacterListChangedEvent eventType)
         {
-            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterId, eventType));
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterGuid, eventType));
         }
 
-        protected void onCharacterListChanged(uint characterId, uint listId, CharacterListChangedEvent eventType)
+        protected void onCharacterListChanged(Guid characterGuid, uint listId, CharacterListChangedEvent eventType)
         {
-            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterId, listId, eventType));
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterGuid, listId, eventType));
         }
         #endregion
     }

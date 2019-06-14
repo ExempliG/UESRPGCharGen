@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
@@ -19,7 +19,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditSpell(Spell newSpell)
         {
             IEnumerable<Spell> spellSearch = from Spell s in Spells
-                                             where s.Id == newSpell.Id
+                                             where s.Guid == newSpell.Guid
                                              select s;
             if (spellSearch.Count() == 1)
             {

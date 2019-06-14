@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Common;
 
@@ -52,13 +53,13 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
 
         private void importBt_Click(object sender, EventArgs e)
         {
-            uint[] selectedCharIds = charactersDgv.GetSelectedCharacters();
+            Guid[] selectedCharIds = charactersDgv.GetSelectedCharacters();
 
             if(selectedCharIds.Length > 0)
             {
-                foreach(uint id in selectedCharIds)
+                foreach(Guid guid in selectedCharIds)
                 {
-                    CharacterController.Instance.AddCharacter(CharacterListId, id);
+                    CharacterController.Instance.AddCharacter(CharacterListId, guid);
                 }
             }
         }

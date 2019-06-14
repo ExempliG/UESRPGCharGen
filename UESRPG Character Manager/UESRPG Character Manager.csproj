@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CharacterExceptionMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="CharacterComponents\Character\CharacterChangedEventArgs.cs" />
     <Compile Include="CharacterComponents\Power.cs" />
     <Compile Include="CharacterComponents\Race.cs" />
     <Compile Include="CharacterComponents\Races.cs" />
@@ -87,12 +88,11 @@
     <Compile Include="Common\IIdentifiable.cs" />
     <Compile Include="Common\SaveFile.cs" />
     <Compile Include="Common\Singleton.cs" />
-    <Compile Include="ConsoleInterface\Argument.cs" />
     <Compile Include="ConsoleInterface\CommandAttribute.cs" />
+    <Compile Include="ConsoleInterface\ConsoleLine.cs" />
     <Compile Include="ConsoleInterface\ConsoleUpdatedEventArgs.cs" />
     <Compile Include="ConsoleInterface\ExportsCommandsAttribute.cs" />
     <Compile Include="ConsoleInterface\GlobalConsole.cs" />
-    <Compile Include="ConsoleInterface\UtilityCommands.cs" />
     <Compile Include="Controllers\CharacterController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameControllerExceptionMessages.Designer.cs">
@@ -171,6 +171,9 @@
     <Compile Include="UI\CharacterViews\CharacteristicsView.Designer.cs">
       <DependentUpon>CharacteristicsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CharacterViews\SelectedCharacterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UI\CharacterViews\SkillListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -189,10 +192,10 @@
     <Compile Include="UI\CharacterViews\WeaponsView.Designer.cs">
       <DependentUpon>WeaponsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\CombatViews\CombatantsListView.cs">
+    <Compile Include="UI\Selectors\CombatantsListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\CombatViews\CombatantsListView.Designer.cs">
+    <Compile Include="UI\Selectors\CombatantsListView.Designer.cs">
       <DependentUpon>CombatantsListView.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CombatViews\CombatWindow.cs">
@@ -235,10 +238,11 @@
     <Compile Include="UI\GraphicalConsole.Designer.cs">
       <DependentUpon>GraphicalConsole.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainWindow\CharacterSelector.cs">
+    <Compile Include="UI\Selectors\ICharacterSelector.cs" />
+    <Compile Include="UI\Selectors\CharacterSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\MainWindow\CharacterSelector.Designer.cs">
+    <Compile Include="UI\Selectors\CharacterSelector.Designer.cs">
       <DependentUpon>CharacterSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainWindow\MainWindow.cs">
@@ -265,6 +269,7 @@
     <Compile Include="UI\ManagementElements\ManageCharactersWindow.Designer.cs">
       <DependentUpon>ManageCharactersWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Selectors\SelectedNewCharacterEventArgs.cs" />
     <EmbeddedResource Include="CharacterComponents\CharacterExceptionMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CharacterExceptionMessages.Designer.cs</LastGenOutput>
@@ -326,7 +331,7 @@
     <EmbeddedResource Include="UI\CharacterViews\WeaponsView.resx">
       <DependentUpon>WeaponsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\CombatViews\CombatantsListView.resx">
+    <EmbeddedResource Include="UI\Selectors\CombatantsListView.resx">
       <DependentUpon>CombatantsListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CombatViews\CombatWindow.resx">
@@ -356,7 +361,7 @@
     <EmbeddedResource Include="UI\GraphicalConsole.resx">
       <DependentUpon>GraphicalConsole.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainWindow\CharacterSelector.resx">
+    <EmbeddedResource Include="UI\Selectors\CharacterSelector.resx">
       <DependentUpon>CharacterSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainWindow\MainWindow.resx">

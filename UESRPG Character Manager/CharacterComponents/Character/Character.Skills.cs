@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
@@ -19,7 +19,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditSkill(Skill newSkill)
         {
             IEnumerable<Skill> skillSearch = from Skill s in Skills
-                                             where s.Id == newSkill.Id
+                                             where s.Guid == newSkill.Guid
                                              select s;
             if (skillSearch.Count() == 1)
             {

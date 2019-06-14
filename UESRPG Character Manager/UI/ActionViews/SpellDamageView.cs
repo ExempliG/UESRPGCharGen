@@ -8,21 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
-    public partial class SpellDamageView : UserControl
+    public partial class SpellDamageView : SelectedCharacterControl
     {
         public delegate void SelectedSpellChangedHandler(object sender, int spellIndex);
         [Description("Fires when the selected spell changes.")]
         public event SelectedSpellChangedHandler SelectedSpellChanged;
 
-        uint _activeCharacter;
-        bool _hasCharacter;
-        public uint SelectorId { get; set; }
         Spell _activeSpell;
         bool _updatingView = false;
 
@@ -30,37 +28,11 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         {
             InitializeComponent();
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.SpellListChanged += onSpellListChanged;
-
             toggleAllControls(false);
+            aspectsToWatch.Add( CharacterAspect.SPELL );
         }
 
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -78,15 +50,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             updateView();
         }
 
-        private void updateView()
+        protected override void updateView()
         {
             if (!_updatingView)
             {
                 _updatingView = true;
 
-                if (_hasCharacter)
+                if (_selector.HasCharacter)
                 {
-                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                     spellsCb.DataSource = null;
                     if (c.Spells.Count > 0)
                     {

@@ -24,8 +24,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
     public class Talent : ICloneable, IIdentifiable
     {
-        public static uint NextAvailableId { get; set; }
-
         [XmlAttribute()]
         public string Name { get; set; }
         [XmlAttribute()]
@@ -34,17 +32,11 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public TalentLevel Level { get; set; }
         public string Description { get; set; }
         [XmlIgnore(), Browsable(false)]
-        public uint Id { get; private set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
+        public Guid Guid { get; private set; }
 
         public Talent()
         {
-            Id = NextAvailableId;
-            NextAvailableId++;
+            Guid = Guid.NewGuid();
         }
 
         public Talent(string Name, bool IsRacialTalent, TalentLevel Level, string Description) : this()

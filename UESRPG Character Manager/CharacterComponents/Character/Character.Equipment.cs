@@ -3,7 +3,7 @@ using System.Linq;
 
 using UESRPG_Character_Manager.Items;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
@@ -71,7 +71,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditWeapon(Weapon newWeapon)
         {
             IEnumerable<Weapon> weaponSearch = from Weapon w in Weapons
-                                               where w.Id == newWeapon.Id
+                                               where w.Guid == newWeapon.Guid
                                                select w;
             if (weaponSearch.Count() == 1)
             {

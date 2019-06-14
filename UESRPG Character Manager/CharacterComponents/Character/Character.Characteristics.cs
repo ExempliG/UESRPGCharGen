@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {

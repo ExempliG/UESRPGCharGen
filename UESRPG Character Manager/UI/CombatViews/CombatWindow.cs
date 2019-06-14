@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.GameComponents;
-using UESRPG_Character_Manager.CharacterComponents;
 
 namespace UESRPG_Character_Manager.UI.CombatViews
 {
@@ -32,14 +24,16 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             _combatId = combatId;
             combatantsListView._combatId = _combatId;
 
-            SelectorId = combatantsListView.SelectorId;
-            weaponDamageView_action.SelectorId = SelectorId;
-            weaponDamageView_reaction.SelectorId = SelectorId;
-            checkRollView_action.SelectorId = SelectorId;
-            checkRollView_reaction.SelectorId = SelectorId;
-            spellDamageView_action.SelectorId = SelectorId;
-            characterHealthView.SelectorId = SelectorId;
-            receivedDamageView_reaction.SelectorId = SelectorId;
+            SelectorId = 0;
+            weaponDamageView_action.SetSelector( combatantsListView );
+            weaponDamageView_reaction.SetSelector( combatantsListView );
+            checkRollView_action.SetSelector( combatantsListView );
+            checkRollView_reaction.SetSelector( combatantsListView );
+            spellDamageView_action.SetSelector( combatantsListView );
+            characterHealthView.SetSelector( combatantsListView );
+            receivedDamageView_reaction.SetSelector( combatantsListView );
+
+            spellDamageView_action.SelectedSpellChanged += checkRollView_action.OnSelectedSpellChanged;
 
             this.FormClosed += onClosed;
             this.Shown += onShown;

@@ -16,7 +16,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
     public class CharacterListChangedEventArgs : EventArgs
     {
-        public uint CharacterId { get; private set; }
+        public Guid CharacterGuid { get; private set; }
         public CharacterListChangedEvent EventType { get; private set; }
 
         public bool IsMainList
@@ -36,22 +36,22 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         private int _characterListId;
 
-        public CharacterListChangedEventArgs(uint characterId, CharacterListChangedEvent eventType)
+        public CharacterListChangedEventArgs(Guid characterGuid, CharacterListChangedEvent eventType)
         {
-            CharacterId = characterId;
+            CharacterGuid = characterGuid;
             _characterListId = -1;
             EventType = eventType;
         }
 
-        public CharacterListChangedEventArgs(uint characterId, int characterListId, CharacterListChangedEvent eventType)
+        public CharacterListChangedEventArgs(Guid characterGuid, int characterListId, CharacterListChangedEvent eventType)
         {
-            CharacterId = characterId;
+            CharacterGuid = characterGuid;
             _characterListId = characterListId;
             EventType = eventType;
         }
 
-        public CharacterListChangedEventArgs(uint characterId, uint characterListId, CharacterListChangedEvent eventType) :
-            this(characterId, (int)characterListId, eventType)
+        public CharacterListChangedEventArgs(Guid characterGuid, uint characterListId, CharacterListChangedEvent eventType) :
+            this(characterGuid, (int)characterListId, eventType)
         {
 
         }

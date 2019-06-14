@@ -8,14 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
-    public partial class ReceivedDamageView : UserControl
+    public partial class ReceivedDamageView : SelectedCharacterControl
     {
         private string[] _woundsText = new string[]
         {
@@ -73,45 +74,16 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             "•  The character gains the blood loss (1d5) condition."
         };
 
-        public uint SelectorId { get; set; }
-        uint _activeCharacter;
-        bool _hasCharacter;
-
         public ReceivedDamageView()
         {
             InitializeComponent();
 
             hitLocationCb.DataSource = ArmorLocationsData.s_names;
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            _hasCharacter = false;
-
             toggleAllControls(false);
         }
 
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-            }
-        }
-
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -124,6 +96,11 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             hitLocationCb.Enabled = enabled;
             applyDamageBt.Enabled = enabled;
             finalDamageReceivedTb.Enabled = enabled;
+        }
+
+        protected override void updateView()
+        {
+            // do nothing
         }
 
         private void receivedDamageTb_TextChanged(object sender, EventArgs e)
@@ -150,9 +127,10 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
             if (int.TryParse(receivedDamageTb.Text, out int damage) &&
                 int.TryParse(receivedPenTb.Text, out int pen) &&
-                _hasCharacter)
+                _selector != null &&
+                _selector.HasCharacter)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 Armor selectedPiece = c.GetArmorPiece(location);
                 double armorMitigation = (selectedPiece != null) ? selectedPiece.AR : 0;
                 armorMitigation = Math.Max(armorMitigation - pen, 0);                 // Pen reduces armorMitigation to a lower limit of zero.
@@ -166,8 +144,8 @@ namespace UESRPG_Character_Manager.UI.ActionViews
         {
             if (int.TryParse(finalDamageReceivedTb.Text, out int damage))
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
-                CharacterController.Instance.ChangeHealth(_activeCharacter, c.CurrentHealth - damage);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
+                CharacterController.Instance.ChangeHealth(_selector.GetCharacterGuid(), c.CurrentHealth - damage);
 
                 int woundLevel = damage / c.WoundThreshold;
                 if (woundLevel > 0)

@@ -65,6 +65,7 @@
             this.Controls.Add(this.rtbOutput);
             this.Name = "GraphicalConsole";
             this.Size = new System.Drawing.Size(479, 163);
+            this.SizeChanged += new System.EventHandler(this.GraphicalConsole_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

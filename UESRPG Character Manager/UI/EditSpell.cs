@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager
 {
@@ -17,7 +12,6 @@ namespace UESRPG_Character_Manager
     {
         private Character _selectedChar;
         private Spell _spell;
-        private bool _isNewSpell;
 
         public EditSpell (Character selectedChar)
         {
@@ -30,13 +24,10 @@ namespace UESRPG_Character_Manager
             }
 
             _spell = new Spell();
-            _isNewSpell = true;
         }
 
         public EditSpell (Character selectedChar, Spell spellToEdit) : this(selectedChar)
         {
-            _isNewSpell = false;
-
             _spell = (Spell)spellToEdit.Clone();
 
             spellNameTb.Text = _spell.Name;
@@ -64,6 +55,23 @@ namespace UESRPG_Character_Manager
             }
         }
 
+        public bool GetSpell( out Spell spell )
+        {
+            bool result = false;
+
+            if ( DialogResult == DialogResult.OK )
+            {
+                result = true;
+                spell = _spell;
+            }
+            else
+            {
+                spell = null;
+            }
+
+            return result;
+        }
+
         private void damageCb_CheckedChanged (object sender, EventArgs e)
         {
             numberOfDiceNud.Enabled = damageCb.Checked;
@@ -88,14 +96,8 @@ namespace UESRPG_Character_Manager
                 _spell.Penetration = (int)penNud.Value;
             }
 
-            if (_isNewSpell)
-            {
-                CharacterController.Instance.AddSpell(_selectedChar.Id, _spell);
-            }
-            else
-            {
-                CharacterController.Instance.EditSpell(_selectedChar.Id, _spell);
-            }
+            DialogResult = DialogResult.OK;
+
             Close ();
         }
 

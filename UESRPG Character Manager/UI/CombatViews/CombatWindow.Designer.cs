@@ -41,7 +41,7 @@
             this.passBt = new System.Windows.Forms.Button();
             this.newRoundBt = new System.Windows.Forms.Button();
             this.characterHealthView = new UESRPG_Character_Manager.UI.CharacterViews.CharacterHealthView();
-            this.combatantsListView = new UESRPG_Character_Manager.UI.CombatViews.CombatantsListView();
+            this.combatantsListView = new UESRPG_Character_Manager.UI.Selectors.CombatantsListView();
             this.label1 = new System.Windows.Forms.Label();
             this.initiativeNud = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
@@ -84,7 +84,6 @@
             this.weaponDamageView_action.Location = new System.Drawing.Point(244, 145);
             this.weaponDamageView_action.MinimumSize = new System.Drawing.Size(0, 127);
             this.weaponDamageView_action.Name = "weaponDamageView_action";
-            this.weaponDamageView_action.SelectorId = ((uint)(0u));
             this.weaponDamageView_action.Size = new System.Drawing.Size(236, 157);
             this.weaponDamageView_action.TabIndex = 2;
             // 
@@ -95,7 +94,6 @@
             this.spellDamageView_action.Location = new System.Drawing.Point(6, 145);
             this.spellDamageView_action.MinimumSize = new System.Drawing.Size(0, 127);
             this.spellDamageView_action.Name = "spellDamageView_action";
-            this.spellDamageView_action.SelectorId = ((uint)(0u));
             this.spellDamageView_action.Size = new System.Drawing.Size(232, 157);
             this.spellDamageView_action.TabIndex = 1;
             // 
@@ -105,7 +103,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkRollView_action.Location = new System.Drawing.Point(2, 2);
             this.checkRollView_action.Name = "checkRollView_action";
-            this.checkRollView_action.SelectorId = ((uint)(0u));
             this.checkRollView_action.Size = new System.Drawing.Size(478, 137);
             this.checkRollView_action.TabIndex = 0;
             // 
@@ -130,7 +127,6 @@
             this.weaponDamageView_reaction.Location = new System.Drawing.Point(244, 145);
             this.weaponDamageView_reaction.MinimumSize = new System.Drawing.Size(0, 127);
             this.weaponDamageView_reaction.Name = "weaponDamageView_reaction";
-            this.weaponDamageView_reaction.SelectorId = ((uint)(0u));
             this.weaponDamageView_reaction.Size = new System.Drawing.Size(236, 158);
             this.weaponDamageView_reaction.TabIndex = 3;
             // 
@@ -140,7 +136,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkRollView_reaction.Location = new System.Drawing.Point(2, 2);
             this.checkRollView_reaction.Name = "checkRollView_reaction";
-            this.checkRollView_reaction.SelectorId = ((uint)(0u));
             this.checkRollView_reaction.Size = new System.Drawing.Size(478, 137);
             this.checkRollView_reaction.TabIndex = 1;
             // 
@@ -150,7 +145,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.receivedDamageView_reaction.Location = new System.Drawing.Point(6, 145);
             this.receivedDamageView_reaction.Name = "receivedDamageView_reaction";
-            this.receivedDamageView_reaction.SelectorId = ((uint)(0u));
             this.receivedDamageView_reaction.Size = new System.Drawing.Size(232, 161);
             this.receivedDamageView_reaction.TabIndex = 0;
             // 
@@ -195,7 +189,6 @@
             this.characterHealthView.Enabled = false;
             this.characterHealthView.Location = new System.Drawing.Point(268, 12);
             this.characterHealthView.Name = "characterHealthView";
-            this.characterHealthView.SelectorId = ((uint)(0u));
             this.characterHealthView.Size = new System.Drawing.Size(324, 77);
             this.characterHealthView.TabIndex = 1;
             // 
@@ -205,7 +198,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.combatantsListView.Location = new System.Drawing.Point(12, 12);
             this.combatantsListView.Name = "combatantsListView";
-            this.combatantsListView.SelectorId = ((uint)(2u));
             this.combatantsListView.Size = new System.Drawing.Size(250, 441);
             this.combatantsListView.TabIndex = 0;
             // 
@@ -256,7 +248,7 @@
 
         #endregion
 
-        private CombatantsListView combatantsListView;
+        private Selectors.CombatantsListView combatantsListView;
         private CharacterViews.CharacterHealthView characterHealthView;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;

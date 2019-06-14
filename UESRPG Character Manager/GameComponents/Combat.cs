@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Xml.Serialization;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager.GameComponents
@@ -69,14 +70,14 @@ namespace UESRPG_Character_Manager.GameComponents
             public string Name { get; set; }
             public string ApString { get; set; }
             public uint Initiative { get; set; }
-            public int Id { get; set; }
+            public Guid Guid { get; set; }
 
             public SaveCombatant(Character c)
             {
                 Name = c.Name;
                 ApString = c.ApString;
                 Initiative = c.Initiative;
-                Id = (int)c.Id;
+                Guid = c.Guid;
             }
 
             public SaveCombatant(RemoteCombatant c)
@@ -84,7 +85,7 @@ namespace UESRPG_Character_Manager.GameComponents
                 Name = c.Name;
                 ApString = c.ApString;
                 Initiative = c.Initiative;
-                Id = -1;
+                Guid = Guid.Empty;
             }
 
             public void PassTurn()
@@ -178,11 +179,11 @@ namespace UESRPG_Character_Manager.GameComponents
                 bool processed = false;
 
                 // Handle cases where a Combat is restored from a Save, but a Combatant was deleted.
-                if (sc.Id >= 0)
+                if (sc.Guid != Guid.Empty)
                 {
                     try
                     {
-                        Character c = CharacterController.Instance.GetCharacterById((uint)sc.Id);
+                        Character c = CharacterController.Instance.GetCharacterByGuid(sc.Guid);
                         theCombat.Combatants.Add(c);
                         processed = true;
                     }
@@ -252,7 +253,7 @@ namespace UESRPG_Character_Manager.GameComponents
                 var search = Combatants
                                 .Select((ic, index) => new { Combatant = ic, Index = index })
                                 .Where((item) => { return item.Combatant.GetType() == typeof(Character); })
-                                .Where((item) => { return ((Character)item.Combatant).Id == e.CharacterId; });
+                                .Where((item) => { return ((Character)item.Combatant).Guid == e.CharacterGuid; });
                 if(search.Count() == 1)
                 {
                     var item = search.ElementAt(0);

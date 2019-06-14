@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using UESRPG_Character_Manager.Common;
 using UESRPG_Character_Manager.Controllers;
-using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.Controllers
@@ -50,9 +50,9 @@ namespace UESRPG_Character_Manager.Controllers
 
             if (result)
             {
-                save.UpdateCharactersAndCombats();
+                save.UpdateCharacters();
 
-                Dictionary<uint, Character> characterDict = save.GetCharacterDict();
+                Dictionary<Guid, Character> characterDict = save.GetCharacterDict();
                 CharacterController.Instance.SetCharDict(characterDict);
 
                 Dictionary<uint, Combat> combatDict = save.GetCombatDict();

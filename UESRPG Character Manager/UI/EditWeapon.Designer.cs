@@ -138,6 +138,11 @@
             // damageModNud
             // 
             this.damageModNud.Location = new System.Drawing.Point(132, 19);
+            this.damageModNud.Minimum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            -2147483648});
             this.damageModNud.Name = "damageModNud";
             this.damageModNud.Size = new System.Drawing.Size(38, 20);
             this.damageModNud.TabIndex = 12;

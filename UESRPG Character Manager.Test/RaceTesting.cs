@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.Test
 {
@@ -114,7 +115,7 @@ namespace UESRPG_Character_Manager.Test
                 Race race = Races.GetRace((RaceId)i);
                 for (int j = 0; j < race.Traits.Count; j++)
                 {
-                    Assert.AreEqual(c.AggregateTraits[j].Id, race.Traits[j].Id);
+                    Assert.AreEqual(c.AggregateTraits[j].Guid, race.Traits[j].Guid);
                 }
             }
         }
@@ -130,7 +131,7 @@ namespace UESRPG_Character_Manager.Test
                 Race race = Races.GetRace((RaceId)i);
                 for(int j = 0; j < race.Powers.Count; j++)
                 {
-                    Assert.AreEqual(c.AggregatePowers[j].Id, race.Powers[j].Id);
+                    Assert.AreEqual(c.AggregatePowers[j].Guid, race.Powers[j].Guid);
                 }
             }
         }

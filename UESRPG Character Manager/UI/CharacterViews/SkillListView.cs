@@ -1,62 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using UESRPG_Character_Manager.UI.MainWindow;
-using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
+using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
-    public partial class SkillListView : UserControl
+    public partial class SkillListView : SelectedCharacterControl
     {
-        private uint _activeCharacter;
-        private bool _hasCharacter;
-        public uint SelectorId { get; set; }
-
         public SkillListView()
         {
             InitializeComponent();
 
             skillsDgv.SelectionChanged += skillsDgv_SelectionChanged;
-
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.SkillListChanged += onSkillListChanged;
-        }
-
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        protected void onSkillListChanged(object sender, EventArgs e)
-        {
-            updateView();
+            aspectsToWatch.Add( CharacterAspect.SKILL );
         }
 
         public delegate void SelectedSkill(object sender, int skillIndex);
@@ -68,11 +26,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             OnSelectedSkill?.Invoke(this, skillIndex);
         }
 
-        private void updateView()
+        protected override void updateView()
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 skillsDgv.DataSource = null;
                 if (c.Skills.Count > 0)
                 {
@@ -81,7 +39,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -98,20 +56,24 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             if (es.GetSkill(out Skill newSkill))
             {
-                CharacterController.Instance.AddSkill(_activeCharacter, newSkill);
+                CharacterController.Instance.AddSkill(_selector.GetCharacterGuid(), newSkill);
             }
         }
 
-        /// <todo>Do this properly so that it must go through the CharacterController to achieve the skill change.</todo>
         private void editSkillBt_Click(object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
             if (theRows.Count == 1)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 int selectedIndex = theRows[0].Index;
-                EditSkill es = new EditSkill(c.Id, c.Skills[selectedIndex]);
+                EditSkill es = new EditSkill(c.Guid, c.Skills[selectedIndex]);
                 es.ShowDialog();
+
+                if ( es.GetSkill( out Skill newSkill ) )
+                {
+                    CharacterController.Instance.EditSkill( _selector.GetCharacterGuid(), newSkill );
+                }
             }
 
             updateView();
@@ -122,7 +84,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             DataGridViewSelectedRowCollection theRows = skillsDgv.SelectedRows;
             if (theRows.Count == 1)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 int selectedIndex = theRows[0].Index;
                 Skill selectedSkill = c.Skills[selectedIndex];
                 bool canEdit = !(selectedSkill.isDefaultSkill);

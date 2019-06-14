@@ -1,4 +1,4 @@
-﻿namespace UESRPG_Character_Manager.UI.MainWindow
+﻿namespace UESRPG_Character_Manager.UI.Selectors
 {
     partial class CharacterSelector
     {

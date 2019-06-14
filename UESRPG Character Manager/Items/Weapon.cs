@@ -13,8 +13,6 @@ namespace UESRPG_Character_Manager.Items
 {
     public class Weapon : Item, IComparable, ICloneable, IIdentifiable
     {
-        public static uint NextAvailableId { get; set; }
-
         private WeaponHandedness _handedness;
 
         public int NumberOfDice { get; set; }
@@ -35,12 +33,7 @@ namespace UESRPG_Character_Manager.Items
         public bool IsDire { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint Id { get; private set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
+        public Guid Guid { get; private set; }
 
         public WeaponHandedness Handedness
         {
@@ -73,8 +66,7 @@ namespace UESRPG_Character_Manager.Items
         {
             _isEquippable = true;
 
-            Id = NextAvailableId;
-            NextAvailableId++;
+            Guid = Guid.NewGuid();
         }
 
         public Weapon (int numberOfDice,
@@ -114,14 +106,13 @@ namespace UESRPG_Character_Manager.Items
 
             _isEquippable = true;
 
-            Id = NextAvailableId;
-            NextAvailableId++;
+            Guid = Guid.NewGuid();
         }
 
         // Private Weapon constructor used in cloning to preserve Weapon ID.
-        private Weapon(uint weaponId) : base("", "", 0, 0)
+        private Weapon(Guid guid) : base("", "", 0, 0)
         {
-            Id = weaponId;
+            Guid = guid;
         }
 
         /// <summary>
@@ -196,7 +187,7 @@ namespace UESRPG_Character_Manager.Items
 
         public object Clone()
         {
-            Weapon w = new Weapon(this.Id);
+            Weapon w = new Weapon(Guid);
 
             w.DamageMod = this.DamageMod;
             w.NumberOfDice = this.NumberOfDice;
@@ -267,7 +258,7 @@ namespace UESRPG_Character_Manager.Items
     {
         static bool _s_isLoaded = false;
 
-        private static Weapon[] _DefaultWeapons =
+        public static Weapon[] DefaultWeapons { get; } =
         {
             new Weapon(0,  0,  0,  0, 0,   0,   0, WeaponType.CUSTOM,           WeaponReach.SHORT,      WeaponHandedness.ONE,               WeaponSize.SMALL),
             new Weapon(3, 10,  5,  2, 3, 200, 310, WeaponType.DAI_KATANA,       WeaponReach.LONG,       WeaponHandedness.TWO,               WeaponSize.HUGE),
@@ -315,15 +306,7 @@ namespace UESRPG_Character_Manager.Items
             new Weapon(1, 10,  5,  5, 1, 100,  90, WeaponType.SHORT_BOW,        WeaponReach.RANGED,     WeaponHandedness.TWO,               WeaponSize.SMALL, 1, 15, 100, 200)
         };
 
-        public static Weapon[] DefaultWeapons
-        {
-            get
-            {
-                return _DefaultWeapons;
-            }
-        }
-
-        private static WeaponMaterialModifier[] _Materials =
+        public static WeaponMaterialModifier[] Materials { get; } =
         {
             new WeaponMaterialModifier(WeaponMaterial.ADAMANTIUM, 2, 5, 0.9f, 7.0f, 5.0f, true),
             new WeaponMaterialModifier(WeaponMaterial.CHITIN, -1, -5, 0.6f, 1, 0.7f, false),
@@ -341,15 +324,7 @@ namespace UESRPG_Character_Manager.Items
             new WeaponMaterialModifier(WeaponMaterial.WOOD, -5, -5, 0.6f, 0.5f, 0.2f, false)
         };
 
-        public static WeaponMaterialModifier[] Materials
-        {
-            get
-            {
-                return _Materials;
-            }
-        }
-
-        private static RangedWeaponMaterialModifier[] _RangedMaterials =
+        public static RangedWeaponMaterialModifier[] RangedMaterials { get; } =
         {
             new RangedWeaponMaterialModifier(RangedWeaponMaterial.CHITIN,        5, 1.0f,  1,  1.5f),
             new RangedWeaponMaterialModifier(RangedWeaponMaterial.BONEMOLD,     10, 1.0f,  2,  2.0f),
@@ -363,14 +338,6 @@ namespace UESRPG_Character_Manager.Items
             new RangedWeaponMaterialModifier(RangedWeaponMaterial.STEEL,         0, 2.0f,  3,  2.0f),
             new RangedWeaponMaterialModifier(RangedWeaponMaterial.WOOD,          0, 1.0f,  1,  1.0f)
         };
-
-        public static RangedWeaponMaterialModifier[] RangedMaterials
-        {
-            get
-            {
-                return _RangedMaterials;
-            }
-        }
     }
 
     public enum WeaponType

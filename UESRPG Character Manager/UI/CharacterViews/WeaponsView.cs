@@ -1,29 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
-using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.UI.Selectors;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
-    public partial class WeaponsView : UserControl
+    public partial class WeaponsView : SelectedCharacterControl
     {
-        private uint _activeCharacter;
-        private bool _hasCharacter;
-        public uint SelectorId { get; set; }
-
         public WeaponsView()
         {
             InitializeComponent();
+            aspectsToWatch.Add( CharacterAspect.EQUIPMENT_WEAPON );
 
             List<WeaponType> types = new List<WeaponType>();
             for (int i = 0; i < (int)WeaponType.MAX; i++)
@@ -43,38 +33,6 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             weaponTypeCb.SelectedIndex = 0;
 
             updateMaterialsList();
-
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.WeaponsChanged += onWeaponsChanged;
-        }
-
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        protected void onWeaponsChanged(object sender, EventArgs e)
-        {
-            updateView();
         }
 
         private void updateMaterialsList()
@@ -106,11 +64,11 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
-        private void updateView()
+        protected override void updateView()
         {
-            if (_hasCharacter)
+            if ( _selector.HasCharacter )
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 weaponsDgv.DataSource = null;
                 if (c.Weapons.Count > 0)
                 {
@@ -123,7 +81,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -182,23 +140,23 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
             result.Name = weaponNameTb.Text;
 
-            CharacterController.Instance.AddWeapon(_activeCharacter, result);
+            CharacterController.Instance.AddWeapon(_selector.GetCharacterGuid(), result);
             updateView();
         }
 
         private void editWeaponBt_Click(object sender, EventArgs e)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid( _selector.GetCharacterGuid() );
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            EditWeapon ew = new EditWeapon(c.Id, c.Weapons[weaponIndex]);
+            EditWeapon ew = new EditWeapon(c.Guid, c.Weapons[weaponIndex]);
             ew.ShowDialog();
         }
 
         private void deleteWeaponBt_Click(object sender, EventArgs e)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid( _selector.GetCharacterGuid() );
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            CharacterController.Instance.DeleteWeapon(_activeCharacter, c.Weapons[weaponIndex]);
+            CharacterController.Instance.DeleteWeapon( _selector.GetCharacterGuid(), c.Weapons[weaponIndex]);
         }
 
         private void weaponTypeCb_SelectedIndexChanged(object sender, EventArgs e)

@@ -58,6 +58,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.nbPersonality);
             this.groupBox1.Controls.Add(this.nbLuck);
             this.groupBox1.Controls.Add(this.nbWillpower);
@@ -83,6 +86,8 @@
             // 
             // nbPersonality
             // 
+            this.nbPersonality.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbPersonality.Location = new System.Drawing.Point(72, 176);
             this.nbPersonality.Name = "nbPersonality";
             this.nbPersonality.Size = new System.Drawing.Size(46, 20);
@@ -91,6 +96,8 @@
             // 
             // nbLuck
             // 
+            this.nbLuck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbLuck.Location = new System.Drawing.Point(72, 202);
             this.nbLuck.Name = "nbLuck";
             this.nbLuck.Size = new System.Drawing.Size(46, 20);
@@ -99,6 +106,8 @@
             // 
             // nbWillpower
             // 
+            this.nbWillpower.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbWillpower.Location = new System.Drawing.Point(72, 124);
             this.nbWillpower.Name = "nbWillpower";
             this.nbWillpower.Size = new System.Drawing.Size(46, 20);
@@ -107,6 +116,8 @@
             // 
             // nbPerception
             // 
+            this.nbPerception.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbPerception.Location = new System.Drawing.Point(72, 150);
             this.nbPerception.Name = "nbPerception";
             this.nbPerception.Size = new System.Drawing.Size(46, 20);
@@ -115,6 +126,8 @@
             // 
             // nbAgility
             // 
+            this.nbAgility.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbAgility.Location = new System.Drawing.Point(72, 72);
             this.nbAgility.Name = "nbAgility";
             this.nbAgility.Size = new System.Drawing.Size(46, 20);
@@ -123,6 +136,8 @@
             // 
             // nbIntelligence
             // 
+            this.nbIntelligence.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbIntelligence.Location = new System.Drawing.Point(72, 98);
             this.nbIntelligence.Name = "nbIntelligence";
             this.nbIntelligence.Size = new System.Drawing.Size(46, 20);
@@ -131,6 +146,8 @@
             // 
             // nbStrength
             // 
+            this.nbStrength.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbStrength.Location = new System.Drawing.Point(72, 20);
             this.nbStrength.Name = "nbStrength";
             this.nbStrength.Size = new System.Drawing.Size(46, 20);
@@ -139,6 +156,8 @@
             // 
             // nbEndurance
             // 
+            this.nbEndurance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.nbEndurance.Location = new System.Drawing.Point(72, 46);
             this.nbEndurance.Name = "nbEndurance";
             this.nbEndurance.Size = new System.Drawing.Size(46, 20);
@@ -217,12 +236,12 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Agility";
             // 
-            // CharacterCharacteristicsView
+            // CharacteristicsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.Name = "CharacterCharacteristicsView";
+            this.Name = "CharacteristicsView";
             this.Size = new System.Drawing.Size(124, 229);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -13,8 +13,6 @@ namespace UESRPG_Character_Manager.CharacterComponents
 {
     public class Trait : ICloneable, IIdentifiable
     {
-        public static uint NextAvailableId { get; set; }
-
         [XmlAttribute()]
         public string Name { get; set; }
         [XmlAttribute()]
@@ -24,17 +22,11 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public int XpCost { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint Id { get; private set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
+        public Guid Guid { get; private set; }
 
         public Trait()
         {
-            Id = NextAvailableId;
-            NextAvailableId++;
+            Guid = Guid.NewGuid();
         }
 
         public Trait(string Name, bool IsRacialTrait, int Cost, string Description) : this()
@@ -46,14 +38,14 @@ namespace UESRPG_Character_Manager.CharacterComponents
         }
 
         // Private constructor for use with Clone
-        private Trait(string Name, bool IsRacialTrait, int Cost, string Description, uint Id) : this(Name, IsRacialTrait, Cost, Description)
+        private Trait(string Name, bool IsRacialTrait, int Cost, string Description, Guid guid) : this(Name, IsRacialTrait, Cost, Description)
         {
-            this.Id = Id;
+            Guid = guid;
         }
 
         public object Clone()
         {
-            Trait newTrait = new Trait(Name, IsRacialTrait, XpCost, Description, Id);
+            Trait newTrait = new Trait(Name, IsRacialTrait, XpCost, Description, Guid);
             return newTrait;
         }
     }

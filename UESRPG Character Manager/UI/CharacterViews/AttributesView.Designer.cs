@@ -29,6 +29,30 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.healthTb = new System.Windows.Forms.TextBox();
+            this.woundThresholdTb = new System.Windows.Forms.TextBox();
+            this.staminaTb = new System.Windows.Forms.TextBox();
+            this.magickaTb = new System.Windows.Forms.TextBox();
+            this.actionPointsTb = new System.Windows.Forms.TextBox();
+            this.movementRatingTb = new System.Windows.Forms.TextBox();
+            this.carryRatingTb = new System.Windows.Forms.TextBox();
+            this.initiativeRatingTb = new System.Windows.Forms.TextBox();
+            this.damageBonusTb = new System.Windows.Forms.TextBox();
+            this.luckPointsTb = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.maxHealthTb = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.maxStaminaTb = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.maxMagickaTb = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.maxActionPointsTb = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.maxLuckPointsTb = new System.Windows.Forms.TextBox();
             this.nbModLuck = new System.Windows.Forms.NumericUpDown();
             this.nbModDamageBonus = new System.Windows.Forms.NumericUpDown();
             this.nbModInitiativeRating = new System.Windows.Forms.NumericUpDown();
@@ -40,38 +64,25 @@
             this.nbModWoundThreshold = new System.Windows.Forms.NumericUpDown();
             this.label24 = new System.Windows.Forms.Label();
             this.nbModHealth = new System.Windows.Forms.NumericUpDown();
-            this.maxLuckPointsTb = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.luckPointsTb = new System.Windows.Forms.TextBox();
-            this.damageBonusTb = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.initiativeRatingTb = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.carryRatingTb = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.movementRatingTb = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.maxActionPointsTb = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.actionPointsTb = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.maxMagickaTb = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.magickaTb = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.maxStaminaTb = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.staminaTb = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.woundThresholdTb = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.maxHealthTb = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.healthTb = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbModLuck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbModDamageBonus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbModInitiativeRating)).BeginInit();
@@ -86,50 +97,20 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.nbModLuck);
-            this.groupBox2.Controls.Add(this.nbModDamageBonus);
-            this.groupBox2.Controls.Add(this.nbModInitiativeRating);
-            this.groupBox2.Controls.Add(this.nbModCarryRating);
-            this.groupBox2.Controls.Add(this.nbModMovementRating);
-            this.groupBox2.Controls.Add(this.nbModActionPoints);
-            this.groupBox2.Controls.Add(this.nbModMagicka);
-            this.groupBox2.Controls.Add(this.nbModStamina);
-            this.groupBox2.Controls.Add(this.nbModWoundThreshold);
+            this.groupBox2.Controls.Add(this.splitContainer2);
             this.groupBox2.Controls.Add(this.label24);
-            this.groupBox2.Controls.Add(this.nbModHealth);
-            this.groupBox2.Controls.Add(this.maxLuckPointsTb);
-            this.groupBox2.Controls.Add(this.label25);
-            this.groupBox2.Controls.Add(this.luckPointsTb);
-            this.groupBox2.Controls.Add(this.damageBonusTb);
             this.groupBox2.Controls.Add(this.label23);
-            this.groupBox2.Controls.Add(this.initiativeRatingTb);
             this.groupBox2.Controls.Add(this.label22);
-            this.groupBox2.Controls.Add(this.carryRatingTb);
             this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Controls.Add(this.movementRatingTb);
             this.groupBox2.Controls.Add(this.label20);
             this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this.maxActionPointsTb);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.actionPointsTb);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.maxMagickaTb);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.magickaTb);
             this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.maxStaminaTb);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.staminaTb);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.woundThresholdTb);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.maxHealthTb);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.healthTb);
             this.groupBox2.Location = new System.Drawing.Point(1, 1);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(271, 328);
@@ -137,10 +118,291 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Attributes";
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer2.Location = new System.Drawing.Point(103, 9);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            this.splitContainer2.Panel1MinSize = 107;
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.label11);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModLuck);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModHealth);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModDamageBonus);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModWoundThreshold);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModInitiativeRating);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModStamina);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModCarryRating);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModMagicka);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModMovementRating);
+            this.splitContainer2.Panel2.Controls.Add(this.nbModActionPoints);
+            this.splitContainer2.Panel2MinSize = 53;
+            this.splitContainer2.Size = new System.Drawing.Size(164, 319);
+            this.splitContainer2.SplitterDistance = 107;
+            this.splitContainer2.TabIndex = 43;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.healthTb);
+            this.splitContainer1.Panel1.Controls.Add(this.woundThresholdTb);
+            this.splitContainer1.Panel1.Controls.Add(this.staminaTb);
+            this.splitContainer1.Panel1.Controls.Add(this.magickaTb);
+            this.splitContainer1.Panel1.Controls.Add(this.actionPointsTb);
+            this.splitContainer1.Panel1.Controls.Add(this.movementRatingTb);
+            this.splitContainer1.Panel1.Controls.Add(this.carryRatingTb);
+            this.splitContainer1.Panel1.Controls.Add(this.initiativeRatingTb);
+            this.splitContainer1.Panel1.Controls.Add(this.damageBonusTb);
+            this.splitContainer1.Panel1.Controls.Add(this.luckPointsTb);
+            this.splitContainer1.Panel1.Controls.Add(this.label10);
+            this.splitContainer1.Panel1MinSize = 45;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.label9);
+            this.splitContainer1.Panel2.Controls.Add(this.maxHealthTb);
+            this.splitContainer1.Panel2.Controls.Add(this.label14);
+            this.splitContainer1.Panel2.Controls.Add(this.maxStaminaTb);
+            this.splitContainer1.Panel2.Controls.Add(this.label17);
+            this.splitContainer1.Panel2.Controls.Add(this.maxMagickaTb);
+            this.splitContainer1.Panel2.Controls.Add(this.label19);
+            this.splitContainer1.Panel2.Controls.Add(this.maxActionPointsTb);
+            this.splitContainer1.Panel2.Controls.Add(this.label25);
+            this.splitContainer1.Panel2.Controls.Add(this.maxLuckPointsTb);
+            this.splitContainer1.Panel2MinSize = 54;
+            this.splitContainer1.Size = new System.Drawing.Size(103, 319);
+            this.splitContainer1.SplitterDistance = 45;
+            this.splitContainer1.TabIndex = 42;
+            // 
+            // healthTb
+            // 
+            this.healthTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.healthTb.Location = new System.Drawing.Point(1, 37);
+            this.healthTb.Name = "healthTb";
+            this.healthTb.Size = new System.Drawing.Size(41, 20);
+            this.healthTb.TabIndex = 0;
+            this.healthTb.TextChanged += new System.EventHandler(this.healthTb_TextChanged);
+            // 
+            // woundThresholdTb
+            // 
+            this.woundThresholdTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.woundThresholdTb.Location = new System.Drawing.Point(1, 63);
+            this.woundThresholdTb.Name = "woundThresholdTb";
+            this.woundThresholdTb.Size = new System.Drawing.Size(41, 20);
+            this.woundThresholdTb.TabIndex = 7;
+            // 
+            // staminaTb
+            // 
+            this.staminaTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.staminaTb.Location = new System.Drawing.Point(1, 89);
+            this.staminaTb.Name = "staminaTb";
+            this.staminaTb.Size = new System.Drawing.Size(41, 20);
+            this.staminaTb.TabIndex = 9;
+            this.staminaTb.TextChanged += new System.EventHandler(this.staminaTb_TextChanged);
+            // 
+            // magickaTb
+            // 
+            this.magickaTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.magickaTb.Location = new System.Drawing.Point(1, 115);
+            this.magickaTb.Name = "magickaTb";
+            this.magickaTb.Size = new System.Drawing.Size(41, 20);
+            this.magickaTb.TabIndex = 13;
+            this.magickaTb.TextChanged += new System.EventHandler(this.magickaTb_TextChanged);
+            // 
+            // actionPointsTb
+            // 
+            this.actionPointsTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.actionPointsTb.Location = new System.Drawing.Point(1, 141);
+            this.actionPointsTb.Name = "actionPointsTb";
+            this.actionPointsTb.Size = new System.Drawing.Size(41, 20);
+            this.actionPointsTb.TabIndex = 17;
+            this.actionPointsTb.TextChanged += new System.EventHandler(this.actionPointsTb_TextChanged);
+            // 
+            // movementRatingTb
+            // 
+            this.movementRatingTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.movementRatingTb.Location = new System.Drawing.Point(1, 167);
+            this.movementRatingTb.Name = "movementRatingTb";
+            this.movementRatingTb.Size = new System.Drawing.Size(41, 20);
+            this.movementRatingTb.TabIndex = 22;
+            // 
+            // carryRatingTb
+            // 
+            this.carryRatingTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.carryRatingTb.Location = new System.Drawing.Point(1, 193);
+            this.carryRatingTb.Name = "carryRatingTb";
+            this.carryRatingTb.Size = new System.Drawing.Size(41, 20);
+            this.carryRatingTb.TabIndex = 24;
+            // 
+            // initiativeRatingTb
+            // 
+            this.initiativeRatingTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.initiativeRatingTb.Location = new System.Drawing.Point(1, 219);
+            this.initiativeRatingTb.Name = "initiativeRatingTb";
+            this.initiativeRatingTb.Size = new System.Drawing.Size(41, 20);
+            this.initiativeRatingTb.TabIndex = 26;
+            // 
+            // damageBonusTb
+            // 
+            this.damageBonusTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.damageBonusTb.Location = new System.Drawing.Point(1, 245);
+            this.damageBonusTb.Name = "damageBonusTb";
+            this.damageBonusTb.Size = new System.Drawing.Size(41, 20);
+            this.damageBonusTb.TabIndex = 28;
+            // 
+            // luckPointsTb
+            // 
+            this.luckPointsTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.luckPointsTb.Location = new System.Drawing.Point(1, 271);
+            this.luckPointsTb.Name = "luckPointsTb";
+            this.luckPointsTb.Size = new System.Drawing.Size(41, 20);
+            this.luckPointsTb.TabIndex = 29;
+            this.luckPointsTb.TextChanged += new System.EventHandler(this.luckPointsTb_TextChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(1, 14);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Current";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "/ Max";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 40);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(12, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "/";
+            // 
+            // maxHealthTb
+            // 
+            this.maxHealthTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxHealthTb.Enabled = false;
+            this.maxHealthTb.Location = new System.Drawing.Point(21, 37);
+            this.maxHealthTb.Name = "maxHealthTb";
+            this.maxHealthTb.Size = new System.Drawing.Size(30, 20);
+            this.maxHealthTb.TabIndex = 3;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(3, 92);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(12, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "/";
+            // 
+            // maxStaminaTb
+            // 
+            this.maxStaminaTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxStaminaTb.Enabled = false;
+            this.maxStaminaTb.Location = new System.Drawing.Point(21, 89);
+            this.maxStaminaTb.Name = "maxStaminaTb";
+            this.maxStaminaTb.Size = new System.Drawing.Size(30, 20);
+            this.maxStaminaTb.TabIndex = 11;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 118);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(12, 13);
+            this.label17.TabIndex = 14;
+            this.label17.Text = "/";
+            // 
+            // maxMagickaTb
+            // 
+            this.maxMagickaTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxMagickaTb.Enabled = false;
+            this.maxMagickaTb.Location = new System.Drawing.Point(21, 115);
+            this.maxMagickaTb.Name = "maxMagickaTb";
+            this.maxMagickaTb.Size = new System.Drawing.Size(30, 20);
+            this.maxMagickaTb.TabIndex = 15;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(3, 144);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(12, 13);
+            this.label19.TabIndex = 18;
+            this.label19.Text = "/";
+            // 
+            // maxActionPointsTb
+            // 
+            this.maxActionPointsTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxActionPointsTb.Enabled = false;
+            this.maxActionPointsTb.Location = new System.Drawing.Point(21, 141);
+            this.maxActionPointsTb.Name = "maxActionPointsTb";
+            this.maxActionPointsTb.Size = new System.Drawing.Size(30, 20);
+            this.maxActionPointsTb.TabIndex = 19;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(3, 274);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(12, 13);
+            this.label25.TabIndex = 30;
+            this.label25.Text = "/";
+            // 
+            // maxLuckPointsTb
+            // 
+            this.maxLuckPointsTb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxLuckPointsTb.Enabled = false;
+            this.maxLuckPointsTb.Location = new System.Drawing.Point(21, 271);
+            this.maxLuckPointsTb.Name = "maxLuckPointsTb";
+            this.maxLuckPointsTb.Size = new System.Drawing.Size(30, 20);
+            this.maxLuckPointsTb.TabIndex = 31;
+            // 
             // nbModLuck
             // 
-            this.nbModLuck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModLuck.Location = new System.Drawing.Point(210, 280);
+            this.nbModLuck.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModLuck.Location = new System.Drawing.Point(4, 272);
             this.nbModLuck.Name = "nbModLuck";
             this.nbModLuck.Size = new System.Drawing.Size(46, 20);
             this.nbModLuck.TabIndex = 41;
@@ -148,8 +410,9 @@
             // 
             // nbModDamageBonus
             // 
-            this.nbModDamageBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModDamageBonus.Location = new System.Drawing.Point(210, 254);
+            this.nbModDamageBonus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModDamageBonus.Location = new System.Drawing.Point(4, 246);
             this.nbModDamageBonus.Name = "nbModDamageBonus";
             this.nbModDamageBonus.Size = new System.Drawing.Size(46, 20);
             this.nbModDamageBonus.TabIndex = 40;
@@ -157,8 +420,9 @@
             // 
             // nbModInitiativeRating
             // 
-            this.nbModInitiativeRating.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModInitiativeRating.Location = new System.Drawing.Point(210, 228);
+            this.nbModInitiativeRating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModInitiativeRating.Location = new System.Drawing.Point(4, 220);
             this.nbModInitiativeRating.Name = "nbModInitiativeRating";
             this.nbModInitiativeRating.Size = new System.Drawing.Size(46, 20);
             this.nbModInitiativeRating.TabIndex = 39;
@@ -166,8 +430,9 @@
             // 
             // nbModCarryRating
             // 
-            this.nbModCarryRating.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModCarryRating.Location = new System.Drawing.Point(210, 202);
+            this.nbModCarryRating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModCarryRating.Location = new System.Drawing.Point(4, 194);
             this.nbModCarryRating.Name = "nbModCarryRating";
             this.nbModCarryRating.Size = new System.Drawing.Size(46, 20);
             this.nbModCarryRating.TabIndex = 38;
@@ -175,8 +440,9 @@
             // 
             // nbModMovementRating
             // 
-            this.nbModMovementRating.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModMovementRating.Location = new System.Drawing.Point(210, 176);
+            this.nbModMovementRating.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModMovementRating.Location = new System.Drawing.Point(4, 168);
             this.nbModMovementRating.Name = "nbModMovementRating";
             this.nbModMovementRating.Size = new System.Drawing.Size(46, 20);
             this.nbModMovementRating.TabIndex = 37;
@@ -184,8 +450,9 @@
             // 
             // nbModActionPoints
             // 
-            this.nbModActionPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModActionPoints.Location = new System.Drawing.Point(210, 150);
+            this.nbModActionPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModActionPoints.Location = new System.Drawing.Point(4, 142);
             this.nbModActionPoints.Name = "nbModActionPoints";
             this.nbModActionPoints.Size = new System.Drawing.Size(46, 20);
             this.nbModActionPoints.TabIndex = 36;
@@ -193,8 +460,9 @@
             // 
             // nbModMagicka
             // 
-            this.nbModMagicka.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModMagicka.Location = new System.Drawing.Point(210, 124);
+            this.nbModMagicka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModMagicka.Location = new System.Drawing.Point(4, 116);
             this.nbModMagicka.Name = "nbModMagicka";
             this.nbModMagicka.Size = new System.Drawing.Size(46, 20);
             this.nbModMagicka.TabIndex = 35;
@@ -202,8 +470,9 @@
             // 
             // nbModStamina
             // 
-            this.nbModStamina.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModStamina.Location = new System.Drawing.Point(210, 98);
+            this.nbModStamina.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModStamina.Location = new System.Drawing.Point(4, 90);
             this.nbModStamina.Name = "nbModStamina";
             this.nbModStamina.Size = new System.Drawing.Size(46, 20);
             this.nbModStamina.TabIndex = 34;
@@ -211,8 +480,9 @@
             // 
             // nbModWoundThreshold
             // 
-            this.nbModWoundThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModWoundThreshold.Location = new System.Drawing.Point(210, 71);
+            this.nbModWoundThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModWoundThreshold.Location = new System.Drawing.Point(4, 63);
             this.nbModWoundThreshold.Name = "nbModWoundThreshold";
             this.nbModWoundThreshold.Size = new System.Drawing.Size(46, 20);
             this.nbModWoundThreshold.TabIndex = 33;
@@ -229,44 +499,13 @@
             // 
             // nbModHealth
             // 
-            this.nbModHealth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nbModHealth.Location = new System.Drawing.Point(210, 44);
+            this.nbModHealth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.nbModHealth.Location = new System.Drawing.Point(4, 36);
             this.nbModHealth.Name = "nbModHealth";
             this.nbModHealth.Size = new System.Drawing.Size(46, 20);
             this.nbModHealth.TabIndex = 7;
             this.nbModHealth.ValueChanged += new System.EventHandler(this.nbModHealth_ValueChanged);
-            // 
-            // maxLuckPointsTb
-            // 
-            this.maxLuckPointsTb.Enabled = false;
-            this.maxLuckPointsTb.Location = new System.Drawing.Point(163, 279);
-            this.maxLuckPointsTb.Name = "maxLuckPointsTb";
-            this.maxLuckPointsTb.Size = new System.Drawing.Size(34, 20);
-            this.maxLuckPointsTb.TabIndex = 31;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(145, 282);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(12, 13);
-            this.label25.TabIndex = 30;
-            this.label25.Text = "/";
-            // 
-            // luckPointsTb
-            // 
-            this.luckPointsTb.Location = new System.Drawing.Point(104, 279);
-            this.luckPointsTb.Name = "luckPointsTb";
-            this.luckPointsTb.Size = new System.Drawing.Size(35, 20);
-            this.luckPointsTb.TabIndex = 29;
-            this.luckPointsTb.TextChanged += new System.EventHandler(this.luckPointsTb_TextChanged);
-            // 
-            // damageBonusTb
-            // 
-            this.damageBonusTb.Location = new System.Drawing.Point(104, 253);
-            this.damageBonusTb.Name = "damageBonusTb";
-            this.damageBonusTb.Size = new System.Drawing.Size(35, 20);
-            this.damageBonusTb.TabIndex = 28;
             // 
             // label23
             // 
@@ -277,13 +516,6 @@
             this.label23.TabIndex = 27;
             this.label23.Text = "Damage Bonus";
             // 
-            // initiativeRatingTb
-            // 
-            this.initiativeRatingTb.Location = new System.Drawing.Point(104, 227);
-            this.initiativeRatingTb.Name = "initiativeRatingTb";
-            this.initiativeRatingTb.Size = new System.Drawing.Size(35, 20);
-            this.initiativeRatingTb.TabIndex = 26;
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -293,13 +525,6 @@
             this.label22.TabIndex = 25;
             this.label22.Text = "Initiative Rating";
             // 
-            // carryRatingTb
-            // 
-            this.carryRatingTb.Location = new System.Drawing.Point(104, 201);
-            this.carryRatingTb.Name = "carryRatingTb";
-            this.carryRatingTb.Size = new System.Drawing.Size(35, 20);
-            this.carryRatingTb.TabIndex = 24;
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -308,13 +533,6 @@
             this.label21.Size = new System.Drawing.Size(65, 13);
             this.label21.TabIndex = 23;
             this.label21.Text = "Carry Rating";
-            // 
-            // movementRatingTb
-            // 
-            this.movementRatingTb.Location = new System.Drawing.Point(104, 175);
-            this.movementRatingTb.Name = "movementRatingTb";
-            this.movementRatingTb.Size = new System.Drawing.Size(35, 20);
-            this.movementRatingTb.TabIndex = 22;
             // 
             // label20
             // 
@@ -334,31 +552,6 @@
             this.label18.TabIndex = 20;
             this.label18.Text = "Action Points";
             // 
-            // maxActionPointsTb
-            // 
-            this.maxActionPointsTb.Enabled = false;
-            this.maxActionPointsTb.Location = new System.Drawing.Point(163, 149);
-            this.maxActionPointsTb.Name = "maxActionPointsTb";
-            this.maxActionPointsTb.Size = new System.Drawing.Size(34, 20);
-            this.maxActionPointsTb.TabIndex = 19;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(145, 152);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(12, 13);
-            this.label19.TabIndex = 18;
-            this.label19.Text = "/";
-            // 
-            // actionPointsTb
-            // 
-            this.actionPointsTb.Location = new System.Drawing.Point(104, 149);
-            this.actionPointsTb.Name = "actionPointsTb";
-            this.actionPointsTb.Size = new System.Drawing.Size(35, 20);
-            this.actionPointsTb.TabIndex = 17;
-            this.actionPointsTb.TextChanged += new System.EventHandler(this.actionPointsTb_TextChanged);
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -367,31 +560,6 @@
             this.label16.Size = new System.Drawing.Size(48, 13);
             this.label16.TabIndex = 16;
             this.label16.Text = "Magicka";
-            // 
-            // maxMagickaTb
-            // 
-            this.maxMagickaTb.Enabled = false;
-            this.maxMagickaTb.Location = new System.Drawing.Point(163, 123);
-            this.maxMagickaTb.Name = "maxMagickaTb";
-            this.maxMagickaTb.Size = new System.Drawing.Size(34, 20);
-            this.maxMagickaTb.TabIndex = 15;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(145, 126);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(12, 13);
-            this.label17.TabIndex = 14;
-            this.label17.Text = "/";
-            // 
-            // magickaTb
-            // 
-            this.magickaTb.Location = new System.Drawing.Point(104, 123);
-            this.magickaTb.Name = "magickaTb";
-            this.magickaTb.Size = new System.Drawing.Size(35, 20);
-            this.magickaTb.TabIndex = 13;
-            this.magickaTb.TextChanged += new System.EventHandler(this.magickaTb_TextChanged);
             // 
             // label15
             // 
@@ -402,31 +570,6 @@
             this.label15.TabIndex = 12;
             this.label15.Text = "Stamina";
             // 
-            // maxStaminaTb
-            // 
-            this.maxStaminaTb.Enabled = false;
-            this.maxStaminaTb.Location = new System.Drawing.Point(163, 97);
-            this.maxStaminaTb.Name = "maxStaminaTb";
-            this.maxStaminaTb.Size = new System.Drawing.Size(34, 20);
-            this.maxStaminaTb.TabIndex = 11;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(145, 100);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(12, 13);
-            this.label14.TabIndex = 10;
-            this.label14.Text = "/";
-            // 
-            // staminaTb
-            // 
-            this.staminaTb.Location = new System.Drawing.Point(104, 97);
-            this.staminaTb.Name = "staminaTb";
-            this.staminaTb.Size = new System.Drawing.Size(35, 20);
-            this.staminaTb.TabIndex = 9;
-            this.staminaTb.TextChanged += new System.EventHandler(this.staminaTb_TextChanged);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -435,13 +578,6 @@
             this.label13.Size = new System.Drawing.Size(38, 13);
             this.label13.TabIndex = 8;
             this.label13.Text = "Health";
-            // 
-            // woundThresholdTb
-            // 
-            this.woundThresholdTb.Location = new System.Drawing.Point(104, 71);
-            this.woundThresholdTb.Name = "woundThresholdTb";
-            this.woundThresholdTb.Size = new System.Drawing.Size(35, 20);
-            this.woundThresholdTb.TabIndex = 7;
             // 
             // label12
             // 
@@ -454,47 +590,12 @@
             // 
             // label11
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(207, 22);
+            this.label11.Location = new System.Drawing.Point(1, 14);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 13);
             this.label11.TabIndex = 4;
             this.label11.Text = "Modifiers";
-            // 
-            // maxHealthTb
-            // 
-            this.maxHealthTb.Enabled = false;
-            this.maxHealthTb.Location = new System.Drawing.Point(163, 45);
-            this.maxHealthTb.Name = "maxHealthTb";
-            this.maxHealthTb.Size = new System.Drawing.Size(34, 20);
-            this.maxHealthTb.TabIndex = 3;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(104, 22);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(72, 13);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Current / Max";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(145, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(12, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "/";
-            // 
-            // healthTb
-            // 
-            this.healthTb.Location = new System.Drawing.Point(104, 45);
-            this.healthTb.Name = "healthTb";
-            this.healthTb.Size = new System.Drawing.Size(35, 20);
-            this.healthTb.TabIndex = 0;
-            this.healthTb.TextChanged += new System.EventHandler(this.healthTb_TextChanged);
             // 
             // AttributesView
             // 
@@ -506,6 +607,17 @@
             this.Size = new System.Drawing.Size(275, 329);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nbModLuck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbModDamageBonus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbModInitiativeRating)).EndInit();
@@ -565,5 +677,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox healthTb;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }

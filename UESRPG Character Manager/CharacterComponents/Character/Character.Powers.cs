@@ -3,7 +3,7 @@ using System.Linq;
 
 using System.Xml.Serialization;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
@@ -32,7 +32,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditPower(Power newPower)
         {
             IEnumerable<Power> powerSearch = from Power p in _powers
-                                             where p.Id == newPower.Id
+                                             where p.Guid == newPower.Guid
                                              select p;
             if (powerSearch.Count() == 1)
             {

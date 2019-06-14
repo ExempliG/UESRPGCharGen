@@ -147,6 +147,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox7);
+            this.MinimumSize = new System.Drawing.Size(474, 377);
             this.Name = "WeaponsView";
             this.Size = new System.Drawing.Size(474, 377);
             this.groupBox7.ResumeLayout(false);

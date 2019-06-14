@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.Collections;
-using System.IO;
-using System.Xml.Serialization;
-
-using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
+using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.GameComponents;
-using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.UI.ManagementElements;
 
 namespace UESRPG_Character_Manager.UI.MainWindow
@@ -23,7 +13,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
     public partial class MainWindow : Form
     {
         private string _currentFile = "";
-        private uint _activeCharacter;
+        private Guid _activeCharacter;
         private bool _hasCharacter;
         public uint SelectorId { get; set; }
         private bool _changingCharacter = false;
@@ -42,13 +32,13 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             GameController.Instance.ActiveCombatsChanged += onActiveCombatsChanged;
 
             SelectorId = characterSelector.SelectorId;
-            charaView_statsPage.SelectorId = SelectorId;
-            attributesView_statsPage.SelectorId = SelectorId;
-            skillListView_statsPage.SelectorId = SelectorId;
-            attributesView_statsPage.SelectorId = SelectorId;
-            weaponsView_equipPage.SelectorId = SelectorId;
-            armorView_equipPage.SelectorId = SelectorId;
-            checkRollView_statsPage.SelectorId = SelectorId;
+            charaView_statsPage.SetSelector( characterSelector );
+            attributesView_statsPage.SetSelector( characterSelector );
+            skillListView_statsPage.SetSelector( characterSelector );
+            spellListView_statsPage.SetSelector( characterSelector );
+            weaponsView_equipPage.SetSelector( characterSelector );
+            armorView_equipPage.SetSelector( characterSelector );
+            checkRollView_statsPage.SetSelector( characterSelector );
 
             skillListView_statsPage.OnSelectedSkill += checkRollView_statsPage.OnSelectedSkillChanged;
             spellListView_statsPage.OnSelectedSpell += checkRollView_statsPage.OnSelectedSpellChanged;
@@ -67,7 +57,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 // If the character is being changed, store the old character's Notes
                 if (_hasCharacter && e.EventType != CharacterSelectionEvent.SAME_CHARACTER)
                 {
-                    Character oldCharacter = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    Character oldCharacter = CharacterController.Instance.GetCharacterByGuid(_activeCharacter);
                     ///<todo>Update this to go through the Controller</todo>
                     oldCharacter.Notes = characterNotesRtb.Text;
                 }
@@ -75,7 +65,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 switch (e.EventType)
                 {
                     case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
+                        _activeCharacter = e.CharacterGuid;
                         _hasCharacter = true;
                         break;
                     case CharacterSelectionEvent.NO_CHARACTER:
@@ -89,7 +79,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 _changingCharacter = true;
                 if (_hasCharacter)
                 {
-                    Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                    Character c = CharacterController.Instance.GetCharacterByGuid(_activeCharacter);
                     ///<todo>Update this to go through the Controller</todo>
                     nameTb.Text = c.Name;
                     characterNotesRtb.Text = c.Notes;
@@ -161,7 +151,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             if (_hasCharacter)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_activeCharacter);
                 c.Notes = characterNotesRtb.Text;
             }
         }
@@ -185,7 +175,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
 
         private void saveMi_Click (object sender, EventArgs e)
         {
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid(_activeCharacter);
             c.Notes = characterNotesRtb.Text;
 
             if (!string.IsNullOrEmpty(_currentFile))
@@ -204,7 +194,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
         {
             if (_hasCharacter)
             {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_activeCharacter);
                 c.Notes = characterNotesRtb.Text;
             }
 
@@ -282,6 +272,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
             f.Controls.Add( c );
             f.ClientSize = c.Size;
             c.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            c.CanCloseParent = true;
             f.Show();
             f.Text = "Console";
         }

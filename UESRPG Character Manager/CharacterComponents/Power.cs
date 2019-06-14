@@ -13,24 +13,16 @@ namespace UESRPG_Character_Manager.CharacterComponents
 {
     public class Power: IIdentifiable, ICloneable
     {
-        public static uint NextAvailableId { get; set; }
-
         [XmlAttribute()]
         public string Name { get; set; }
         public string Description { get; set; }
 
         [XmlIgnore(), Browsable(false)]
-        public uint Id { get; set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
+        public Guid Guid { get; set; }
 
         public Power()
         {
-            Id = NextAvailableId;
-            NextAvailableId++;
+            Guid = Guid.NewGuid();
         }
 
         public Power(string Name, string Description) : this()

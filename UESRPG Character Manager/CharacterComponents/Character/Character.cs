@@ -7,7 +7,7 @@ using UESRPG_Character_Manager.Common;
 using UESRPG_Character_Manager.GameComponents;
 using UESRPG_Character_Manager.Items;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     //[XmlRoot("Character", IsNullable = false)]
     public partial class Character : ICloneable, ICombatant, IIdentifiable
@@ -32,42 +32,8 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         private string _name = "Player";
 
-        public static uint NextAvailableId { get; set; }
-        [Browsable(false)]
-        public uint Id { get; set; }
-        public void ResetId()
-        {
-            Id = NextAvailableId;
-            NextAvailableId++;
-        }
-
-        public void ResetIdentifiableIds()
-        {
-            foreach (Power p in Powers)
-            {
-                p.ResetId();
-            }
-            foreach (Skill s in Skills)
-            {
-                s.ResetId();
-            }
-            foreach (Spell s in Spells)
-            {
-                s.ResetId();
-            }
-            foreach (Talent t in Talents)
-            {
-                t.ResetId();
-            }
-            foreach (Trait t in Traits)
-            {
-                t.ResetId();
-            }
-            foreach (Weapon w in Weapons)
-            {
-                w.ResetId();
-            }
-        }
+        [XmlAttribute(),Browsable(false)]
+        public Guid Guid { get; set; }
 
         public Character ()
         {
@@ -84,14 +50,13 @@ namespace UESRPG_Character_Manager.CharacterComponents
             _aggregatePowers = new List<Power>();
             _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
 
-            // Assign each character a unique ID. This is used to refer to Characters directly.
-            Id = NextAvailableId;
-            NextAvailableId++;
+            // Assign each character a Guid. This is used to refer to Characters directly.
+            Guid = Guid.NewGuid();
         }
 
-        private Character (uint characterId) : this()
+        private Character (Guid characterGuid) : this()
         {
-            Id = characterId;
+            Guid = characterGuid;
         }
 
         public int GetBonus (int characteristic)
@@ -175,7 +140,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
         public object Clone ()
         {
-            Character c = new Character(Id)
+            Character c = new Character(Guid)
             {
                 Name = Name,
                 Notes = Notes,
@@ -236,11 +201,10 @@ namespace UESRPG_Character_Manager.CharacterComponents
             return c;
         }
 
-        public Character CopyChar()
+        public Character DuplicateChar()
         {
             Character c = (Character)Clone();
-            c.Id = NextAvailableId;
-            NextAvailableId++;
+            c.Guid = Guid.NewGuid();
             return c;
         }
 

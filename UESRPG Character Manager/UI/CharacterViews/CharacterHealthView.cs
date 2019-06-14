@@ -10,82 +10,28 @@ using System.Windows.Forms;
 
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
-    public partial class CharacterHealthView : UserControl
+    public partial class CharacterHealthView : SelectedCharacterControl
     {
-        private uint _activeCharacter;
-        private bool _hasCharacter = false;
-        public uint SelectorId { get; set; }
-
         private bool _attributesMutex = false;
 
         public CharacterHealthView()
         {
             InitializeComponent();
 
-            Character.AttributeChanged += onAttributeChanged;
-            CharacterController.Instance.SelectedCharacterChanged += onCombatantChanged;
-
             toggleAllControls(false);
+            aspectsToWatch.Add( CharacterAspect.ATTRIBUTE );
         }
 
-        protected void onAttributeChanged(object sender, EventArgs e)
+        protected override void updateView()
         {
-            if (_hasCharacter)
+            if (_selector.HasCharacter)
             {
-                Character c = (Character)sender;
-                if (c.Id == _activeCharacter && this.Enabled)
-                {
-                    getCurrentValues(c);
-                }
-            }
-        }
-
-        protected void onCombatantChanged(object sender, SelectedCharacterChangedEventArgs e)
-        {
-            if (e.SelectorId == SelectorId)
-            {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateAll();
-            }
-
-            /*Combat cmb = (Combat)sender;
-            ICombatant ic = cmb.Combatants[cmb.CurrentCombatantIndex];
-            if(ic.GetType() == typeof(Character))
-            {
-                enableAll();
-                Character c = (Character)ic;
-                CharacterId = c.CharacterId;
-            }
-            else
-            {
-                disableAll();
-            }*/
-        }
-
-        private void updateAll()
-        {
-            if (_hasCharacter)
-            {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 getCurrentValues(c);
                 getMaxValues(c);
             }
@@ -117,7 +63,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(enabled)
             {
@@ -159,22 +105,22 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
 
         private void healthTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(_activeCharacter, tryParseAttribute(healthTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeHealth(_selector.GetCharacterGuid(), tryParseAttribute(healthTb.Text)); });
         }
 
         private void staminaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(_activeCharacter, tryParseAttribute(staminaTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeStamina(_selector.GetCharacterGuid(), tryParseAttribute(staminaTb.Text)); });
         }
 
         private void magickaTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(_activeCharacter, tryParseAttribute(magickaTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeMagicka(_selector.GetCharacterGuid(), tryParseAttribute(magickaTb.Text)); });
         }
 
         private void actionPointsTb_TextChanged(object sender, EventArgs e)
         {
-            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(_activeCharacter, tryParseAttribute(actionPointsTb.Text)); });
+            changeAttribute(delegate () { CharacterController.Instance.ChangeAP(_selector.GetCharacterGuid(), tryParseAttribute(actionPointsTb.Text)); });
         }
 
         private int tryParseAttribute(string textVal)

@@ -16,9 +16,9 @@ namespace UESRPG_Character_Manager.UI
     public partial class EditWeapon : Form
     {
         private Weapon _weapon;
-        private uint _activeCharacter;
+        private Guid _activeCharacter;
 
-        public EditWeapon(uint activeCharacter, Weapon weaponToEdit)
+        public EditWeapon(Guid activeCharacter, Weapon weaponToEdit)
         {
             InitializeComponent();
 

@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Windows.Forms;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.GameComponents;
+using UESRPG_Character_Manager.UI.CombatViews;
 
-namespace UESRPG_Character_Manager.UI.CombatViews
+namespace UESRPG_Character_Manager.UI.Selectors
 {
-    public partial class CombatantsListView : UserControl
+    public partial class CombatantsListView : UserControl, ICharacterSelector
     {
         private const string ACTIVE_COMBATANT_MARKER = "*";
         private const string NAME_CELL_ID = "name";
@@ -15,7 +17,15 @@ namespace UESRPG_Character_Manager.UI.CombatViews
         private const string INIT_CELL_ID = "initiative";
         private const uint COLUMN_COUNT = 3;
         public uint _combatId;
-        public uint SelectorId { get; set; }
+        private Guid Guid { get; set; }
+        public SelectedCharacterChangedHandler OnCharacterChanged { get; set; }
+        public SelectedNewCharacterHandler OnSelectedNewCharacter { get; set; }
+
+        public bool HasCharacter { get; private set; } = false;
+        public Guid GetCharacterGuid()
+        {
+            return Guid;
+        }
 
         public CombatantsListView()
         {
@@ -27,11 +37,8 @@ namespace UESRPG_Character_Manager.UI.CombatViews
             combatantsDgv.Columns.Add(INIT_CELL_ID, "Initiative");
             combatantsDgv.Columns[INIT_CELL_ID].ReadOnly = false;
 
-            //_combatId = 0;// combatId;
-
             Combat.CombatUpdated += onCombatUpdated;
             Combat.CombatantListUpdated += onCombatantListUpdated;
-            SelectorId = CharacterController.Instance.StartSelector();
             combatantsDgv.CellEndEdit += onCellEndEdit;
             //CharacterController.Instance.CharacterListChanged += onCharacterListChanged;
         }
@@ -52,7 +59,7 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                 Combat c = GameController.Instance.GetCombatById(_combatId);
                 var combatantIds = from cmbs in c.Combatants
                                    where cmbs.GetType() == typeof(Character)
-                                   select ((Character)cmbs).Id;
+                                   select ((Character)cmbs).Guid;
                 //if()
             }
         }
@@ -195,20 +202,40 @@ namespace UESRPG_Character_Manager.UI.CombatViews
                 ICombatant ic = c.Combatants[selectedIndex];
                 if(ic.GetType() == typeof(Character))
                 {
-                    Character chara = (Character)ic;
-                    CharacterController.Instance.SelectCharacterById(chara.Id, SelectorId);
+                    Guid = ((Character)ic).Guid;
+                    HasCharacter = true;
+                    CharacterController.Instance.SubscribeToCharacter( Guid, onCharacterChanged );
+                    onSelectedNewCharacter( SelectionType.NEW_CHARACTER );
                 }
                 else
                 {
-                    CharacterController.Instance.DeselectCharacter(SelectorId);
+                    HasCharacter = false;
+                    CharacterController.Instance.UnsubscribeFromCharacter( Guid, onCharacterChanged );
+                    onSelectedNewCharacter( SelectionType.NO_CHARACTER );
                 }
             }
             else
             {
+                if( HasCharacter )
+                {
+                    HasCharacter = false;
+                    CharacterController.Instance.UnsubscribeFromCharacter( Guid, onCharacterChanged );
+                    onSelectedNewCharacter( SelectionType.NO_CHARACTER );
+                }
                 removeCombatantBt.Enabled = false;
                 combatantUpBt.Enabled = false;
                 combatantDownBt.Enabled = false;
             }
+        }
+
+        protected void onCharacterChanged(object sender, CharacterChangedEventArgs e)
+        {
+            OnCharacterChanged?.Invoke( this, e );
+        }
+
+        protected void onSelectedNewCharacter(SelectionType type)
+        {
+            OnSelectedNewCharacter?.Invoke( this, new SelectedNewCharacterEventArgs( Guid, type ) );
         }
     }
 }

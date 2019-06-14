@@ -11,13 +11,13 @@ namespace UESRPG_Character_Manager.CharacterComponents
 
     public class SelectedCharacterChangedEventArgs : EventArgs
     {
-        public uint CharacterId { get; private set; }
+        public Guid CharacterGuid { get; private set; }
         public uint SelectorId { get; private set; }
         public CharacterSelectionEvent EventType { get; private set; }
 
-        public SelectedCharacterChangedEventArgs(uint characterId, uint selectorId, CharacterSelectionEvent eventType)
+        public SelectedCharacterChangedEventArgs(Guid characterGuid, uint selectorId, CharacterSelectionEvent eventType)
         {
-            CharacterId = characterId;
+            CharacterGuid = characterGuid;
             SelectorId = selectorId;
             EventType = eventType;
         }

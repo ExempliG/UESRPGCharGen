@@ -8,19 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.UI.MainWindow;
+using UESRPG_Character_Manager.UI.CharacterViews;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.ActionViews
 {
-    public partial class WeaponDamageView : UserControl
+    public partial class WeaponDamageView : SelectedCharacterControl
     {
-        public uint SelectorId { get; set; }
-        uint _activeCharacter;
-        bool _hasCharacter = false;
-
         public WeaponDamageView()
         {
             InitializeComponent();
@@ -31,46 +28,15 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             }
             ammoCb.SelectedIndex = 0;
 
-            CharacterController.Instance.SelectedCharacterChanged += onSelectedCharacterChanged;
-            Character.WeaponsChanged += onWeaponsChanged;
-
             toggleAllControls(false);
+            aspectsToWatch.Add( CharacterAspect.EQUIPMENT_WEAPON );
         }
 
-        protected void onSelectedCharacterChanged(object sender, SelectedCharacterChangedEventArgs e)
+        protected override void updateView()
         {
-            if (e.SelectorId == SelectorId)
+            if (_selector.HasCharacter)
             {
-                switch (e.EventType)
-                {
-                    case CharacterSelectionEvent.NEW_CHARACTER:
-                        _activeCharacter = e.CharacterId;
-                        _hasCharacter = true;
-                        break;
-                    case CharacterSelectionEvent.NO_CHARACTER:
-                        _hasCharacter = false;
-                        break;
-                    case CharacterSelectionEvent.SAME_CHARACTER:
-                        break;
-
-                }
-
-                toggleAllControls(_hasCharacter);
-
-                updateView();
-            }
-        }
-
-        protected void onWeaponsChanged(object sender, EventArgs e)
-        {
-            updateView();
-        }
-
-        private void updateView()
-        {
-            if (_hasCharacter)
-            {
-                Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+                Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 weaponCb.DataSource = null;
                 if (c.Weapons.Count > 0)
                 {
@@ -83,7 +49,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             }
         }
 
-        private void toggleAllControls(bool enabled)
+        protected override void toggleAllControls(bool enabled)
         {
             if(!enabled)
             {
@@ -121,7 +87,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 resultTotal += roll;
             }
 
-            Character c = CharacterController.Instance.GetCharacterById(_activeCharacter);
+            Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
             breakdownString += string.Format("{0} + bonus {1}", selectedWeapon.DamageMod + additionalMod, c.DamageBonus);
             resultTotal += selectedWeapon.DamageMod;
             resultTotal += c.DamageBonus;
@@ -132,7 +98,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
 
         private void updateAmmoCb()
         {
-            if(!_hasCharacter)
+            if(_selector != null && !_selector.HasCharacter)
             {
                 weaponRollBt.Enabled = false;
             }

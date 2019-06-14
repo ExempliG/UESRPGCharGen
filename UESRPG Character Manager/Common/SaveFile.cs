@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
 
-using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.GameComponents;
 
@@ -24,7 +24,7 @@ namespace UESRPG_Character_Manager.Common
         public List<Character> Characters;
         public List<CombatSave> Combats;
 
-        public SaveFile(Dictionary<uint, Character> characters, Dictionary<uint, Combat> combats)
+        public SaveFile(Dictionary<Guid, Character> characters, Dictionary<uint, Combat> combats)
         {
             Characters = new List<Character>();
             foreach(Character c in characters.Values)
@@ -39,7 +39,7 @@ namespace UESRPG_Character_Manager.Common
             }
         }
 
-        public SaveFile(Dictionary<uint, Character> characters)
+        public SaveFile(Dictionary<Guid, Character> characters)
         {
             Characters = new List<Character>();
             foreach(Character c in characters.Values)
@@ -235,54 +235,24 @@ namespace UESRPG_Character_Manager.Common
             return characters;
         }
 
-        public Dictionary<uint, Character> GetCharacterDict()
+        public Dictionary<Guid, Character> GetCharacterDict()
         {
-            Dictionary<uint, Character> charDict = new Dictionary<uint, Character>();
+            Dictionary<Guid, Character> charDict = new Dictionary<Guid, Character>();
 
             foreach(Character c in Characters)
             {
-                charDict.Add(c.Id, c);
+                charDict.Add(c.Guid, c);
             }
 
             return charDict;
         }
 
-        public void UpdateCharactersAndCombats()
+        public void UpdateCharacters()
         {
-            resetCharacterComponentIdCounters();
             foreach (Character c in Characters)
             {
                 // Perform any necessary updates.
                 c.Update(MajorRevision, MinorRevision, EngRevision);
-
-                // Character ID integrity _is_ important at Load time, but IDs are kept ephemeral so that they don't
-                // grow unchecked. As such, IDs are reset to be equal to a Character's key/position in the Character
-                // Dictionary. Before tossing the old ID, it must be updated in any Combats that were taking place at
-                // Save time.
-                uint oldId = c.Id;
-                c.ResetId();
-                int newId = (int)c.Id;
-
-                if (oldId != newId)
-                {
-                    foreach (CombatSave cs in Combats)
-                    {
-                        // Select a tuple containing the index and SaveCombatant
-                        // (index needed as SaveCombatant is a value type)
-                        var oSearch = cs.SaveCombatants
-                                        .Select((sc, index) => new { SaveCombatant = sc, Index = index })
-                                        .Where((item) => { return item.SaveCombatant.Id == oldId; });
-                        for (int i = 0; i < oSearch.Count(); i++)
-                        {
-                            var obj = oSearch.ElementAt(i);
-                            CombatSave.SaveCombatant sc = obj.SaveCombatant;
-                            int index = obj.Index;
-                            sc.Id = newId;
-                            cs.SaveCombatants[index] = sc;
-                        }
-                    }
-                }
-                c.ResetIdentifiableIds();
             }
         }
 
@@ -297,17 +267,6 @@ namespace UESRPG_Character_Manager.Common
             }
 
             return combatDict;
-        }
-
-        private void resetCharacterComponentIdCounters()
-        {
-            Character.NextAvailableId = 0;
-            Power.NextAvailableId = 0;
-            Skill.NextAvailableId = 0;
-            Spell.NextAvailableId = 0;
-            Talent.NextAvailableId = 0;
-            Trait.NextAvailableId = 0;
-            Weapon.NextAvailableId = 0;
         }
     }
 }

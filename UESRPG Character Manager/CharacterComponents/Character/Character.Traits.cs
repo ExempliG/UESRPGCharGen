@@ -3,7 +3,7 @@ using System.Linq;
 
 using System.Xml.Serialization;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
@@ -32,7 +32,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditTrait(Trait newTrait)
         {
             IEnumerable<Trait> traitSearch = from Trait t in _traits
-                                             where t.Id == newTrait.Id
+                                             where t.Guid == newTrait.Guid
                                              select t;
             if (traitSearch.Count() == 1)
             {

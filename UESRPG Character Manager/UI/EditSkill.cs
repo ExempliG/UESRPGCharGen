@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.Controllers;
 
 namespace UESRPG_Character_Manager
 {
     public partial class EditSkill : Form
     {
         private Skill _skill;
-        private uint _activeCharacter;
+        private Guid _activeCharacter;
 
         public EditSkill ( )
         {
@@ -34,7 +26,7 @@ namespace UESRPG_Character_Manager
             }
         }
 
-        public EditSkill (uint activeCharacter, Skill skill)
+        public EditSkill (Guid activeCharacter, Skill skill)
         {
             InitializeComponent();
 
@@ -86,8 +78,6 @@ namespace UESRPG_Character_Manager
             }
             _skill.Description = skillDescriptionRtb.Text;
             _skill.Rank = (int)skillRankNud.Value;
-
-            CharacterController.Instance.EditSkill(_activeCharacter, _skill);
 
             DialogResult = DialogResult.OK;
 

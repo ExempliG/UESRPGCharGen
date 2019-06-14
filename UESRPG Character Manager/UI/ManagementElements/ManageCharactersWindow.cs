@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UESRPG_Character_Manager.CharacterComponents;
+using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Controllers;
 using UESRPG_Character_Manager.Common;
 
@@ -96,22 +96,22 @@ namespace UESRPG_Character_Manager.UI.ManagementElements
 
         private void exportBt_Click(object sender, EventArgs e)
         {
-            uint[] selectedCharIds = charactersDgv.GetSelectedCharacters();
+            Guid[] selectedCharIds = charactersDgv.GetSelectedCharacters();
 
             if (selectedCharIds.Length > 0)
             {
-                foreach (uint id in selectedCharIds)
+                foreach (Guid guid in selectedCharIds)
                 {
-                    CharacterController.Instance.ExportCharacter(id, _otherCharListId);
+                    CharacterController.Instance.ExportCharacter(guid, _otherCharListId);
                 }
             }
         }
 
         private void deleteBt_Click(object sender, EventArgs e)
         {
-            foreach(uint id in charactersDgv.GetSelectedCharacters())
+            foreach(Guid guid in charactersDgv.GetSelectedCharacters())
             {
-                CharacterController.Instance.RemoveCharacter(id);
+                CharacterController.Instance.RemoveCharacter(guid);
             }
 
             updateCharacterList();

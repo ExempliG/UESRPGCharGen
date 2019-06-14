@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace UESRPG_Character_Manager.CharacterComponents
+namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
@@ -18,7 +18,7 @@ namespace UESRPG_Character_Manager.CharacterComponents
         public void EditTalent(Talent newTalent)
         {
             IEnumerable<Talent> talentSearch = from Talent t in _talents
-                                               where t.Id == newTalent.Id
+                                               where t.Guid == newTalent.Guid
                                                select t;
             if (talentSearch.Count() == 1)
             {
