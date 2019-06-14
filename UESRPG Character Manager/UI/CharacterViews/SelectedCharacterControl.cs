@@ -12,6 +12,7 @@ using UESRPG_Character_Manager.CharacterComponents.Character;
 
 namespace UESRPG_Character_Manager.UI.CharacterViews
 {
+    [TypeDescriptionProvider( typeof( AbstractControlDescriptionProvider<SelectedCharacterControl, UserControl> ) )]
     public abstract class SelectedCharacterControl : UserControl
     {
         protected ICharacterSelector _selector;
