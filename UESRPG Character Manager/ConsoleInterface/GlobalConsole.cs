@@ -175,7 +175,11 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         [Command("Help", "help", "Provides help (like right now!)", "help [command]")]
         public static void ConsoleHelp( List<string> args = null )
         {
-            if ( args.Count > 1 )
+            if ( args == null )
+            {
+                printAllCommands();
+            }
+            else if ( args.Count > 1 )
             {
                 Instance.CommandError( "Too many arguments supplied to \"Help\"!" );
             }
