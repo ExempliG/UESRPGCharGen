@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 
@@ -12,17 +13,113 @@ using UESRPG_Character_Manager.GameComponents;
 
 namespace UESRPG_Character_Manager.Common
 {
-    public class SaveFile
+    public partial class SaveFile
     {
+        private struct Version
+        {
+            public int MajorRevision;
+            public int MinorRevision;
+            public int EngRevision;
+            public int Release;
+
+            public Version( int MajorRevision, int MinorRevision, int EngRevision, int Release )
+            {
+                this.MajorRevision = MajorRevision;
+                this.MinorRevision = MinorRevision;
+                this.EngRevision = EngRevision;
+                this.Release = Release;
+            }
+
+            public static bool operator < ( Version a, Version b )
+            {
+                return (a.MajorRevision < b.MajorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision < b.MinorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision < b.EngRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision == b.EngRevision && a.Release < b.Release);
+            }
+
+            public static bool operator > ( Version a, Version b )
+            {
+                return (a.MajorRevision > b.MajorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision > b.MinorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision > b.EngRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision == b.EngRevision && a.Release > b.Release);
+            }
+
+            public static bool operator <= ( Version a, Version b )
+            {
+                return (a.MajorRevision <= b.MajorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision <= b.MinorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision <= b.EngRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision == b.EngRevision && a.Release <= b.Release);
+            }
+
+            public static bool operator >= ( Version a, Version b )
+            {
+                return (a.MajorRevision >= b.MajorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision >= b.MinorRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision >= b.EngRevision) ||
+                       (a.MajorRevision == b.MajorRevision && a.MinorRevision == b.MinorRevision && a.EngRevision == b.EngRevision && a.Release >= b.Release);
+            }
+
+            public override string ToString()
+            {
+                return string.Format("{0}.{1}.{2}-{3}", MajorRevision, MinorRevision, EngRevision, Release);
+            }
+        }
+
         [XmlAttribute()]
-        public int MajorRevision;
+        public int MajorRevision
+        {
+            get
+            {
+                return _fileVersion.MajorRevision;
+            }
+            set
+            {
+                _fileVersion.MajorRevision = value;
+            }
+        }
         [XmlAttribute()]
-        public int MinorRevision;
+        public int MinorRevision
+        {
+            get
+            {
+                return _fileVersion.MinorRevision;
+            }
+            set
+            {
+                _fileVersion.MinorRevision = value;
+            }
+        }
         [XmlAttribute()]
-        public int EngRevision;
+        public int EngRevision
+        {
+            get
+            {
+                return _fileVersion.EngRevision;
+            }
+            set
+            {
+                _fileVersion.EngRevision = value;
+            }
+        }
+        [XmlAttribute()]
+        public int Release
+        {
+            get
+            {
+                return _fileVersion.Release;
+            }
+            set
+            {
+                _fileVersion.Release = value;
+            }
+        }
 
         public List<Character> Characters;
         public List<CombatSave> Combats;
+        private Version _fileVersion;
 
         public SaveFile(Dictionary<Guid, Character> characters, Dictionary<uint, Combat> combats)
         {
@@ -37,6 +134,8 @@ namespace UESRPG_Character_Manager.Common
             {
                 Combats.Add(new CombatSave(c));
             }
+
+            _fileVersion = new Version(Program.CURRENT_MAJOR_VERSION, Program.CURRENT_MINOR_VERSION, Program.CURRENT_ENG_VERSION, Program.CURRENT_RELEASE);
         }
 
         public SaveFile(Dictionary<Guid, Character> characters)
@@ -48,6 +147,8 @@ namespace UESRPG_Character_Manager.Common
             }
 
             Combats = new List<CombatSave>();
+
+            _fileVersion = new Version(Program.CURRENT_MAJOR_VERSION, Program.CURRENT_MINOR_VERSION, Program.CURRENT_ENG_VERSION, Program.CURRENT_RELEASE);
         }
 
         public SaveFile(List<Character> characters, List<Combat> combats)
@@ -58,18 +159,24 @@ namespace UESRPG_Character_Manager.Common
             {
                 Combats.Add(new CombatSave(c));
             }
+
+            _fileVersion = new Version(Program.CURRENT_MAJOR_VERSION, Program.CURRENT_MINOR_VERSION, Program.CURRENT_ENG_VERSION, Program.CURRENT_RELEASE);
         }
 
         public SaveFile(List<Character> characters)
         {
             Characters = characters;
             Combats = new List<CombatSave>();
+
+            _fileVersion = new Version(Program.CURRENT_MAJOR_VERSION, Program.CURRENT_MINOR_VERSION, Program.CURRENT_ENG_VERSION, Program.CURRENT_RELEASE);
         }
 
         public SaveFile()
         {
             Characters = new List<Character>();
             Combats = new List<CombatSave>();
+
+            _fileVersion = new Version(Program.CURRENT_MAJOR_VERSION, Program.CURRENT_MINOR_VERSION, Program.CURRENT_ENG_VERSION, Program.CURRENT_RELEASE);
         }
 
         public bool SaveToFilename(string filename, out string message)
@@ -151,11 +258,13 @@ namespace UESRPG_Character_Manager.Common
 
             if (fs.CanRead)
             {
-                XmlSerializer xml = new XmlSerializer(typeof(SaveFile));
+                // XmlDocument xml = new XmlDocument();
+                // xml.Load(fs);
+                XmlSerializer serializer = new XmlSerializer(typeof(SaveFile));
 
                 try
                 {
-                    save = (SaveFile)xml.Deserialize(fs);
+                    save = (SaveFile)serializer.Deserialize(fs);
                     success = true;
                     message = "Success.";
                 }

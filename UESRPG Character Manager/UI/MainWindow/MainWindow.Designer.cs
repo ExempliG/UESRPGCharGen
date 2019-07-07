@@ -367,7 +367,7 @@
             // 
             // weaponsBindingSource
             // 
-            this.weaponsBindingSource.DataMember = "Weapons";
+            this.weaponsBindingSource.DataMember = "EquippedWeapons";
             this.weaponsBindingSource.DataSource = this.characterBindingSource;
             // 
             // skillsBindingSource

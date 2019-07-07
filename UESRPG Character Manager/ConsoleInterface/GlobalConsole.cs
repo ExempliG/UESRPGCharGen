@@ -37,14 +37,14 @@ namespace UESRPG_Character_Manager.ConsoleInterface
                 this.Method = Method;
             }
         }
-        private Dictionary<string, ListCommand> commands = new Dictionary<string, ListCommand>();
+        private Dictionary<string, ListCommand> _commands = new Dictionary<string, ListCommand>();
 
         public List<ConsoleLine> Lines { get; private set; }
 
         public GlobalConsole()
         {
             Lines = new List<ConsoleLine>();
-            PopulateCommandsList();
+            populateCommandsList();
             Lines.Add( "Welcome to UESRPGCharGen" );
         }
 
@@ -53,7 +53,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// those classes for functions marked with Command. Finally, build the ListCommand
         /// from the attribute info.
         /// </summary>
-        void PopulateCommandsList()
+        void populateCommandsList()
         {
             IEnumerable<Type> types = from a in AppDomain.CurrentDomain.GetAssemblies()
                                       from t in a.GetTypes()
@@ -72,7 +72,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
                     Command c = ( Command )Delegate.CreateDelegate( typeof( Command ), m.Method );
                     CommandAttribute info = m.Attribute;
                     string command = info.Command.ToLower();
-                    commands.Add( command, new ListCommand( command,
+                    _commands.Add( command, new ListCommand( command,
                                                             info.Name,
                                                             info.Help,
                                                             info.Usage,
@@ -100,16 +100,16 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// <param name="line">The command text to process</param>
         public void ProcessLine( string line )
         {
-            WriteWithType( ConsoleLine.LineType.USER_COMMAND, line );
+            writeWithType( ConsoleLine.LineType.USER_COMMAND, line );
 
             // Slice off the first token. This is the command name. The remaining args are passed
             // to the command method itself.
             string[] tokens = line.Split( ' ' );
             string command = tokens.First().ToLower();
             var args = tokens.Skip(1).ToList<string>();
-            if( commands.ContainsKey( command ) )
+            if( _commands.ContainsKey( command ) )
             {
-                commands[command].Method.Invoke( args );
+                _commands[command].Method.Invoke( args );
             }
             else
             {
@@ -125,7 +125,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// <param name="args">Arguments to string.Format</param>
         public void WriteLine( string line = "", params object[] args )
         {
-            WriteWithType( ConsoleLine.LineType.GENERATED, line, args );
+            writeWithType( ConsoleLine.LineType.GENERATED, line, args );
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// <param name="args">Arguments to string.Format</param>
         public void Log( string line = "", params object[] args )
         {
-            WriteWithType( ConsoleLine.LineType.DEBUG, line, args );
+            writeWithType( ConsoleLine.LineType.DEBUG, line, args );
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// <param name="args">Arguments to string.Format</param>
         public void WriteError( string line = "", params object[] args )
         {
-            WriteWithType( ConsoleLine.LineType.ERROR, line, args );
+            writeWithType( ConsoleLine.LineType.ERROR, line, args );
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// <param name="type">The type of line(s) to write</param>
         /// <param name="output">The string to write</param>
         /// <param name="args">Arguments to string.Format</param>
-        private void WriteWithType( ConsoleLine.LineType type, string output = "", params object[] args )
+        private void writeWithType( ConsoleLine.LineType type, string output = "", params object[] args )
         {
             string[] lines = output.Split( '\n' );
             foreach ( string line in lines )
@@ -177,7 +177,7 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         {
             if ( args == null )
             {
-                printAllCommands();
+                PrintAllCommands();
             }
             else if ( args.Count > 1 )
             {
@@ -186,11 +186,11 @@ namespace UESRPG_Character_Manager.ConsoleInterface
             else if ( args.Count == 1 )
             {
                 string commandName = args.First();
-                printHelpForCommand( commandName );
+                PrintHelpForCommand( commandName );
             }
             else
             {
-                printAllCommands();
+                PrintAllCommands();
             }
         }
 
@@ -198,11 +198,11 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// Print out the usage text for a given command
         /// </summary>
         /// <param name="commandName">The command to get help with</param>
-        private static void printHelpForCommand( string commandName )
+        private static void PrintHelpForCommand( string commandName )
         {
-            if ( Instance.commands.ContainsKey( commandName ) )
+            if ( Instance._commands.ContainsKey( commandName ) )
             {
-                ListCommand command = Instance.commands[commandName];
+                ListCommand command = Instance._commands[commandName];
                 Instance.WriteLine( string.Format( "Help for \"{0}\"", command.Name ) );
                 Instance.WriteLine( command.Description );
                 Instance.WriteLine( string.Format( "\tUsage: {0}", command.Usage ) );
@@ -216,9 +216,9 @@ namespace UESRPG_Character_Manager.ConsoleInterface
         /// <summary>
         /// Print out all command names and their command text
         /// </summary>
-        private static void printAllCommands()
+        private static void PrintAllCommands()
         {
-            foreach ( ListCommand command in Instance.commands.Values )
+            foreach ( ListCommand command in Instance._commands.Values )
             {
                 Instance.WriteLine( string.Format( "{0} - {1}", command.Command, command.Name ) );
                 Instance.WriteLine( string.Format( "\t{0}", command.Description ) );

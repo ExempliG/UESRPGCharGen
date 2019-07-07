@@ -12,6 +12,7 @@ using UESRPG_Character_Manager.Items;
 using UESRPG_Character_Manager.CharacterComponents;
 using UESRPG_Character_Manager.CharacterComponents.Character;
 using UESRPG_Character_Manager.Common;
+using UESRPG_Character_Manager.ConsoleInterface;
 
 namespace UESRPG_Character_Manager.Controllers
 {
@@ -19,9 +20,10 @@ namespace UESRPG_Character_Manager.Controllers
     /// The CharacterController class handles all things dealing explicitly with Character objects, such as managing inventory, accessing stats,
     /// and saving/loading the Character list.
     /// </summary>
+    [ExportsCommands]
     public class CharacterController : Singleton<CharacterController>
     {
-        #region Event definitions
+        #region Events
         public delegate void SelectedCharacterChangedHandler(object sender, SelectedCharacterChangedEventArgs e);
         [Description("Fires when the selected character changes.")]
         public event SelectedCharacterChangedHandler SelectedCharacterChanged;
@@ -29,6 +31,26 @@ namespace UESRPG_Character_Manager.Controllers
         public delegate void CharacterListChangedHandler(object sender, CharacterListChangedEventArgs e);
         [Description("Fires when the list of characters is changed, either by adding characters or loading a new file.")]
         public event CharacterListChangedHandler CharacterListChanged;
+
+        protected void onSelectedCharacterChanged(Guid characterGuid, uint selectorId, CharacterSelectionEvent eventType)
+        {
+            SelectedCharacterChanged?.Invoke(this, new SelectedCharacterChangedEventArgs(characterGuid, selectorId, eventType));
+        }
+
+        protected void onCharacterListChanged()
+        {
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(Guid.Empty, CharacterListChangedEvent.NEW_CHARACTER));
+        }
+
+        protected void onCharacterListChanged(Guid characterGuid, CharacterListChangedEvent eventType)
+        {
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterGuid, eventType));
+        }
+
+        protected void onCharacterListChanged(Guid characterGuid, uint listId, CharacterListChangedEvent eventType)
+        {
+            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterGuid, listId, eventType));
+        }
         #endregion
 
         public static uint SelectorId { get; private set; }
@@ -87,32 +109,6 @@ namespace UESRPG_Character_Manager.Controllers
             c.CharacterChanged -= h;
         }
 
-        public void SelectCharacter(int index, uint selectorId)
-        {
-            if (index >= 0)
-            {
-                Character c = GetCharacterByIndex(index);
-                _activeSelectors[selectorId] = c.Guid;
-                onSelectedCharacterChanged(c.Guid, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
-            }
-            else
-            {
-                onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.NO_CHARACTER);
-            }
-        }
-
-        public void SelectCharacterById(Guid characterGuid, uint selectorId)
-        {
-            Character c = GetCharacterByGuid(characterGuid);
-            _activeSelectors[selectorId] = characterGuid;
-            onSelectedCharacterChanged(characterGuid, selectorId, CharacterSelectionEvent.NEW_CHARACTER);
-        }
-
-        public void DeselectCharacter(uint selectorId)
-        {
-            onSelectedCharacterChanged(Guid.Empty, selectorId, CharacterSelectionEvent.NO_CHARACTER);
-        }
-
         public Character GetCharacterByGuid(Guid guid)
         {
             if(_characterDict.ContainsKey(guid))
@@ -122,6 +118,36 @@ namespace UESRPG_Character_Manager.Controllers
             else
             {
                 throw new ArgumentOutOfRangeException("id", guid, CharacterControllerExceptionMessages.InvalidCharacterId);
+            }
+        }
+
+        [Command( "Get Character Inventory", "getinv", "Get the named Character's Inventory", "getinv <character name>" )]
+        public static void GetCharacterInventoryByName( List<string> args )
+        {
+            if (args.Count == 0)
+            {
+                GlobalConsole.Instance.CommandError( "You must supply the character name to this command!" );
+            }
+            else
+            {
+                string name = args.First();
+                IEnumerable<Character> characters = from c in Instance.CharacterDict.Values
+                                                    where c.Name == name
+                                                    select c;
+                if (characters.Count() == 0)
+                {
+                    GlobalConsole.Instance.CommandError("Could not find character named \"{0}\"", name);
+                }
+                else
+                {
+                    foreach (Character c in characters)
+                    {
+                        foreach (Item i in c._inventory)
+                        {
+                            GlobalConsole.Instance.WriteLine( "{0}", i.Name );
+                        }
+                    }
+                }
             }
         }
 
@@ -220,7 +246,7 @@ namespace UESRPG_Character_Manager.Controllers
 
                 if(_characterDict.ContainsKey(c.Guid))
                 {
-                    throw new ArgumentException("c.Id", "todo: What a weird exception");
+                    throw new ArgumentException("c.Guid", "todo: What a weird exception");
                 }
                 _characterDict.Add(c.Guid, c);
 
@@ -419,27 +445,5 @@ namespace UESRPG_Character_Manager.Controllers
 
             return characters;
         }
-
-        #region Event callers
-        protected void onSelectedCharacterChanged(Guid characterGuid, uint selectorId, CharacterSelectionEvent eventType)
-        {
-            SelectedCharacterChanged?.Invoke(this, new SelectedCharacterChangedEventArgs(characterGuid, selectorId, eventType));
-        }
-
-        protected void onCharacterListChanged()
-        {
-            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(Guid.Empty, CharacterListChangedEvent.NEW_CHARACTER));
-        }
-
-        protected void onCharacterListChanged(Guid characterGuid, CharacterListChangedEvent eventType)
-        {
-            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterGuid, eventType));
-        }
-
-        protected void onCharacterListChanged(Guid characterGuid, uint listId, CharacterListChangedEvent eventType)
-        {
-            CharacterListChanged?.Invoke(this, new CharacterListChangedEventArgs(characterGuid, listId, eventType));
-        }
-        #endregion
     }
 }

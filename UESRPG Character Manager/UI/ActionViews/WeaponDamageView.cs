@@ -38,9 +38,9 @@ namespace UESRPG_Character_Manager.UI.ActionViews
             {
                 Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 weaponCb.DataSource = null;
-                if (c.Weapons.Count > 0)
+                if (c.EquippedWeapons.Count > 0)
                 {
-                    weaponCb.DataSource = c.Weapons;
+                    weaponCb.DataSource = c.EquippedWeapons;
                 }
             }
             else

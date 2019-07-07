@@ -43,9 +43,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             {
                 Character c = CharacterController.Instance.GetCharacterByGuid( _selector.GetCharacterGuid() );
                 armorDgv.DataSource = null;
-                if (c.ArmorPieces.Count > 0)
+                if (c.EquippedArmorPieces.Count > 0)
                 {
-                    armorDgv.DataSource = c.ArmorPieces;
+                    armorDgv.DataSource = c.EquippedArmorPieces;
                 }
             }
             else
@@ -73,10 +73,15 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             /// <todo>Update this when Inventory is implemented; violation of MVC</todo>
             Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
-            double ar = Armor.CalculateAR((ArmorTypes)armorMaterialCb.SelectedIndex,
-                               (ArmorMaterials)armorQualityCb.SelectedIndex,
-                               (ArmorQualities)armorTypeCb.SelectedIndex);
-            c.AddArmorPiece(new Armor(armorNameTb.Text, ar, 0, 0, (ArmorLocations)armorLocationCb.SelectedIndex, null));
+            Armor a = new Armor((ArmorLocations)armorLocationCb.SelectedIndex,
+                                (ArmorMaterials)armorMaterialCb.SelectedIndex,
+                                (ArmorTypes)armorTypeCb.SelectedIndex,
+                                (ArmorQualities)armorQualityCb.SelectedIndex);
+            if( armorNameTb.Text != "" )
+            {
+                a.Name = armorNameTb.Text;
+            }
+            c.EquipNewArmor( a );
             updateView();
 
             onArmorChanged(this, new System.EventArgs());

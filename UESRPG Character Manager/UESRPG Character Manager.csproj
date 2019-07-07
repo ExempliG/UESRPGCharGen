@@ -62,6 +62,7 @@
       <DependentUpon>CharacterExceptionMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="CharacterComponents\Character\CharacterChangedEventArgs.cs" />
+    <Compile Include="CharacterComponents\Character\Inventory.cs" />
     <Compile Include="CharacterComponents\Power.cs" />
     <Compile Include="CharacterComponents\Race.cs" />
     <Compile Include="CharacterComponents\Races.cs" />
@@ -85,6 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TraitDescriptions.resx</DependentUpon>
     </Compile>
+    <Compile Include="Common\SaveFile.Updates.cs" />
     <Compile Include="Common\IIdentifiable.cs" />
     <Compile Include="Common\SaveFile.cs" />
     <Compile Include="Common\Singleton.cs" />

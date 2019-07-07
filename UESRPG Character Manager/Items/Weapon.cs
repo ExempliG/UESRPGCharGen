@@ -67,6 +67,7 @@ namespace UESRPG_Character_Manager.Items
             _isEquippable = true;
 
             Guid = Guid.NewGuid();
+            Classification = ItemClass.WEAPON;
         }
 
         public Weapon (int numberOfDice,
@@ -107,12 +108,14 @@ namespace UESRPG_Character_Manager.Items
             _isEquippable = true;
 
             Guid = Guid.NewGuid();
+            Classification = ItemClass.WEAPON;
         }
 
         // Private Weapon constructor used in cloning to preserve Weapon ID.
         private Weapon(Guid guid) : base("", "", 0, 0)
         {
             Guid = guid;
+            Classification = ItemClass.WEAPON;
         }
 
         /// <summary>

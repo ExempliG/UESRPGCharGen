@@ -77,7 +77,7 @@ namespace UESRPG_Character_Manager.UI.MainWindow
                 }
 
                 _changingCharacter = true;
-                if (_hasCharacter)
+                if (_hasCharacter && _activeCharacter != Guid.Empty)
                 {
                     Character c = CharacterController.Instance.GetCharacterByGuid(_activeCharacter);
                     ///<todo>Update this to go through the Controller</todo>

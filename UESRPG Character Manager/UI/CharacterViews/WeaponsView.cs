@@ -70,9 +70,9 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
             {
                 Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
                 weaponsDgv.DataSource = null;
-                if (c.Weapons.Count > 0)
+                if (c.EquippedWeapons.Count > 0)
                 {
-                    weaponsDgv.DataSource = c.Weapons;
+                    weaponsDgv.DataSource = c.EquippedWeapons;
                 }
             }
             else
@@ -148,7 +148,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             Character c = CharacterController.Instance.GetCharacterByGuid( _selector.GetCharacterGuid() );
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            EditWeapon ew = new EditWeapon(c.Guid, c.Weapons[weaponIndex]);
+            EditWeapon ew = new EditWeapon(c.Guid, c.EquippedWeapons[weaponIndex]);
             ew.ShowDialog();
         }
 
@@ -156,7 +156,7 @@ namespace UESRPG_Character_Manager.UI.CharacterViews
         {
             Character c = CharacterController.Instance.GetCharacterByGuid( _selector.GetCharacterGuid() );
             int weaponIndex = weaponsDgv.SelectedRows[0].Index;
-            CharacterController.Instance.DeleteWeapon( _selector.GetCharacterGuid(), c.Weapons[weaponIndex]);
+            CharacterController.Instance.DeleteWeapon( _selector.GetCharacterGuid(), c.EquippedWeapons[weaponIndex]);
         }
 
         private void weaponTypeCb_SelectedIndexChanged(object sender, EventArgs e)

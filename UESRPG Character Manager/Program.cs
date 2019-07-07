@@ -10,8 +10,9 @@ namespace UESRPG_Character_Manager
     {
         /// <todo>Relocate this to the SaveFile object in the first "API breaking" release</todo>
         public const int CURRENT_ENG_VERSION = 0;
-        public const int CURRENT_MINOR_VERSION = 2;
+        public const int CURRENT_MINOR_VERSION = 3;
         public const int CURRENT_MAJOR_VERSION = 0;
+        public const int CURRENT_RELEASE = 1;
 
         /// <summary>
         /// The main entry point for the application.

@@ -78,7 +78,7 @@ namespace UESRPG_Character_Manager.UI.Selectors
         {
             if (charactersCb.SelectedIndex >= 0)
             {
-                CharacterController.Instance.SelectCharacter(charactersCb.SelectedIndex, SelectorId);
+                //CharacterController.Instance.SelectCharacter(charactersCb.SelectedIndex, SelectorId);
                 if ( Guid != Guid.Empty )
                 {
                     CharacterController.Instance.UnsubscribeFromCharacter( Guid, characterChanged );

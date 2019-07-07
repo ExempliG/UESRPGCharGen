@@ -14,8 +14,9 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
     {
         private int[] _characteristics;
         private int[] _modifiers;
-        private List<Armor> _armorPieces;
-        private List<Weapon> _weapons;
+        //private List<Armor> _armorPieces;
+        //private List<Weapon> _weapons;
+        public Inventory _inventory;
         private List<Spell> _spells;
         private List<Skill> _skills;
         private List<Talent> _talents;
@@ -39,8 +40,11 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
         {
             _characteristics = new int[Characteristics.NUMBER_OF_CHARACTERISTICS];
             _modifiers = new int[Modifiers.NUMBER_OF_MODIFIERS];
-            _armorPieces = new List<Armor>();
-            _weapons = new List<Weapon> ();
+            //_armorPieces = new List<Armor>();
+            EquippedArmorPieces = new List<Armor>();
+            //_weapons = new List<Weapon> ();
+            EquippedWeapons = new List<Weapon>();
+            _inventory = new Inventory();
             _spells = new List<Spell> ();
             _skills = new List<Skill> ();
             _talents = new List<Talent>();
@@ -147,9 +151,9 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
                 _characteristics = (int[])_characteristics.Clone(),
                 _modifiers = (int[])_modifiers.Clone(),
 
-                _armorPieces = new List<Armor>()
+                //_armorPieces = new List<Armor>()
             };
-            foreach (Armor piece in _armorPieces)
+           /* foreach (Armor piece in _armorPieces)
             {
                 Armor newPiece = (Armor)piece.Clone();
                 c._armorPieces.Add(newPiece);
@@ -160,7 +164,7 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
             {
                 Weapon newWeapon = (Weapon)weapon.Clone();
                 c._weapons.Add(newWeapon);
-            }
+            }*/
 
             c._powers = new List<Power>();
             foreach (Power power in _powers)

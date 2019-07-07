@@ -9,39 +9,77 @@ namespace UESRPG_Character_Manager.Items
     public class Armor : Item, IComparable, ICloneable
     {
         public double AR { get; set; }
-        public string[] Qualities { get; set; }
+        public double MaxAR { get; set; }
+        public ArmorQualities Quality { get; set; }
         public ArmorLocations Location { get; set; }
+        public ArmorMaterials Material { get; set; }
+        public ArmorTypes Type { get; set; }
+        public double EnchantLevel { get; set; }
 
         public Armor () : base("", "", 0, 0)
         {
             AR = 0.0;
-            Qualities = new string[] { };
+            MaxAR = 0.0;
+            Quality = ArmorQualities.TERRIBLE;
             Location = ArmorLocations.MAX;
             _isEquippable = true;
+            Classification = ItemClass.ARMOR;
         }
 
-        public Armor(string name, double ar, int encumbrance, int price, ArmorLocations location, string[] qualities) :
-            base(name, "", encumbrance, price)
+        public Armor( string name,
+                      double ar,
+                      int encumbrance,
+                      int price,
+                      ArmorLocations location,
+                      ArmorMaterials material,
+                      ArmorTypes type,
+                      ArmorQualities quality ) :
+            base( name, "", encumbrance, price )
         {
             AR = ar;
-            Qualities = qualities;
+            MaxAR = AR;
+            Type = type;
+            Material = material;
+            Quality = quality;
             Location = location;
             _isEquippable = true;
             _equipSlots = new List<string> { location.ToString() };
+            Classification = ItemClass.ARMOR;
         }
 
-        /// <todo>
-        /// This could use some work. I dispute the notion that an Armor's material should not be a member variable,
-        /// calling into question the need for this method.
-        /// </todo>
-        public static double CalculateAR(ArmorTypes type, ArmorMaterials material, ArmorQualities quality)
+        public Armor( ArmorLocations location, ArmorMaterials material, ArmorTypes type, ArmorQualities quality ) : this()
         {
-            double result = 0;
-            result += ArmorTypeData.s_modifiers[(int)type];
-            result += ArmorMaterialData.s_modifiers[(int)material];
-            result += result * ArmorQualityData.s_modifiers[(int)quality];
+            Type = type;
+            Material = material;
+            Quality = quality;
+            Location = location;
 
-            return result;
+            double calcAr = 0;
+            calcAr += ArmorTypeData.GetArModifier( type );
+            calcAr += ArmorMaterialData.GetArModifier( material );
+            calcAr += calcAr * ArmorQualityData.GetArModifier( quality );
+            AR = calcAr;
+            MaxAR = AR;
+
+            double el = ArmorTypeData.GetElModifier( type, location );
+            el *= ArmorMaterialData.GetElModifier( material );
+            EnchantLevel = el;
+
+            float encumbrance = ArmorTypeData.GetEncumbranceModifier( type, location );
+            encumbrance *= ArmorMaterialData.GetEncumbranceModifier( material );
+            encumbrance *= ArmorQualityData.GetEncumbranceModifier( quality );
+            Encumbrance = encumbrance;
+
+            double price = ArmorTypeData.GetPriceModifier( type );
+            price *= ArmorMaterialData.GetPriceModifier( material );
+            price *= ArmorQualityData.GetPriceModifier( quality );
+            Price = (int)Math.Round( price );
+
+            Name = string.Format( "{0} {1} {2} {3}",
+                                  ArmorQualityData.GetName( quality ),
+                                  ArmorTypeData.GetName( type ),
+                                  ArmorMaterialData.GetName( material ),
+                                  ArmorLocationsData.GetPieceName( location ) );
         }
 
         public int CompareTo (object obj)
@@ -58,7 +96,7 @@ namespace UESRPG_Character_Manager.Items
             newArmor.Encumbrance = Encumbrance;
             newArmor.Description = Description;
             newArmor.AR = AR;
-            newArmor.Qualities = (string[])Qualities.Clone();
+            newArmor.Quality = Quality;
             newArmor.Location = Location;
 
             return newArmor;

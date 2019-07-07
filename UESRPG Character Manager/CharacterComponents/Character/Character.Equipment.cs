@@ -7,11 +7,7 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
 {
     partial class Character
     {
-        public List<Armor> ArmorPieces
-        {
-            get { return _armorPieces; }
-            set { _armorPieces = value; }
-        }
+        public List<Armor> EquippedArmorPieces { get; set; }
 
         /// <summary>
         /// Add a piece of armor, replacing any existing piece that belongs to the same body part
@@ -21,15 +17,17 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
         /// Make this good (no but really, we should have an inventory
         /// instead of just blasting away Armor pieces)
         /// </todo>
-        public void AddArmorPiece(Armor piece)
+        public void EquipNewArmor(Armor piece)
         {
             bool addNew = true;
 
-            for (int i = 0; i < _armorPieces.Count; i++)
+            _inventory.AddToInventory( piece );
+
+            for (int i = 0; i < EquippedArmorPieces.Count; i++)
             {
-                if (_armorPieces[i].Location == piece.Location)
+                if (EquippedArmorPieces[i].Location == piece.Location)
                 {
-                    _armorPieces[i] = piece;
+                    EquippedArmorPieces[i] = piece;
                     addNew = false;
                     break;
                 }
@@ -37,55 +35,53 @@ namespace UESRPG_Character_Manager.CharacterComponents.Character
 
             if (addNew)
             {
-                _armorPieces.Add(piece);
-                _armorPieces.Sort();
+                EquippedArmorPieces.Add(piece);
+                EquippedArmorPieces.Sort();
             }
         }
 
-        public Armor GetArmorPiece(ArmorLocations location)
+        public Armor GetEquippedArmorPiece(ArmorLocations location)
         {
             Armor result = new Armor();
-            for (int i = 0; i < _armorPieces.Count; i++)
+            for (int i = 0; i < EquippedArmorPieces.Count; i++)
             {
-                if (_armorPieces[i].Location == location)
+                if (EquippedArmorPieces[i].Location == location)
                 {
-                    result = _armorPieces[i];
+                    result = EquippedArmorPieces[i];
                     break;
                 }
             }
             return result;
         }
 
-        public List<Weapon> Weapons
-        {
-            get { return _weapons; }
-            set { _weapons = value; }
-        }
+        public List<Weapon> EquippedWeapons { get; set; }
 
-        public void AddWeapon(Weapon newWeapon)
+        public void AddWeapon( Weapon newWeapon )
         {
-            Weapons.Add(newWeapon);
+            EquippedWeapons.Add( newWeapon );
+            _inventory.AddToInventory( newWeapon );
             onWeaponsChanged();
         }
 
-        public void EditWeapon(Weapon newWeapon)
+        public void EditWeapon( Weapon newWeapon )
         {
-            IEnumerable<Weapon> weaponSearch = from Weapon w in Weapons
+            IEnumerable<Weapon> weaponSearch = from Weapon w in EquippedWeapons
                                                where w.Guid == newWeapon.Guid
                                                select w;
-            if (weaponSearch.Count() == 1)
+            if ( weaponSearch.Count() == 1 )
             {
-                Weapon currentWeapon = weaponSearch.ElementAt(0);
-                int weaponIndex = Weapons.IndexOf(currentWeapon);
-                Weapons[weaponIndex] = newWeapon;
+                Weapon currentWeapon = weaponSearch.ElementAt( 0 );
+                int weaponIndex = EquippedWeapons.IndexOf( currentWeapon );
+                EquippedWeapons[weaponIndex] = newWeapon;
 
                 onWeaponsChanged();
             }
         }
 
-        public void DeleteWeapon(Weapon weaponToDelete)
+        public void DeleteWeapon( Weapon weaponToDelete )
         {
-            Weapons.Remove(weaponToDelete);
+            EquippedWeapons.Remove( weaponToDelete );
+            _inventory.RemoveItemFromInventory( weaponToDelete );
 
             onWeaponsChanged();
         }

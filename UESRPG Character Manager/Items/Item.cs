@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,20 @@ namespace UESRPG_Character_Manager.Items
         protected bool _isEquippable = false;
         protected List<string> _equipSlots;
 
+        public enum ItemClass
+        {
+            INVENTORY,
+            ARMOR,
+            WEAPON
+        }
+
         public Item(string name, string description, float encumbrance, int price)
         {
             _name = name;
             _description = description;
             _encumbrance = encumbrance;
             _price = price;
+            Classification = ItemClass.INVENTORY;
         }
 
         public string Name
@@ -59,5 +68,8 @@ namespace UESRPG_Character_Manager.Items
             get { return _equipSlots; }
             set { _equipSlots = value; }
         }
+
+        [XmlIgnore]
+        public ItemClass Classification { get; protected set; }
     }
 }

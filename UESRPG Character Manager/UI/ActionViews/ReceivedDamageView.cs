@@ -131,7 +131,7 @@ namespace UESRPG_Character_Manager.UI.ActionViews
                 _selector.HasCharacter)
             {
                 Character c = CharacterController.Instance.GetCharacterByGuid(_selector.GetCharacterGuid());
-                Armor selectedPiece = c.GetArmorPiece(location);
+                Armor selectedPiece = c.GetEquippedArmorPiece(location);
                 double armorMitigation = (selectedPiece != null) ? selectedPiece.AR : 0;
                 armorMitigation = Math.Max(armorMitigation - pen, 0);                 // Pen reduces armorMitigation to a lower limit of zero.
                 damage = Math.Max(damage - (int)armorMitigation, 0);                  // armorMitigation then reduces received damage to a lower limit of zero.
